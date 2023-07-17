@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="circle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="page_title_text">
+        <item name="android:textColor">?colorAccent</item>
+        <item name="android:fontFamily">@font/kaushan_script_regular</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+    </style>
+
+    <style name="medium_title_text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_semibold</item>
+        <item name="android:textSize">@dimen/_15ssp</item>
+    </style>>
+
+    <style name="coins_button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:background">@drawable/background_coins_button</item>
+    </style>
+</resources>

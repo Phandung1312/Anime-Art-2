@@ -1,0 +1,366 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.anime.art.ai"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+8-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:5:5-67
+11-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:6:5-79
+12-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.BACKUP" />
+13-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:7:5-9:47
+13-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:8:9-49
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:10:5-12:40
+14-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:11:9-65
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:24:5-68
+15-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:24:22-65
+16    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+16-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:5-79
+16-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:22-76
+17    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+17-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:26:5-110
+17-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:26:22-107
+18
+19    <permission
+19-->[androidx.core:core:1.10.0] /Users/sonbui/.gradle/caches/transforms-3/149a2b971ffb966b3a5c76e11434e516/transformed/core-1.10.0/AndroidManifest.xml:22:5-24:47
+20        android:name="com.anime.art.ai.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20-->[androidx.core:core:1.10.0] /Users/sonbui/.gradle/caches/transforms-3/149a2b971ffb966b3a5c76e11434e516/transformed/core-1.10.0/AndroidManifest.xml:23:9-81
+21        android:protectionLevel="signature" />
+21-->[androidx.core:core:1.10.0] /Users/sonbui/.gradle/caches/transforms-3/149a2b971ffb966b3a5c76e11434e516/transformed/core-1.10.0/AndroidManifest.xml:24:9-44
+22
+23    <uses-permission android:name="com.anime.art.ai.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23-->[androidx.core:core:1.10.0] /Users/sonbui/.gradle/caches/transforms-3/149a2b971ffb966b3a5c76e11434e516/transformed/core-1.10.0/AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.10.0] /Users/sonbui/.gradle/caches/transforms-3/149a2b971ffb966b3a5c76e11434e516/transformed/core-1.10.0/AndroidManifest.xml:26:22-94
+24
+25    <application
+25-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:14:5-53:19
+26        android:name="com.anime.art.ai.common.App"
+26-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:15:9-35
+27        android:allowBackup="true"
+27-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:16:9-35
+28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+28-->[androidx.core:core:1.10.0] /Users/sonbui/.gradle/caches/transforms-3/149a2b971ffb966b3a5c76e11434e516/transformed/core-1.10.0/AndroidManifest.xml:28:18-86
+29        android:dataExtractionRules="@xml/data_extraction_rules"
+29-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:17:9-65
+30        android:debuggable="true"
+31        android:extractNativeLibs="false"
+32        android:fullBackupContent="@xml/backup_rules"
+32-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:18:9-54
+33        android:icon="@mipmap/ic_launcher"
+33-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:19:9-43
+34        android:label="@string/app_name"
+34-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:20:9-41
+35        android:roundIcon="@mipmap/ic_launcher_round"
+35-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:21:9-54
+36        android:supportsRtl="true"
+36-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:22:9-35
+37        android:testOnly="true"
+38        android:theme="@style/Theme.Main"
+38-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:23:9-42
+39        android:usesCleartextTraffic="true" >
+39-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:24:9-44
+40        <activity
+40-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:27:9-39:20
+41            android:name="com.anime.art.ai.feature.splash.SplashActivity"
+41-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:28:13-58
+42            android:exported="true" >
+42-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:29:13-36
+43            <intent-filter>
+43-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:30:13-34:29
+44                <action android:name="android.intent.action.MAIN" />
+44-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:31:17-69
+44-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:31:25-66
+45
+46                <category android:name="android.intent.category.LAUNCHER" />
+46-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:33:17-77
+46-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:33:27-74
+47            </intent-filter>
+48
+49            <meta-data
+49-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:36:13-38:36
+50                android:name="android.app.lib_name"
+50-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:37:17-52
+51                android:value="" />
+51-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:38:17-33
+52        </activity>
+53
+54        <provider
+55            android:name="androidx.core.content.FileProvider"
+55-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:42:13-62
+56            android:authorities="com.anime.art.ai.provider"
+56-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:43:13-60
+57            android:exported="false"
+57-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:44:13-37
+58            android:grantUriPermissions="true" >
+58-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:45:13-47
+59            <meta-data
+59-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:47:13-49:54
+60                android:name="android.support.FILE_PROVIDER_PATHS"
+60-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:48:17-67
+61                android:resource="@xml/file_paths" />
+61-->/Users/sonbui/AndroidStudioProjects/AnimeArtAiV2/app/src/main/AndroidManifest.xml:49:17-51
+62        </provider>
+63
+64        <service
+64-->[com.google.firebase:firebase-storage-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/d75bcc4432b411479e026780517c80c6/transformed/firebase-storage-ktx-20.1.0/AndroidManifest.xml:11:9-17:19
+65            android:name="com.google.firebase.components.ComponentDiscoveryService"
+65-->[com.google.firebase:firebase-storage-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/d75bcc4432b411479e026780517c80c6/transformed/firebase-storage-ktx-20.1.0/AndroidManifest.xml:12:13-84
+66            android:directBootAware="true"
+66-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:34:13-43
+67            android:exported="false" >
+67-->[com.google.firebase:firebase-storage-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/d75bcc4432b411479e026780517c80c6/transformed/firebase-storage-ktx-20.1.0/AndroidManifest.xml:13:13-37
+68            <meta-data
+68-->[com.google.firebase:firebase-storage-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/d75bcc4432b411479e026780517c80c6/transformed/firebase-storage-ktx-20.1.0/AndroidManifest.xml:14:13-16:85
+69                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageKtxRegistrar"
+69-->[com.google.firebase:firebase-storage-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/d75bcc4432b411479e026780517c80c6/transformed/firebase-storage-ktx-20.1.0/AndroidManifest.xml:15:17-122
+70                android:value="com.google.firebase.components.ComponentRegistrar" />
+70-->[com.google.firebase:firebase-storage-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/d75bcc4432b411479e026780517c80c6/transformed/firebase-storage-ktx-20.1.0/AndroidManifest.xml:16:17-82
+71            <meta-data
+71-->[com.google.firebase:firebase-database-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/8b8f687af6df4b0cc3fa1f56d45481c9/transformed/firebase-database-ktx-20.1.0/AndroidManifest.xml:14:13-16:85
+72                android:name="com.google.firebase.components:com.google.firebase.database.ktx.FirebaseDatabaseKtxRegistrar"
+72-->[com.google.firebase:firebase-database-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/8b8f687af6df4b0cc3fa1f56d45481c9/transformed/firebase-database-ktx-20.1.0/AndroidManifest.xml:15:17-124
+73                android:value="com.google.firebase.components.ComponentRegistrar" />
+73-->[com.google.firebase:firebase-database-ktx:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/8b8f687af6df4b0cc3fa1f56d45481c9/transformed/firebase-database-ktx-20.1.0/AndroidManifest.xml:16:17-82
+74            <meta-data
+74-->[com.google.firebase:firebase-config-ktx:21.2.1] /Users/sonbui/.gradle/caches/transforms-3/1913bed7757b2f952f190e07dbcfcec7/transformed/firebase-config-ktx-21.2.1/AndroidManifest.xml:14:13-16:85
+75                android:name="com.google.firebase.components:com.google.firebase.remoteconfig.ktx.FirebaseRemoteConfigKtxRegistrar"
+75-->[com.google.firebase:firebase-config-ktx:21.2.1] /Users/sonbui/.gradle/caches/transforms-3/1913bed7757b2f952f190e07dbcfcec7/transformed/firebase-config-ktx-21.2.1/AndroidManifest.xml:15:17-132
+76                android:value="com.google.firebase.components.ComponentRegistrar" />
+76-->[com.google.firebase:firebase-config-ktx:21.2.1] /Users/sonbui/.gradle/caches/transforms-3/1913bed7757b2f952f190e07dbcfcec7/transformed/firebase-config-ktx-21.2.1/AndroidManifest.xml:16:17-82
+77            <meta-data
+77-->[com.google.firebase:firebase-crashlytics-ktx:18.3.5] /Users/sonbui/.gradle/caches/transforms-3/61589b5b80af6939cc19a54ffa386015/transformed/firebase-crashlytics-ktx-18.3.5/AndroidManifest.xml:26:13-28:85
+78                android:name="com.google.firebase.components:com.google.firebase.crashlytics.ktx.FirebaseCrashlyticsKtxRegistrar"
+78-->[com.google.firebase:firebase-crashlytics-ktx:18.3.5] /Users/sonbui/.gradle/caches/transforms-3/61589b5b80af6939cc19a54ffa386015/transformed/firebase-crashlytics-ktx-18.3.5/AndroidManifest.xml:27:17-130
+79                android:value="com.google.firebase.components.ComponentRegistrar" />
+79-->[com.google.firebase:firebase-crashlytics-ktx:18.3.5] /Users/sonbui/.gradle/caches/transforms-3/61589b5b80af6939cc19a54ffa386015/transformed/firebase-crashlytics-ktx-18.3.5/AndroidManifest.xml:28:17-82
+80            <meta-data
+80-->[com.google.firebase:firebase-analytics-ktx:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/2cdf78df91b14e3996440ac690f227d7/transformed/firebase-analytics-ktx-21.2.0/AndroidManifest.xml:11:13-13:85
+81                android:name="com.google.firebase.components:com.google.firebase.analytics.ktx.FirebaseAnalyticsKtxRegistrar"
+81-->[com.google.firebase:firebase-analytics-ktx:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/2cdf78df91b14e3996440ac690f227d7/transformed/firebase-analytics-ktx-21.2.0/AndroidManifest.xml:12:17-126
+82                android:value="com.google.firebase.components.ComponentRegistrar" />
+82-->[com.google.firebase:firebase-analytics-ktx:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/2cdf78df91b14e3996440ac690f227d7/transformed/firebase-analytics-ktx-21.2.0/AndroidManifest.xml:13:17-82
+83            <meta-data
+83-->[com.google.firebase:firebase-common-ktx:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/f8453836dc59ab3eb27457b5786bb1db/transformed/firebase-common-ktx-20.3.1/AndroidManifest.xml:14:13-16:85
+84                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonKtxRegistrar"
+84-->[com.google.firebase:firebase-common-ktx:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/f8453836dc59ab3eb27457b5786bb1db/transformed/firebase-common-ktx-20.3.1/AndroidManifest.xml:15:17-113
+85                android:value="com.google.firebase.components.ComponentRegistrar" />
+85-->[com.google.firebase:firebase-common-ktx:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/f8453836dc59ab3eb27457b5786bb1db/transformed/firebase-common-ktx-20.3.1/AndroidManifest.xml:16:17-82
+86            <meta-data
+86-->[com.google.firebase:firebase-storage:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/848e84d29f001134cd25c0d594e842ac/transformed/firebase-storage-20.1.0/AndroidManifest.xml:32:13-34:85
+87                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+87-->[com.google.firebase:firebase-storage:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/848e84d29f001134cd25c0d594e842ac/transformed/firebase-storage-20.1.0/AndroidManifest.xml:33:17-107
+88                android:value="com.google.firebase.components.ComponentRegistrar" />
+88-->[com.google.firebase:firebase-storage:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/848e84d29f001134cd25c0d594e842ac/transformed/firebase-storage-20.1.0/AndroidManifest.xml:34:17-82
+89            <meta-data
+89-->[com.google.firebase:firebase-config:21.2.1] /Users/sonbui/.gradle/caches/transforms-3/2554ae5d80e6235c9491b12eaa7a22f7/transformed/firebase-config-21.2.1/AndroidManifest.xml:31:13-33:85
+90                android:name="com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar"
+90-->[com.google.firebase:firebase-config:21.2.1] /Users/sonbui/.gradle/caches/transforms-3/2554ae5d80e6235c9491b12eaa7a22f7/transformed/firebase-config-21.2.1/AndroidManifest.xml:32:17-117
+91                android:value="com.google.firebase.components.ComponentRegistrar" />
+91-->[com.google.firebase:firebase-config:21.2.1] /Users/sonbui/.gradle/caches/transforms-3/2554ae5d80e6235c9491b12eaa7a22f7/transformed/firebase-config-21.2.1/AndroidManifest.xml:33:17-82
+92            <meta-data
+92-->[com.google.firebase:firebase-abt:21.1.0] /Users/sonbui/.gradle/caches/transforms-3/551530169c5542f7a4cbcab3cbf508d3/transformed/firebase-abt-21.1.0/AndroidManifest.xml:12:13-14:85
+93                android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
+93-->[com.google.firebase:firebase-abt:21.1.0] /Users/sonbui/.gradle/caches/transforms-3/551530169c5542f7a4cbcab3cbf508d3/transformed/firebase-abt-21.1.0/AndroidManifest.xml:13:17-109
+94                android:value="com.google.firebase.components.ComponentRegistrar" />
+94-->[com.google.firebase:firebase-abt:21.1.0] /Users/sonbui/.gradle/caches/transforms-3/551530169c5542f7a4cbcab3cbf508d3/transformed/firebase-abt-21.1.0/AndroidManifest.xml:14:17-82
+95            <meta-data
+95-->[com.google.firebase:firebase-crashlytics:18.3.5] /Users/sonbui/.gradle/caches/transforms-3/93931e3f1d612d24892363b7334a81f8/transformed/firebase-crashlytics-18.3.5/AndroidManifest.xml:17:13-19:85
+96                android:name="com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar"
+96-->[com.google.firebase:firebase-crashlytics:18.3.5] /Users/sonbui/.gradle/caches/transforms-3/93931e3f1d612d24892363b7334a81f8/transformed/firebase-crashlytics-18.3.5/AndroidManifest.xml:18:17-115
+97                android:value="com.google.firebase.components.ComponentRegistrar" />
+97-->[com.google.firebase:firebase-crashlytics:18.3.5] /Users/sonbui/.gradle/caches/transforms-3/93931e3f1d612d24892363b7334a81f8/transformed/firebase-crashlytics-18.3.5/AndroidManifest.xml:19:17-82
+98            <meta-data
+98-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:31:13-33:85
+99                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+99-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:32:17-139
+100                android:value="com.google.firebase.components.ComponentRegistrar" />
+100-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/0b37eb46c5de6ccb26a32531113a6b85/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:33:17-82
+101            <meta-data
+101-->[com.google.firebase:firebase-installations:17.1.3] /Users/sonbui/.gradle/caches/transforms-3/44f18e2f80c4c6240fd7cad0a521708d/transformed/firebase-installations-17.1.3/AndroidManifest.xml:17:13-19:85
+102                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+102-->[com.google.firebase:firebase-installations:17.1.3] /Users/sonbui/.gradle/caches/transforms-3/44f18e2f80c4c6240fd7cad0a521708d/transformed/firebase-installations-17.1.3/AndroidManifest.xml:18:17-127
+103                android:value="com.google.firebase.components.ComponentRegistrar" />
+103-->[com.google.firebase:firebase-installations:17.1.3] /Users/sonbui/.gradle/caches/transforms-3/44f18e2f80c4c6240fd7cad0a521708d/transformed/firebase-installations-17.1.3/AndroidManifest.xml:19:17-82
+104            <meta-data
+104-->[com.google.firebase:firebase-database:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/7e7149c7b533261b999010fadc46fd9c/transformed/firebase-database-20.1.0/AndroidManifest.xml:31:13-33:85
+105                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+105-->[com.google.firebase:firebase-database:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/7e7149c7b533261b999010fadc46fd9c/transformed/firebase-database-20.1.0/AndroidManifest.xml:32:17-109
+106                android:value="com.google.firebase.components.ComponentRegistrar" />
+106-->[com.google.firebase:firebase-database:20.1.0] /Users/sonbui/.gradle/caches/transforms-3/7e7149c7b533261b999010fadc46fd9c/transformed/firebase-database-20.1.0/AndroidManifest.xml:33:17-82
+107        </service>
+108
+109        <provider
+109-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:25:9-30:39
+110            android:name="com.google.firebase.provider.FirebaseInitProvider"
+110-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:26:13-77
+111            android:authorities="com.anime.art.ai.firebaseinitprovider"
+111-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:27:13-72
+112            android:directBootAware="true"
+112-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:28:13-43
+113            android:exported="false"
+113-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:29:13-37
+114            android:initOrder="100" />
+114-->[com.google.firebase:firebase-common:20.3.1] /Users/sonbui/.gradle/caches/transforms-3/46d03637b7ed563b7b68e3e50000db27/transformed/firebase-common-20.3.1/AndroidManifest.xml:30:13-36
+115
+116        <activity
+116-->[com.google.android.gms:play-services-base:18.0.1] /Users/sonbui/.gradle/caches/transforms-3/e5ee403de9f3e9cf8e8a4c8ac1ba84d6/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+117            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+117-->[com.google.android.gms:play-services-base:18.0.1] /Users/sonbui/.gradle/caches/transforms-3/e5ee403de9f3e9cf8e8a4c8ac1ba84d6/transformed/play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+118            android:exported="false"
+118-->[com.google.android.gms:play-services-base:18.0.1] /Users/sonbui/.gradle/caches/transforms-3/e5ee403de9f3e9cf8e8a4c8ac1ba84d6/transformed/play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+119            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+119-->[com.google.android.gms:play-services-base:18.0.1] /Users/sonbui/.gradle/caches/transforms-3/e5ee403de9f3e9cf8e8a4c8ac1ba84d6/transformed/play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+120
+121        <receiver
+121-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:29:9-33:20
+122            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+122-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:30:13-85
+123            android:enabled="true"
+123-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:31:13-35
+124            android:exported="false" >
+124-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:32:13-37
+125        </receiver>
+126
+127        <service
+127-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:35:9-38:40
+128            android:name="com.google.android.gms.measurement.AppMeasurementService"
+128-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:36:13-84
+129            android:enabled="true"
+129-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:37:13-35
+130            android:exported="false" />
+130-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:38:13-37
+131        <service
+131-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:39:9-43:72
+132            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+132-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:40:13-87
+133            android:enabled="true"
+133-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:41:13-35
+134            android:exported="false"
+134-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:42:13-37
+135            android:permission="android.permission.BIND_JOB_SERVICE" />
+135-->[com.google.android.gms:play-services-measurement:21.2.0] /Users/sonbui/.gradle/caches/transforms-3/5dc6fab243f681361a6d1ea59b2059fd/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:43:13-69
+136
+137        <meta-data
+137-->[com.google.android.gms:play-services-basement:18.1.0] /Users/sonbui/.gradle/caches/transforms-3/92639ab5dc79a087b5d9fde637e255b0/transformed/play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+138            android:name="com.google.android.gms.version"
+138-->[com.google.android.gms:play-services-basement:18.1.0] /Users/sonbui/.gradle/caches/transforms-3/92639ab5dc79a087b5d9fde637e255b0/transformed/play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+139            android:value="@integer/google_play_services_version" />
+139-->[com.google.android.gms:play-services-basement:18.1.0] /Users/sonbui/.gradle/caches/transforms-3/92639ab5dc79a087b5d9fde637e255b0/transformed/play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+140
+141        <provider
+141-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+142            android:name="androidx.startup.InitializationProvider"
+142-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+143            android:authorities="com.anime.art.ai.androidx-startup"
+143-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+144            android:exported="false" >
+144-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+145            <meta-data
+145-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+146                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+146-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+147                android:value="androidx.startup" />
+147-->[androidx.emoji2:emoji2:1.2.0] /Users/sonbui/.gradle/caches/transforms-3/74069afe6644adf2dbe53731a358fbbb/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+148            <meta-data
+148-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/sonbui/.gradle/caches/transforms-3/6abfcaae7d8d43772f46210a81314bd2/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+149                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+149-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/sonbui/.gradle/caches/transforms-3/6abfcaae7d8d43772f46210a81314bd2/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+150                android:value="androidx.startup" />
+150-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/sonbui/.gradle/caches/transforms-3/6abfcaae7d8d43772f46210a81314bd2/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+151            <meta-data
+151-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+152                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+152-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+153                android:value="androidx.startup" />
+153-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+154        </provider>
+155
+156        <service
+156-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/d8f08e02af583a06f90123033995b6fb/transformed/transport-backend-cct-3.1.8/AndroidManifest.xml:28:9-34:19
+157            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+157-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/d8f08e02af583a06f90123033995b6fb/transformed/transport-backend-cct-3.1.8/AndroidManifest.xml:29:13-103
+158            android:exported="false" >
+158-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/d8f08e02af583a06f90123033995b6fb/transformed/transport-backend-cct-3.1.8/AndroidManifest.xml:30:13-37
+159            <meta-data
+159-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/d8f08e02af583a06f90123033995b6fb/transformed/transport-backend-cct-3.1.8/AndroidManifest.xml:31:13-33:39
+160                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+160-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/d8f08e02af583a06f90123033995b6fb/transformed/transport-backend-cct-3.1.8/AndroidManifest.xml:32:17-94
+161                android:value="cct" />
+161-->[com.google.android.datatransport:transport-backend-cct:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/d8f08e02af583a06f90123033995b6fb/transformed/transport-backend-cct-3.1.8/AndroidManifest.xml:33:17-36
+162        </service>
+163        <service
+163-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:26:9-30:19
+164            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+164-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:27:13-117
+165            android:exported="false"
+165-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:28:13-37
+166            android:permission="android.permission.BIND_JOB_SERVICE" >
+166-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:29:13-69
+167        </service>
+168
+169        <receiver
+169-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:32:9-34:40
+170            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+170-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:33:13-132
+171            android:exported="false" />
+171-->[com.google.android.datatransport:transport-runtime:3.1.8] /Users/sonbui/.gradle/caches/transforms-3/afa2ea9853756020940d78841444da9d/transformed/transport-runtime-3.1.8/AndroidManifest.xml:34:13-37
+172        <receiver
+172-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+173            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+173-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+174            android:directBootAware="false"
+174-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+175            android:enabled="true"
+175-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+176            android:exported="true"
+176-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+177            android:permission="android.permission.DUMP" >
+177-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+178            <intent-filter>
+178-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+179                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+179-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+179-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+180            </intent-filter>
+181            <intent-filter>
+181-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+182                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+182-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+182-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+183            </intent-filter>
+184            <intent-filter>
+184-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+185                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+185-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+185-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+186            </intent-filter>
+187            <intent-filter>
+187-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+188                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+188-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+188-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/sonbui/.gradle/caches/transforms-3/40d00ccc24d0db1f87c39f6798ab8849/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+189            </intent-filter>
+190        </receiver>
+191
+192        <service
+192-->[androidx.room:room-runtime:2.4.3] /Users/sonbui/.gradle/caches/transforms-3/d1a14b6655fbd4df443a79d2048bbd69/transformed/room-runtime-2.4.3/AndroidManifest.xml:25:9-28:40
+193            android:name="androidx.room.MultiInstanceInvalidationService"
+193-->[androidx.room:room-runtime:2.4.3] /Users/sonbui/.gradle/caches/transforms-3/d1a14b6655fbd4df443a79d2048bbd69/transformed/room-runtime-2.4.3/AndroidManifest.xml:26:13-74
+194            android:directBootAware="true"
+194-->[androidx.room:room-runtime:2.4.3] /Users/sonbui/.gradle/caches/transforms-3/d1a14b6655fbd4df443a79d2048bbd69/transformed/room-runtime-2.4.3/AndroidManifest.xml:27:13-43
+195            android:exported="false" />
+195-->[androidx.room:room-runtime:2.4.3] /Users/sonbui/.gradle/caches/transforms-3/d1a14b6655fbd4df443a79d2048bbd69/transformed/room-runtime-2.4.3/AndroidManifest.xml:28:13-37
+196    </application>
+197
+198</manifest>

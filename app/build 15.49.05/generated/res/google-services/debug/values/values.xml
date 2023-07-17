@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">1067905652127-hor18cvkvh4c7jjha07iaqfthhtg86mc.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1067905652127</string>
+    <string name="google_api_key" translatable="false">AIzaSyDxBWkgXxGZxJOWGg2P8WQumYMqm-KIvIU</string>
+    <string name="google_app_id" translatable="false">1:1067905652127:android:9081f129f4af51799559aa</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDxBWkgXxGZxJOWGg2P8WQumYMqm-KIvIU</string>
+    <string name="google_storage_bucket" translatable="false">anime-art-ai.appspot.com</string>
+    <string name="project_id" translatable="false">anime-art-ai</string>
+</resources>
