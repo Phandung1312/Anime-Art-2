@@ -32,4 +32,7 @@ class Gallery {
     @SerializedName("favourite")
     @Expose
     var favourite: Boolean = false
+    @SerializedName("dislike")
+    @Expose
+    var dislike: Boolean = false
 }

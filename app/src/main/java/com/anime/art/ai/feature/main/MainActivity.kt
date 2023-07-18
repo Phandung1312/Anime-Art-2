@@ -3,13 +3,10 @@ package com.anime.art.ai.feature.main
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.anime.art.ai.databinding.ActivityMainBinding
 import com.anime.art.ai.domain.repository.SyncRepository
-import com.anime.art.ai.feature.Abc
 import com.anime.art.ai.feature.main.create.CreateFragment
 import com.anime.art.ai.feature.main.gallery.GalleryFragment
 import com.anime.art.ai.feature.main.mine.MineFragment
@@ -22,8 +19,6 @@ import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint

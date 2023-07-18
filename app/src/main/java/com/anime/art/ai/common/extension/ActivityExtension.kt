@@ -1,23 +1,24 @@
 package com.anime.art.ai.common.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
-import com.anime.art.ai.R
-import com.anime.art.ai.feature.main.MainActivity
-import com.basic.common.extension.tryOrNull
+import android.os.Build
+import android.view.WindowInsets
 
-fun Activity.startMain(){
-    val intent = Intent(this, MainActivity::class.java)
-    startActivity(intent)
-    tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
-}
-
-fun Activity.back(){
-    finish()
-    tryOrNull { overridePendingTransition(R.anim.nothing, R.anim.slide_out_left) }
-}
-
-fun Activity.backTopToBottom(){
-    finish()
-    tryOrNull { overridePendingTransition(R.anim.nothing, R.anim.slide_down) }
+@SuppressLint("InternalInsetResource", "DiscouragedApi")
+fun Activity.getStatusBarHeight(): Int {
+    var statusBarHeight = 0
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val windowInsets = window?.decorView?.rootWindowInsets
+        windowInsets?.let {
+            val insets = it.getInsets(WindowInsets.Type.statusBars())
+            statusBarHeight = insets.top
+        }
+    } else {
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            statusBarHeight = resources.getDimensionPixelSize(resourceId)
+        }
+    }
+    return statusBarHeight
 }
