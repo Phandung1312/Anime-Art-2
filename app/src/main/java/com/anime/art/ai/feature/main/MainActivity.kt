@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.anime.art.ai.databinding.ActivityMainBinding
 import com.anime.art.ai.domain.repository.SyncRepository
 import com.anime.art.ai.feature.main.create.CreateFragment
 import com.anime.art.ai.feature.main.gallery.GalleryFragment
-import com.anime.art.ai.feature.main.gallery.GalleryViewModel
 import com.anime.art.ai.feature.main.mine.MineFragment
 import com.basic.common.base.LsActivity
 import com.basic.common.base.LsPageAdapter
@@ -22,17 +19,16 @@ import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
+    @Inject lateinit var syncRepo: SyncRepository
+
     private val fragments by lazy { listOf(GalleryFragment(), CreateFragment(), MineFragment()) }
-    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(0) // Default Tab Create
-    private val pageChanges: Subject<Int> = BehaviorSubject.createDefault(0)
+    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(1) // Default Tab Create
+    val pageChanges: Subject<Int> = BehaviorSubject.createDefault(1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,12 +86,15 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
             }
 
         pageChanges
-            .filter { index -> index == 0 }
-            .take(1)
-            .delay(1, TimeUnit.SECONDS)
             .autoDispose(scope())
-            .subscribe {
-                (fragments.firstOrNull() as? GalleryFragment)?.syncData()
+            .subscribe { index ->
+                binding.imageTab1.isSelected = index == 0
+                binding.imageTab2.isSelected = index == 1
+                binding.imageTab3.isSelected = index == 2
+
+                binding.textTab1.changeTextColorSelected(index == 0)
+                binding.textTab2.changeTextColorSelected(index == 1)
+                binding.textTab3.changeTextColorSelected(index == 2)
             }
     }
 

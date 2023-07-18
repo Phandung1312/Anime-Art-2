@@ -5,31 +5,48 @@ import com.anime.art.ai.R
 import com.anime.art.ai.databinding.ItemPreviewInGalleryBinding
 import com.anime.art.ai.domain.model.config.Gallery
 import com.basic.common.base.LsAdapter
+import com.basic.common.extension.clicks
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewAdapter @Inject constructor(): LsAdapter<Gallery, ItemPreviewInGalleryBinding>(ItemPreviewInGalleryBinding::inflate) {
 
+    val clicks: Subject<Int> = PublishSubject.create()
+    val toggleFavouriteClicks: Subject<Gallery> = PublishSubject.create()
+
     override fun bindItem(item: Gallery, binding: ItemPreviewInGalleryBinding, position: Int) {
         ConstraintSet().apply {
-            this.clone(binding.root)
-            this.setDimensionRatio(binding.viewPreview.id, item.ratio)
-            this.applyTo(binding.root)
+            this.clone(binding.viewPreview)
+            this.setDimensionRatio(binding.preview.id, item.ratio)
+            this.applyTo(binding.viewPreview)
         }
 
-        Timber.e("Ratio: ${item.ratio} --- $position")
-
         binding.display.text = item.display
+        binding.favourite.setImageResource(if (item.favourite) R.drawable.heart else R.drawable.unheart)
+
+        Glide.with(binding.root)
+            .load(item.avatar)
+            .error(R.drawable.place_holder_image)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.avatar)
 
         Glide.with(binding.root)
             .load(item.preview)
             .error(R.drawable.place_holder_image)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.preview)
-        Glide.with(binding.root)
-            .load(item.avatar)
-            .error(R.drawable.place_holder_image)
-            .into(binding.avt)
+
+        binding.viewClicks.clicks(withAnim = false) { clicks.onNext(position) }
+        binding.favourite.clicks {
+            item.favourite = !item.favourite
+            binding.favourite.setImageResource(if (item.favourite) R.drawable.heart else R.drawable.unheart)
+
+            toggleFavouriteClicks.onNext(item)
+        }
     }
 
 }

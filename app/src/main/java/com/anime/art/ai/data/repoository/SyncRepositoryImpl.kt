@@ -10,6 +10,7 @@ import com.basic.common.extension.tryOrNull
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
@@ -29,6 +30,7 @@ class SyncRepositoryImpl @Inject constructor(
 
     override suspend fun syncData(progress: (SyncRepository.Progress) -> Unit) {
         progress(SyncRepository.Progress.Running)
+
         if (prefs.versionGallery.get() < configApp.versionGallery || galleryDao.getAll().isEmpty()) {
             syncGallery(progress)
         } else {
@@ -39,6 +41,8 @@ class SyncRepositoryImpl @Inject constructor(
     }
 
     override suspend fun syncGallery(progress: (SyncRepository.Progress) -> Unit) {
+        Timber.e("##### SYNC GALLERY #####")
+
         try {
             val snapshot = Firebase
                 .database
@@ -62,8 +66,6 @@ class SyncRepositoryImpl @Inject constructor(
                 else -> syncGalleryLocal(progress)
             }
 
-            Timber.e("Sync gallery: ${galleries.size}")
-
             prefs.versionGallery.set(configApp.versionGallery)
 
             progress(SyncRepository.Progress.DoneGallery)
@@ -78,7 +80,7 @@ class SyncRepositoryImpl @Inject constructor(
         val data = tryOrNull { Gson().fromJson(bufferedReader, Array<Gallery>::class.java) } ?: arrayOf()
 
         data.forEach { item ->
-            item.ratio = tryOrNull { item.preview.split("zzz").getOrNull(1)?.replace("xxx",":") } ?: "1:1"
+            item.ratio = tryOrNull { item.preview.split("zzz").getOrNull(1)?.let { tryOrNull { it.substring(1, it.lastIndex) } }?.replace("__",":") } ?: "1:1"
         }
 
         galleryDao.deleteAll()

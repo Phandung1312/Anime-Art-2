@@ -12,8 +12,14 @@ interface GalleryDao {
     @Query("SELECT * FROM Galleries")
     fun getAll(): List<Gallery>
 
+    @Query("SELECT * FROM Galleries WHERE dislike = :dislike")
+    fun getAllLike(dislike: Boolean = false): List<Gallery>
+
     @Query("SELECT * FROM Galleries")
     fun getAllLive(): LiveData<List<Gallery>>
+
+    @Query("SELECT * FROM Galleries WHERE dislike = :dislike")
+    fun getAllLikeLive(dislike: Boolean = false): LiveData<List<Gallery>>
 
     // Inserts or deletes
 
@@ -23,9 +29,15 @@ interface GalleryDao {
     @Query("DELETE FROM Galleries")
     fun deleteAll()
 
+
+    // Update
+
+    @Update
+    fun update(vararg objects: Gallery)
+
     // Find
 
-    @Query("SELECT * FROM Galleries WHERE id =:id LIMIT 1")
+    @Query("SELECT * FROM Galleries WHERE id = :id LIMIT 1")
     fun findById(id: Long): Gallery?
 
 }
