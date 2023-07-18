@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "339379897445",
+    "project_id": "anime-art-2",
+    "storage_bucket": "anime-art-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339379897445:android:aefa1937b0e08b90be728c",
+        "android_client_info": {
+          "package_name": "com.anime.art.ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339379897445-3g2gbicngigmo0vv987lqtbb6add2p37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anime.art.ai",
+            "certificate_hash": "7f3a5644a92219a8ee786775084f4a2241a2087f"
+          }
+        },
+        {
+          "client_id": "339379897445-stmeh1tu120cp2f6j17mib2s7hb8s5bi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeZ2wWp-DYKg0oB7f4StF7oSKM5rHwzGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339379897445-stmeh1tu120cp2f6j17mib2s7hb8s5bi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/anim_slide_up.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/anim/slide_up.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/anim_slide_out_left.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/anim/slide_out_left.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/anim_slide_in_left.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/anim/slide_in_left.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/xml_file_paths.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/xml/file_paths.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/layout_activity_splash.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/layout_activity_main.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/anim_slide_down.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/anim/slide_down.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/xml_data_extraction_rules.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/xml_backup_rules.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/anim_nothing.xml.flat",
+        "source": "com.anime.art.ai.app-main-53:/anim/nothing.xml"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.anime.art.ai.app-merged_res-51:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.anime.art.ai.app-main-53:/mipmap-mdpi/ic_launcher.webp"
+    }
+]

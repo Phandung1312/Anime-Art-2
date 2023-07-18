@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Anime Art</string>
+    <string name="default_notification_channel_id">Notification channel id</string>
+</resources>

@@ -1,0 +1,32 @@
+R_DEF: Internal format may change without notice
+local
+anim nothing
+anim slide_down
+anim slide_in_left
+anim slide_out_left
+anim slide_up
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+id image
+layout activity_main
+layout activity_splash
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string com.crashlytics.android.build_id
+string default_web_client_id
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
+string project_id
+style Theme.Main
+xml backup_rules
+xml data_extraction_rules
+xml file_paths

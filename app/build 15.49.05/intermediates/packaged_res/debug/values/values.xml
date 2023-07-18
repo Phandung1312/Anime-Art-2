@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="black">#FF000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Anime Art Ai - V2</string>
+    <string name="com.crashlytics.android.build_id" ns1:ignore="UnusedResources,TypographyDashes" translatable="false">00000000000000000000000000000000</string>
+    <string name="default_web_client_id" translatable="false">1067905652127-hor18cvkvh4c7jjha07iaqfthhtg86mc.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1067905652127</string>
+    <string name="google_api_key" translatable="false">AIzaSyDxBWkgXxGZxJOWGg2P8WQumYMqm-KIvIU</string>
+    <string name="google_app_id" translatable="false">1:1067905652127:android:9081f129f4af51799559aa</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDxBWkgXxGZxJOWGg2P8WQumYMqm-KIvIU</string>
+    <string name="google_storage_bucket" translatable="false">anime-art-ai.appspot.com</string>
+    <string name="project_id" translatable="false">anime-art-ai</string>
+    <style name="Theme.Main" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="colorAccent">@color/tools_theme</item>
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+        <item name="android:textColorTertiary">@color/textTertiary</item>
+        <item name="android:windowBackground">@color/backgroundLight</item>
+        <item name="android:colorBackground">#EDECED</item>
+        <item name="android:statusBarColor">@color/backgroundLight</item>
+        <item name="android:windowLightStatusBar" ns1:targetApi="m">true</item>
+        <item name="android:navigationBarColor">@color/backgroundLight</item>
+        <item name="android:windowLightNavigationBar" ns1:targetApi="o_mr1">true</item>
+        <item name="colorControlActivated">@color/tools_theme</item>
+        <item name="colorControlNormal">#D5D5D5</item>
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">#1ADF825F</item>
+        <item name="colorOnPrimary">@color/textPrimaryDark</item>
+        
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/textSecondaryDark</item>
+        
+        <item name="colorTertiary">@color/colorTertiary</item>
+        <item name="colorOnTertiary">@color/textTertiaryDark</item>
+    </style>
+</resources>
