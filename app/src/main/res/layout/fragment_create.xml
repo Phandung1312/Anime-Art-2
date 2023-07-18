@@ -285,10 +285,10 @@
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:thumbTint="?colorAccent"
+                app:thumbTint="@color/yellow"
                 android:checked="true"
                 android:layout_alignParentEnd="true"
-                app:trackTint="#595754" />
+                app:trackTint="@color/background_edittext_color" />
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -417,7 +417,7 @@
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/_25sdp"
                 android:paddingEnd="@dimen/_25sdp"
-                android:background="@drawable/custom_button_color">
+                android:background="@drawable/gradient_yellow">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_coins"
