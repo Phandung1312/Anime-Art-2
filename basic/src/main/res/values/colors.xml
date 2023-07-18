@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+
+    <color name="backgroundLight">#FFFFFF</color>
+    <color name="backgroundDark">#121212</color>
+
+    <color name="colorPrimary">#E3A302</color>
+    <color name="colorSecondary">#FFE092</color>
+    <color name="colorTertiary">#FFF2D1</color>
+
+    <color name="textPrimary">#141A18</color>
+    <color name="textSecondary">#686868</color>
+    <color name="textTertiary">#B7B9C0</color>
+
+    <color name="textPrimaryDark">#FFFFFF</color>
+    <color name="textSecondaryDark">#ccffffff</color>
+    <color name="textTertiaryDark">#80ffffff</color>
+
+    <!-- This colour should only ever be used for attrs with the tools tag -->
+    <color name="tools_theme">#E3A302</color>
+
+</resources>
