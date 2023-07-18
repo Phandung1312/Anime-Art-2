@@ -40,7 +40,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/_5sdp"
-                    android:src="@drawable/coin" />
+                    android:src="@drawable/coins" />
 
                 <com.basic.common.widget.LsTextView
                     tools:text="10"
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"/>
     <com.basic.common.widget.LsTextView
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         style="@style/medium_title_text"
         android:text="Size of image"
         android:layout_width="wrap_content"
@@ -131,18 +131,12 @@
         android:layout_height="wrap_content"/>
     <com.basic.common.widget.LsTextView
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         style="@style/medium_title_text"
         android:text="Choose an art style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <com.basic.common.widget.bouncy.BouncyRecyclerView
-        android:id="@+id/rv_art_style"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <com.google.android.material.card.MaterialCardView
         app:cardBackgroundColor="@color/background_edittext_color"
         app:cardCornerRadius="@dimen/_15sdp"
@@ -150,7 +144,55 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp">
-
+        android:layout_height="@dimen/_120sdp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.basic.common.widget.LsTextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                style="@style/medium_title_text"
+                android:text="Choose some tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.basic.common.widget.bouncy.BouncyRecyclerView
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.basic.common.widget.bouncy.BouncyRecyclerView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+    <RelativeLayout
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.basic.common.widget.LsTextView
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            style="@style/medium_title_text"
+            android:text="Advanced Setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:src="@drawable/dropdown"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <com.basic.common.widget.LsTextView
+        android:text="ControlNet"
+        style="@style/medium_title_text"
+        android:fontFamily="@font/roboto"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
