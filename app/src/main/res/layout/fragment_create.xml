@@ -1,198 +1,467 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/viewTop"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/_10sdp"
+    android:paddingEnd="@dimen/_10sdp">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/viewTop"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp">
+
+            <com.basic.common.widget.LsTextView
+                style="@style/page_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/app_name" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:cardBackgroundColor="@color/yellow_black"
+                app:cardCornerRadius="@dimen/_15sdp"
+                app:strokeColor="@color/yellow"
+                app:strokeWidth="@dimen/_1sdp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/coins" />
+
+                    <com.basic.common.widget.LsTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15ssp"
+                        tools:text="10" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
 
         <com.basic.common.widget.LsTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:text="@string/app_name"
-            style="@style/page_title_text"/>
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Clear"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/_10sdp"
-            app:strokeColor="@color/yellow"
-            app:strokeWidth="@dimen/_1sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/background_edittext_color"
             app:cardCornerRadius="@dimen/_15sdp"
-            app:cardBackgroundColor="@color/yellow_black"
-            android:layout_centerVertical="true"
-            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            app:strokeColor="@color/border_edittext_color"
+            app:strokeWidth="@dimen/_1sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.basic.common.widget.LsEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Enter prompt"
+                    android:textColorHint="@color/textTertiaryDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/_5sdp"
-                    android:src="@drawable/coins" />
-
-                <com.basic.common.widget.LsTextView
-                    tools:text="10"
-                    android:textSize="@dimen/_15ssp"
-                    android:textColor="@color/white"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/come_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-    </RelativeLayout>
-    <com.basic.common.widget.LsTextView
-        android:text="Clear"
-        android:textColor="@color/white"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:textSize="@dimen/_15ssp"
-        android:layout_gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <com.google.android.material.card.MaterialCardView
-        app:strokeWidth="@dimen/_1sdp"
-        app:strokeColor="@color/border_edittext_color"
-        app:cardBackgroundColor="@color/background_edittext_color"
-        app:cardCornerRadius="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp">
+        <com.basic.common.widget.LsTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_15ssp"
+            tools:text="0/1000" />
+
+        <com.basic.common.widget.bouncy.BouncyRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+        <com.basic.common.widget.LsTextView
+            style="@style/medium_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Size of image" />
+
+        <com.basic.common.widget.bouncy.BouncyRecyclerView
+            android:id="@+id/rv_ratio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+        <com.basic.common.widget.LsTextView
+            style="@style/medium_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Choose an art style" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/background_edittext_color"
+            app:cardCornerRadius="@dimen/_15sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.basic.common.widget.LsTextView
+                    style="@style/medium_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Choose some tags" />
+
+                <com.basic.common.widget.bouncy.BouncyRecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone" />
+
+                <com.basic.common.widget.bouncy.BouncyRecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <com.basic.common.widget.LsTextView
+                style="@style/medium_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Advanced Setting" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/dropdown" />
+        </RelativeLayout>
+
+        <com.basic.common.widget.LsTextView
+            style="@style/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ControlNet" />
+
+        <com.basic.common.widget.bouncy.BouncyRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <com.basic.common.widget.LsTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/Hide"
+            android:textColor="@color/yellow" />
+
+        <com.basic.common.widget.LsTextView
+            style="@style/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Sampling Method" />
+
+        <com.basic.common.widget.bouncy.BouncyRecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:visibility="gone" />
+
+        <com.basic.common.widget.LsTextView
+            style="@style/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Negative Prompt" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/background_edittext_color"
+            app:cardCornerRadius="@dimen/_15sdp"
+            app:strokeColor="@color/border_edittext_color"
+            app:strokeWidth="@dimen/_1sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.basic.common.widget.LsEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <com.basic.common.widget.LsTextView
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Quality Prompt" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:thumbTint="?colorAccent"
+                android:checked="true"
+                android:layout_alignParentEnd="true"
+                app:trackTint="#595754" />
+        </RelativeLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.basic.common.widget.LsEditText
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:textColorHint="@color/textTertiaryDark"
-                android:hint="Enter prompt"
-                android:backgroundTint="@android:color/transparent"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <com.basic.common.widget.LsTextView
+
+                style="@style/title_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="CFG Scale"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:src="@drawable/come_back"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-    <com.basic.common.widget.LsTextView
-        tools:text="0/1000"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:textSize="@dimen/_15ssp"
-        android:layout_gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <com.basic.common.widget.bouncy.BouncyRecyclerView
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <com.basic.common.widget.LsTextView
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        style="@style/medium_title_text"
-        android:text="Size of image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <com.basic.common.widget.bouncy.BouncyRecyclerView
-        android:id="@+id/rv_ratio"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <com.basic.common.widget.LsTextView
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        style="@style/medium_title_text"
-        android:text="Choose an art style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <com.google.android.material.slider.RangeSlider
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/tv_cfg_scale"
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbColor="@color/white"
+                app:trackColorActive="@color/yellow"
+                app:trackColorInactive="@color/background_edittext_color" />
 
-    <com.google.android.material.card.MaterialCardView
-        app:cardBackgroundColor="@color/background_edittext_color"
-        app:cardCornerRadius="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <com.basic.common.widget.LsTextView
-                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/tv_cfg_scale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="7.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.basic.common.widget.LsTextView
+
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sampling Step"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.slider.RangeSlider
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/tv_sampling_step"
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbColor="@color/white"
+                app:trackColorActive="@color/yellow"
+                app:trackColorInactive="@color/background_edittext_color" />
+
+            <com.basic.common.widget.LsTextView
+                android:id="@+id/tv_sampling_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="5.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <com.basic.common.widget.LsTextView
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Input Image" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                style="@style/medium_title_text"
-                android:text="Choose some tags"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.basic.common.widget.bouncy.BouncyRecyclerView
-                android:visibility="gone"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.basic.common.widget.bouncy.BouncyRecyclerView
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                app:cardBackgroundColor="@color/yellow_black"
+                app:cardCornerRadius="@dimen/_10sdp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_5sdp">
+
+                    <com.basic.common.widget.LsTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Optional"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-    <RelativeLayout
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.basic.common.widget.LsTextView
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/_10sdp"
+            <com.basic.common.widget.bouncy.BouncyRecyclerView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:id="@+id/rv_input_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70sdp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            style="@style/medium_title_text"
-            android:text="Advanced Setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatImageView
-            android:src="@drawable/dropdown"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
-    <com.basic.common.widget.LsTextView
-        android:text="ControlNet"
-        style="@style/medium_title_text"
-        android:fontFamily="@font/roboto"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+            android:layout_marginTop="@dimen/_70sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:cardBackgroundColor="?colorAccent"
+            app:cardCornerRadius="@dimen/_20sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/_25sdp"
+                android:paddingEnd="@dimen/_25sdp"
+                android:background="@drawable/custom_button_color">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_coins"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/coins"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.basic.common.widget.LsTextView
+                    android:id="@+id/lsTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/roboto_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_coins"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView3"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.basic.common.widget.LsTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/iv_coins"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Create" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

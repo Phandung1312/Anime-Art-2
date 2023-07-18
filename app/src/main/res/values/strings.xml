@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AnimeGen</string>
+    <string name="Hide"><u>Hide</u></string>
     <string name="default_notification_channel_id">Notification channel id</string>
 </resources>
