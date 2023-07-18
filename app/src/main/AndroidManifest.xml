@@ -25,6 +25,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+        <activity android:name=".feature.gallery.GalleryActivity"/>
+
         <activity android:name=".feature.main.MainActivity"/>
 
         <activity
