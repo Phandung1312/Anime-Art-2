@@ -26,6 +26,10 @@ class PreviewAdapter @Inject constructor(): LsAdapter<Gallery, ItemPreviewInGall
             .load(item.preview)
             .error(R.drawable.place_holder_image)
             .into(binding.preview)
+        Glide.with(binding.root)
+            .load(item.avatar)
+            .error(R.drawable.place_holder_image)
+            .into(binding.avt)
     }
 
 }

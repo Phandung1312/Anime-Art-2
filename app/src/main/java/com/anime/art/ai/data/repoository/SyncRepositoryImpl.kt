@@ -43,7 +43,7 @@ class SyncRepositoryImpl @Inject constructor(
             val snapshot = Firebase
                 .database
                 .reference
-                .child("v1/gallery")
+                .child("v2/gallery")
                 .get()
                 .await()
 
