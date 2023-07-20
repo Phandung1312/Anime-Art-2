@@ -130,4 +130,7 @@ dependencies {
 
     // Admob
     implementation 'com.google.android.gms:play-services-ads:22.1.0'
+
+    //Dexter
+    implementation 'com.karumi:dexter:6.2.2'
 }

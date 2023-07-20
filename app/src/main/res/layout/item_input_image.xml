@@ -2,12 +2,21 @@
 <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/_47sdp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <androidx.appcompat.widget.AppCompatImageView
-        tools:src="@drawable/sample_input_image"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+    android:id="@+id/rootView"
+    tools:layout_margin="@dimen/_5sdp"
+    app:strokeColor="@color/yellow"
+    app:cardBackgroundColor="@color/backgroundDark"
+    android:layout_width="@dimen/_70sdp"
+    android:layout_height="@dimen/_70sdp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_display"
+            tools:src="@drawable/sample_input_image_1"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

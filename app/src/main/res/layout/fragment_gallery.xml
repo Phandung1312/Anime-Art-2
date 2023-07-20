@@ -11,7 +11,7 @@
         android:layout_height="@dimen/_40sdp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.basic.common.widget.LsTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

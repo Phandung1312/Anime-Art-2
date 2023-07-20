@@ -17,7 +17,6 @@ class Constraint {
             const val MAIL_SUPPORT = "hoangdo.bravo@gmail.com"
             const val PRIVACY_URL = ""
             const val TERMS_URL = ""
-
             const val DATA_VERSION = 1
         }
     }

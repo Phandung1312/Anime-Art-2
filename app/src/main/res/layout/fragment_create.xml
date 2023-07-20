@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="@dimen/_10sdp"
-    android:paddingEnd="@dimen/_10sdp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,9 +14,11 @@
         <RelativeLayout
             android:id="@+id/viewTop"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp">
+            android:layout_height="@dimen/_40sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp">
 
-            <com.basic.common.widget.LsTextView
+            <TextView
                 style="@style/page_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,9 +53,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/_10sdp"
+                        android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_15ssp"
-                        tools:text="10" />
+                        android:textSize="@dimen/_15ssp" />
 
                 </LinearLayout>
 
@@ -68,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:text="Clear"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp" />
@@ -75,11 +76,13 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/background_edittext_color"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:cardBackgroundColor="@color/background_dark_gray"
             app:cardCornerRadius="@dimen/_15sdp"
 
-            app:strokeColor="@color/border_edittext_color"
+            app:strokeColor="@color/light_gray"
             app:strokeWidth="@dimen/_1sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,7 +92,7 @@
                 <com.basic.common.widget.LsEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:backgroundTint="@android:color/transparent"
@@ -116,45 +119,60 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/_5sdp"
-            android:textSize="@dimen/_15ssp"
-            tools:text="0/1000" />
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="0/1000"
+            android:textSize="@dimen/_12sdp" />
 
-        <com.basic.common.widget.bouncy.BouncyRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_characters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
-            android:visibility="gone" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_tag" />
 
-        <com.basic.common.widget.LsTextView
+        <TextView
             style="@style/medium_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Size of image" />
 
-        <com.basic.common.widget.bouncy.BouncyRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ratio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
-            android:visibility="gone" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_size_of_image" />
 
-        <com.basic.common.widget.LsTextView
+        <TextView
             style="@style/medium_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="Choose an art style" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_art_styles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_art_style" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_120sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/background_edittext_color"
+            android:layout_height="@dimen/_145sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:cardBackgroundColor="@color/background_dark_gray"
             app:cardCornerRadius="@dimen/_15sdp">
 
             <LinearLayout
@@ -162,7 +180,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.basic.common.widget.LsTextView
+                <TextView
                     style="@style/medium_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,204 +188,254 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="Choose some tags" />
 
-                <com.basic.common.widget.bouncy.BouncyRecyclerView
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_char_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_character_appearance" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tags"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone" />
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_tag" />
 
-                <com.basic.common.widget.bouncy.BouncyRecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
         <RelativeLayout
+            android:id="@+id/advanced_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp">
 
-            <com.basic.common.widget.LsTextView
+            <TextView
                 style="@style/medium_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Advanced Setting" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_advanced_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/dropdown" />
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/arrow_down" />
         </RelativeLayout>
 
-        <com.basic.common.widget.LsTextView
-            style="@style/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ControlNet" />
-
-        <com.basic.common.widget.bouncy.BouncyRecyclerView
+        <LinearLayout
+            android:id="@+id/advanced_setting_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-        <com.basic.common.widget.LsTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/Hide"
-            android:textColor="@color/yellow" />
+            <com.basic.common.widget.LsTextView
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="ControlNet" />
 
-        <com.basic.common.widget.LsTextView
-            style="@style/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="Sampling Method" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_controlNet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_control_net" />
 
-        <com.basic.common.widget.bouncy.BouncyRecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:visibility="gone" />
+            <com.basic.common.widget.LsTextView
+                android:id="@+id/tv_show_controlNet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/See_more"
+                android:textColor="@color/yellow" />
 
-        <com.basic.common.widget.LsTextView
-            style="@style/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="Negative Prompt" />
+            <com.basic.common.widget.LsTextView
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Sampling Method" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/background_edittext_color"
-            app:cardCornerRadius="@dimen/_15sdp"
-            app:strokeColor="@color/border_edittext_color"
-            app:strokeWidth="@dimen/_1sdp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sampling_methods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_tag" />
+
+            <com.basic.common.widget.LsTextView
+                style="@style/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Negative Prompt" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:cardBackgroundColor="@color/background_dark_gray"
+                app:cardCornerRadius="@dimen/_15sdp"
+                app:strokeColor="@color/light_gray"
+                app:strokeWidth="@dimen/_1sdp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.basic.common.widget.LsEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:backgroundTint="@android:color/transparent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <com.basic.common.widget.LsTextView
+                    style="@style/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Quality Prompt" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:checked="true"
+                    app:trackTint="@color/light_gray" />
+            </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
 
-                <com.basic.common.widget.LsEditText
-                    android:layout_width="match_parent"
+                <com.basic.common.widget.LsTextView
+                    style="@style/title_text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:backgroundTint="@android:color/transparent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="CFG Scale"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_scale"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:valueFrom="4.0"
+                    android:valueTo="20.0"
+                    app:labelBehavior="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbColor="@color/white"
+                    app:trackColorActive="@color/yellow"
+                    app:trackColorInactive="@color/background_dark_gray" />
+
+                <com.basic.common.widget.LsTextView
+                    android:id="@+id/tv_cfg_scale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="7.0"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp">
-
-            <com.basic.common.widget.LsTextView
-                style="@style/title_text"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="Quality Prompt" />
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:thumbTint="@color/yellow"
-                android:checked="true"
-                android:layout_alignParentEnd="true"
-                app:trackTint="@color/background_edittext_color" />
-        </RelativeLayout>
+                <com.basic.common.widget.LsTextView
+                    style="@style/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sampling Step"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp">
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_step"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:valueFrom="20.0"
+                    android:valueTo="70.0"
+                    app:labelBehavior="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbColor="@color/white"
+                    app:trackColorActive="@color/yellow"
+                    app:trackColorInactive="@color/background_dark_gray" />
 
-            <com.basic.common.widget.LsTextView
-
-                style="@style/title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CFG Scale"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.slider.RangeSlider
-                android:layout_width="@dimen/_170sdp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/tv_cfg_scale"
-                app:layout_constraintTop_toTopOf="parent"
-                app:thumbColor="@color/white"
-                app:trackColorActive="@color/yellow"
-                app:trackColorInactive="@color/background_edittext_color" />
-
-            <com.basic.common.widget.LsTextView
-                android:id="@+id/tv_cfg_scale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="7.0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.basic.common.widget.LsTextView
-
-                style="@style/title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sampling Step"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.slider.RangeSlider
-                android:layout_width="@dimen/_170sdp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/tv_sampling_step"
-                app:layout_constraintTop_toTopOf="parent"
-                app:thumbColor="@color/white"
-                app:trackColorActive="@color/yellow"
-                app:trackColorInactive="@color/background_edittext_color" />
-
-            <com.basic.common.widget.LsTextView
-                android:id="@+id/tv_sampling_step"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="5.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.basic.common.widget.LsTextView
+                    android:id="@+id/tv_sampling_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="20.0"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_20sdp"
             android:orientation="horizontal">
 
-            <com.basic.common.widget.LsTextView
+            <TextView
                 style="@style/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -397,17 +465,77 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-            <com.basic.common.widget.bouncy.BouncyRecyclerView
-                android:layout_marginTop="@dimen/_5sdp"
-                android:id="@+id/rv_input_image"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_input_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_input_image" />
+        <LinearLayout
+            android:id="@+id/image_weight_layout"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_70sdp" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_centerVertical="true"
+                    style="@style/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Image weight" />
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_weight"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:valueFrom="0.2"
+                    android:valueTo="0.7"
+                    app:labelBehavior="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:thumbColor="@color/white"
+                    app:trackColorActive="@color/yellow"
+                    app:trackColorInactive="@color/background_dark_gray" />
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10ssp"
+                    android:text="0.2"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </RelativeLayout>
+            <com.basic.common.widget.LsTextView
+                android:text="(0.2,0.7)"
+                android:textSize="@dimen/_13ssp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             app:cardBackgroundColor="?colorAccent"
             app:cardCornerRadius="@dimen/_20sdp">
@@ -415,9 +543,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/gradient_yellow"
                 android:paddingStart="@dimen/_25sdp"
-                android:paddingEnd="@dimen/_25sdp"
-                android:background="@drawable/gradient_yellow">
+                android:paddingEnd="@dimen/_25sdp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_coins"
@@ -434,12 +562,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/roboto_semibold"
+                    android:text="5"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iv_coins"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="5" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/appCompatImageView3"
@@ -454,13 +582,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_semibold"
+                    android:text="Create"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/iv_coins"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Create" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
