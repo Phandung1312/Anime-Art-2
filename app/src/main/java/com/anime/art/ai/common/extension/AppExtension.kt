@@ -5,6 +5,7 @@ import android.content.Intent
 import com.anime.art.ai.R
 import com.anime.art.ai.feature.gallery.GalleryActivity
 import com.anime.art.ai.feature.main.MainActivity
+import com.anime.art.ai.feature.main.create.EnterPromptActivity
 import com.basic.common.extension.tryOrNull
 
 fun Activity.startMain(){

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
-    android:padding="@dimen/_10sdp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/_100sdp"
+    android:paddingStart="@dimen/_10sdp"
+    android:paddingEnd="@dimen/_10sdp">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_marginStart="@dimen/_10sdp"
         android:id="@+id/checkbox"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
         android:src="@drawable/radio_unchecked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:padding="@dimen/_5sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,17 +30,18 @@
 
         <com.basic.common.widget.LsTextView
             android:id="@+id/tv_display"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/white"
             tools:text="ControlNet Canny" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_controlNet"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:src="@drawable/controlnet_canny"
             android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_50sdp"/>
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:src="@drawable/controlnet_canny" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

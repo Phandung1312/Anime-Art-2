@@ -11,8 +11,7 @@
     app:cardBackgroundColor="?android:colorBackground"
     app:cardCornerRadius="@dimen/_15sdp"
     app:cardElevation="0dp"
-    app:strokeWidth="0dp"
-    app:strokeColor="@color/yellow">
+    app:strokeColor="@color/dark_yellow">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -8,6 +8,11 @@ import com.basic.common.extension.clicks
 import javax.inject.Inject
 
 class ControlNetAdapter @Inject constructor() : LsAdapter<ControlNet, ItemControlNetBinding>(ItemControlNetBinding::inflate) {
+
+    init {
+        data = ControlNet.values().toList()
+    }
+
     private var selectedIndex = -1
         set(value) {
             if (field == value){
@@ -17,6 +22,7 @@ class ControlNetAdapter @Inject constructor() : LsAdapter<ControlNet, ItemContro
             value.takeIf { it != -1 }?.let { notifyItemChanged(it) }
             field = value
         }
+
     override fun bindItem(item: ControlNet, binding: ItemControlNetBinding, position: Int) {
         binding.tvDisplay.text = item.controlNetName
         val imageResourceId = binding.root.context.resources.getIdentifier(item.sourceImage,"drawable",binding.root.context.packageName)

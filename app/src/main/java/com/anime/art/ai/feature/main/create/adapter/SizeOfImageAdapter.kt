@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import javax.inject.Inject
 
 class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOfImageBinding>(ItemSizeOfImageBinding::inflate) {
-    private var selectedIndex = -1
+    private var selectedIndex = 0
         set(value) {
             if (field == value){
                 return

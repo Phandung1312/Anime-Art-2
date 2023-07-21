@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFE092</color>
     <color name="dark_yellow">#E3A302</color>
+    <color name="slider_yellow">#F1C148</color>
     <color name="yellow_black">#3E341C</color>
     <color name="background_dark_gray">#191919</color>
     <color name="light_gray">#292828</color>

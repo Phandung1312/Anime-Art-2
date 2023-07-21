@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!-- Đây là thumb mặc định của SwitchCompat, có màu mặc định là màu trắng (#FFFFFF) -->
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/gradient" />
+</layer-list>

@@ -3,13 +3,12 @@ package com.anime.art.ai.feature.main.create.adapter
 import android.view.View
 import android.view.ViewGroup
 import com.anime.art.ai.R
-import com.anime.art.ai.common.ItemRvClickListener
+import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.databinding.ItemCharacterAppearanceBinding
 import com.anime.art.ai.domain.model.CharacterAppearance
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getColorCompat
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
@@ -31,7 +30,7 @@ class CharAppAdapter @Inject constructor() : LsAdapter<CharacterAppearance, Item
         binding: ItemCharacterAppearanceBinding,
         position: Int
     ) {
-
+        binding.display.text = item.display
         val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         val marginStartResId = if (position == 0) {
             com.intuit.sdp.R.dimen._10sdp
@@ -46,14 +45,17 @@ class CharAppAdapter @Inject constructor() : LsAdapter<CharacterAppearance, Item
         layoutParams.marginStart = binding.root.context.resources.getDimensionPixelSize(marginStartResId)
         layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
 
-        binding.display.apply {
-            setTextColor(if(selectedIndex == position) context.getColorCompat(R.color.yellow) else context.getColorCompat(R.color.white))
-        }
+        if(selectedIndex == position) {
+            binding.display.gradient(R.color.yellow, R.color.dark_yellow)
+            }
+            else{
+            binding.display.gradient(R.color.white, R.color.white)
+            }
+
 
         binding.underline.visibility = if(selectedIndex == position) View.VISIBLE else View.GONE
-        binding.viewCharApp.clicks {
+        binding.viewCharApp.clicks(withAnim = false) {
             clicks.onNext(item)
         }
-        binding.display.text = item.display
     }
 }

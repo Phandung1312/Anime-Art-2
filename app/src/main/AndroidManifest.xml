@@ -10,8 +10,8 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:name=".common.App"
@@ -25,13 +25,14 @@
         android:theme="@style/Theme.Main"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
-        <activity android:name=".feature.gallery.GalleryActivity"/>
-
-        <activity android:name=".feature.main.MainActivity"
+        <activity
+            android:name=".feature.main.create.EnterPromptActivity"
+            android:exported="false" />
+        <activity android:name=".feature.gallery.GalleryActivity" />
+        <activity
+            android:name=".feature.main.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.Main"/>
-
+            android:theme="@style/Theme.Main" />
         <activity
             android:name=".feature.splash.SplashActivity"
             android:exported="true">
@@ -51,23 +52,16 @@
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
-        </provider>
-
-<!--        Firebase Cloud Messaging-->
-
+        </provider> <!-- Firebase Cloud Messaging -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/tools_theme" />
@@ -78,26 +72,17 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-<!--        Firebase Cloud Messaging-->
-
-<!--        Admob-->
-
+        </service> <!-- Firebase Cloud Messaging -->
+        <!-- Admob -->
         <meta-data
             android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
-            android:value="true"/>
-
+            android:value="true" />
         <meta-data
             android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
-            android:value="true"/>
-
+            android:value="true" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/key_application_id"/>
-
-<!--        Admob-->
-
+            android:value="@string/key_application_id" />
     </application>
 
 </manifest>

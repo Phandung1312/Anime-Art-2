@@ -2,8 +2,11 @@ package com.anime.art.ai.common.extension
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.os.Build
+import android.view.View
 import android.view.WindowInsets
+import android.view.inputmethod.InputMethodManager
 
 @SuppressLint("InternalInsetResource", "DiscouragedApi")
 fun Activity.getStatusBarHeight(): Int {
@@ -22,3 +25,4 @@ fun Activity.getStatusBarHeight(): Int {
     }
     return statusBarHeight
 }
+

@@ -1,21 +1,29 @@
 package com.anime.art.ai.feature.main.create
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.text.SpannableStringBuilder
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.core.text.underline
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ItemRvClickListener
+import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.databinding.FragmentCreateBinding
 import com.anime.art.ai.domain.model.ArtStyle
 import com.anime.art.ai.domain.model.Character
@@ -25,6 +33,7 @@ import com.anime.art.ai.domain.model.SamplingMethod
 import com.anime.art.ai.domain.model.SizeOfImage
 import com.anime.art.ai.domain.model.Tag
 import com.anime.art.ai.domain.model.config.InputImage
+import com.anime.art.ai.feature.gallery.GalleryActivity
 import com.anime.art.ai.feature.main.create.adapter.ArtStyleAdapter
 import com.anime.art.ai.feature.main.create.adapter.CharAppAdapter
 import com.anime.art.ai.feature.main.create.adapter.ControlNetAdapter
@@ -35,6 +44,7 @@ import com.anime.art.ai.feature.main.create.adapter.SizeOfImageAdapter
 import com.anime.art.ai.feature.main.create.adapter.TagAdapter
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
+import com.basic.common.extension.getDimens
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -68,7 +78,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
            val spanMore =  SpannableStringBuilder()
                 .underline { append( if(value) context?.getString(R.string.Hide) else context?.getString(R.string.See_more)) }
             binding.tvShowControlNet.text = spanMore
-            controlNetAdapter.data  = if(value) ControlNet.values().toList() else ControlNet.values().toList().take(2)
+            animateHideOrShowControlNet(isShowed = value)
             field = value
         }
     private var inputImages : MutableList<InputImage> = ArrayList()
@@ -78,11 +88,32 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         listenerView()
     }
 
+    private fun animateHideOrShowControlNet(isShowed: Boolean){
+        activity?.let {activity ->
+            val dp200 = activity.getDimens(com.intuit.sdp.R.dimen._200sdp).toInt()
+            val dpFull = controlNetAdapter.data.size * activity.getDimens(com.intuit.sdp.R.dimen._100sdp).toInt()
+            val valueAnimator = ValueAnimator.ofInt(
+                if (isShowed) dp200 else dpFull,
+                if (isShowed) dpFull else dp200
+            )
+            valueAnimator.duration = 1000L
+            valueAnimator.addUpdateListener {
+                val animatedValue = valueAnimator.animatedValue as Int
+                binding.rvControlNet.updateLayoutParams<ViewGroup.LayoutParams> {
+                    this.height = animatedValue
+                }
+            }
+            valueAnimator.start()
+        }
+    }
+
     override fun onResume() {
         initObservable()
         super.onResume()
     }
     private fun initView(){
+        binding.tvTitle.gradient(R.color.yellow, R.color.dark_yellow)
+        binding.tvShowControlNet.gradient(R.color.yellow, R.color.dark_yellow)
         binding.apply {
             rvCharacters.adapter = menuAdapter
             rvRatio.adapter = sizeOfImageAdapter
@@ -90,9 +121,17 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             rvCharApps.adapter = charAppAdapter
             rvTags.adapter = tagAdapter
             rvSamplingMethods.adapter = samplingMethodAdapter
-            rvControlNet.adapter = controlNetAdapter
+            rvControlNet.apply {
+                this.adapter = controlNetAdapter
+                this.layoutManager = object: LinearLayoutManager(binding.root.context, VERTICAL, false){
+                    override fun canScrollVertically(): Boolean {
+                        return false
+                    }
+                }
+            }
             rvInputImage.adapter = inputImageAdapter
         }
+
     }
 
     private fun initData(){
@@ -126,10 +165,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
         //Advanced setting
         binding.advancedSetting.clicks(withAnim = false) {
+            binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_up else R.drawable.arrow_down)
             TransitionManager.beginDelayedTransition(binding.advancedSettingView)
             isShowSetting = !isShowSetting
-
-            binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_up else R.drawable.arrow_down)
             binding.advancedSettingView.isVisible = isShowSetting
             isShowMore = false
         }
@@ -146,8 +184,18 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             inputImages[inputImageAdapter.selectedIndex] = inputImage
             inputImageAdapter.data = inputImages
         }
-    }
 
+        binding.tvClear.clicks {
+            binding.edEnterPrompt.text?.clear()
+        }
+
+        binding.edEnterPrompt.clicks(withAnim = false) {
+            openEnterPrompt()
+        }
+        binding.enterPromptView.clicks(withAnim = false) {
+            openEnterPrompt()
+        }
+    }
     private fun initObservable(){
         charAppAdapter
             .clicks
@@ -174,29 +222,33 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     }
                 }
             }
+        tagAdapter
+            .clicks
+            .autoDispose(scope())
+            .subscribe { tag->
+                appendEnterPromptText(tag.display)
+            }
+    }
+
+    private fun appendEnterPromptText(tag : String) {
+
+        binding.edEnterPrompt.text?.apply {
+            if(isNotEmpty()) append(",")
+            append("(${tag}:1.3)")
+        }
+    }
+    private fun openEnterPrompt(){
+        val prompt = binding.edEnterPrompt.text.toString()
+        val intent = Intent(activity, EnterPromptActivity::class.java)
+        intent.putExtra(EnterPromptActivity.PROMPT_EXTRA, prompt)
+        enterPromptResult.launch(intent)
+
     }
     private fun openGallery(){
-        Dexter.withContext(activity).withPermission(
-            android.Manifest.permission.READ_MEDIA_IMAGES,
-        ).withListener(object  : PermissionListener{
-            override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                    type ="image/*"
-                }
-                pickImageFromGalleryResult.launch(intent)
-            }
-
-            override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                p0: PermissionRequest?,
-                p1: PermissionToken?
-            ) {
-
-            }
-        }).onSameThread().check()
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type ="image/*"
+        }
+        pickImageFromGalleryResult.launch(intent)
     }
     private fun setImageWeight(inputImage: InputImage){
         binding.imageWeightLayout.isVisible = true
@@ -229,6 +281,13 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     }
     private fun roundToNearestTenth(number: Double): Double {
         return (number * 10).roundToInt() / 10.0
+    }
+    private val enterPromptResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result ->
+        if(result.resultCode == Activity.RESULT_OK){
+            val promptResult =  result.data?.getStringExtra(EnterPromptActivity.PROMPT_EXTRA)
+            binding.edEnterPrompt.setText(promptResult)
+        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

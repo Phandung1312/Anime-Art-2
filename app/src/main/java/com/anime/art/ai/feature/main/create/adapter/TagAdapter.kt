@@ -4,17 +4,20 @@ import android.view.ViewGroup
 import com.anime.art.ai.R
 import com.anime.art.ai.databinding.ItemTagBinding
 import com.anime.art.ai.domain.model.Character
+import com.anime.art.ai.domain.model.CharacterAppearance
 import com.anime.art.ai.domain.model.Tag
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getColorCompat
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.resolveAttrColor
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class TagAdapter @Inject constructor() :
     LsAdapter<Tag, ItemTagBinding>(ItemTagBinding::inflate) {
-
+    val clicks: Subject<Tag> = PublishSubject.create()
     private var selectedIndex = -1
         set(value) {
             if (field == value){
@@ -47,7 +50,12 @@ class TagAdapter @Inject constructor() :
         layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
         binding.display.text = item.display
 
-        binding.cardView.clicks { selectedIndex = position }
+        binding.cardView.clicks {
+            selectedIndex = position
+            clicks.onNext(item)
+        }
+
+
     }
     fun resetSelectedIndex(){
         selectedIndex = -1

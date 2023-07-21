@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
-    tools:layout_margin="@dimen/_5sdp"
-    app:strokeColor="@color/yellow"
-    app:cardBackgroundColor="@color/backgroundDark"
     android:layout_width="@dimen/_70sdp"
-    android:layout_height="@dimen/_70sdp">
+    android:layout_height="@dimen/_70sdp"
+    app:cardCornerRadius="@dimen/_20sdp"
+    app:cardBackgroundColor="@color/backgroundDark"
+    app:strokeColor="@color/dark_yellow"
+    tools:layout_margin="@dimen/_5sdp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_display"
-            tools:src="@drawable/sample_input_image_1"
-            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_1sdp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/sample_input_image_1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

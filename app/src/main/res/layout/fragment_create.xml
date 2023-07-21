@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
+        android:clipToPadding="false"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -19,6 +20,7 @@
             android:paddingEnd="@dimen/_10sdp">
 
             <TextView
+                android:id="@+id/tv_title"
                 style="@style/page_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,9 +55,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:text="0"
+                        android:text="200"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_15ssp" />
+                        android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
 
@@ -64,6 +66,7 @@
         </RelativeLayout>
 
         <com.basic.common.widget.LsTextView
+            android:id="@+id/tv_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -71,7 +74,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:text="Clear"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_12ssp" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -81,21 +84,25 @@
             android:layout_marginEnd="@dimen/_10sdp"
             app:cardBackgroundColor="@color/background_dark_gray"
             app:cardCornerRadius="@dimen/_15sdp"
-
             app:strokeColor="@color/light_gray"
             app:strokeWidth="@dimen/_1sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/enter_prompt_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <com.basic.common.widget.LsEditText
+                    android:id="@+id/ed_enter_prompt"
+                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     android:backgroundTint="@android:color/transparent"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/textTertiaryDark"
                     android:hint="Enter prompt"
                     android:textColorHint="@color/textTertiaryDark"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +115,7 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/come_back"
+                    android:src="@drawable/round_history"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -254,7 +261,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_controlNet"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_200sdp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="2"
@@ -340,7 +347,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    app:switchMinWidth="@dimen/_40sdp"
                     android:checked="true"
+                    app:thumbTint="@color/dark_yellow"
                     app:trackTint="@color/light_gray" />
             </RelativeLayout>
 
@@ -371,16 +380,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:thumbColor="@color/white"
-                    app:trackColorActive="@color/yellow"
+                    app:trackColorActive="@color/slider_yellow"
                     app:trackColorInactive="@color/background_dark_gray" />
 
                 <com.basic.common.widget.LsTextView
                     android:id="@+id/tv_cfg_scale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
                     android:text="7.0"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -413,16 +422,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:thumbColor="@color/white"
-                    app:trackColorActive="@color/yellow"
+                    app:trackColorActive="@color/slider_yellow"
                     app:trackColorInactive="@color/background_dark_gray" />
 
                 <com.basic.common.widget.LsTextView
                     android:id="@+id/tv_sampling_step"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
                     android:text="20.0"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -474,31 +483,35 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_input_image" />
+
         <LinearLayout
             android:id="@+id/image_weight_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            tools:visibility="visible">
+
             <RelativeLayout
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
+
                 <TextView
-                    android:layout_centerVertical="true"
                     style="@style/title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:text="Image weight" />
+
                 <com.google.android.material.slider.Slider
                     android:id="@+id/slider_weight"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="@dimen/_150sdp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/_25sdp"
                     android:valueFrom="0.2"
                     android:valueTo="0.7"
@@ -506,29 +519,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:thumbColor="@color/white"
-                    app:trackColorActive="@color/yellow"
+                    app:trackColorActive="@color/slider_yellow"
                     app:trackColorInactive="@color/background_dark_gray" />
 
                 <TextView
                     android:id="@+id/tv_weight"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:text="0.2"
                     android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </RelativeLayout>
+
             <com.basic.common.widget.LsTextView
-                android:text="(0.2,0.7)"
-                android:textSize="@dimen/_13ssp"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="(0.2,0.7)"
+                android:textSize="@dimen/_13ssp" />
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -538,7 +552,7 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             app:cardBackgroundColor="?colorAccent"
-            app:cardCornerRadius="@dimen/_20sdp">
+            app:cardCornerRadius="@dimen/_25sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -592,4 +606,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>

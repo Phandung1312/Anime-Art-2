@@ -29,4 +29,5 @@ abstract class LsActivity<VB : ViewBinding>(
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+
 }
