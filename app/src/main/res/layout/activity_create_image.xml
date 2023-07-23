@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.main.create.CreateImageActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_45sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/close" />
+
+        <TextView
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Output"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp" />
+    </RelativeLayout>
+
+    <TextView
+        android:textSize="@dimen/_12ssp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose one input to finalize or make variations"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieView"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:alpha="0"
+        tools:alpha="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
+
+    <TextView
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading..."
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottieView" />
+
+    <RelativeLayout
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        app:layout_constraintBottom_toBottomOf="parent">
+       <com.google.android.material.card.MaterialCardView
+           app:cardCornerRadius="@dimen/_25sdp"
+           app:cardBackgroundColor="?android:windowBackground"
+           android:layout_width="@dimen/_140sdp"
+           android:layout_height="match_parent">
+           <RelativeLayout
+               android:background="@drawable/button_gradient_stroke"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <LinearLayout
+                   android:layout_centerInParent="true"
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:text="Make Variations"
+                       android:fontFamily="@font/roboto_medium"
+                       android:textColor="@color/white"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+                   <LinearLayout
+                       android:layout_gravity="center_horizontal"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content">
+                       <TextView
+                           android:text="3"
+                           android:fontFamily="@font/roboto_medium"
+                           android:textColor="@color/white"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                       <androidx.appcompat.widget.AppCompatImageView
+                           android:layout_marginStart="@dimen/_2sdp"
+                           android:layout_gravity="center_vertical"
+                           android:src="@drawable/coins"
+                           android:layout_width="@dimen/_10sdp"
+                           android:layout_height="@dimen/_10sdp"/>
+                   </LinearLayout>
+               </LinearLayout>
+           </RelativeLayout>
+       </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_alignParentEnd="true"
+            app:cardBackgroundColor="?android:windowBackground"
+            app:cardCornerRadius="@dimen/_25sdp"
+            android:id="@+id/viewFinalize"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@drawable/button_gradient_yellow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="Finalize"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/dark"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
