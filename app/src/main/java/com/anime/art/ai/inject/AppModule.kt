@@ -1,5 +1,6 @@
 package com.anime.art.ai.inject
 
+import android.app.VoiceInteractor.Prompt
 import android.content.Context
 import androidx.room.Room
 import com.anime.art.ai.common.App
@@ -7,6 +8,7 @@ import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.Database
 import com.anime.art.ai.data.db.query.GalleryDao
+import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.data.manager.NotificationManagerImpl
 import com.anime.art.ai.data.repoository.SyncRepositoryImpl
 import com.anime.art.ai.domain.manager.NotificationManager
@@ -123,7 +125,9 @@ class AppModule {
     @Singleton
     fun provideStyleDao(database: Database): GalleryDao = database.galleryDao()
 
-
+    @Provides
+    @Singleton
+    fun providesPromptDao(database: Database) : PromptDao = database.promptDao()
     // Repository
 
     @Provides

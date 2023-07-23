@@ -59,7 +59,7 @@ class EnterPromptActivity :
                 isCanFinish = true
             } else {
                if(isCanFinish){
-                   finish()
+                   returnData()
                }
             }
         }
@@ -108,6 +108,7 @@ class EnterPromptActivity :
 
         val prompt = intent.getStringExtra(PROMPT_EXTRA)
         binding.edEnterPrompt.setText(prompt)
+        binding.edEnterPrompt.setSelection(binding.edEnterPrompt.text.length)
     }
 
     private fun scrollToMiddle() {

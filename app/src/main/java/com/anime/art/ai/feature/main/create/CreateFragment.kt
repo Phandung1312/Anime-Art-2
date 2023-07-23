@@ -1,39 +1,31 @@
 package com.anime.art.ai.feature.main.create
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.text.SpannableStringBuilder
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.registerForActivityResult
 import androidx.core.text.underline
 import androidx.core.view.isVisible
-import androidx.core.view.size
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.anime.art.ai.R
-import com.anime.art.ai.common.ItemRvClickListener
 import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.common.extension.startCreateImage
+import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.databinding.FragmentCreateBinding
 import com.anime.art.ai.domain.model.ArtStyle
 import com.anime.art.ai.domain.model.Character
 import com.anime.art.ai.domain.model.CharacterAppearance
-import com.anime.art.ai.domain.model.ControlNet
 import com.anime.art.ai.domain.model.SamplingMethod
 import com.anime.art.ai.domain.model.SizeOfImage
 import com.anime.art.ai.domain.model.Tag
 import com.anime.art.ai.domain.model.config.InputImage
-import com.anime.art.ai.feature.gallery.GalleryActivity
+import com.anime.art.ai.domain.model.config.Prompt
 import com.anime.art.ai.feature.main.create.adapter.ArtStyleAdapter
 import com.anime.art.ai.feature.main.create.adapter.CharAppAdapter
 import com.anime.art.ai.feature.main.create.adapter.ControlNetAdapter
@@ -45,12 +37,6 @@ import com.anime.art.ai.feature.main.create.adapter.TagAdapter
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDimens
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,11 +44,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::inflate) {
+    @Inject lateinit var promptDao: PromptDao
+
+    //Adapter
     @Inject lateinit var menuAdapter : MenuAdapter
     @Inject lateinit var sizeOfImageAdapter: SizeOfImageAdapter
     @Inject lateinit var artStyleAdapter: ArtStyleAdapter
@@ -71,6 +59,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     @Inject lateinit var samplingMethodAdapter : SamplingMethodAdapter
     @Inject lateinit var controlNetAdapter: ControlNetAdapter
     @Inject lateinit var inputImageAdapter: InputImageAdapter
+
 
     private var isShowSetting : Boolean = false
     private var isShowMore : Boolean = false
@@ -82,6 +71,8 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             field = value
         }
     private var inputImages : MutableList<InputImage> = ArrayList()
+
+    private var selectedPromptId = -1
     override fun onViewCreated() {
         initView()
         initData()
@@ -195,6 +186,14 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         binding.enterPromptView.clicks(withAnim = false) {
             openEnterPrompt()
         }
+        binding.historyPromptView.clicks {
+            val intent = Intent(activity, HistoryPromptActivity::class.java)
+            intent.putExtra(HistoryPromptActivity.PROMPT_INDEX, selectedPromptId)
+           getPromptFromHistoryResult.launch(intent)
+        }
+        binding.createView.clicks {
+            createImage()
+        }
     }
     private fun initObservable(){
         charAppAdapter
@@ -287,6 +286,30 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             val promptResult =  result.data?.getStringExtra(EnterPromptActivity.PROMPT_EXTRA)
             binding.edEnterPrompt.setText(promptResult)
         }
+    }
+
+    private val getPromptFromHistoryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if(result.resultCode == Activity.RESULT_OK){
+            selectedPromptId = result.data?.getIntExtra(HistoryPromptActivity.PROMPT_INDEX, -1) ?: -1
+            binding.edEnterPrompt.setText(result.data?.getStringExtra(HistoryPromptActivity.PROMPT))
+        }
+
+    }
+
+    private fun createImage(){
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val prompt : String  = binding.edEnterPrompt.text.toString()
+                promptDao.inserts(Prompt(text = prompt))
+                lifecycleScope.launch(Dispatchers.IO) {
+                    activity?.startCreateImage()
+                }
+            }
+            catch (e : Exception){
+                Timber.e("Insert prompt error")
+            }
+        }
 
     }
 
@@ -304,4 +327,5 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
         }
     }
+
 }

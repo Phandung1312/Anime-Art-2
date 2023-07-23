@@ -26,6 +26,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".feature.iap.IAPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.main.create.HistoryPromptActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.finalize.FinalizeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.createimage.CreateImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.main.create.EnterPromptActivity"
             android:exported="false" />
         <activity android:name=".feature.gallery.GalleryActivity" />
