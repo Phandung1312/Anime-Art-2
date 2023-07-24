@@ -41,11 +41,18 @@ class TagAdapter @Inject constructor() :
             com.intuit.sdp.R.dimen._2sdp
         }
 
-        binding.cardView.apply {
-            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
-            setCardBackgroundColor(if (position == selectedIndex) context.getColorCompat(R.color.yellow_black) else context.resolveAttrColor(android.R.attr.colorBackground))
-        }
+//        binding.cardView.apply {
+//            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
+//            setCardBackgroundColor(
+//                if (position == selectedIndex) context.getColorCompat(R.color.yellow_black)
+//                else context.resolveAttrColor(android.R.attr.colorBackground))
+//
+//        }
+        binding.viewTag.apply {
+            if(position == selectedIndex) setBackgroundResource(R.drawable.stroke_gradient_yellow)
+            setBackgroundColor(context.getColorCompat(R.color.background_dark_gray))
 
+        }
         layoutParams.marginStart = binding.root.context.resources.getDimensionPixelSize(marginStartResId)
         layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
         binding.display.text = item.display
