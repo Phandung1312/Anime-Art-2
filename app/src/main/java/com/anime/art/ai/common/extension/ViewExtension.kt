@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -21,6 +22,11 @@ fun TextView.gradient(startColor: Int, endColor: Int) {
     )
 
     paint.shader = textShader
+}
+fun View.margin(marginStartResId : Int, marginEndResId : Int){
+    val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+    layoutParams.marginStart = this.context.resources.getDimensionPixelSize(marginStartResId)
+    layoutParams.marginEnd = this.context.resources.getDimensionPixelSize(marginEndResId)
 }
 
 fun View.showKeyboard(){

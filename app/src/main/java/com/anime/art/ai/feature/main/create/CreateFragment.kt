@@ -191,7 +191,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             intent.putExtra(HistoryPromptActivity.PROMPT_INDEX, selectedPromptId)
            getPromptFromHistoryResult.launch(intent)
         }
-        binding.createView.clicks {
+        binding.createView.clicks(withAnim = false) {
             createImage()
         }
     }

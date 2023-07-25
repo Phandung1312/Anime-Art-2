@@ -21,6 +21,9 @@ interface GalleryDao {
     @Query("SELECT * FROM Galleries WHERE dislike = :dislike")
     fun getAllLikeLive(dislike: Boolean = false): LiveData<List<Gallery>>
 
+    @Query("SELECT * FROM Galleries WHERE favourite = :favourite")
+    fun getAllFavorite(favourite: Boolean = true): LiveData<List<Gallery>>
+
     // Inserts or deletes
 
     @Insert

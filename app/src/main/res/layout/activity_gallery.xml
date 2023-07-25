@@ -67,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Try This Prompt"
                 android:textColor="?colorOnPrimary"
                 android:textSize="@dimen/_12ssp"

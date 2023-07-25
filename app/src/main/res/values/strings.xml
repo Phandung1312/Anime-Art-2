@@ -3,4 +3,5 @@
     <string name="See_more"><u>See more</u></string>
     <string name="Hide"><u>Hide</u></string>
     <string name="default_notification_channel_id">Notification channel id</string>
+    <string name="a"></string>
 </resources>

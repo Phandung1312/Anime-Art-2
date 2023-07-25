@@ -11,10 +11,13 @@ import com.anime.art.ai.databinding.ActivityCreateImageBinding
 import com.anime.art.ai.domain.model.config.ViewImage
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
 import com.anime.art.ai.feature.finalize.FinalizeActivity
+import com.anime.art.ai.feature.iap.IAPActivity
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
+import com.uber.autodispose.android.lifecycle.scope
+import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -67,7 +70,13 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     }
 
     private fun initObservable() {
-
+        previewAdapter
+            .unlockClicks
+            .autoDispose(scope())
+            .subscribe {
+                val intent = Intent(this , IAPActivity::class.java)
+                startActivity(intent)
+            }
     }
 
     private fun initView() {

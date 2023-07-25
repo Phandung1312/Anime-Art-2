@@ -28,6 +28,8 @@ fun Activity.startCreateImage(){
     tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
 }
 
+
+
 fun Activity.back(){
     finish()
     tryOrNull { overridePendingTransition(R.anim.nothing, R.anim.slide_out_left) }

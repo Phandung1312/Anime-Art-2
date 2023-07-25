@@ -11,4 +11,5 @@
     <color name="yellow_black">#3E341C</color>
     <color name="background_dark_gray">#191919</color>
     <color name="light_gray">#292828</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

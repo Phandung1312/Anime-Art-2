@@ -95,7 +95,6 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
             .toggleFavouriteClicks
             .autoDispose(scope())
             .subscribe { gallery ->
-                Timber.e("Gallery is favourite: ${gallery.favourite}")
                 galleryDao.update(gallery)
             }
     }

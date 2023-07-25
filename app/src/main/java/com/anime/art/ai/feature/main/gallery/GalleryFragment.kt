@@ -26,6 +26,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
     @Inject lateinit var syncRepo: SyncRepository
 
     private var isToggleFavourite = false
+    private var isSyncedData = false
 
     override fun onViewCreated() {
         initView()
@@ -52,6 +53,14 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
 
                 isToggleFavourite = true
             }
+
+
+        (activity as? MainActivity)
+            ?.pageChanges
+            ?.filter { index -> index == 0 && !isSyncedData }
+            ?.take(1)
+            ?.autoDispose(scope())
+            ?.subscribe { syncData() }
     }
 
     private fun initData() {
@@ -63,12 +72,6 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             isToggleFavourite = false
         }
 
-        (activity as? MainActivity)
-            ?.pageChanges
-            ?.filter { index -> index == 0 }
-            ?.take(1)
-            ?.autoDispose(scope())
-            ?.subscribe { syncData() }
     }
 
     private fun initView() {
@@ -89,6 +92,10 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
 
                     if (isRunning){
                         binding.lottieView.playAnimation()
+                    }
+
+                    if (isDone){
+                        isSyncedData = true
                     }
 
                     binding.lottieView

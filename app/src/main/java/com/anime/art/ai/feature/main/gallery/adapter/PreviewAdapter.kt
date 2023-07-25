@@ -17,7 +17,7 @@ class PreviewAdapter @Inject constructor(): LsAdapter<Gallery, ItemPreviewInGall
 
     val clicks: Subject<Int> = PublishSubject.create()
     val toggleFavouriteClicks: Subject<Gallery> = PublishSubject.create()
-
+    var visibleFavorite = true
     override fun bindItem(item: Gallery, binding: ItemPreviewInGalleryBinding, position: Int) {
         ConstraintSet().apply {
             this.clone(binding.viewPreview)
@@ -26,7 +26,15 @@ class PreviewAdapter @Inject constructor(): LsAdapter<Gallery, ItemPreviewInGall
         }
 
         binding.display.text = item.display
-        binding.favourite.setImageResource(if (item.favourite) R.drawable.heart else R.drawable.unheart)
+        if(visibleFavorite){
+            binding.favourite.setImageResource(if (item.favourite) R.drawable.heart else R.drawable.unheart)
+            binding.favourite.clicks {
+                item.favourite = !item.favourite
+                binding.favourite.setImageResource(if (item.favourite) R.drawable.heart else R.drawable.unheart)
+
+                toggleFavouriteClicks.onNext(item)
+            }
+        }
 
         Glide.with(binding.root)
             .load(item.avatar)
@@ -41,12 +49,6 @@ class PreviewAdapter @Inject constructor(): LsAdapter<Gallery, ItemPreviewInGall
             .into(binding.preview)
 
         binding.viewClicks.clicks(withAnim = false) { clicks.onNext(position) }
-        binding.favourite.clicks {
-            item.favourite = !item.favourite
-            binding.favourite.setImageResource(if (item.favourite) R.drawable.heart else R.drawable.unheart)
-
-            toggleFavouriteClicks.onNext(item)
-        }
     }
 
 }
