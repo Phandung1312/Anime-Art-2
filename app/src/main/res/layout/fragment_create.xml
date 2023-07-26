@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/viewTop"
+            android:layout_marginTop="@dimen/_30sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:paddingStart="@dimen/_10sdp"

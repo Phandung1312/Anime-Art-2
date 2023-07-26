@@ -1,15 +1,19 @@
 package com.anime.art.ai.feature.main.mine
 
+import android.content.Intent
 import androidx.core.view.isVisible
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.startDetailGallery
+import com.anime.art.ai.common.extension.startSetting
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.databinding.FragmentMineBinding
 import com.anime.art.ai.feature.main.MainActivity
 import com.anime.art.ai.feature.main.gallery.adapter.PreviewAdapter
+import com.anime.art.ai.feature.setting.SettingActivity
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
+import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,6 +76,9 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
         }
         binding.favoriteCardView.clicks(withAnim = false) {
             screenSelected = FAVORITE
+        }
+        binding.setting.clicks {
+           activity?.startSetting()
         }
     }
 

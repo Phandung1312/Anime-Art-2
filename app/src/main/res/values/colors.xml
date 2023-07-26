@@ -11,5 +11,8 @@
     <color name="yellow_black">#3E341C</color>
     <color name="background_dark_gray">#191919</color>
     <color name="light_gray">#292828</color>
+    <color name="gray_3D">#3D3D3D</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="transparent_dialog">#35FFFFFF</color>
+    <color name="white_35">#35FFFFFF</color>
 </resources>
