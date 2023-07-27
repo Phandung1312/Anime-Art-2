@@ -12,6 +12,7 @@ import com.anime.art.ai.databinding.DialogDailyCreditBinding
 import com.anime.art.ai.domain.model.DailyReward
 import com.anime.art.ai.feature.main.gallery.adapter.DailyRewardAdapter
 import com.basic.common.extension.clicks
+import com.basic.common.extension.getDimens
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,17 +33,23 @@ class DailyCreditDialog : DialogFragment() {
     }
 
     private fun initListener() {
-        binding.receiveView.clicks(withAnim = false) {
-
+        binding.receiveCardView.clicks(withAnim = false) {
+            binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
+            binding.receiveLayout.setBackgroundColor(requireContext().getColor(R.color.gray_3D))
+            val currentDay = pref.numOfDayReceivedCredit.get()
+            pref.numOfDayReceivedCredit.set( currentDay + 1 )
+            setDayReward(pref.numOfDayReceivedCredit.get())
         }
     }
-
-    private fun initView() {
-        val imageResourceId = requireContext().resources.getIdentifier("_${pref.numOfDayReceivedCredit.get()}_tick","drawable",binding.root.context.packageName)
+    private fun setDayReward(day : Int){
+        val imageResourceId = requireContext().resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
         binding.ivCreditSlider.setImageResource(imageResourceId)
         binding.rv.adapter = dailyRewardAdapter
-        dailyRewardAdapter.data = DailyReward.values().take(pref.numOfDayReceivedCredit.get()).toList()
-
+        dailyRewardAdapter.data = DailyReward.values().take(day).toList()
+    }
+    private fun initView() {
+        binding.rv.adapter = dailyRewardAdapter
+        setDayReward(pref.numOfDayReceivedCredit.get())
     }
 
     override fun onStart() {

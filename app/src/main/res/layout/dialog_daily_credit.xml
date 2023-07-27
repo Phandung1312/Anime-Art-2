@@ -196,7 +196,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/receive_view"
+        android:id="@+id/receive_cardView"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_27sdp"
         app:cardBackgroundColor="@color/backgroundDark"
@@ -204,10 +204,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/reward_daily_view"
-        app:strokeColor="@color/white_35"
-        app:strokeWidth="@dimen/_1sdp">
+        app:strokeColor="@color/white_35">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/receive_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/button_gradient_yellow">

@@ -1,13 +1,9 @@
 package com.anime.art.ai.feature.main.create.adapter
 
 import android.annotation.SuppressLint
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.margin
 import com.anime.art.ai.databinding.ItemTagBinding
-import com.anime.art.ai.domain.model.Character
-import com.anime.art.ai.domain.model.CharacterAppearance
 import com.anime.art.ai.domain.model.Tag
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
