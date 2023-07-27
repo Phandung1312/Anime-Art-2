@@ -19,5 +19,6 @@ class Preferences @Inject constructor(
     val timeExpiredPremium = rxPrefs.getLong("timeExpiredPremium", -1) // Milliseconds
     val versionGallery = rxPrefs.getLong("versionGallery", 0)
 
-
+    val timeGetDailyCredit = rxPrefs.getString("lastTimeGetCredit", "")
+    val numOfDayReceivedCredit = rxPrefs.getInteger("numOfDayReceivedCredit", 1)
 }

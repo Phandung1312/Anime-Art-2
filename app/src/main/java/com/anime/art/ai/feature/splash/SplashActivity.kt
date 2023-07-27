@@ -41,8 +41,10 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
         when {
             !prefs.isUpgraded.get() -> startMain()
             else -> startMain()
+
         }
         finish()
+
     }
 
     private fun syncRemoteConfig(done: () -> Unit) {

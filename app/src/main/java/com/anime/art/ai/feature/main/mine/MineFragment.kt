@@ -57,17 +57,6 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
         initListener()
     }
     private fun initData() {
-        (activity as? MainActivity)
-            ?.pageChanges
-            ?.filter { index -> index == 2 }
-            ?.take(1)
-            ?.autoDispose(scope())
-            ?.subscribe {
-                galleryDao.getAllFavorite().observe(viewLifecycleOwner) { galleries ->
-                    binding.emptyLayout.isVisible = (galleries.isEmpty())
-                    this.favoriteAdapter.data = galleries
-                }
-            }
     }
 
     private fun initListener() {
@@ -98,6 +87,17 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
             .subscribe { gallery ->
                 galleryDao.update(gallery)
 
+            }
+        (activity as? MainActivity)
+            ?.pageChanges
+            ?.filter { index -> index == 2 }
+            ?.take(1)
+            ?.autoDispose(scope())
+            ?.subscribe {
+                galleryDao.getAllFavorite().observe(viewLifecycleOwner) { galleries ->
+                    binding.emptyLayout.isVisible = (galleries.isEmpty())
+                    this.favoriteAdapter.data = galleries
+                }
             }
     }
 

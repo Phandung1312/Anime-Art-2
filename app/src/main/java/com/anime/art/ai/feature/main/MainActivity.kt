@@ -26,8 +26,8 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
 
     @Inject lateinit var syncRepo: SyncRepository
     private val fragments by lazy { listOf(GalleryFragment(), CreateFragment(), MineFragment()) }
-    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(1) // Default Tab Create
-    val pageChanges: Subject<Int> = BehaviorSubject.createDefault(1)
+    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(0) // Default Tab Create
+    val pageChanges: Subject<Int> = BehaviorSubject.createDefault(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

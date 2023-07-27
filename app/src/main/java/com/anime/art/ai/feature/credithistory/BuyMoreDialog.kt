@@ -69,7 +69,7 @@ class BuyMoreDialog(
         }
        if(isSelected){
            cardView?.strokeWidth = 0
-           layout?.setBackgroundResource(R.drawable.stroke_gradient_yellow)
+           layout?.setBackgroundResource(R.drawable.gradient_credit)
 
        }
         else{
@@ -83,6 +83,15 @@ class BuyMoreDialog(
         }
         binding.secondCreditView.clicks(withAnim = false) {
             selectedPackCredit = 2
+        }
+        binding.thirdCreditView.clicks(withAnim = false) {
+            selectedPackCredit = 3
+        }
+        binding.fourthCreditView.clicks(withAnim = false) {
+            selectedPackCredit = 4
+        }
+        binding.fifthCreditView.clicks(withAnim = false) {
+            selectedPackCredit = 5
         }
         binding.close.clicks {
             dismiss()
