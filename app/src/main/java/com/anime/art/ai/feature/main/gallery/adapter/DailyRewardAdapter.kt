@@ -7,8 +7,6 @@ import javax.inject.Inject
 
 class DailyRewardAdapter @Inject constructor() : LsAdapter<DailyReward, ItemDailyRewardBinding>(ItemDailyRewardBinding::inflate)  {
     override fun bindItem(item: DailyReward, binding: ItemDailyRewardBinding, position: Int) {
-        binding.tv.text = item.reward
+        binding.tv.text = "+${item.reward}"
     }
-
-
 }

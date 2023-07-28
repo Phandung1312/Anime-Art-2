@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.back
+import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.databinding.ActivityIapactivityBinding
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
 import com.basic.common.base.LsActivity
@@ -63,6 +64,6 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
     }
 
     private fun initView() {
-
+        binding.tvTittle.gradient(R.color.yellow, R.color.dark_yellow)
     }
 }

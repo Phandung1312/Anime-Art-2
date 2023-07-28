@@ -1,17 +1,22 @@
 package com.anime.art.ai.feature.splash
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.extension.startMain
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.ActivitySplashBinding
+import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.tryOrNull
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -22,6 +27,7 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
 
     @Inject lateinit var prefs: Preferences
     @Inject lateinit var configApp: ConfigApp
+    @Inject lateinit var serverApiRepo: ServerApiRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +40,10 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
 
 
     private fun initData() {
-        syncRemoteConfig { doTask() }
+        syncRemoteConfig {
+
+            doTask()
+        }
     }
 
     private fun doTask(){

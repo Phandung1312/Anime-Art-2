@@ -164,12 +164,12 @@ enum class Tag(val cAId : Int, val display : String ){
 }
 
 enum class DailyReward(val reward : String){
-    Day1( reward = "+10"),
-    Day2( reward = "+20"),
-    Day3( reward = "+30"),
-    Day4( reward = "+50"),
-    Day5( reward = "+70"),
-    Day6( reward = "+80"),
-    Day7( reward = "+100"),
+    Day1( reward = "10"),
+    Day2( reward = "20"),
+    Day3( reward = "30"),
+    Day4( reward = "50"),
+    Day5( reward = "70"),
+    Day6( reward = "80"),
+    Day7( reward = "100"),
 }
 

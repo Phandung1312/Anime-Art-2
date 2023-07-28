@@ -1,6 +1,5 @@
 package com.anime.art.ai.feature.main.create.adapter
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.ViewGroup
 import com.anime.art.ai.R
@@ -28,23 +27,16 @@ class InputImageAdapter @Inject constructor() : LsAdapter<InputImage, ItemInputI
             field = value
         }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun update(data:List<InputImage>){
-        this.data = emptyList()
-        this.data += data
-        notifyDataSetChanged()
-    }
-
     override fun bindItem(item: InputImage, binding: ItemInputImageBinding, position: Int) {
 
         val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         val marginStartResId = if (position == 0) {
-            com.intuit.sdp.R.dimen._18sdp
+            com.intuit.sdp.R.dimen._10sdp
         } else {
             com.intuit.sdp.R.dimen._4sdp
         }
         val marginEndResId = if (position == itemCount - 1) {
-            com.intuit.sdp.R.dimen._18sdp
+            com.intuit.sdp.R.dimen._10sdp
         } else {
             com.intuit.sdp.R.dimen._4sdp
         }

@@ -1,6 +1,5 @@
 package com.anime.art.ai.inject
 
-import android.app.VoiceInteractor.Prompt
 import android.content.Context
 import androidx.room.Room
 import com.anime.art.ai.common.App
@@ -10,9 +9,12 @@ import com.anime.art.ai.data.db.Database
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.data.manager.NotificationManagerImpl
+import com.anime.art.ai.data.repoository.ServerApiRepositoryImpl
 import com.anime.art.ai.data.repoository.SyncRepositoryImpl
 import com.anime.art.ai.domain.manager.NotificationManager
+import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.domain.repository.SyncRepository
+import com.anime.art.ai.inject.sinkin.ServerApi
 import com.anime.art.ai.inject.sinkin.SinkinApi
 import com.basic.data.PreferencesConfig
 import com.f2prateek.rx.preferences2.RxSharedPreferences
@@ -107,7 +109,61 @@ class AppModule {
 
         return retrofit.create(SinkinApi::class.java)
     }
+    @Provides
+    @Singleton
+    fun providesOkHttpClient() : OkHttpClient{
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.d(message)
+        }
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
+        val networkInterceptor = Interceptor {
+            val request = it.request().newBuilder().build()
+            it.proceed(request)
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val requestBuilder = chain
+                    .request()
+                    .newBuilder()
+
+                chain.proceed(requestBuilder.build())
+            }
+            .addInterceptor(loggingInterceptor)
+            .addNetworkInterceptor(networkInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
+            .hostnameVerifier { _, _ -> true }
+            .retryOnConnectionFailure(false)
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(1, TimeUnit.MINUTES)
+            .build()
+
+        return okHttpClient
+    }
+
+    @Provides
+    @Singleton
+    fun providesGsonConverterFactory() : GsonConverterFactory{
+        val gson = GsonBuilder().setLenient().create()
+        return GsonConverterFactory.create(gson)
+    }
+
+    @Provides
+    @Singleton
+    fun providesRetrofit(gsonConverterFactory: GsonConverterFactory,
+    okHttpClient: OkHttpClient) : Retrofit{
+        return Retrofit.Builder()
+            .addConverterFactory(gsonConverterFactory)
+            .baseUrl(Constraint.BASE_URL)
+            .build()
+    }
+
+    @Provides
+    fun providesServerApi(retrofit: Retrofit) : ServerApi{
+        return retrofit.create(ServerApi::class.java)
+    }
     // Database
 
     @Provides
@@ -132,7 +188,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSyncRepositoryImpl(manager: SyncRepositoryImpl): SyncRepository = manager
+    fun provideSyncRepositoryImpl(repo: SyncRepositoryImpl): SyncRepository = repo
+
+    @Provides
+    @Singleton
+    fun provideServerApiRepositoryImpl(repo: ServerApiRepositoryImpl): ServerApiRepository = repo
 
     // Manager
 

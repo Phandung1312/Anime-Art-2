@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -23,14 +24,16 @@
             tools:text="Get Reward Daily" />
 
         <TextView
+            android:id="@+id/tv_time_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:textSize="@dimen/_8ssp"
-            tools:text="Get Reward Daily" />
+            tools:text="2023-05-30" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/credit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_10sdp"

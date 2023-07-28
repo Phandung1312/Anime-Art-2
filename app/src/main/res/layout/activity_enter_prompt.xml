@@ -50,7 +50,7 @@
                 android:layout_marginEnd="@dimen/_30sdp"
                 android:backgroundTint="@android:color/transparent"
                 android:textSize="@dimen/_12ssp"
-                android:textColor="@color/textTertiaryDark"
+                android:textColor="@color/white"
                 android:hint="Enter prompt"
                 android:textColorHint="@color/textTertiaryDark"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class BuyMoreDialog(
     ) : DialogFragment() {
     private lateinit var  binding : DialogBuyMoreBinding
-    private var selectedPackCredit = 5
+    private var selectedPackCredit = 0
         set(value){
             if(field == value) return
             setBackground(field, isSelected = false)
@@ -40,7 +40,7 @@ class BuyMoreDialog(
     }
 
     private fun initView() {
-
+        selectedPackCredit = 5
     }
     private fun setBackground(index : Int, isSelected : Boolean){
         var cardView : MaterialCardView? = null

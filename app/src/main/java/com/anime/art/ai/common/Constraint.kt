@@ -27,4 +27,11 @@ class Constraint {
         }
     }
 
+    companion object{
+        const val BASE_URL : String = "http://13.57.181.100/api/"
+        const val CREATE_ARTWORK : String ="CREATE_ARTWORK"
+        const val PURCHASED_WEEK : String ="PURCHASED_WEEK"
+        const val PURCHASED_YEAR : String ="PURCHASED_YEAR"
+    }
+
 }

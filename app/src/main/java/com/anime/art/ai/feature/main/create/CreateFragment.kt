@@ -26,6 +26,7 @@ import com.anime.art.ai.domain.model.SizeOfImage
 import com.anime.art.ai.domain.model.Tag
 import com.anime.art.ai.domain.model.config.InputImage
 import com.anime.art.ai.domain.model.config.Prompt
+import com.anime.art.ai.feature.credithistory.BuyMoreDialog
 import com.anime.art.ai.feature.main.create.adapter.ArtStyleAdapter
 import com.anime.art.ai.feature.main.create.adapter.CharAppAdapter
 import com.anime.art.ai.feature.main.create.adapter.ControlNetAdapter
@@ -193,6 +194,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
         binding.createView.clicks(withAnim = false) {
             createImage()
+        }
+        binding.creditView.clicks(withAnim = false) {
+            val buyMoreDialog = BuyMoreDialog()
+            buyMoreDialog.show(parentFragmentManager, null)
         }
     }
     private fun initObservable(){

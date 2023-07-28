@@ -1,8 +1,10 @@
 package com.basic.common.extension
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.net.ConnectivityManager
+import android.provider.Settings
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -41,7 +43,10 @@ fun Context.resolveAttrColor(@AttrRes attr: Int): Int {
 fun Context.getDimens(@DimenRes dimenRes: Int): Float {
     return resources.getDimension(dimenRes)
 }
-
+@SuppressLint("HardwareIds")
+fun Context.getDeviceId() : String{
+    return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+}
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager =
         getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

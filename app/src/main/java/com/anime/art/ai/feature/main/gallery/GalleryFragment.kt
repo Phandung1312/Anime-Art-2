@@ -1,18 +1,29 @@
 package com.anime.art.ai.feature.main.gallery
 
+import android.content.Intent
 import android.os.Build
+import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
+import com.anime.art.ai.R
+import com.anime.art.ai.common.Constraint
+import com.anime.art.ai.common.extension.convertToShortDate
+import com.anime.art.ai.common.extension.dayBetween
+import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.observeOnce
 import com.anime.art.ai.common.extension.startDetailGallery
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.databinding.FragmentGalleryBinding
+import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.domain.repository.SyncRepository
+import com.anime.art.ai.feature.iap.IAPActivity
 import com.anime.art.ai.feature.main.MainActivity
 import com.anime.art.ai.feature.main.gallery.adapter.PreviewAdapter
 import com.anime.art.ai.feature.main.gallery.dialog.DailyCreditDialog
 import com.basic.common.base.LsFragment
+import com.basic.common.extension.clicks
+import com.basic.common.extension.getDeviceId
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -32,13 +44,21 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
     @Inject lateinit var previewAdapter: PreviewAdapter
     @Inject lateinit var galleryDao: GalleryDao
     @Inject lateinit var syncRepo: SyncRepository
-
+    @Inject lateinit var serverApiRepository: ServerApiRepository
     private var isToggleFavourite = false
     private var isSyncedData = false
 
     override fun onViewCreated() {
         initView()
         initData()
+        initListener()
+    }
+
+    private fun initListener() {
+       binding.premiumView.clicks {
+           val intent = Intent(activity , IAPActivity::class.java)
+           startActivity(intent)
+       }
     }
 
     override fun onResume() {
@@ -83,18 +103,35 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
 
     }
     private fun checkDailyCreditReceived(){
-        val time = pref.timeGetDailyCredit.get()
-        if(time.isNotEmpty()){
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val dateTime = LocalDateTime.parse(time, formatter)
-            val currentDateTime = LocalDateTime.now()
-            val minutesDiff = ChronoUnit.MINUTES.between(dateTime, currentDateTime)
-            if (minutesDiff > 5 ) return
+        lifecycleScope.launch(Dispatchers.IO) {
+            serverApiRepository.getCreditHistory(requireContext().getDeviceId()){histories ->
+                var consecutiveSeries  = 0
+                val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.CREATE_ARTWORK)  }
+                    .map { it.createdAt.convertToShortDate()}
+                    .reversed()
+                val currentDateTime = LocalDate.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                val formattedDate = currentDateTime.format(formatter)
+                if(formattedDate.dayBetween(newList[0]) > 0L) {
+                    for(i in 0 ..   newList.size -2){
+                        if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                        consecutiveSeries += 1
+                        if(consecutiveSeries > 6){
+                            consecutiveSeries = 0
+                            break
+                        }
+                    }
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val dailyCreditDialog  = DailyCreditDialog(consecutiveSeries)
+                        dailyCreditDialog.show(parentFragmentManager, null)
+                }
+                }
+            }
+
         }
-        val dailyCreditDialog  = DailyCreditDialog()
-        dailyCreditDialog.show(parentFragmentManager, null)
     }
     private fun initView() {
+        binding.tvTittle.gradient(R.color.yellow, R.color.dark_yellow)
         binding.recyclerView.apply {
             this.adapter = previewAdapter
             this.itemAnimator = null
