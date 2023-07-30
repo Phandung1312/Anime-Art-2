@@ -8,19 +8,22 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
-import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.DialogDailyCreditBinding
 import com.anime.art.ai.domain.model.DailyReward
+import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.main.gallery.adapter.DailyRewardAdapter
+import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getColorCompat
+import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -32,6 +35,7 @@ class DailyCreditDialog(
     private lateinit var  binding : DialogDailyCreditBinding
     @Inject lateinit var pref : Preferences
     @Inject lateinit var dailyRewardAdapter: DailyRewardAdapter
+    @Inject lateinit var serverApiRepository: ServerApiRepository
 
     private var isPreSet = false
     override fun onCreateView(
@@ -64,26 +68,26 @@ class DailyCreditDialog(
             listText[day - 1].setTextColor(requireContext().getColorCompat(R.color.dark_yellow))
         }
 
-        Timber.tag("Main12345").e("Index: $day")
     }
     private fun initListener() {
         binding.receiveCardView.clicks(withAnim = false) {
-
-            binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
-            binding.receiveLayout.setBackgroundColor(requireContext().getColor(R.color.gray_3D))
-            val currentDay = pref.numOfDayReceivedCredit.get()
-            pref.numOfDayReceivedCredit.set( currentDay + 1 )
-            setDayReward(pref.numOfDayReceivedCredit.get())
-            // Lấy ngày và giờ hiện tại
-            val currentDateTime = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            val formattedDateTime = currentDateTime.format(formatter)
-            pref.timeGetDailyCredit.set(formattedDateTime)
-            val receivedCredit = DailyReward.values().take(pref.numOfDayReceivedCredit.get()).last().reward
-            requireContext().makeToast("You have received $receivedCredit credit")
-            lifecycleScope.launch {
-                delay(500)
-                dismiss()
+            binding.receiveCardView.isEnabled = false
+            lifecycleScope.launch(Dispatchers.IO) {
+                val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
+                val request = UpdateCreditRequest(todayReward, Constraint.CREATE_ARTWORK)
+                serverApiRepository.updateCredit(requireContext().getDeviceId(),request){
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
+                        binding.receiveLayout.setBackgroundColor(requireContext().getColor(R.color.gray_3D))
+                        binding.tvReceive.setTextColor(requireContext().getColor(R.color.light_gray))
+                        setDayReward( consecutiveSeries + 1 )
+                        requireContext().makeToast("You have received $todayReward credit")
+                        pref.consecutiveSeries.set(consecutiveSeries + 1)
+                        pref.isReceived.set(true)
+                        delay(300)
+                        dismiss()
+                    }
+                }
             }
         }
     }

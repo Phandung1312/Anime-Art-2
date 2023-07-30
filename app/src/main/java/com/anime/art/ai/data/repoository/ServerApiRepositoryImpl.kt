@@ -8,6 +8,7 @@ import com.anime.art.ai.domain.model.response.LoginResponse
 import com.anime.art.ai.domain.model.response.MessageResponse
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.inject.sinkin.ServerApi
+import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +16,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-abstract class ServerApiRepositoryImpl @Inject constructor(
+class ServerApiRepositoryImpl @Inject constructor(
     private val serverApi: ServerApi
 ): ServerApiRepository {
 
@@ -29,7 +30,7 @@ abstract class ServerApiRepositoryImpl @Inject constructor(
             ) {
                 if(response.isSuccessful){
                     response.body()?.let { loginResponse ->
-
+                        result.invoke(loginResponse.data)
                     }
                 }
                 else{
@@ -68,7 +69,24 @@ abstract class ServerApiRepositoryImpl @Inject constructor(
         })
     }
 
-    override suspend fun updateCredit(deviceId: String, result: (MessageResponse) -> Unit) {
+    override suspend fun updateCredit(deviceId: String,request: UpdateCreditRequest, result: (Boolean) -> Unit) {
+        val response = serverApi.updateCredit(deviceId, request)
+        response.enqueue(object  : Callback<MessageResponse?>{
+            override fun onResponse(
+                call: Call<MessageResponse?>,
+                response: Response<MessageResponse?>
+            ) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        result.invoke(true)
+                    }
+                }
+            }
 
+            override fun onFailure(call: Call<MessageResponse?>, t: Throwable) {
+
+            }
+
+        })
     }
 }

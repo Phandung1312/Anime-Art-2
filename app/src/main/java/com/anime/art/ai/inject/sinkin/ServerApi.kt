@@ -5,18 +5,29 @@ import com.anime.art.ai.domain.model.response.HistoryResponse
 import com.anime.art.ai.domain.model.response.LoginResponse
 import com.anime.art.ai.domain.model.response.MessageResponse
 import com.google.gson.JsonElement
+import com.google.gson.annotations.SerializedName
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ServerApi {
     @GET("user/{deviceId}")
-    fun login(@Path("deviceId") deviceId : String) : Call<LoginResponse?>
+    fun login(@Path("deviceId") deviceId: String): Call<LoginResponse?>
 
     @GET("historys/{deviceId}")
-    fun getCreditHistory(@Path("deviceId") deviceId : String) : Call<HistoryResponse?>
+    fun getCreditHistory(@Path("deviceId") deviceId: String): Call<HistoryResponse?>
 
-    @POST("user/update/")
-    fun updateCredit(@Path("deviceId") deviceId: String): Call<MessageResponse?>
+    @POST("user/update/{deviceId}")
+    fun updateCredit(
+        @Path("deviceId") deviceId: String,
+        @Body request: UpdateCreditRequest
+    ): Call<MessageResponse?>
 }
+
+data class UpdateCreditRequest(
+    @SerializedName("credit") val credit: Long,
+    @SerializedName("title") val title: String,
+    // Các trường dữ liệu khác nếu cần
+)

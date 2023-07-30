@@ -16,6 +16,7 @@ import androidx.transition.TransitionManager
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreateImage
+import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.databinding.FragmentCreateBinding
 import com.anime.art.ai.domain.model.ArtStyle
@@ -38,6 +39,7 @@ import com.anime.art.ai.feature.main.create.adapter.TagAdapter
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDimens
+import com.uber.autodispose.android.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +52,7 @@ import kotlin.math.roundToInt
 @AndroidEntryPoint
 class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::inflate) {
     @Inject lateinit var promptDao: PromptDao
-
+    @Inject lateinit var preferences: Preferences
     //Adapter
     @Inject lateinit var menuAdapter : MenuAdapter
     @Inject lateinit var sizeOfImageAdapter: SizeOfImageAdapter
@@ -79,7 +81,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         initData()
         listenerView()
     }
-
     private fun animateHideOrShowControlNet(isShowed: Boolean){
         activity?.let {activity ->
             val dp200 = activity.getDimens(com.intuit.sdp.R.dimen._200sdp).toInt()
@@ -201,6 +202,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
     }
     private fun initObservable(){
+        preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
+            binding.tvCreditAmount.text = creditAmount.toString()
+        }
         charAppAdapter
             .clicks
             .autoDispose(scope())

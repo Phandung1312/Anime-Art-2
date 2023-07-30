@@ -10,10 +10,14 @@ import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.ActivitySplashBinding
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.basic.common.base.LsActivity
+import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.tryOrNull
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.uber.autodispose.android.autoDispose
+import com.uber.autodispose.android.lifecycle.autoDispose
+import com.uber.autodispose.android.lifecycle.scope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,8 +45,14 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
 
     private fun initData() {
         syncRemoteConfig {
-
-            doTask()
+            lifecycleScope.launch(Dispatchers.IO) {
+                serverApiRepo.login(getDeviceId()){login ->
+                    prefs.creditAmount.set(login.credit)
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        doTask()
+                    }
+                }
+            }
         }
     }
 

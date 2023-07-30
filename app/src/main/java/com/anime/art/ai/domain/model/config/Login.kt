@@ -12,19 +12,19 @@ data class Login(
     @SerializedName("is_premium")
     @Expose
     var title : Int = 0,
-    @SerializedName("is_premium")
+    @SerializedName("credit")
     @Expose
     var credit : Long = 0,
-    @SerializedName("is_premium")
+    @SerializedName("total_images")
     @Expose
     var totalImages : Int = 0,
-    @SerializedName("is_premium")
+    @SerializedName("total_images_day")
     @Expose
     var totalImagesDay  : Int = 0,
-    @SerializedName("is_premium")
+    @SerializedName("created_at")
     @Expose
     var createAt : String = "",
-    @SerializedName("is_premium")
+    @SerializedName("updated_at")
     @Expose
     var updateAt : String = "",
     )

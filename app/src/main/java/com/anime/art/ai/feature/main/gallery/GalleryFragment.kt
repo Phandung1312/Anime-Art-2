@@ -24,6 +24,7 @@ import com.anime.art.ai.feature.main.gallery.dialog.DailyCreditDialog
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
+import com.uber.autodispose.android.lifecycle.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,19 +101,26 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             isToggleFavourite = false
         }
         checkDailyCreditReceived()
-
     }
     private fun checkDailyCreditReceived(){
         lifecycleScope.launch(Dispatchers.IO) {
             serverApiRepository.getCreditHistory(requireContext().getDeviceId()){histories ->
-                var consecutiveSeries  = 0
                 val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.CREATE_ARTWORK)  }
                     .map { it.createdAt.convertToShortDate()}
                     .reversed()
+                if (newList.isEmpty()) {
+                    showDailyReward(0)
+                    return@getCreditHistory
+                }
                 val currentDateTime = LocalDate.now()
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                 val formattedDate = currentDateTime.format(formatter)
-                if(formattedDate.dayBetween(newList[0]) > 0L) {
+                if(formattedDate.dayBetween(newList[0]) == 1L) {
+                    var consecutiveSeries  = 0
+                    if(newList.size == 1) {
+                        showDailyReward(1)
+                        return@getCreditHistory
+                    }
                     for(i in 0 ..   newList.size -2){
                         if(newList[i].dayBetween(newList[i + 1]) > 1L) break
                         consecutiveSeries += 1
@@ -121,13 +129,17 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                             break
                         }
                     }
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        val dailyCreditDialog  = DailyCreditDialog(consecutiveSeries)
-                        dailyCreditDialog.show(parentFragmentManager, null)
+                 showDailyReward(consecutiveSeries)
                 }
-                }
+                else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
             }
 
+        }
+    }
+    private  fun showDailyReward(consecutiveSeries : Int){
+        lifecycleScope.launch(Dispatchers.Main){
+            val dailyCreditDialog  = DailyCreditDialog(consecutiveSeries)
+            dailyCreditDialog.show(parentFragmentManager, null)
         }
     }
     private fun initView() {

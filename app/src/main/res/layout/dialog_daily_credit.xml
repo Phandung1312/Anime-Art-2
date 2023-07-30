@@ -9,8 +9,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/reward_daily_view"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
@@ -193,10 +191,11 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_credit_slider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="320:35"
+            android:scaleType="fitCenter"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:scaleType="fitCenter"
             app:layout_constraintTop_toBottomOf="@id/rv"
             tools:layout_editor_absoluteX="19dp"
             tools:src="@drawable/_2_tick" />
@@ -221,6 +220,7 @@
             android:background="@drawable/button_gradient_yellow">
 
             <TextView
+                android:id="@+id/tv_receive"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

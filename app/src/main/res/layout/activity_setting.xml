@@ -56,6 +56,7 @@
                     android:src="@drawable/coins" />
 
                 <com.basic.common.widget.LsTextView
+                    android:id="@id/tv_credit_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -71,8 +72,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/reward_daily_view"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/viewTop">
@@ -80,14 +80,16 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/appCompatImageView4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/reward_daily_frame" />
+            android:layout_height="0dp"
+            android:src="@drawable/reward_daily_frame"
+            app:layout_constraintDimensionRatio="416:302"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/inter_tight_semi_bold"
             android:text="Get Reward Daily"
             android:textAlignment="center"
@@ -98,12 +100,13 @@
             android:id="@+id/day_view"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_50sdp"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/tv_day1"
                 android:gravity="center"
                 android:text="Day 1"
                 android:textSize="@dimen/_10ssp"
@@ -112,6 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_day2"
                 android:gravity="center"
                 android:text="Day 2"
                 android:textSize="@dimen/_10ssp"
@@ -120,6 +124,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_day3"
                 android:gravity="center"
                 android:text="Day 3"
                 android:textSize="@dimen/_10ssp"
@@ -128,6 +133,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_day4"
                 android:gravity="center"
                 android:text="Day 4"
                 android:textSize="@dimen/_10ssp"
@@ -136,6 +142,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_day5"
                 android:gravity="center"
                 android:text="Day 5"
                 android:textSize="@dimen/_10ssp"
@@ -144,6 +151,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_day6"
                 android:gravity="center"
                 android:text="Day 6"
                 android:textSize="@dimen/_10ssp"
@@ -152,6 +160,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_day7"
                 android:gravity="center"
                 android:text="Day 7"
                 android:textSize="@dimen/_10ssp"
@@ -215,7 +224,7 @@
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view"
@@ -227,35 +236,44 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView12"
+            android:id="@+id/iv_credit_slider"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="320:35"
             android:scaleType="fitCenter"
             android:src="@drawable/_2_tick"
             app:layout_constraintTop_toBottomOf="@id/rv" />
 
         <com.google.android.material.card.MaterialCardView
-            app:strokeWidth="@dimen/_1sdp"
-            app:strokeColor="@color/white_35"
-            app:cardBackgroundColor="@color/backgroundDark"
-            app:cardCornerRadius="@dimen/_30sdp"
+            android:id="@+id/receive_cardView"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_27sdp"
+            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardCornerRadius="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView4"
             app:layout_constraintEnd_toEndOf="@+id/appCompatImageView4"
             app:layout_constraintStart_toStartOf="@+id/appCompatImageView4"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatImageView12" >
+            app:layout_constraintTop_toBottomOf="@+id/iv_credit_slider"
+            app:strokeColor="@color/white_35"
+            app:strokeWidth="@dimen/_1sdp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/gray_3D"
+                android:id="@+id/receive_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/gray_3D">
+
                 <TextView
-                    android:gravity="center"
-                    android:textColor="@color/white_35"
-                    android:text="Received"
+                    android:id="@+id/tv_receive"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Received"
+                    android:textColor="@color/white_35"
+                    app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
