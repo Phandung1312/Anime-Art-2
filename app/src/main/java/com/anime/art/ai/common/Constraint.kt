@@ -18,6 +18,7 @@ class Constraint {
             const val PRIVACY_URL = ""
             const val TERMS_URL = ""
             const val DATA_VERSION = 2
+            const val DEFAULT_QUALITY = 512
         }
     }
 
@@ -26,7 +27,12 @@ class Constraint {
 
         }
     }
-
+    class AIGeneration{
+        companion object{
+            const val URL = "https://api.getimg.ai/v1/stable-diffusion/"
+            const val KEY = "key-jF3RWX1QTULE09qZo97jcFnleOCpANj92PLnjLAPzZONoGrgrNxjwLz3laotG6XfoUDSRJYlK6FEyjzSNFDccOzBYFmHOYx"
+        }
+    }
     companion object{
         const val BASE_URL : String = "http://13.57.181.100/api/"
         const val CREATE_ARTWORK : String ="CREATE_ARTWORK"

@@ -237,14 +237,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_credit_slider"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="320:35"
+            app:layout_constraintDimensionRatio="320:40"
             android:scaleType="fitCenter"
-            android:src="@drawable/_2_tick"
-            app:layout_constraintTop_toBottomOf="@id/rv" />
+            android:src="@drawable/_0_tick"
+            app:layout_constraintTop_toBottomOf="@id/image_daily_view" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/receive_cardView"
@@ -325,6 +326,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/shareView"
             app:cardBackgroundColor="@color/backgroundDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

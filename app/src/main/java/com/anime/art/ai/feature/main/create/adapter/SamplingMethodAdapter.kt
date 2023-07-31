@@ -24,7 +24,9 @@ class SamplingMethodAdapter @Inject constructor() :
             value.takeIf { it != -1 }?.let { notifyItemChanged(it) }
             field = value
         }
-
+    init {
+        selectedIndex = 0
+    }
     override fun bindItem(item: SamplingMethod, binding: ItemTagBinding, position: Int) {
         val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         val marginStartResId = if (position == 0) {

@@ -1,6 +1,7 @@
 package com.anime.art.ai.feature.setting
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
@@ -59,15 +60,13 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         )
         if(!isPreSet){
             listText.take(day).forEach {  tv ->
-                //tv.setTextColor(getColorCompat(R.color.dark_yellow))
                 tv.gradient(R.color.yellow, R.color.dark_yellow)
             }
             isPreSet = true
         }
         else {
-//            listText[day - 1].setTextColor(getColorCompat(R.color.dark_yellow))
             listText[day - 1].gradient(R.color.yellow, R.color.dark_yellow)
-//            binding.tvDay7.gradient(R.color.light_gray, R.color.dark_yellow)
+            listText[day - 1].requestLayout()
         }
 
     }
@@ -84,20 +83,26 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             buyMoreDialog.show(supportFragmentManager, null)
         }
         binding.receiveCardView.clicks(withAnim = false) {
-//            binding.receiveCardView.isEnabled = false
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
-//                val request = UpdateCreditRequest(todayReward, Constraint.CREATE_ARTWORK)
-//                serverApiRepository.updateCredit(getDeviceId(),request){
-//                    lifecycleScope.launch(Dispatchers.Main) {
-//                        setDayReward( consecutiveSeries + 1 )
-//                        makeToast("You have received $todayReward credit")
-//                        preferences.consecutiveSeries.set(consecutiveSeries + 1)
-//                        preferences.isReceived.set(true)
-//                    }
-//                }
-//            }
-            setDayReward(7)
+            binding.receiveCardView.isEnabled = false
+            lifecycleScope.launch(Dispatchers.IO) {
+                val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
+                val request = UpdateCreditRequest(todayReward, Constraint.CREATE_ARTWORK)
+                serverApiRepository.updateCredit(getDeviceId(),request){
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        setDayReward( consecutiveSeries + 1 )
+                        makeToast("You have received $todayReward credit")
+                        preferences.consecutiveSeries.set(consecutiveSeries + 1)
+                        preferences.isReceived.set(true)
+                    }
+                }
+            }
+        }
+        binding.shareView.clicks(withAnim = false) {
+            val text ="abc"
+            val intent  = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, text)
+            startActivity(Intent.createChooser(intent, "Share using..."))
         }
     }
     private fun setDayReward(day : Int){
@@ -110,28 +115,27 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
-//        preferences.consecutiveSeries
-//            .asObservable()
-//            .autoDispose(scope())
-//            .subscribe {
-//                consecutiveSeries = it
-//                setDayReward(consecutiveSeries)
-//            }
-//        preferences.isReceived
-//            .asObservable()
-//            .autoDispose(scope())
-//            .subscribe{ isReceived ->
-//                binding.receiveCardView.apply {
-//                    isEnabled = !isReceived
-//                    strokeWidth = if(isReceived) getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
-//                }
-//                binding.receiveLayout.apply {
-//                    if(isReceived) setBackgroundColor(getColor(R.color.gray_3D))
-//                    else setBackgroundResource(R.drawable.button_gradient_yellow)
-//                }
-//                binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.light_gray) else getColor(R.color.black))
-//            }
-        setDayReward(5)
+        preferences.consecutiveSeries
+            .asObservable()
+            .autoDispose(scope())
+            .subscribe {
+                consecutiveSeries = it
+                setDayReward(consecutiveSeries)
+            }
+        preferences.isReceived
+            .asObservable()
+            .autoDispose(scope())
+            .subscribe{ isReceived ->
+                binding.receiveCardView.apply {
+                    isEnabled = !isReceived
+                    strokeWidth = if(isReceived) getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
+                }
+                binding.receiveLayout.apply {
+                    if(isReceived) setBackgroundColor(getColor(R.color.gray_3D))
+                    else setBackgroundResource(R.drawable.button_gradient_yellow)
+                }
+                binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.light_gray) else getColor(R.color.black))
+            }
     }
     private fun initView(){
         binding.rv.adapter = dailyRewardAdapter

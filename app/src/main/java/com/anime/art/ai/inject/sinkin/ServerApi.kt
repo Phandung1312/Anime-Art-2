@@ -29,5 +29,5 @@ interface ServerApi {
 data class UpdateCreditRequest(
     @SerializedName("credit") val credit: Long,
     @SerializedName("title") val title: String,
-    // Các trường dữ liệu khác nếu cần
+
 )

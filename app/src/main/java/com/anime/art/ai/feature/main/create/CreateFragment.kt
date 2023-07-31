@@ -10,10 +10,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.underline
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.anime.art.ai.R
+import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreateImage
 import com.anime.art.ai.data.Preferences
@@ -25,8 +27,10 @@ import com.anime.art.ai.domain.model.CharacterAppearance
 import com.anime.art.ai.domain.model.SamplingMethod
 import com.anime.art.ai.domain.model.SizeOfImage
 import com.anime.art.ai.domain.model.Tag
+import com.anime.art.ai.domain.model.config.ImageGenerationRequest
 import com.anime.art.ai.domain.model.config.InputImage
 import com.anime.art.ai.domain.model.config.Prompt
+import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.feature.credithistory.BuyMoreDialog
 import com.anime.art.ai.feature.main.create.adapter.ArtStyleAdapter
 import com.anime.art.ai.feature.main.create.adapter.CharAppAdapter
@@ -43,14 +47,22 @@ import com.uber.autodispose.android.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::inflate) {
+    companion object{
+        const val PROMPT_EXTRA = "PROMPT_EXTRA"
+        const val RATIO_EXTRA = "RATIO_EXTRA"
+    }
     @Inject lateinit var promptDao: PromptDao
     @Inject lateinit var preferences: Preferences
     //Adapter
@@ -63,6 +75,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     @Inject lateinit var controlNetAdapter: ControlNetAdapter
     @Inject lateinit var inputImageAdapter: InputImageAdapter
 
+    @Inject lateinit var aiApiRepository: AIApiRepository
 
     private var isShowSetting : Boolean = false
     private var isShowMore : Boolean = false
@@ -76,10 +89,12 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private var inputImages : MutableList<InputImage> = ArrayList()
 
     private var selectedPromptId = -1
+    private var isEnableCreate : Subject<Boolean> = BehaviorSubject.createDefault(false)
+    private var imageGenerationRequest : ImageGenerationRequest = ImageGenerationRequest()
     override fun onViewCreated() {
         initView()
-        initData()
         listenerView()
+        initData()
     }
     private fun animateHideOrShowControlNet(isShowed: Boolean){
         activity?.let {activity ->
@@ -124,7 +139,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             rvInputImage.adapter = inputImageAdapter
         }
-
+        binding.edNegativePrompt.setText(Constraint.Sinkin.DEFAULT_NEGATIVE)
     }
 
     private fun initData(){
@@ -136,6 +151,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         samplingMethodAdapter.data = SamplingMethod.values().toList()
 
         initInputImageData()
+
+        binding.sliderScale.value = 7.5f
+        binding.sliderStep.value = 25f
     }
     private fun initInputImageData(){
         inputImages  = arrayListOf(
@@ -146,15 +164,17 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         )
         inputImageAdapter.data = inputImages
     }
+    @SuppressLint("SetTextI18n")
     private fun listenerView(){
         //Slider
         binding.sliderScale.addOnChangeListener { _, value, _ ->
             val roundedNumber = roundToNearestHalf(value.toDouble())
             binding.tvCfgScale.text = roundedNumber.toString()
+            imageGenerationRequest.guidance = roundedNumber
         }
         binding.sliderStep.addOnChangeListener { _, value, _ ->
-            val roundedNumber = roundToNearestHalf(value.toDouble())
-            binding.tvSamplingStep.text = roundedNumber.toString()
+            binding.tvSamplingStep.text = value.toInt().toString()
+            imageGenerationRequest.steps = value.toInt()
         }
         //Advanced setting
         binding.advancedSetting.clicks(withAnim = false) {
@@ -194,11 +214,32 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
            getPromptFromHistoryResult.launch(intent)
         }
         binding.createView.clicks(withAnim = false) {
-            createImage()
+            lifecycleScope.launch(Dispatchers.IO) {
+                aiApiRepository.generateImage(imageGenerationRequest){
+                    Timber.e("Successful")
+                }
+            }
+            //createImage()
         }
         binding.creditView.clicks(withAnim = false) {
             val buyMoreDialog = BuyMoreDialog()
             buyMoreDialog.show(parentFragmentManager, null)
+        }
+        binding.edEnterPrompt.doOnTextChanged { text, start, before, count ->
+            binding.tvLengthPrompt.text = "${text?.length}/1000"
+            imageGenerationRequest.prompt = text.toString()
+            isEnableCreate.onNext(text?.isNotEmpty() == true)
+        }
+
+        binding.qualityPrompt.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+                imageGenerationRequest.height = Constraint.Info.DEFAULT_QUALITY * 2
+                imageGenerationRequest.width = Constraint.Info.DEFAULT_QUALITY * 2
+            }
+            else{
+                imageGenerationRequest.height = Constraint.Info.DEFAULT_QUALITY
+                imageGenerationRequest.width = Constraint.Info.DEFAULT_QUALITY
+            }
         }
     }
     private fun initObservable(){
@@ -236,6 +277,29 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .subscribe { tag->
                 appendEnterPromptText(tag.display)
             }
+        isEnableCreate
+            .autoDispose(scope())
+            .subscribe {
+                binding.createView.apply {
+                    isEnabled = it
+                    alpha = if(it) 1.0f else 0.6f
+                }
+            }
+
+        artStyleAdapter
+            .click
+            .autoDispose(scope())
+            .subscribe {artStyle ->
+                imageGenerationRequest.model = artStyle.model
+            }
+
+        controlNetAdapter
+            .click
+            .autoDispose(scope())
+            .subscribe { controlNet ->
+                imageGenerationRequest.controlNet = controlNet.apiString
+            }
+
     }
 
     private fun appendEnterPromptText(tag : String) {
@@ -297,6 +361,11 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
     }
 
+    fun setDataFromGallery(prompt : String?, ratio : String?){
+        prompt?.let {
+            binding.edEnterPrompt.setText(it)
+        }
+    }
     private val getPromptFromHistoryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if(result.resultCode == Activity.RESULT_OK){
             selectedPromptId = result.data?.getIntExtra(HistoryPromptActivity.PROMPT_INDEX, -1) ?: -1

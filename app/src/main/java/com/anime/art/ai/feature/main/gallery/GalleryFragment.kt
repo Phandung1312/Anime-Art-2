@@ -71,7 +71,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
         previewAdapter
             .clicks
             .autoDispose(scope())
-            .subscribe { galleryIndex -> activity?.startDetailGallery(galleryIndex = galleryIndex) }
+            .subscribe { galleryIndex -> (activity as MainActivity).startDetailGallery(galleryIndex = galleryIndex) }
 
         previewAdapter
             .toggleFavouriteClicks

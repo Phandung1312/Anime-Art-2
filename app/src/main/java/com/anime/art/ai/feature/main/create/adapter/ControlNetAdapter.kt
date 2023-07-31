@@ -5,10 +5,12 @@ import com.anime.art.ai.databinding.ItemControlNetBinding
 import com.anime.art.ai.domain.model.ControlNet
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class ControlNetAdapter @Inject constructor() : LsAdapter<ControlNet, ItemControlNetBinding>(ItemControlNetBinding::inflate) {
-
+    val click : Subject<ControlNet> = PublishSubject.create()
     init {
         data = ControlNet.values().toList()
     }
@@ -31,6 +33,7 @@ class ControlNetAdapter @Inject constructor() : LsAdapter<ControlNet, ItemContro
         binding.checkbox.setImageResource(if(selectedIndex == position) R.drawable.raido_checked else R.drawable.radio_unchecked)
         binding.rootView.clicks(withAnim = false) {
             selectedIndex = position
+            click.onNext(item)
         }
     }
 }

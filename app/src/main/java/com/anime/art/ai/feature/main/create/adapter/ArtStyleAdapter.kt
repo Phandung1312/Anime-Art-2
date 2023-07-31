@@ -9,6 +9,8 @@ import com.basic.common.extension.clicks
 import com.basic.common.extension.getColorCompat
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.resolveAttrColor
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class ArtStyleAdapter @Inject constructor(): LsAdapter<ArtStyle, ItemArtStyleBinding>(ItemArtStyleBinding::inflate) {
@@ -22,6 +24,10 @@ class ArtStyleAdapter @Inject constructor(): LsAdapter<ArtStyle, ItemArtStyleBin
             value.takeIf { it != -1 }?.let { notifyItemChanged(it) }
             field = value
         }
+    init {
+        selectedIndex = 0
+    }
+    val click : Subject<ArtStyle> = PublishSubject.create()
     override fun bindItem(item: ArtStyle, binding: ItemArtStyleBinding, position: Int) {
         val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         val marginStartResId = if (position == 0) {
@@ -45,6 +51,7 @@ class ArtStyleAdapter @Inject constructor(): LsAdapter<ArtStyle, ItemArtStyleBin
             strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._2sdp).toInt() else 0
         }
 
-        binding.viewPreview.clicks { selectedIndex = position }
+        binding.viewPreview.clicks { selectedIndex = position
+        click.onNext(item)}
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
+import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.DialogDailyCreditBinding
 import com.anime.art.ai.domain.model.DailyReward
@@ -60,12 +61,13 @@ class DailyCreditDialog(
         )
         if(!isPreSet){
             listText.take(day).forEach {  tv ->
-                tv.setTextColor(requireContext().getColorCompat(R.color.dark_yellow))
+                tv.gradient(R.color.yellow, R.color.dark_yellow)
             }
             isPreSet = true
         }
         else {
-            listText[day - 1].setTextColor(requireContext().getColorCompat(R.color.dark_yellow))
+            listText[day - 1].gradient(R.color.yellow, R.color.dark_yellow)
+            listText[day - 1].requestLayout()
         }
 
     }

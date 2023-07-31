@@ -9,11 +9,14 @@ import com.anime.art.ai.data.db.Database
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.data.manager.NotificationManagerImpl
+import com.anime.art.ai.data.repoository.AIApiRepositoryImpl
 import com.anime.art.ai.data.repoository.ServerApiRepositoryImpl
 import com.anime.art.ai.data.repoository.SyncRepositoryImpl
 import com.anime.art.ai.domain.manager.NotificationManager
+import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.domain.repository.SyncRepository
+import com.anime.art.ai.inject.sinkin.AIApi
 import com.anime.art.ai.inject.sinkin.ServerApi
 import com.anime.art.ai.inject.sinkin.SinkinApi
 import com.basic.data.PreferencesConfig
@@ -29,11 +32,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -111,7 +117,8 @@ class AppModule {
     }
     @Provides
     @Singleton
-    fun providesOkHttpClient() : OkHttpClient{
+    @Named("CreditClient")
+    fun providesCreditOkHttpClient() : OkHttpClient{
         val loggingInterceptor = HttpLoggingInterceptor { message ->
             Timber.d(message)
         }
@@ -142,6 +149,50 @@ class AppModule {
 
         return okHttpClient
     }
+    @Provides
+    @Singleton
+    @Named("AIClient")
+    fun providesAIOkHttpClient() : OkHttpClient{
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.d(message)
+        }
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val networkInterceptor = Interceptor {
+            val request = it.request().newBuilder().build()
+            it.proceed(request)
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(object  : Interceptor{
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val originalRequest = chain.request()
+                    val authenticatedRequest = originalRequest.newBuilder()
+                        .header("Authorization", "Bearer ${Constraint.AIGeneration.KEY}")
+                        .build()
+                    return chain.proceed(authenticatedRequest)
+                }
+
+            })
+            .addInterceptor { chain ->
+                val requestBuilder = chain
+                    .request()
+                    .newBuilder()
+
+                chain.proceed(requestBuilder.build())
+            }
+            .addInterceptor(loggingInterceptor)
+            .addNetworkInterceptor(networkInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
+            .hostnameVerifier { _, _ -> true }
+            .retryOnConnectionFailure(false)
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(1, TimeUnit.MINUTES)
+            .build()
+
+        return okHttpClient
+    }
 
     @Provides
     @Singleton
@@ -152,17 +203,34 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit(gsonConverterFactory: GsonConverterFactory,
-    okHttpClient: OkHttpClient) : Retrofit{
+    @Named("CreditServer")
+    fun providesRetrofitCreditServer(gsonConverterFactory: GsonConverterFactory,
+    @Named("CreditClient") okHttpClient: OkHttpClient) : Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(gsonConverterFactory)
             .baseUrl(Constraint.BASE_URL)
+            .client(okHttpClient)
             .build()
+    }
+    @Provides
+    @Singleton
+    @Named("AIServer")
+    fun providesRetrofitAIServer(gsonConverterFactory: GsonConverterFactory,
+                                 @Named("AIClient") okHttpClient: OkHttpClient) : Retrofit{
+        return Retrofit.Builder()
+            .addConverterFactory(gsonConverterFactory)
+            .baseUrl(Constraint.AIGeneration.URL)
+            .client(okHttpClient)
+            .build()
+    }
+    @Provides
+    fun providesServerApi(@Named("CreditServer") retrofit: Retrofit) : ServerApi{
+        return retrofit.create(ServerApi::class.java)
     }
 
     @Provides
-    fun providesServerApi(retrofit: Retrofit) : ServerApi{
-        return retrofit.create(ServerApi::class.java)
+    fun providesAIApi(@Named("AIServer") retrofit: Retrofit) : AIApi{
+        return retrofit.create(AIApi::class.java)
     }
     // Database
 
@@ -194,6 +262,9 @@ class AppModule {
     @Singleton
     fun provideServerApiRepositoryImpl(repo: ServerApiRepositoryImpl): ServerApiRepository = repo
 
+    @Provides
+    @Singleton
+    fun providesAIApiRepositoryImpl(repo: AIApiRepositoryImpl): AIApiRepository = repo
     // Manager
 
     @Provides

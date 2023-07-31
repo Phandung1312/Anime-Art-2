@@ -105,8 +105,8 @@
                     android:backgroundTint="@android:color/transparent"
                     android:focusable="false"
                     android:hint="Enter prompt"
-                    android:textColor="@color/white"
                     android:textColorHint="@color/textTertiaryDark"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -126,6 +126,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.basic.common.widget.LsTextView
+            android:id="@+id/tv_length_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -335,11 +336,15 @@
                         android:layout_height="match_parent">
 
                         <com.basic.common.widget.LsEditText
+                            android:id="@+id/ed_negative_prompt"
+                            android:focusable="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_15sdp"
                             android:backgroundTint="@android:color/transparent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -361,13 +366,14 @@
                         android:text="Quality Prompt" />
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/quality_prompt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:checked="true"
                         app:switchMinWidth="@dimen/_40sdp"
-                        app:thumbTint="@color/dark_yellow"
+                        app:thumbTint="@color/thumb_color"
                         app:trackTint="@color/light_gray" />
                 </RelativeLayout>
 
@@ -434,8 +440,8 @@
                         android:layout_width="@dimen/_150sdp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_25sdp"
-                        android:valueFrom="20.0"
-                        android:valueTo="70.0"
+                        android:valueFrom="1"
+                        android:valueTo="100"
                         app:labelBehavior="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -447,7 +453,7 @@
                         android:id="@+id/tv_sampling_step"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20.0"
+                        android:text="25"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintBottom_toBottomOf="parent"

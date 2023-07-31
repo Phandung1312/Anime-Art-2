@@ -45,54 +45,54 @@ enum class SizeOfImage(val size : String, val describeImage : String ){
     ThreeTwo(size = "3:2", describeImage = "size_3_2")
 }
 
-enum class ArtStyle(val artStyleName : String, val sourceImage : String){
-    AGG(artStyleName = "AGG", sourceImage = "agg"),
-    Realistic(artStyleName = "Realistic", sourceImage = "realistic"),
-    PencilSketch(artStyleName = "PencilSketch", sourceImage = "pencil_sketch"),
-    SuperHero(artStyleName = "SuperHero", sourceImage = "super_hero"),
-    ZFlighters(artStyleName = "ZFlighters", sourceImage = "z_flighters"),
-    PastelColors(artStyleName = "PastelColors", sourceImage = "pastel_colors"),
-    Ninja(artStyleName = "Ninja", sourceImage = "ninja"),
-    FantasicJOJO(artStyleName = "FantasicJOJO", sourceImage = "fantasic_jojo"),
-    Tarot(artStyleName = "Tarot", sourceImage = "tarot"),
-    NinetyComic(artStyleName = "_90sComic", sourceImage = "_90s_comic"),
-    ColorIllustration(artStyleName = "ColorIllustration", sourceImage = "color_illustration"),
-    GameCG(artStyleName = "GameCG", sourceImage = "game_cg"),
-    Wild(artStyleName = "Wild", sourceImage = "wild"),
-    Asian(artStyleName = "Asian", sourceImage = "asian"),
-    InkAndWask(artStyleName = "InkAndWask", sourceImage = "ink_and_wask"),
-    Chibi(artStyleName = "Chibi", sourceImage = "chibi"),
-    Cyberpunk(artStyleName = "Cyberpunk", sourceImage = "cyberpunk"),
+enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String){
+    AGG(artStyleName = "AGG", sourceImage = "agg", model = "stable-diffusion-v1-5"),
+    Realistic(artStyleName = "Realistic", sourceImage = "realistic", model = "stable-diffusion-v1-5"),
+    PencilSketch(artStyleName = "PencilSketch", sourceImage = "pencil_sketch", model = "stable-diffusion-v1-5"),
+    SuperHero(artStyleName = "SuperHero", sourceImage = "super_hero", model = "stable-diffusion-v1-5"),
+    ZFlighters(artStyleName = "ZFlighters", sourceImage = "z_flighters", model = "stable-diffusion-v1-5"),
+    PastelColors(artStyleName = "PastelColors", sourceImage = "pastel_colors", model = "stable-diffusion-v1-5"),
+    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "stable-diffusion-v1-5"),
+    FantasicJOJO(artStyleName = "FantasicJOJO", sourceImage = "fantasic_jojo", model = "stable-diffusion-v1-5"),
+    Tarot(artStyleName = "Tarot", sourceImage = "tarot", model = "stable-diffusion-v1-5"),
+    NinetyComic(artStyleName = "_90sComic", sourceImage = "_90s_comic", model = "stable-diffusion-v1-5"),
+    ColorIllustration(artStyleName = "ColorIllustration", sourceImage = "color_illustration", model = "stable-diffusion-v1-5"),
+    GameCG(artStyleName = "GameCG", sourceImage = "game_cg", model = "stable-diffusion-v1-5"),
+    Wild(artStyleName = "Wild", sourceImage = "wild", model = "stable-diffusion-v1-5"),
+    Asian(artStyleName = "Asian", sourceImage = "asian", model = "stable-diffusion-v1-5"),
+    InkAndWask(artStyleName = "InkAndWask", sourceImage = "ink_and_wask", model = "stable-diffusion-v1-5"),
+    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "stable-diffusion-v1-5"),
+    Cyberpunk(artStyleName = "Cyberpunk", sourceImage = "cyberpunk", model = "stable-diffusion-v1-5"),
 }
 
-enum class ControlNet(val controlNetName : String, val sourceImage : String){
-    Canny(controlNetName = "ControlNet Canny", sourceImage = "controlnet_canny"),
-    Hed(controlNetName = "ControlNet_Hed", sourceImage = "controlnet_hed"),
-    Openpose(controlNetName = "ControlNet_Openpose", sourceImage = "controlnet_openpose"),
-    Scribble(controlNetName = "ControlNet_Scribble", sourceImage = "controlnet_scribble"),
-    HardEdges(controlNetName = "ControlNet_Hard Edges", sourceImage = "controlnet_hard_edges"),
-    SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_soft_edges"),
-    LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_linear_anime"),
-    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face")
+enum class ControlNet(val controlNetName : String, val sourceImage : String,val apiString : String){
+    Canny(controlNetName = "ControlNet Canny", sourceImage = "controlnet_canny", apiString = "canny-1.1"),
+    Hed(controlNetName = "ControlNet_Hed", sourceImage = "controlnet_hed", apiString = "canny-1.1"),
+    Openpose(controlNetName = "ControlNet_Openpose", sourceImage = "controlnet_openpose", apiString = "openpose-1.1"),
+    Scribble(controlNetName = "ControlNet_Scribble", sourceImage = "controlnet_scribble", apiString = "scribble-1.1"),
+    HardEdges(controlNetName = "ControlNet_Hard Edges", sourceImage = "controlnet_hard_edges", apiString = "canny-1.1"),
+    SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_soft_edges", apiString = "canny-1.1"),
+    LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_linear_anime", apiString = "lineart-anime-1.1"),
+    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "canny-1.1")
 }
 
-enum class SamplingMethod(val display : String ){
-    EulerA(display = "Euler A"),
-    Euler(display = "Euler"),
-    LMS(display = "LMS"),
-    DMP2(display = "DPM2"),
-    DPM2a(display = "DPM2 a"),
-    DPMPlus2Sa(display = "DPM++2S a"),
-    DPMPlusSDE(display = "DPM++ SDE"),
-    DPMFast(display = "DPM fast"),
-    DPMAdaptive(display = "DPM adaptive"),
-    LMSAKarras(display = "LMS Karras"),
-    DPM2Karras(display = "DPM2 Karras"),
-    DPM2aKarras(display = "DPM a Karras"),
-    DPMPlus2SaKarras(display = "DPM++2S a Karras"),
-    DPMPlus2MaKarras(display = "DPM++2MaKarras"),
-    DPMPlusSDEKarras(display = "DPM++SDE Karras"),
-    DDIM(display = "DDIM"),
+enum class SamplingMethod(val display : String , apiString: String){
+    EulerA(display = "Euler A", apiString = "euler_a"),
+    Euler(display = "Euler", apiString = "euler"),
+    LMS(display = "LMS", apiString = "lms"),
+    DMP2(display = "DPM2", apiString = "euler_a"),
+    DPM2a(display = "DPM2 a", apiString = "euler_a"),
+    DPMPlus2Sa(display = "DPM++2S a", apiString = "euler_a"),
+    DPMPlusSDE(display = "DPM++ SDE", apiString = "euler_a"),
+    DPMFast(display = "DPM fast", apiString = "euler_a"),
+    DPMAdaptive(display = "DPM adaptive", apiString = "euler_a"),
+    LMSAKarras(display = "LMS Karras", apiString = "euler_a"),
+    DPM2Karras(display = "DPM2 Karras", apiString = "euler_a"),
+    DPM2aKarras(display = "DPM a Karras", apiString = "euler_a"),
+    DPMPlus2SaKarras(display = "DPM++2S a Karras", apiString = "euler_a"),
+    DPMPlus2MaKarras(display = "DPM++2MaKarras", apiString = "euler_a"),
+    DPMPlusSDEKarras(display = "DPM++SDE Karras", apiString = "euler_a"),
+    DDIM(display = "DDIM", apiString = "ddim"),
 }
 
 enum class CharacterAppearance(val id : Int, val display : String){

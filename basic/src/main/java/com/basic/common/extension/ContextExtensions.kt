@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.provider.Settings
+import android.util.Base64
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -12,6 +14,10 @@ import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+
 
 fun Context.getColorCompat(colorRes: Int): Int {
     return tryOrNull { ContextCompat.getColor(this, colorRes) } ?: Color.BLACK
@@ -39,7 +45,26 @@ fun Context.resolveAttrColor(@AttrRes attr: Int): Int {
     }
     return color
 }
-
+fun Context.convertImageToBase64(imageUri: Uri): String? {
+    try {
+        val inputStream: InputStream? = this.contentResolver.openInputStream(imageUri)
+        val buffer = ByteArrayOutputStream()
+        val bufferSize = 1024
+        val bufferData = ByteArray(bufferSize)
+        var length: Int
+        while (inputStream?.read(bufferData).also { length = it!! } != -1) {
+            buffer.write(bufferData, 0, length)
+        }
+        buffer.flush()
+        val imageData: ByteArray = buffer.toByteArray()
+        inputStream?.close()
+        buffer.close()
+        return Base64.encodeToString(imageData, Base64.DEFAULT)
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return null
+}
 fun Context.getDimens(@DimenRes dimenRes: Int): Float {
     return resources.getDimension(dimenRes)
 }

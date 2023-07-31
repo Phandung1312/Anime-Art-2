@@ -476,7 +476,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout3"
-                    android:layout_width="@dimen/_90sdp"
+                    android:layout_width="@dimen/_95sdp"
                     android:layout_height="@dimen/_150sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -594,7 +594,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="@dimen/_90sdp"
+                    android:layout_width="@dimen/_95sdp"
                     android:layout_height="@dimen/_150sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout3"

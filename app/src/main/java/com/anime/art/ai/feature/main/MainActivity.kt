@@ -1,12 +1,17 @@
 package com.anime.art.ai.feature.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.viewpager.widget.ViewPager
+import com.anime.art.ai.R
 import com.anime.art.ai.databinding.ActivityMainBinding
 import com.anime.art.ai.domain.repository.SyncRepository
+import com.anime.art.ai.feature.gallery.GalleryActivity
 import com.anime.art.ai.feature.main.create.CreateFragment
 import com.anime.art.ai.feature.main.gallery.GalleryFragment
 import com.anime.art.ai.feature.main.mine.MineFragment
@@ -14,6 +19,7 @@ import com.basic.common.base.LsActivity
 import com.basic.common.base.LsPageAdapter
 import com.basic.common.extension.clicks
 import com.basic.common.extension.resolveAttrColor
+import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -138,5 +144,19 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
             }
         }
     }
-
+    fun startDetailGallery(galleryIndex: Int){
+        val intent = Intent(this, GalleryActivity::class.java)
+        intent.putExtra(GalleryActivity.GALLERY_INDEX_EXTRA, galleryIndex)
+        getDataFromGalleryResult.launch(intent)
+        tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
+    }
+    private var getDataFromGalleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if(result.resultCode == Activity.RESULT_OK){
+            binding.viewPager.currentItem = 1
+            pageChanges.onNext(1)
+            val prompt = result.data?.getStringExtra(CreateFragment.PROMPT_EXTRA)
+            val ratio = result.data?.getStringExtra(CreateFragment.RATIO_EXTRA)
+            (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, ratio)
+        }
+    }
 }
