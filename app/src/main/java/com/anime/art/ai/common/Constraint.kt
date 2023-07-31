@@ -15,8 +15,8 @@ class Constraint {
     class Info {
         companion object {
             const val MAIL_SUPPORT = "hoangdo.bravo@gmail.com"
-            const val PRIVACY_URL = ""
-            const val TERMS_URL = ""
+            const val PRIVACY_URL = "http://www.stackoverflow.com"
+            const val TERMS_URL = "https://www.youtube.com/"
             const val DATA_VERSION = 2
             const val DEFAULT_QUALITY = 512
         }

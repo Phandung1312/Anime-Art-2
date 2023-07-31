@@ -84,14 +84,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/tv_credit_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@id/tv_credit_you_have"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/inter_tight_bold"
-                    tools:text="30"
-                    textGradientYellow="@{`30`}"
+                    android:text="0"
+                    textGradientYellow="@{`0`}"
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_20sdp"
                                 textGradientYellow="@{`500`}"
-                                tools:text="500"
+                                android:text="500"
                                 android:textAlignment="center"
                                 android:textColor="@color/yellow"
                                 android:textSize="@dimen/_18ssp"
@@ -261,7 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_20sdp"
                                 textGradientYellow="@{`1000`}"
-                                tools:text="1000"
+                                android:text="1000"
                                 android:textAlignment="center"
                                 android:textColor="@color/yellow"
                                 android:textSize="@dimen/_18ssp"
@@ -383,7 +383,7 @@
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent"
                                 textGradientYellow="@{`2000`}"
-                                tools:text="2000"/>
+                                android:text="2000"/>
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_3"
@@ -512,7 +512,7 @@
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent"
                                 textGradientYellow="@{`5000`}"
-                                tools:text="5000"/>
+                                android:text="5000"/>
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_4"
@@ -631,7 +631,7 @@
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent"
                                 textGradientYellow="@{`10000`}"
-                                tools:text="10000" />
+                                android:text="10000" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_5"

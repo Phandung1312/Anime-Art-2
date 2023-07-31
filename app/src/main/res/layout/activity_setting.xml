@@ -409,6 +409,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/privacy_policy_view"
             app:cardBackgroundColor="@color/backgroundDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -450,6 +451,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/term_view"
             app:cardBackgroundColor="@color/backgroundDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -491,6 +493,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/feedback_view"
             app:cardBackgroundColor="@color/backgroundDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

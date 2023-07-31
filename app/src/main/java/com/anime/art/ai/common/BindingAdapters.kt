@@ -13,7 +13,6 @@ object BindingAdapters{
     @JvmStatic
     @BindingAdapter("textGradientYellow")
     fun setGradientYellowText(tv : TextView, textGradientYellow : String?){
-        tv.text = textGradientYellow
         val paint = tv.paint
         val width = paint.measureText(tv.text.toString())
         val textShader: Shader = LinearGradient(

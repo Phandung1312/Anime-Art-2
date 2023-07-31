@@ -11,16 +11,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.DialogBuyMoreBinding
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDimens
 import com.google.android.material.card.MaterialCardView
+import com.uber.autodispose.android.lifecycle.scope
+import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BuyMoreDialog(
     ) : DialogFragment() {
     private lateinit var  binding : DialogBuyMoreBinding
+    @Inject lateinit var preferences: Preferences
     private var selectedPackCredit = 0
         set(value){
             if(field == value) return
@@ -36,6 +41,7 @@ class BuyMoreDialog(
         binding = DialogBuyMoreBinding.inflate(inflater, container, false)
         initView()
         initListener()
+        initData()
         return binding.root
     }
 
@@ -97,7 +103,11 @@ class BuyMoreDialog(
             dismiss()
         }
     }
-
+    private fun initData(){
+        preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
+            binding.tvCreditAmount.text = creditAmount.toString()
+        }
+    }
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)

@@ -140,6 +140,7 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
             makeToast("Save successful")
         }
     }
+
     private fun startActivityExternal(intent: Intent) {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)

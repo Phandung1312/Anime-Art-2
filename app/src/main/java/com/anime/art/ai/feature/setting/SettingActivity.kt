@@ -2,6 +2,8 @@ package com.anime.art.ai.feature.setting
 
 
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +26,7 @@ import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.transparent
+import com.google.firebase.ktx.BuildConfig
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -104,6 +107,43 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             intent.putExtra(Intent.EXTRA_TEXT, text)
             startActivity(Intent.createChooser(intent, "Share using..."))
         }
+        binding.privacyPolicyView.clicks(withAnim = false){
+            startBrowser(Constraint.Info.PRIVACY_URL)
+        }
+        binding.termView.clicks(withAnim = false) {
+            startBrowser(Constraint.Info.TERMS_URL)
+        }
+        binding.feedbackView.clicks(withAnim = false){
+            feedBack()
+        }
+    }
+    private fun startActivityExternal(intent: Intent) {
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            startActivity(Intent.createChooser(intent, null))
+        }
+    }
+    private fun feedBack(){
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(Constraint.Info.MAIL_SUPPORT))
+        intent.putExtra(Intent.EXTRA_SUBJECT, "${getString(R.string.app_name)} Feedback")
+        val deviceId = getDeviceId()
+        intent.putExtra(
+            Intent.EXTRA_TEXT, "user id:$deviceId"
+        )
+        startActivityExternal(intent)
+    }
+    private fun startBrowser(url : String){
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        try{
+            startActivity(intent)
+        }
+        catch(e : Exception){
+            makeToast("you don't have browser installed")
+        }
+
     }
     private fun setDayReward(day : Int){
         setGradientReceivedDay(day)
