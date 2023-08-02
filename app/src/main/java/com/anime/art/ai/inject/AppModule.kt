@@ -8,6 +8,7 @@ import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.Database
 import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.data.db.query.GalleryDao
+import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.data.manager.NotificationManagerImpl
 import com.anime.art.ai.data.repoository.AIApiRepositoryImpl
@@ -257,6 +258,10 @@ class AppModule {
     @Provides
     @Singleton
     fun providesCreatorDao(database: Database) : CreatorDao = database.creatorDao()
+
+    @Provides
+    @Singleton
+    fun providesHistoryDao(database: Database) : HistoryDao = database.historyDao()
     // Repository
 
     @Provides
