@@ -8,5 +8,8 @@ import retrofit2.http.POST
 
 interface AIApi {
     @POST("text-to-image")
-    fun generatorImage(@Body imageGenerationRequest: ImageGenerationRequest) : Call<ImageResponse?>
+    fun generatorImageByText(@Body imageGenerationRequest: ImageGenerationRequest) : Call<ImageResponse?>
+
+    @POST("image-to-image")
+    fun generatorImageByImage(@Body imageGenerationRequest: ImageGenerationRequest) : Call<ImageResponse?>
 }

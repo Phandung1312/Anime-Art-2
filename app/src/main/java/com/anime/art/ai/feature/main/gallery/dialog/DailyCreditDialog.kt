@@ -76,7 +76,7 @@ class DailyCreditDialog(
             binding.receiveCardView.isEnabled = false
             lifecycleScope.launch(Dispatchers.IO) {
                 val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
-                val request = UpdateCreditRequest(todayReward, Constraint.CREATE_ARTWORK)
+                val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
                 serverApiRepository.updateCredit(requireContext().getDeviceId(),request){
                     lifecycleScope.launch(Dispatchers.Main) {
                         binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
@@ -84,6 +84,8 @@ class DailyCreditDialog(
                         binding.tvReceive.setTextColor(requireContext().getColor(R.color.light_gray))
                         setDayReward( consecutiveSeries + 1 )
                         requireContext().makeToast("You have received $todayReward credit")
+                        val currentCredit = pref.creditAmount.get()
+                        pref.creditAmount.set(currentCredit + todayReward)
                         pref.consecutiveSeries.set(consecutiveSeries + 1)
                         pref.isReceived.set(true)
                         delay(300)

@@ -1,9 +1,7 @@
 package com.anime.art.ai.data.repoository
 
 
-import com.anime.art.ai.domain.model.config.History
 import com.anime.art.ai.domain.model.config.Login
-import com.anime.art.ai.domain.model.response.HistoryResponse
 import com.anime.art.ai.domain.model.response.LoginResponse
 import com.anime.art.ai.domain.model.response.MessageResponse
 import com.anime.art.ai.domain.repository.ServerApiRepository
@@ -12,6 +10,7 @@ import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,52 +20,15 @@ class ServerApiRepositoryImpl @Inject constructor(
 ): ServerApiRepository {
 
     override suspend fun login(deviceId: String ,result: (Login) -> Unit) {
-        val response = serverApi.login(deviceId)
-
-        response.enqueue(object : Callback<LoginResponse?>{
-            override fun onResponse(
-                call: Call<LoginResponse?>,
-                response: Response<LoginResponse?>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let { loginResponse ->
-                        result.invoke(loginResponse.data)
-                    }
-                }
-                else{
-
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
-
-            }
-
-        })
+        val response = serverApi.login(deviceId).await()
+        if (response != null) {
+            result.invoke(response.data)
+        }
     }
 
-    override suspend fun getCreditHistory(deviceId: String, result: (List<History>) -> Unit) {
-        val response = serverApi.getCreditHistory(deviceId)
-        response.enqueue(object : Callback<HistoryResponse?>{
-            override fun onResponse(
-                call: Call<HistoryResponse?>,
-                response: Response<HistoryResponse?>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let {historyResponse ->
-                        result(historyResponse.histories)
-                    }
-                }
-                else{
-
-                }
-            }
-
-            override fun onFailure(call: Call<HistoryResponse?>, t: Throwable) {
-
-            }
-
-        })
+    override suspend fun getCreditHistory(deviceId: String, progress: (ServerApiRepository.ServerApiResponse) -> Unit) {
+        progress(ServerApiRepository.ServerApiResponse.Loading)
+        serverApi.getCreditHistory(deviceId).await()?.let { historyResponse -> progress(ServerApiRepository.ServerApiResponse.Success(historyResponse.histories)) }
     }
 
     override suspend fun updateCredit(deviceId: String,request: UpdateCreditRequest, result: (Boolean) -> Unit) {

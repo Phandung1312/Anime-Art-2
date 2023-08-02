@@ -11,10 +11,13 @@ import com.basic.common.extension.getColorCompat
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.resolveAttrColor
 import com.bumptech.glide.Glide
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOfImageBinding>(ItemSizeOfImageBinding::inflate) {
-    private var selectedIndex = 0
+    val clicks : Subject<SizeOfImage> = PublishSubject.create()
+    var selectedIndex = 0
         set(value) {
             if (field == value){
                 return
@@ -46,6 +49,7 @@ class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOf
             strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
             setCardBackgroundColor(if (position == selectedIndex) context.getColorCompat(R.color.yellow_black) else context.resolveAttrColor(android.R.attr.colorBackground))
         }
-        binding.cardView.clicks { selectedIndex = position }
+        binding.cardView.clicks { selectedIndex = position
+        clicks.onNext(item)}
     }
 }

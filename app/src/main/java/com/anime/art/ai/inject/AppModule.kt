@@ -6,6 +6,7 @@ import com.anime.art.ai.common.App
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.Database
+import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.data.manager.NotificationManagerImpl
@@ -252,6 +253,10 @@ class AppModule {
     @Provides
     @Singleton
     fun providesPromptDao(database: Database) : PromptDao = database.promptDao()
+
+    @Provides
+    @Singleton
+    fun providesCreatorDao(database: Database) : CreatorDao = database.creatorDao()
     // Repository
 
     @Provides

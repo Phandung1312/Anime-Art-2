@@ -31,6 +31,7 @@ class HistoryPromptAdapter @Inject constructor() : LsAdapter<Prompt, ItemHistory
         }
         if(selectedId == item.id ){
             binding.display.gradient(R.color.yellow, R.color.dark_yellow)
+            binding.display.requestLayout()
         }
         else{
             binding.display.gradient(R.color.white, R.color.white)

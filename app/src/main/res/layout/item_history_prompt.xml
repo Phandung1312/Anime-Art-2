@@ -16,10 +16,11 @@
             android:textColor="@color/white"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             tools:text="(queen:1.3)"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_under_line"

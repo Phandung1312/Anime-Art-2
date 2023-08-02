@@ -338,6 +338,8 @@
                         <com.basic.common.widget.LsEditText
                             android:id="@+id/ed_negative_prompt"
                             android:focusable="false"
+                            android:hint="Enter prompt"
+                            android:textColorHint="@color/textTertiaryDark"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_12ssp"
                             android:layout_width="match_parent"

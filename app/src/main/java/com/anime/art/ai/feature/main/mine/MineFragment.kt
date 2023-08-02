@@ -1,34 +1,36 @@
 package com.anime.art.ai.feature.main.mine
 
-import android.content.Intent
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
-import com.anime.art.ai.common.extension.startDetailGallery
+import com.anime.art.ai.common.ConfigApp
+import com.anime.art.ai.common.extension.startFinalize
 import com.anime.art.ai.common.extension.startSetting
+import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.data.db.query.GalleryDao
-import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.databinding.FragmentMineBinding
 import com.anime.art.ai.feature.main.MainActivity
 import com.anime.art.ai.feature.main.gallery.adapter.PreviewAdapter
-import com.anime.art.ai.feature.setting.SettingActivity
+import com.anime.art.ai.feature.main.mine.adapter.CreateAdapter
+import com.anime.art.ai.feature.main.mine.adapter.FavoriteAdapter
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
-import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflate) {
     @Inject
+    lateinit var creatorDao: CreatorDao
+    @Inject
     lateinit var galleryDao: GalleryDao
     @Inject
-    lateinit var creatorAdapter: PreviewAdapter
+    lateinit var creatorAdapter: CreateAdapter
     @Inject
-    lateinit var favoriteAdapter: PreviewAdapter
-
+    lateinit var favoriteAdapter: FavoriteAdapter
+    @Inject lateinit var configApp: ConfigApp
     companion object {
         const val MY_CREATOR = 1
         const val FAVORITE = 2
@@ -38,11 +40,17 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
         set(value) {
             if (field == value) return
             binding.creatorView.apply {
-                if (value == MY_CREATOR) setBackgroundResource(R.drawable.stroke_gradient_yellow)
+                if (value == MY_CREATOR){
+                    setBackgroundResource(R.drawable.stroke_gradient_yellow)
+                    binding.emptyLayout.isVisible = creatorAdapter.data.isEmpty()
+                }
                 else setBackgroundColor(context.getColor(R.color.background_dark_gray))
             }
             binding.favoriteView.apply {
-                if (value == FAVORITE) setBackgroundResource(R.drawable.stroke_gradient_yellow)
+                if (value == FAVORITE){
+                    setBackgroundResource(R.drawable.stroke_gradient_yellow)
+                    binding.emptyLayout.isVisible = favoriteAdapter.data.isEmpty()
+                }
                 else setBackgroundColor(context.getColor(R.color.background_dark_gray))
             }
             binding.recyclerView.adapter =
@@ -57,6 +65,10 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
         initListener()
     }
     private fun initData() {
+        galleryDao.getAllFavorite().observe(viewLifecycleOwner){ galleries ->
+            binding.emptyLayout.isVisible = (galleries.isEmpty() && screenSelected == FAVORITE)
+            this.favoriteAdapter.data = galleries
+        }
     }
 
     private fun initListener() {
@@ -77,10 +89,6 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
     }
 
     private fun initObservable() {
-        creatorAdapter
-            .clicks
-            .autoDispose(scope())
-            .subscribe { galleryIndex -> }
         favoriteAdapter
             .toggleFavouriteClicks
             .autoDispose(scope())
@@ -88,16 +96,36 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                 galleryDao.update(gallery)
 
             }
+        favoriteAdapter
+            .clicks
+            .autoDispose(scope())
+            .subscribe {gallery ->
+                (activity as? MainActivity)
+                    ?.gotoGalleryFragment(gallery.prompt, gallery.ratio)
+            }
         (activity as? MainActivity)
             ?.pageChanges
             ?.filter { index -> index == 2 }
             ?.take(1)
             ?.autoDispose(scope())
             ?.subscribe {
-                galleryDao.getAllFavorite().observe(viewLifecycleOwner) { galleries ->
-                    binding.emptyLayout.isVisible = (galleries.isEmpty())
-                    this.favoriteAdapter.data = galleries
+                creatorDao.getAll().observe(viewLifecycleOwner){creators ->
+                    binding.emptyLayout.isVisible = (creators.isEmpty() && screenSelected == MY_CREATOR)
+                    this.creatorAdapter.data = creators
                 }
+            }
+
+        creatorAdapter
+            .clicks
+            .autoDispose(scope())
+            .subscribe { creator ->
+                configApp.imageGenerationRequest.apply {
+                    prompt = creator.prompt
+                    negativePrompt = creator.negative
+                    artStyle = creator.artStyle
+                }
+                configApp.imageBase64 = creator.image
+                activity?.startFinalize()
             }
     }
 

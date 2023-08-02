@@ -9,11 +9,13 @@ import com.basic.common.extension.clicks
 import com.basic.common.extension.getColorCompat
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.resolveAttrColor
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 class MenuAdapter @Inject constructor() :
     LsAdapter<Character, ItemTagBinding>(ItemTagBinding::inflate) {
-
+    val clicks : Subject<Character> = PublishSubject.create()
     private var selectedIndex = -1
         set(value) {
             if (field == value){
@@ -46,6 +48,7 @@ class MenuAdapter @Inject constructor() :
         layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
         binding.display.text = item.characterName
 
-        binding.cardView.clicks { selectedIndex = position }
+        binding.cardView.clicks { selectedIndex = position
+        clicks.onNext(item)}
     }
 }

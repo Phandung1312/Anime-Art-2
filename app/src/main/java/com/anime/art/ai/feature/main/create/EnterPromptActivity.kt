@@ -1,11 +1,9 @@
 package com.anime.art.ai.feature.main.create
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.inputmethod.InputMethodManager
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.text.Editable
+import android.text.TextWatcher
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anime.art.ai.databinding.ActivityEnterPromptBinding
 import com.anime.art.ai.domain.model.CharacterAppearance
@@ -14,11 +12,10 @@ import com.anime.art.ai.feature.main.create.adapter.CharAppAdapter
 import com.anime.art.ai.feature.main.create.adapter.TagAdapter
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
-import com.basic.common.extension.hideKeyboard
+import com.basic.common.extension.makeToast
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -58,11 +55,29 @@ class EnterPromptActivity :
             if (heightDiff > 200) {
                 isCanFinish = true
             } else {
-               if(isCanFinish){
-                   returnData()
-               }
+                if (isCanFinish) {
+                    returnData()
+                }
             }
         }
+        binding.edEnterPrompt.addTextChangedListener (
+            object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                    val enteredText = p0.toString()
+                    if (enteredText.length > 1000) {
+                        binding.edEnterPrompt.text?.delete(1000, enteredText.length)
+                        makeToast("Text is full box")
+                    }
+                }
+
+            })
     }
 
 
@@ -131,7 +146,10 @@ class EnterPromptActivity :
     }
 
     private fun appendEnterPromptText(tag: String) {
-
+        if (binding.edEnterPrompt.text.length + tag.length > 1000) {
+            makeToast("Text is full box")
+            return
+        }
         binding.edEnterPrompt.text?.apply {
             if (isNotEmpty()) append(",")
             append("(${tag}:1.3)")

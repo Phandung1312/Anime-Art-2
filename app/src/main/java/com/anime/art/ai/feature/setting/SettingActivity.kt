@@ -1,15 +1,19 @@
 package com.anime.art.ai.feature.setting
 
 
+import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
+import com.anime.art.ai.common.extension.convertToShortDate
+import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreditHistory
 import com.anime.art.ai.data.Preferences
@@ -21,28 +25,28 @@ import com.anime.art.ai.feature.main.gallery.adapter.DailyRewardAdapter
 import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getColorCompat
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.transparent
-import com.google.firebase.ktx.BuildConfig
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBinding::inflate) {
+
     @Inject lateinit var serverApiRepository: ServerApiRepository
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dailyRewardAdapter : DailyRewardAdapter
+
     private var consecutiveSeries : Int = 0
-    private var isPreSet = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparent()
@@ -61,17 +65,10 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             binding.tvDay6,
             binding.tvDay7
         )
-        if(!isPreSet){
-            listText.take(day).forEach {  tv ->
+        listText.take(day).forEach {  tv ->
                 tv.gradient(R.color.yellow, R.color.dark_yellow)
-            }
-            isPreSet = true
+                tv.requestLayout()
         }
-        else {
-            listText[day - 1].gradient(R.color.yellow, R.color.dark_yellow)
-            listText[day - 1].requestLayout()
-        }
-
     }
     private fun initListener() {
        binding.back.clicks {
@@ -89,13 +86,13 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             binding.receiveCardView.isEnabled = false
             lifecycleScope.launch(Dispatchers.IO) {
                 val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
-                val request = UpdateCreditRequest(todayReward, Constraint.CREATE_ARTWORK)
+                val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
                 serverApiRepository.updateCredit(getDeviceId(),request){
                     lifecycleScope.launch(Dispatchers.Main) {
-                        setDayReward( consecutiveSeries + 1 )
+                        setDayReward( consecutiveSeries + 1 , isReceived = true)
                         makeToast("You have received $todayReward credit")
-                        preferences.consecutiveSeries.set(consecutiveSeries + 1)
-                        preferences.isReceived.set(true)
+                        val currentCredit = preferences.creditAmount.get()
+                        preferences.creditAmount.set(currentCredit + todayReward)
                     }
                 }
             }
@@ -115,6 +112,17 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         }
         binding.feedbackView.clicks(withAnim = false){
             feedBack()
+        }
+        binding.rateUsView.clicks(withAnim = false) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${packageName}"))
+                .addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+
+            try {
+                startActivityExternal(intent)
+            } catch (e: ActivityNotFoundException) {
+                val url = "http://play.google.com/store/apps/details?id=${packageName}"
+                startActivityExternal(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            }
         }
     }
     private fun startActivityExternal(intent: Intent) {
@@ -145,40 +153,72 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         }
 
     }
-    private fun setDayReward(day : Int){
+    private fun setDayReward(day : Int, isReceived : Boolean){
+        consecutiveSeries = day
         setGradientReceivedDay(day)
         val imageResourceId = resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
         binding.ivCreditSlider.setImageResource(imageResourceId)
         dailyRewardAdapter.data = DailyReward.values().take(day).toList()
+        binding.receiveCardView.apply {
+            isEnabled = !isReceived
+            strokeWidth = if(isReceived) getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
+        }
+        binding.receiveLayout.apply {
+            if(isReceived) setBackgroundColor(getColor(R.color.gray_3D))
+            else setBackgroundResource(R.drawable.button_gradient_yellow)
+        }
+        binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.light_gray) else getColor(R.color.black))
     }
     private fun initData(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
-        preferences.consecutiveSeries
-            .asObservable()
-            .autoDispose(scope())
-            .subscribe {
-                consecutiveSeries = it
-                setDayReward(consecutiveSeries)
-            }
-        preferences.isReceived
-            .asObservable()
-            .autoDispose(scope())
-            .subscribe{ isReceived ->
-                binding.receiveCardView.apply {
-                    isEnabled = !isReceived
-                    strokeWidth = if(isReceived) getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
+        lifecycleScope.launch(Dispatchers.IO) {
+            serverApiRepository.getCreditHistory(getDeviceId()){progress ->
+                when(progress){
+                    is ServerApiRepository.ServerApiResponse.Loading ->{
+
+                    }
+                    is ServerApiRepository.ServerApiResponse.Success ->{
+                        launch(Dispatchers.Main) {
+                            val newList =  progress.response.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
+                                .map { it.createdAt.convertToShortDate()}
+                                .reversed()
+                            if (newList.isEmpty()) {
+                                setDayReward(0, isReceived = false)
+                                return@launch
+                            }
+                            var consecutiveSeries  = 0
+                            if(newList.size == 1) {
+                                setDayReward(1, isReceived = false)
+                                return@launch
+                            }
+                            for(i in 0 ..   newList.size -2){
+                                if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                                consecutiveSeries += 1
+                                if(consecutiveSeries > 6){
+                                    consecutiveSeries = 0
+                                    break
+                                }
+                            }
+                            val currentDateTime = LocalDate.now()
+                            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                            val formattedDate = currentDateTime.format(formatter)
+                            if(formattedDate.dayBetween(newList[0]) == 1L) {
+                                setDayReward(consecutiveSeries, isReceived = false)
+                            }
+                            else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = false)
+                            else setDayReward(consecutiveSeries, isReceived = true)
+                        }
+                    }
                 }
-                binding.receiveLayout.apply {
-                    if(isReceived) setBackgroundColor(getColor(R.color.gray_3D))
-                    else setBackgroundResource(R.drawable.button_gradient_yellow)
-                }
-                binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.light_gray) else getColor(R.color.black))
             }
+
+        }
     }
     private fun initView(){
         binding.rv.adapter = dailyRewardAdapter
+        setDayReward(0, true)
     }
 
 }

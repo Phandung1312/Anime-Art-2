@@ -1,18 +1,13 @@
 package com.anime.art.ai.data.repoository
 
-import android.media.Image
 import com.anime.art.ai.domain.model.config.ImageGenerationRequest
-import com.anime.art.ai.domain.model.config.Login
-import com.anime.art.ai.domain.model.response.ImageResponse
-import com.anime.art.ai.domain.model.response.LoginResponse
 import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.inject.sinkin.AIApi
-import retrofit2.Call
-import retrofit2.Response
+import retrofit2.await
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.security.auth.callback.Callback
+
 
 @Singleton
 class AIApiRepositoryImpl @Inject constructor(
@@ -20,29 +15,25 @@ class AIApiRepositoryImpl @Inject constructor(
 ) : AIApiRepository{
     override suspend fun generateImage(
         imageGenerationRequest: ImageGenerationRequest,
-        result: (ImageResponse) -> Unit
+        progress: (AIApiRepository.APIResponse) -> Unit
     ) {
-        val response = aiApi.generatorImage(imageGenerationRequest)
+        progress(AIApiRepository.APIResponse.Loading)
 
-        response.enqueue(object : retrofit2.Callback<ImageResponse?> {
-            override fun onResponse(
-                call: Call<ImageResponse?>,
-                response: Response<ImageResponse?>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let { imageResponse ->
-                        result.invoke(imageResponse)
-                    }
+        val responses = (0..3).mapNotNull {
+            try {
+                if(imageGenerationRequest.image.isEmpty()){
+                    aiApi.generatorImageByText(imageGenerationRequest).await()
+                } else {
+                    aiApi.generatorImageByImage(imageGenerationRequest).await()
                 }
-                else{
-                    Timber.e("IsNotSuccessful")
-                }
+            } catch (e: Exception){
+                null
             }
-            override fun onFailure(call: Call<ImageResponse?>, t: Throwable) {
-                Timber.e("OnFailure")
-            }
+        }
 
-
-        })
+        when {
+            responses.isNotEmpty() -> progress(AIApiRepository.APIResponse.Success(responses))
+            else -> progress(AIApiRepository.APIResponse.Error)
+        }
     }
 }

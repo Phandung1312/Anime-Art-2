@@ -153,18 +153,9 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
         val intent = Intent(Intent.ACTION_SENDTO)
         intent.data = Uri.parse("mailto:")
         intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(Constraint.Info.MAIL_SUPPORT))
-        intent.putExtra(Intent.EXTRA_SUBJECT, "${getString(R.string.app_name)} Support")
+        intent.putExtra(Intent.EXTRA_SUBJECT, "${getString(R.string.app_name)} Report")
         intent.putExtra(
-            Intent.EXTRA_TEXT, StringBuilder("\n\n")
-                .append("\n\n--- Please write your message above this line ---\n\n")
-                .append("Template ID:$galleryId\n")
-                .append("Package: ${packageName}\n")
-                .append("Version: ${BuildConfig.VERSION_NAME}\n")
-                .append("Device: ${Build.BRAND} ${Build.MODEL}\n")
-                .append("SDK: ${Build.VERSION.SDK_INT}\n")
-                .append("Upgraded: ${prefs.isUpgraded.get()}")
-                .append("Content: ")
-                .toString()
+            Intent.EXTRA_TEXT, "Reason:\n\n Template ID:$galleryId"
         )
         startActivityExternal(intent)
 

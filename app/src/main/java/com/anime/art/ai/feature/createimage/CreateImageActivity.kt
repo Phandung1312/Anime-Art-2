@@ -1,30 +1,58 @@
 package com.anime.art.ai.feature.createimage
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.anime.art.ai.R
+import com.anime.art.ai.common.ConfigApp
+import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
+import com.anime.art.ai.common.extension.getSerializable
+import com.anime.art.ai.common.extension.startFinalize
 import com.anime.art.ai.common.widget.transformer.ZoomInTransformer
+import com.anime.art.ai.data.Preferences
+import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.databinding.ActivityCreateImageBinding
-import com.anime.art.ai.domain.model.config.ViewImage
+import com.anime.art.ai.domain.model.config.Creator
+import com.anime.art.ai.domain.model.config.ImageGenerationRequest
+import com.anime.art.ai.domain.repository.AIApiRepository
+import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
 import com.anime.art.ai.feature.finalize.FinalizeActivity
 import com.anime.art.ai.feature.iap.IAPActivity
+import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
+import com.basic.common.extension.getDeviceId
+import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveBase64ImageToGallery
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
+import com.google.android.material.card.MaterialCardView
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreateImageBinding::inflate) {
 
     @Inject lateinit var previewAdapter : PreviewAdapter
+    @Inject lateinit var aiApiRepository: AIApiRepository
+    @Inject lateinit var configApp: ConfigApp
+    @Inject lateinit var serverApiRepository: ServerApiRepository
+    @Inject lateinit var preferences: Preferences
+
+    @Inject lateinit var creatorDao : CreatorDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparent()
@@ -40,32 +68,96 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         binding.close.clicks {
             back()
         }
-        binding.viewFinalize.clicks {
-            val intent = Intent(this, FinalizeActivity::class.java)
-            startActivity(intent)
-            tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
-        }
-
-    }
-
-    @Deprecated("Deprecated in Java", ReplaceWith("back()", "com.anime.art.ai.common.extension.back"))
-    override fun onBackPressed() {
-        back()
-    }
-    private fun initData() {
-        val galleries = listOf(
-            ViewImage(display = "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F1_zzz_512__584_zzz.webp?alt=media&token=e12e729f-81f3-4c4e-9379-510209f6c818"),
-            ViewImage(display = "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F2_zzz_512__698_zzz.webp?alt=media&token=2021b922-431d-40ee-8952-aaf8fe4e7ec3"),
-            ViewImage(display = "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F3_zzz_512__698_zzz.webp?alt=media&token=fca4fe13-42bb-47fb-8d8c-c84fed89b73d"),
-            ViewImage(display = "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F4_zzz_512__584_zzz.webp?alt=media&token=eea7c6d1-bbc6-418e-8869-5d6efb152ee6")
-        )
-        binding.viewPager.apply {
-            this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            this.setPageTransformer(ZoomInTransformer())
-            this.adapter = previewAdapter.apply {
-                this.data = galleries
+        binding.finalizeView.clicks {
+            configApp.imageBase64 = previewAdapter.data[binding.viewPager.currentItem].image
+            configApp.imageGenerationRequest?.let { image ->
+                val creator = Creator(image = configApp.imageBase64,
+                    prompt = image.prompt,
+                    negative = image.negativePrompt,
+                    artStyle = image.artStyle,
+                    ratio = image.ratio)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    creatorDao.inserts(creator)
+                    launch(Dispatchers.Main) {
+                       startFinalize()
+                    }
+                }
             }
-            this.post{ this.setCurrentItem(1, false)}
+        }
+        binding.variationsView.clicks {
+            lifecycleScope.launch{
+                val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
+                launch(Dispatchers.IO) {
+                    val request = UpdateCreditRequest(Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1, Constraint.MAKE_VARIATIONS)
+                    serverApiRepository.updateCredit(getDeviceId(),request){
+                        Timber.e("Update credit by make variations")
+                        val currentCredit = preferences.creditAmount.get()
+                        preferences.creditAmount.set(currentCredit - Constraint.Info.MAKE_VARIATIONS_COST)
+                    }
+                }
+                generateImage(imageGenerationRequest)
+            }
+        }
+        onBackPressedDispatcher.addCallback {
+            back()
+        }
+    }
+    private suspend fun generateImage(imageGenerationRequest : ImageGenerationRequest){
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            aiApiRepository.generateImage(imageGenerationRequest){ progress ->
+                launch(Dispatchers.Main) {
+                    when (progress){
+                        is AIApiRepository.APIResponse.Loading ->{
+                            setCardViewClickable(clickable = false,binding.variationsView, binding.finalizeView )
+                            binding.loadingLayout.isVisible = true
+                            binding.viewPager.isVisible = false
+                            binding.lottieView
+                                .animate()
+                                .alpha(1f)
+                                .setDuration(1000)
+                                .start()
+                            binding.lottieView.playAnimation()
+                        }
+                        is AIApiRepository.APIResponse.Success ->{
+                            binding.loadingLayout.isVisible = false
+                            binding.viewPager.apply {
+                                this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                                this.setPageTransformer(ZoomInTransformer())
+                                this.adapter = previewAdapter.apply {
+                                    this.data = progress.responses
+                                }
+                            }
+                            binding.viewPager.isVisible = true
+                            setCardViewClickable(clickable = true,binding.variationsView, binding.finalizeView )
+                        }
+                        is AIApiRepository.APIResponse.Error ->{
+                            binding.loadingLayout.isVisible = false
+                            makeToast("An error has occurred")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initData() {
+        lifecycleScope.launch{
+             val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
+            launch(Dispatchers.IO) {
+                val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
+                serverApiRepository.updateCredit(getDeviceId(),request){
+                    Timber.e("Update credit by create artwork")
+                    val currentCredit = preferences.creditAmount.get()
+                    preferences.creditAmount.set(currentCredit - Constraint.Info.CREATE_ART_WORK_COST)
+                }
+            }
+            generateImage(imageGenerationRequest)
+        }
+    }
+    private fun setCardViewClickable(clickable : Boolean,vararg cardViews: MaterialCardView){
+        cardViews.forEach {view ->
+            view.isEnabled = clickable
         }
     }
 
@@ -76,10 +168,26 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             .subscribe {
                 val intent = Intent(this , IAPActivity::class.java)
                 startActivity(intent)
+                tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
+            }
+        previewAdapter
+            .zoomClicks
+            .autoDispose(scope())
+            .subscribe { image ->
+                configApp.imageBase64 = image
+                startActivity(Intent(this, EnlargeImageActivity::class.java))
+                tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
+            }
+        previewAdapter
+            .saveClicks
+            .autoDispose(scope())
+            .subscribe{image ->
+                saveBase64ImageToGallery(image)
+                makeToast("Image saved to gallery")
             }
     }
 
     private fun initView() {
-
+        setCardViewClickable(clickable = false,binding.variationsView, binding.finalizeView )
     }
 }

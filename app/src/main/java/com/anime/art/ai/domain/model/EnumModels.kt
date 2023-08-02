@@ -29,27 +29,40 @@ enum class NumberOfImages(var display: String, val number: Int){
     NumberOfImages8(display = "8", number = 8)
 }
 
-enum class Character(val characterName : String){
-    Baby( characterName = "Baby"),
-    Fairy( characterName = "Fairy"),
-    Angle( characterName = "Angle"),
-    OfficeGirl( characterName = "OfficeGirl"),
-    DemonGirl( characterName = "DemonGirl"),
+enum class Character(val characterName : String,val  promptText : String){
+    Baby( characterName = "Baby", promptText = "3D art of a boy having small bearded for game avatar profile, " +
+            "sf, intricate artwork masterpiece, ominous, matte painting movie poster, golden ratio, trending on cgsociety, intricate, epic, trending on artstation, " +
+            "by artgerm, h. r. giger and beksinski, " +
+            "highly detailed, vibrant, production cinematic character render, ultra high quality model"),
+    Fairy( characterName = "Fairy", promptText = "masterpiece, best quality, anime, beautiful elf girl, " +
+            "otherworldly plants, glowing plants, watercolor, colorful, " +
+            "whimsical, fairy lights, little fairies, liquid light, otherworldly landscape, otherworldly liquid, " +
+            "fantasia, abstract background, sharp focus, highly detailed, 8k"),
+    Angle( characterName = "Angle", promptText = "Cinematic photography, angel: ana de armas, heavenly, 3/4 view, thick thighs, stockings, raining, lightning, dark fantasy, " +
+            "hyper realistic, dynamic lighting, symmetry, 4k, desktop background, " +
+            "sharp, intricate, ultra detailed, concept art, hdr 4k, 8k, " +
+            "highly detailed, intricate, sharp focus, volumetric lights, volumetric fog, depth of field, f/1. 8, 85mm, symmetry"),
+    OfficeGirl( characterName = "OfficeGirl", promptText = "beautiful realistik white woman with a perfect face, an enchanting smile, who works as a software developer in the office, " +
+            "beautiful face, 8k, best quality, super detailed skin and face, dark illumination, stock picture, with blur background, 50mm F1.2, 16:9"),
+    DemonGirl( characterName = "DemonGirl", promptText = "photo of 1 beautiful woman, demon, " +
+            "portait,extremely detailed beautiful face, (demon horns 1:3), beautiful detailed eyes, smug, long hair| silver hair,off-shoulder leather clothes,black suit," +
+            "(demon wings),(at night),forest,fire from hell,burnibg roses,best quality,masterpiece," +
+            "extremely detailed CG unity 8k wallpaper,highly detailed, sharp focus,(backlight:1.3),rim light , art by greg rulkowski,award winning photograph,gothic,UE render"),
 }
 
-enum class SizeOfImage(val size : String, val describeImage : String ){
-    OneOne(size = "1:1", describeImage = "size_1_1"),
-    NineSix(size = "9:6", describeImage = "size_9_6"),
-    SixteenNine(size = "16:9", describeImage = "size_16_9"),
-    TwoThree(size = "2:3", describeImage = "size_2_3"),
-    ThreeTwo(size = "3:2", describeImage = "size_3_2")
+enum class SizeOfImage(val size : String, val describeImage : String, val realSize : String ){
+    OneOne(size = "1:1", describeImage = "size_1_1", realSize = "1024:1024"),
+    NineSix(size = "9:6", describeImage = "size_9_6", realSize = "1024:576"),
+    SixteenNine(size = "16:9", describeImage = "size_16_9", realSize = "576:1024"),
+    TwoThree(size = "2:3", describeImage = "size_2_3", realSize = "768:512"),
+    ThreeTwo(size = "3:2", describeImage = "size_3_2", realSize = "512:768")
 }
 
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String){
-    AGG(artStyleName = "AGG", sourceImage = "agg", model = "stable-diffusion-v1-5"),
-    Realistic(artStyleName = "Realistic", sourceImage = "realistic", model = "stable-diffusion-v1-5"),
+    AGG(artStyleName = "AGG", sourceImage = "agg", model = "absolute-reality-v1-6"),
+    Realistic(artStyleName = "Realistic", sourceImage = "realistic", model = "realistic-vision-v3"),
     PencilSketch(artStyleName = "PencilSketch", sourceImage = "pencil_sketch", model = "stable-diffusion-v1-5"),
-    SuperHero(artStyleName = "SuperHero", sourceImage = "super_hero", model = "stable-diffusion-v1-5"),
+    SuperHero(artStyleName = "SuperHero", sourceImage = "super_hero", model = "anashel-rpg"),
     ZFlighters(artStyleName = "ZFlighters", sourceImage = "z_flighters", model = "stable-diffusion-v1-5"),
     PastelColors(artStyleName = "PastelColors", sourceImage = "pastel_colors", model = "stable-diffusion-v1-5"),
     Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "stable-diffusion-v1-5"),

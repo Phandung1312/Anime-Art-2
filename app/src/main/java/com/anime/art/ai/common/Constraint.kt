@@ -4,7 +4,8 @@ class Constraint {
 
     class Sinkin {
         companion object {
-            const val DEFAULT_NEGATIVE = "(character out of frame)1.4, (worst quality)1.2, (low quality)1.6, (normal quality)1.6, lowres, (monochrome)1.1, (grayscale)1.3, acnes, skin blemishes, bad anatomy, DeepNegative,(fat)1.1, bad hands, text, error, missing fingers, extra limbs, missing limbs, extra digits, fewer digits, cropped, jpeg artifacts, signature, watermark, furry, elf ears"
+            const val DEFAULT_NEGATIVE = "((NSFW)), naked, nude, no clothes, upper body uncovered, breast uncovered, (worst quality, low quality, extra digits:1.4),artist name, nsfw, monochrome, fused face, poorly drawn face, cloned face," +
+                    " false body, false face, bad hands, poorly drawn hands, fused eyes, poorly drawn eyes, liquid eyes, false eyes, scary, ugly"
             const val DEFAULT_MODEL = "anything_4_0"
 
             const val URL = "https://sinkin.ai/api/inference"
@@ -19,6 +20,8 @@ class Constraint {
             const val TERMS_URL = "https://www.youtube.com/"
             const val DATA_VERSION = 2
             const val DEFAULT_QUALITY = 512
+            const val CREATE_ART_WORK_COST = 5
+            const val MAKE_VARIATIONS_COST = 3
         }
     }
 
@@ -30,7 +33,7 @@ class Constraint {
     class AIGeneration{
         companion object{
             const val URL = "https://api.getimg.ai/v1/stable-diffusion/"
-            const val KEY = "key-jF3RWX1QTULE09qZo97jcFnleOCpANj92PLnjLAPzZONoGrgrNxjwLz3laotG6XfoUDSRJYlK6FEyjzSNFDccOzBYFmHOYx"
+            const val KEY = "key-1D2rj993XhxBhrMvZNC36SwvMRf7WMmGTnWZSiBntjQZKD6VnS2lvCjhA0siahEs9oUK88V3zD1xTVFYijQgTabfB1T0Jiq"
         }
     }
     companion object{
@@ -38,6 +41,8 @@ class Constraint {
         const val CREATE_ARTWORK : String ="CREATE_ARTWORK"
         const val PURCHASED_WEEK : String ="PURCHASED_WEEK"
         const val PURCHASED_YEAR : String ="PURCHASED_YEAR"
+        const val MAKE_VARIATIONS : String = "MAKE_VARIATIONS"
+        const val DAILY_REWARD : String = "DAILY_REWARD"
     }
 
 }

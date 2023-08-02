@@ -11,7 +11,7 @@ data class Login(
     var id : Long = 0,
     @SerializedName("is_premium")
     @Expose
-    var title : Int = 0,
+    var isPremium : Int = 0,
     @SerializedName("credit")
     @Expose
     var credit : Long = 0,

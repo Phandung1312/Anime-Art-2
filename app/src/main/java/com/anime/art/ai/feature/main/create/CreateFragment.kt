@@ -4,7 +4,9 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.text.SpannableStringBuilder
+import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.underline
@@ -15,9 +17,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.anime.art.ai.R
+import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreateImage
+import com.anime.art.ai.common.extension.startIAP
+import com.anime.art.ai.common.removeWhitespace
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.databinding.FragmentCreateBinding
@@ -42,7 +47,11 @@ import com.anime.art.ai.feature.main.create.adapter.SizeOfImageAdapter
 import com.anime.art.ai.feature.main.create.adapter.TagAdapter
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
+import com.basic.common.extension.convertDrawableToBase64
+import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
+import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveStringToFile
 import com.uber.autodispose.android.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
@@ -74,8 +83,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     @Inject lateinit var samplingMethodAdapter : SamplingMethodAdapter
     @Inject lateinit var controlNetAdapter: ControlNetAdapter
     @Inject lateinit var inputImageAdapter: InputImageAdapter
-
-    @Inject lateinit var aiApiRepository: AIApiRepository
+    @Inject lateinit var configApp: ConfigApp
 
     private var isShowSetting : Boolean = false
     private var isShowMore : Boolean = false
@@ -139,7 +147,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             rvInputImage.adapter = inputImageAdapter
         }
-        binding.edNegativePrompt.setText(Constraint.Sinkin.DEFAULT_NEGATIVE)
     }
 
     private fun initData(){
@@ -154,6 +161,8 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
         binding.sliderScale.value = 7.5f
         binding.sliderStep.value = 25f
+
+        binding.edNegativePrompt.setText(Constraint.Sinkin.DEFAULT_NEGATIVE)
     }
     private fun initInputImageData(){
         inputImages  = arrayListOf(
@@ -214,38 +223,44 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
            getPromptFromHistoryResult.launch(intent)
         }
         binding.createView.clicks(withAnim = false) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                aiApiRepository.generateImage(imageGenerationRequest){
-                    Timber.e("Successful")
-                }
-            }
-            //createImage()
+            createImage()
         }
         binding.creditView.clicks(withAnim = false) {
             val buyMoreDialog = BuyMoreDialog()
             buyMoreDialog.show(parentFragmentManager, null)
         }
-        binding.edEnterPrompt.doOnTextChanged { text, start, before, count ->
+        binding.edEnterPrompt.doOnTextChanged { text, _, _, _ ->
             binding.tvLengthPrompt.text = "${text?.length}/1000"
             imageGenerationRequest.prompt = text.toString()
             isEnableCreate.onNext(text?.isNotEmpty() == true)
         }
-
+        binding.edNegativePrompt.doOnTextChanged { text, _, _, _ ->
+            imageGenerationRequest.negativePrompt = text.toString()
+        }
         binding.qualityPrompt.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
-                imageGenerationRequest.height = Constraint.Info.DEFAULT_QUALITY * 2
-                imageGenerationRequest.width = Constraint.Info.DEFAULT_QUALITY * 2
+                imageGenerationRequest.height *= 2
+                imageGenerationRequest.width *= 2
             }
             else{
-                imageGenerationRequest.height = Constraint.Info.DEFAULT_QUALITY
-                imageGenerationRequest.width = Constraint.Info.DEFAULT_QUALITY
+                imageGenerationRequest.height /= 2
+                imageGenerationRequest.width /= 2
             }
+        }
+        binding.edNegativePrompt.clicks(withAnim = false) {
+            if(!preferences.isPremium.get()) activity?.startIAP()
         }
     }
     private fun initObservable(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
+        menuAdapter
+            .clicks
+            .autoDispose(scope())
+            .subscribe { character ->
+                binding.edEnterPrompt.setText(character.promptText)
+            }
         charAppAdapter
             .clicks
             .autoDispose(scope())
@@ -291,6 +306,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe {artStyle ->
                 imageGenerationRequest.model = artStyle.model
+                imageGenerationRequest.artStyle = artStyle.artStyleName
             }
 
         controlNetAdapter
@@ -300,11 +316,25 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                 imageGenerationRequest.controlNet = controlNet.apiString
             }
 
+        sizeOfImageAdapter
+            .clicks
+            .autoDispose(scope())
+            .subscribe {item ->
+                val multiples = if(binding.qualityPrompt.isChecked) 1 else 2
+                imageGenerationRequest.height = item.realSize.split(":")[0].toInt() / multiples
+                imageGenerationRequest.width = item.realSize.split(":")[1].toInt() / multiples
+                imageGenerationRequest.ratio = item.size
+                Timber.e("Height = ${imageGenerationRequest.height}, width = ${imageGenerationRequest.width}")
+            }
+
     }
 
     private fun appendEnterPromptText(tag : String) {
-
         binding.edEnterPrompt.text?.apply {
+            if(this.length + tag.length > 1000){
+                requireContext().makeToast("Text is full box")
+                return
+            }
             if(isNotEmpty()) append(",")
             append("(${tag}:1.3)")
         }
@@ -365,6 +395,12 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         prompt?.let {
             binding.edEnterPrompt.setText(it)
         }
+        sizeOfImageAdapter.data.forEach { sizeOfImage ->
+            if(TextUtils.equals(sizeOfImage.realSize, ratio)) {
+                sizeOfImageAdapter.selectedIndex = sizeOfImageAdapter.data.indexOf(sizeOfImage)
+                sizeOfImageAdapter.clicks.onNext(sizeOfImage)
+            }
+        }
     }
     private val getPromptFromHistoryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if(result.resultCode == Activity.RESULT_OK){
@@ -375,17 +411,43 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     }
 
     private fun createImage(){
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val prompt : String  = binding.edEnterPrompt.text.toString()
-                promptDao.inserts(Prompt(text = prompt))
-                lifecycleScope.launch(Dispatchers.IO) {
-                    activity?.startCreateImage()
+        val inputImage = if(inputImageAdapter.selectedIndex > 0) inputImageAdapter.data[inputImageAdapter.selectedIndex] else null
+        try {
+            inputImage?.let {
+                imageGenerationRequest.image = when (val image = it.imageLink) {
+                    is Int -> {
+                        requireContext().convertDrawableToBase64(image) ?: ""
+                    }
+                    is Uri -> {
+                        requireContext().convertImageToBase64(image) ?: ""
+                    }
+                    else -> {
+                        ""
+                    }
                 }
+                imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
+                imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
             }
-            catch (e : Exception){
-                Timber.e("Insert prompt error")
+        }catch (e : Exception){
+            Timber.e(e)
+        }
+        if(preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST){
+            requireContext().makeToast("you don't have enough credit")
+            activity?.startIAP()
+        }
+        else{
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val prompt : String  = binding.edEnterPrompt.text.toString()
+                    promptDao.inserts(Prompt(text = prompt))
+                    launch(Dispatchers.Main) {
+                        configApp.imageGenerationRequest = imageGenerationRequest
+                        activity?.startCreateImage()
+                    }
+                }
+                catch (e : Exception){
+                    Timber.e("Insert prompt error")
+                }
             }
         }
 

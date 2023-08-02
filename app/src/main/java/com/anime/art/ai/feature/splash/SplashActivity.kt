@@ -5,6 +5,7 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.common.ConfigApp
+import com.anime.art.ai.common.extension.startIAP
 import com.anime.art.ai.common.extension.startMain
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.ActivitySplashBinding
@@ -46,8 +47,9 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
     private fun initData() {
         syncRemoteConfig {
             lifecycleScope.launch(Dispatchers.IO) {
-                serverApiRepo.login(getDeviceId()){login ->
+                serverApiRepo.login(getDeviceId()){ login ->
                     prefs.creditAmount.set(login.credit)
+                    prefs.isPremium.set(login.isPremium == 1)
                     lifecycleScope.launch(Dispatchers.Main) {
                         doTask()
                     }
@@ -58,9 +60,8 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
 
     private fun doTask(){
         when {
-            !prefs.isUpgraded.get() -> startMain()
+            !prefs.isPremium.get() -> startIAP(isFirstScreen = true)
             else -> startMain()
-
         }
         finish()
 

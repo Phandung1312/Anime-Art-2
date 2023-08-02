@@ -368,6 +368,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/rate_us_view"
             app:cardBackgroundColor="@color/backgroundDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

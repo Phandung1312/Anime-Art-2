@@ -72,6 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/tv_bonus_credit"
                 android:text="Get 1200 Credit"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"

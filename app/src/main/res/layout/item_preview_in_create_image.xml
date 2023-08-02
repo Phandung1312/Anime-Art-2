@@ -34,6 +34,9 @@
                 android:layout_height="match_parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/tick_view"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_15sdp"
@@ -43,6 +46,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/save_view"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginStart="@dimen/_15sdp"
@@ -52,6 +58,9 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/zoom_view"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
@@ -62,6 +71,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/unlock"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_80sdp"
                     android:src="@drawable/lock"

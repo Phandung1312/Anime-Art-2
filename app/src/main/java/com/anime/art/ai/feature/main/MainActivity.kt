@@ -152,11 +152,14 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
     }
     private var getDataFromGalleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if(result.resultCode == Activity.RESULT_OK){
-            binding.viewPager.currentItem = 1
-            pageChanges.onNext(1)
             val prompt = result.data?.getStringExtra(CreateFragment.PROMPT_EXTRA)
             val ratio = result.data?.getStringExtra(CreateFragment.RATIO_EXTRA)
-            (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, ratio)
+            gotoGalleryFragment(prompt, ratio)
         }
+    }
+    fun gotoGalleryFragment(prompt : String?, ratio : String?){
+        (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, ratio)
+        binding.viewPager.currentItem = 1
+        pageChanges.onNext(1)
     }
 }

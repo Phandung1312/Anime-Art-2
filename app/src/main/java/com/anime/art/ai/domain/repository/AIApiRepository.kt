@@ -5,5 +5,10 @@ import com.anime.art.ai.domain.model.config.Login
 import com.anime.art.ai.domain.model.response.ImageResponse
 
 interface AIApiRepository {
-    suspend fun generateImage(imageGenerationRequest: ImageGenerationRequest, result: (ImageResponse) -> Unit)
+    sealed class APIResponse {
+        object Loading : APIResponse()
+        data class Success(val responses: List<ImageResponse>) : APIResponse()
+        object Error : APIResponse()
+    }
+    suspend fun generateImage(imageGenerationRequest: ImageGenerationRequest, progress: (APIResponse) -> Unit)
 }

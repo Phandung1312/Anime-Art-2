@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
@@ -90,6 +91,14 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             ?.take(1)
             ?.autoDispose(scope())
             ?.subscribe { syncData() }
+
+        pref
+            .isPremium
+            .asObservable()
+            .autoDispose(scope())
+            .subscribe {
+                binding.premiumView.isVisible = !it
+            }
     }
 
     private fun initData() {
@@ -104,34 +113,38 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
     }
     private fun checkDailyCreditReceived(){
         lifecycleScope.launch(Dispatchers.IO) {
-            serverApiRepository.getCreditHistory(requireContext().getDeviceId()){histories ->
-                val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.CREATE_ARTWORK)  }
-                    .map { it.createdAt.convertToShortDate()}
-                    .reversed()
-                if (newList.isEmpty()) {
-                    showDailyReward(0)
-                    return@getCreditHistory
-                }
-                val currentDateTime = LocalDate.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                val formattedDate = currentDateTime.format(formatter)
-                if(formattedDate.dayBetween(newList[0]) == 1L) {
-                    var consecutiveSeries  = 0
-                    if(newList.size == 1) {
-                        showDailyReward(1)
-                        return@getCreditHistory
-                    }
-                    for(i in 0 ..   newList.size -2){
-                        if(newList[i].dayBetween(newList[i + 1]) > 1L) break
-                        consecutiveSeries += 1
-                        if(consecutiveSeries > 6){
-                            consecutiveSeries = 0
-                            break
+            serverApiRepository.getCreditHistory(requireContext().getDeviceId()){progress ->
+                if(progress is ServerApiRepository.ServerApiResponse.Success){
+                    launch(Dispatchers.Main) {
+                        val newList =  progress.response.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
+                            .map { it.createdAt.convertToShortDate()}
+                            .reversed()
+                        if (newList.isEmpty()) {
+                            showDailyReward(0)
+                            return@launch
                         }
+                        val currentDateTime = LocalDate.now()
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        val formattedDate = currentDateTime.format(formatter)
+                        if(formattedDate.dayBetween(newList[0]) == 1L) {
+                            var consecutiveSeries  = 0
+                            if(newList.size == 1) {
+                                showDailyReward(1)
+                                return@launch
+                            }
+                            for(i in 0 ..   newList.size -2){
+                                if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                                consecutiveSeries += 1
+                                if(consecutiveSeries > 6){
+                                    consecutiveSeries = 0
+                                    break
+                                }
+                            }
+                            showDailyReward(consecutiveSeries)
+                        }
+                        else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
                     }
-                 showDailyReward(consecutiveSeries)
                 }
-                else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
             }
 
         }

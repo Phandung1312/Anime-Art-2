@@ -24,10 +24,14 @@ interface ServerApi {
         @Path("deviceId") deviceId: String,
         @Body request: UpdateCreditRequest
     ): Call<MessageResponse?>
+    @POST("user/update/premium/{deviceId}")
+    fun updatePremium(
+        @Path("deviceId") deviceId: String,
+        @Body updateCreditRequest: UpdateCreditRequest)
 }
 
 data class UpdateCreditRequest(
-    @SerializedName("credit") val credit: Long,
+    @SerializedName("credit") val credit: Long? = null,
     @SerializedName("title") val title: String,
 
 )

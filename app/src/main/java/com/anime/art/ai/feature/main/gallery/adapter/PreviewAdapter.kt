@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewAdapter @Inject constructor(): LsAdapter<Gallery, ItemPreviewInGalleryBinding>(ItemPreviewInGalleryBinding::inflate) {
