@@ -32,9 +32,9 @@ class ServerApiRepositoryImpl @Inject constructor(
     override suspend fun getCreditHistory(deviceId: String, result: (Boolean) -> Unit) {
        try {
            serverApi.getCreditHistory(deviceId).await()?.let { historyResponse ->
+               preferences.isSynced.set(true)
                historyDao.deleteAll()
                historyDao.inserts(*historyResponse.histories.toTypedArray())
-               preferences.isSynced.set(true)
                result.invoke(true)
            }
        }
@@ -47,6 +47,10 @@ class ServerApiRepositoryImpl @Inject constructor(
         try {
             val response = serverApi.updateCredit(deviceId, request).await()
             preferences.isSynced.set(false)
+            request.credit?.let {
+                val currentCredit = preferences.creditAmount.get()
+                preferences.creditAmount.set(currentCredit + it)
+            }
             result.invoke(true)
         }
         catch (e : Exception){

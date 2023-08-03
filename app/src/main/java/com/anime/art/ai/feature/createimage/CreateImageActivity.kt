@@ -90,8 +90,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                     val request = UpdateCreditRequest(Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1, Constraint.MAKE_VARIATIONS)
                     serverApiRepository.updateCredit(getDeviceId(),request){result ->
                         if(result){
-                            val currentCredit = preferences.creditAmount.get()
-                            preferences.creditAmount.set(currentCredit - Constraint.Info.MAKE_VARIATIONS_COST)
+
                         }
                         else{
                             makeToast("An error has occurred")
@@ -127,8 +126,6 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                 val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
                                 serverApiRepository.updateCredit(getDeviceId(),request){ result ->
                                     if(result){
-                                        val currentCredit = preferences.creditAmount.get()
-                                        preferences.creditAmount.set(currentCredit - Constraint.Info.CREATE_ART_WORK_COST)
                                     }
                                     else{
                                         makeToast("An error has occurred")

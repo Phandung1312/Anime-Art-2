@@ -118,8 +118,6 @@ class BuyMoreDialog(
                 ){ result ->
                     launch(Dispatchers.Main) {
                         if(result){
-                            val currentCredit = preferences.creditAmount.get()
-                            preferences.creditAmount.set(currentCredit  + credit.toLong())
                             requireContext().makeToast("Buy credit successfully")
                         }
                         else{

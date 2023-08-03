@@ -598,9 +598,10 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/create_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/button_gradient_yellow"
+            android:background="@drawable/button_gradient_yellow_inactive"
             android:paddingStart="@dimen/_25sdp"
             android:paddingEnd="@dimen/_25sdp">
 
@@ -614,7 +615,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.basic.common.widget.LsTextView
-                android:id="@+id/lsTextView2"
+                android:id="@+id/tv_cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -627,15 +628,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView3"
+                android:id="@+id/iv_create"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="wrap_content"
+                android:tint="@color/white"
                 android:src="@drawable/right_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.basic.common.widget.LsTextView
+                android:id="@+id/tv_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_semibold"

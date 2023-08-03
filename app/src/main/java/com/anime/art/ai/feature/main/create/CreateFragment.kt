@@ -50,6 +50,7 @@ import com.basic.common.extension.convertDrawableToBase64
 import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.setTint
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -292,11 +293,14 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
         isEnableCreate
             .autoDispose(scope())
-            .subscribe {
-                binding.createView.apply {
-                    isEnabled = it
-                    alpha = if(it) 1.0f else 0.6f
-                }
+            .subscribe { isEnable ->
+                binding.createView.isEnabled = isEnable
+                val colorRes = if (isEnable) R.color.black else R.color.white
+                val backgroundRes = if (isEnable) R.drawable.button_gradient_yellow else R.drawable.button_gradient_yellow_inactive
+                binding.createLayout.setBackgroundResource(backgroundRes)
+                binding.tvCreate.setTextColor(requireContext().getColor(colorRes))
+                binding.tvCost.setTextColor(requireContext().getColor(colorRes))
+                binding.ivCreate.setTint(requireContext().getColor(colorRes))
             }
 
         artStyleAdapter

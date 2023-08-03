@@ -35,6 +35,7 @@ import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -88,12 +89,14 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             lifecycleScope.launch(Dispatchers.IO) {
                 val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
                 val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
-                serverApiRepository.updateCredit(getDeviceId(),request){
+                serverApiRepository.updateCredit(getDeviceId(),request){ result ->
                     lifecycleScope.launch(Dispatchers.Main) {
-                        setDayReward( consecutiveSeries + 1 , isReceived = true)
-                        makeToast("You have received $todayReward credit")
-                        val currentCredit = preferences.creditAmount.get()
-                        preferences.creditAmount.set(currentCredit + todayReward)
+                        if(result){
+                            makeToast("You have received $todayReward credit")
+                        }
+                        else{
+                            binding.receiveCardView.isEnabled = true
+                        }
                     }
                 }
             }
@@ -177,35 +180,35 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         }
         historyDao.getAll().observe(this){ histories ->
             if(preferences.isSynced.get()){
-                val isSynced = preferences.isSynced.get()
                 lifecycleScope.launch(Dispatchers.Main) {
                     val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
                         .map { it.createdAt.convertToShortDate()}
                         .reversed()
                     if (newList.isEmpty()) {
-                        setDayReward(0, isReceived = !isSynced)
+                        setDayReward(0, isReceived = false)
                         return@launch
                     }
-                    var consecutiveSeries  = 0
-                    if(newList.size == 1) {
-                        setDayReward(1, isReceived = !isSynced)
-                        return@launch
-                    }
-                    for(i in 0 ..   newList.size -2){
-                        if(newList[i].dayBetween(newList[i + 1]) > 1L) break
-                        consecutiveSeries += 1
-                        if(consecutiveSeries > 6){
-                            consecutiveSeries = 0
-                            break
+                    var consecutiveSeries  = 1
+                    if(newList.size > 1){
+                        for(i in 0 ..   newList.size -2){
+                            if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                            consecutiveSeries += 1
+                            if(consecutiveSeries > 6){
+                                consecutiveSeries = 0
+                                break
+                            }
                         }
                     }
                     val currentDateTime = LocalDate.now()
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     val formattedDate = currentDateTime.format(formatter)
-                    if(formattedDate.dayBetween(newList[0]) == 1L) {
-                        setDayReward(consecutiveSeries, isReceived = !isSynced)
+                    if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
+                            setDayReward(1, isReceived = false)
                     }
-                    else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = !isSynced)
+                    else if(formattedDate.dayBetween(newList[0]) == 1L){
+                        setDayReward(consecutiveSeries, isReceived = false)
+                    }
+                    else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = false)
                     else setDayReward(consecutiveSeries, isReceived = true)
                 }
             }
@@ -228,7 +231,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
     }
     private fun initView(){
         binding.rv.adapter = dailyRewardAdapter
-        setDayReward(0, true)
+        setDayReward(0, false)
     }
 
 }

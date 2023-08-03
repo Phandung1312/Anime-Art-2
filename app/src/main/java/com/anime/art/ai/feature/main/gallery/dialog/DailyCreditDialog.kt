@@ -85,8 +85,6 @@ class DailyCreditDialog(
                             binding.tvReceive.setTextColor(requireContext().getColor(R.color.light_gray))
                             setDayReward( consecutiveSeries + 1 )
                             requireContext().makeToast("You have received $todayReward credit")
-                            val currentCredit = pref.creditAmount.get()
-                            pref.creditAmount.set(currentCredit + todayReward)
                             delay(300)
                             dismiss()
                         }

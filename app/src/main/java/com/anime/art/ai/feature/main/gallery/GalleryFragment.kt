@@ -102,6 +102,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             .subscribe {
                 binding.premiumView.isVisible = !it
             }
+        checkDailyCreditReceived()
     }
 
     private fun initData() {
@@ -122,15 +123,8 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                        showDailyReward(0)
                        return@launch
                    }
-                   val currentDateTime = LocalDate.now()
-                   val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                   val formattedDate = currentDateTime.format(formatter)
-                   if(formattedDate.dayBetween(newList[0]) == 1L) {
-                       var consecutiveSeries  = 0
-                       if(newList.size == 1) {
-                           showDailyReward(1)
-                           return@launch
-                       }
+                   var consecutiveSeries  = 1
+                   if(newList.size > 1){
                        for(i in 0 ..   newList.size -2){
                            if(newList[i].dayBetween(newList[i + 1]) > 1L) break
                            consecutiveSeries += 1
@@ -139,16 +133,22 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                                break
                            }
                        }
+                   }
+                   val currentDateTime = LocalDate.now()
+                   val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                   val formattedDate = currentDateTime.format(formatter)
+                   if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
+                       showDailyReward(1)
+                   }
+                   else if(formattedDate.dayBetween(newList[0]) == 1L){
                        showDailyReward(consecutiveSeries)
                    }
                    else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
                }
            }
         }
-        checkDailyCreditReceived()
     }
     private fun checkDailyCreditReceived(){
-        Timber.e("device id = ${requireContext().getDeviceId()}")
         pref
             .isSynced
             .asObservable()
