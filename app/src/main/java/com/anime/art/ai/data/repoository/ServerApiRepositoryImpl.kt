@@ -1,8 +1,9 @@
 package com.anime.art.ai.data.repoository
 
 
+import com.anime.art.ai.data.Preferences
+import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.domain.model.config.Login
-import com.anime.art.ai.domain.model.response.LoginResponse
 import com.anime.art.ai.domain.model.response.MessageResponse
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.inject.sinkin.ServerApi
@@ -16,7 +17,9 @@ import javax.inject.Singleton
 
 @Singleton
 class ServerApiRepositoryImpl @Inject constructor(
-    private val serverApi: ServerApi
+    private val serverApi: ServerApi,
+    private val preferences: Preferences,
+    private val historyDao: HistoryDao
 ): ServerApiRepository {
 
     override suspend fun login(deviceId: String ,result: (Login) -> Unit) {
@@ -26,29 +29,42 @@ class ServerApiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCreditHistory(deviceId: String, progress: (ServerApiRepository.ServerApiResponse) -> Unit) {
-        progress(ServerApiRepository.ServerApiResponse.Loading)
-        serverApi.getCreditHistory(deviceId).await()?.let { historyResponse -> progress(ServerApiRepository.ServerApiResponse.Success(historyResponse.histories)) }
+    override suspend fun getCreditHistory(deviceId: String, result: (Boolean) -> Unit) {
+       try {
+           serverApi.getCreditHistory(deviceId).await()?.let { historyResponse ->
+               historyDao.deleteAll()
+               historyDao.inserts(*historyResponse.histories.toTypedArray())
+               preferences.isSynced.set(true)
+               result.invoke(true)
+           }
+       }
+       catch (e : Exception){
+           result.invoke(false)
+       }
     }
 
     override suspend fun updateCredit(deviceId: String,request: UpdateCreditRequest, result: (Boolean) -> Unit) {
-        val response = serverApi.updateCredit(deviceId, request)
-        response.enqueue(object  : Callback<MessageResponse?>{
-            override fun onResponse(
-                call: Call<MessageResponse?>,
-                response: Response<MessageResponse?>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let {
-                        result.invoke(true)
-                    }
-                }
-            }
+        try {
+            val response = serverApi.updateCredit(deviceId, request).await()
+            preferences.isSynced.set(false)
+            result.invoke(true)
+        }
+        catch (e : Exception){
+            result.invoke(false)
+        }
+    }
 
-            override fun onFailure(call: Call<MessageResponse?>, t: Throwable) {
-
-            }
-
-        })
+    override suspend fun updatePremium(
+        deviceId: String,
+        request: UpdateCreditRequest,
+        result: (Boolean) -> Unit
+    ) {
+        try{
+            val response = serverApi.updatePremium(deviceId, request).await()
+            result.invoke(true)
+        }
+        catch (e : Exception){
+            result.invoke(false)
+        }
     }
 }

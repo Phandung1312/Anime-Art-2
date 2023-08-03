@@ -11,7 +11,9 @@ interface ServerApiRepository {
     }
     suspend fun login(deviceId: String, result: (Login) -> Unit)
 
-    suspend fun getCreditHistory(deviceId : String , progress: (ServerApiResponse) -> Unit)
+    suspend fun getCreditHistory(deviceId : String , result: (Boolean) -> Unit)
 
     suspend fun updateCredit(deviceId: String, request: UpdateCreditRequest, result: (Boolean) -> Unit)
+
+    suspend fun updatePremium(deviceId: String,request: UpdateCreditRequest,  result: (Boolean) -> Unit)
 }

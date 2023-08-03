@@ -35,7 +35,6 @@ import com.anime.art.ai.domain.model.Tag
 import com.anime.art.ai.domain.model.config.ImageGenerationRequest
 import com.anime.art.ai.domain.model.config.InputImage
 import com.anime.art.ai.domain.model.config.Prompt
-import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.feature.credithistory.BuyMoreDialog
 import com.anime.art.ai.feature.main.create.adapter.ArtStyleAdapter
 import com.anime.art.ai.feature.main.create.adapter.CharAppAdapter
@@ -51,19 +50,15 @@ import com.basic.common.extension.convertDrawableToBase64
 import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
-import com.basic.common.extension.saveStringToFile
-import com.uber.autodispose.android.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
@@ -252,8 +247,11 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
     }
     private fun initObservable(){
-        preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
+        preferences.creditAmount.asObservable().autoDispose(scope()).subscribe { creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
+        }
+        preferences.isPremium.asObservable().autoDispose(scope()).subscribe {
+            controlNetAdapter.isPremium = it
         }
         menuAdapter
             .clicks
@@ -313,7 +311,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .click
             .autoDispose(scope())
             .subscribe { controlNet ->
-                imageGenerationRequest.controlNet = controlNet.apiString
+                if (preferences.isPremium.get()) imageGenerationRequest.controlNet = controlNet.apiString
+                else {
+                    requireActivity().startIAP()
+                }
             }
 
         sizeOfImageAdapter
@@ -438,8 +439,11 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         else{
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
-                    val prompt : String  = binding.edEnterPrompt.text.toString()
-                    promptDao.inserts(Prompt(text = prompt))
+                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
+                    val prompts = promptDao.getAll()
+                    if (prompts.none { TextUtils.equals(it.text, prompt) }) {
+                        promptDao.inserts(Prompt(text = prompt))
+                    }
                     launch(Dispatchers.Main) {
                         configApp.imageGenerationRequest = imageGenerationRequest
                         activity?.startCreateImage()

@@ -14,7 +14,7 @@ class ControlNetAdapter @Inject constructor() : LsAdapter<ControlNet, ItemContro
     init {
         data = ControlNet.values().toList()
     }
-
+    var isPremium = false
     private var selectedIndex = -1
         set(value) {
             if (field == value){
@@ -32,7 +32,7 @@ class ControlNetAdapter @Inject constructor() : LsAdapter<ControlNet, ItemContro
 
         binding.checkbox.setImageResource(if(selectedIndex == position) R.drawable.raido_checked else R.drawable.radio_unchecked)
         binding.rootView.clicks(withAnim = false) {
-            selectedIndex = position
+            if (isPremium) selectedIndex = position
             click.onNext(item)
         }
     }

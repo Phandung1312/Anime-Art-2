@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.data.Preferences
+import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.databinding.ActivityCreditHistoryBinding
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.credithistory.adapter.CreditHistoryAdapter
@@ -28,6 +29,7 @@ class CreditHistoryActivity : LsActivity<ActivityCreditHistoryBinding>(ActivityC
     @Inject lateinit var serverApiRepo: ServerApiRepository
     @Inject lateinit var creditHistoryAdapter: CreditHistoryAdapter
     @Inject lateinit var pref : Preferences
+    @Inject lateinit var historyDao: HistoryDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparent()
@@ -58,33 +60,11 @@ class CreditHistoryActivity : LsActivity<ActivityCreditHistoryBinding>(ActivityC
         }
     }
     private fun initData(){
-        lifecycleScope.launch(Dispatchers.IO) {
-            serverApiRepo.getCreditHistory(getDeviceId()){ progress ->
-               launch(Dispatchers.Main) {
-                   when(progress){
-                       is ServerApiRepository.ServerApiResponse.Loading ->{
-                           tryOrNull {
-                               binding.rv.isVisible = false
-                               binding.lottieView
-                                   .animate()
-                                   .alpha(1f)
-                                   .setDuration(1000)
-                                   .start()
-                               binding.lottieView.playAnimation()
-                           }
-                       }
-                       is ServerApiRepository.ServerApiResponse.Success ->{
-                           Timber.e("History: ${progress.response.size}")
-                           tryOrNull {
-                               binding.lottieView.isVisible = false
-                               creditHistoryAdapter.data = progress.response.reversed()
-                               binding.rv.isVisible = true
-                           }
-                       }
-                       else -> {}
-                   }
-               }
-            }
+        historyDao.getAll().observe(this){ histories ->
+            binding.lottieView.isVisible = false
+            creditHistoryAdapter.data = histories.reversed()
+            binding.rv.isVisible = true
         }
+
     }
 }

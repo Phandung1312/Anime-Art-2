@@ -52,7 +52,7 @@ enum class Character(val characterName : String,val  promptText : String){
 
 enum class SizeOfImage(val size : String, val describeImage : String, val realSize : String ){
     OneOne(size = "1:1", describeImage = "size_1_1", realSize = "1024:1024"),
-    NineSix(size = "9:6", describeImage = "size_9_6", realSize = "1024:576"),
+    NineSixteen(size = "9:16", describeImage = "size_9_16", realSize = "1024:576"),
     SixteenNine(size = "16:9", describeImage = "size_16_9", realSize = "576:1024"),
     TwoThree(size = "2:3", describeImage = "size_2_3", realSize = "768:512"),
     ThreeTwo(size = "3:2", describeImage = "size_3_2", realSize = "512:768")
@@ -61,21 +61,21 @@ enum class SizeOfImage(val size : String, val describeImage : String, val realSi
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String){
     AGG(artStyleName = "AGG", sourceImage = "agg", model = "absolute-reality-v1-6"),
     Realistic(artStyleName = "Realistic", sourceImage = "realistic", model = "realistic-vision-v3"),
-    PencilSketch(artStyleName = "PencilSketch", sourceImage = "pencil_sketch", model = "stable-diffusion-v1-5"),
+    PencilSketch(artStyleName = "PencilSketch", sourceImage = "pencil_sketch", model = "van-gogh-diffusion"),
     SuperHero(artStyleName = "SuperHero", sourceImage = "super_hero", model = "anashel-rpg"),
-    ZFlighters(artStyleName = "ZFlighters", sourceImage = "z_flighters", model = "stable-diffusion-v1-5"),
-    PastelColors(artStyleName = "PastelColors", sourceImage = "pastel_colors", model = "stable-diffusion-v1-5"),
-    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "stable-diffusion-v1-5"),
-    FantasicJOJO(artStyleName = "FantasicJOJO", sourceImage = "fantasic_jojo", model = "stable-diffusion-v1-5"),
-    Tarot(artStyleName = "Tarot", sourceImage = "tarot", model = "stable-diffusion-v1-5"),
-    NinetyComic(artStyleName = "_90sComic", sourceImage = "_90s_comic", model = "stable-diffusion-v1-5"),
-    ColorIllustration(artStyleName = "ColorIllustration", sourceImage = "color_illustration", model = "stable-diffusion-v1-5"),
-    GameCG(artStyleName = "GameCG", sourceImage = "game_cg", model = "stable-diffusion-v1-5"),
-    Wild(artStyleName = "Wild", sourceImage = "wild", model = "stable-diffusion-v1-5"),
-    Asian(artStyleName = "Asian", sourceImage = "asian", model = "stable-diffusion-v1-5"),
-    InkAndWask(artStyleName = "InkAndWask", sourceImage = "ink_and_wask", model = "stable-diffusion-v1-5"),
-    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "stable-diffusion-v1-5"),
-    Cyberpunk(artStyleName = "Cyberpunk", sourceImage = "cyberpunk", model = "stable-diffusion-v1-5"),
+    ZFlighters(artStyleName = "ZFlighters", sourceImage = "z_flighters", model = "mo-di-diffusion"),
+    PastelColors(artStyleName = "PastelColors", sourceImage = "pastel_colors", model = "synthwave-punk-v2"),
+    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "icbinp-relapse"),
+    FantasicJOJO(artStyleName = "FantasicJOJO", sourceImage = "fantasic_jojo", model = "analog-diffusion"),
+    Tarot(artStyleName = "Tarot", sourceImage = "tarot", model = "moonfilm-reality-v3"),
+    NinetyComic(artStyleName = "_90sComic", sourceImage = "_90s_comic", model = "dark-sushi-mix-v2-25"),
+    ColorIllustration(artStyleName = "ColorIllustration", sourceImage = "color_illustration", model = "neverending-dream"),
+    GameCG(artStyleName = "GameCG", sourceImage = "game_cg", model = "arcane-diffusion"),
+    Wild(artStyleName = "Wild", sourceImage = "wild", model = "icbinp-final"),
+    Asian(artStyleName = "Asian", sourceImage = "asian", model = "moonfilm-film-grain-v1"),
+    InkAndWask(artStyleName = "InkAndWask", sourceImage = "ink_and_wask", model = "icbinp"),
+    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "eimis-anime-diffusion-v1-0"),
+    Cyberpunk(artStyleName = "Cyberpunk", sourceImage = "cyberpunk", model = "something-v2-2"),
 }
 
 enum class ControlNet(val controlNetName : String, val sourceImage : String,val apiString : String){
@@ -184,5 +184,13 @@ enum class DailyReward(val reward : String){
     Day5( reward = "70"),
     Day6( reward = "80"),
     Day7( reward = "100"),
+}
+
+enum class CreditPackage(val credit : Int){
+    First(credit = 500),
+    Second(credit = 1000),
+    Third(credit = 2000),
+    Fourth(credit = 5000),
+    Fifth(credit = 10000),
 }
 

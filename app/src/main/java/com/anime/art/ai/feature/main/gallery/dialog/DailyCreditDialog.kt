@@ -77,19 +77,23 @@ class DailyCreditDialog(
             lifecycleScope.launch(Dispatchers.IO) {
                 val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
                 val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
-                serverApiRepository.updateCredit(requireContext().getDeviceId(),request){
+                serverApiRepository.updateCredit(requireContext().getDeviceId(),request){ result ->
                     lifecycleScope.launch(Dispatchers.Main) {
-                        binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
-                        binding.receiveLayout.setBackgroundColor(requireContext().getColor(R.color.gray_3D))
-                        binding.tvReceive.setTextColor(requireContext().getColor(R.color.light_gray))
-                        setDayReward( consecutiveSeries + 1 )
-                        requireContext().makeToast("You have received $todayReward credit")
-                        val currentCredit = pref.creditAmount.get()
-                        pref.creditAmount.set(currentCredit + todayReward)
-                        pref.consecutiveSeries.set(consecutiveSeries + 1)
-                        pref.isReceived.set(true)
-                        delay(300)
-                        dismiss()
+                        if(result){
+                            binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
+                            binding.receiveLayout.setBackgroundColor(requireContext().getColor(R.color.gray_3D))
+                            binding.tvReceive.setTextColor(requireContext().getColor(R.color.light_gray))
+                            setDayReward( consecutiveSeries + 1 )
+                            requireContext().makeToast("You have received $todayReward credit")
+                            val currentCredit = pref.creditAmount.get()
+                            pref.creditAmount.set(currentCredit + todayReward)
+                            delay(300)
+                            dismiss()
+                        }
+                        else{
+                            requireContext().makeToast("An error has occurred")
+                            binding.receiveCardView.isEnabled = true
+                        }
                     }
                 }
             }

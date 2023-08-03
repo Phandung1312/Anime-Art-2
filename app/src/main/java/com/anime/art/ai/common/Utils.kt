@@ -30,24 +30,9 @@ fun saveBitmapToFile(context: Context, bitmap: Bitmap): File? {
     }
     return file
 }
-
- fun saveBitmapToCache(context : Context ,bitmap: Bitmap): String? {
-    val cachePath = File(context.externalCacheDir, "images")
-    cachePath.mkdirs()
-    val file = File(cachePath, "image_to_share.jpg")
-
-    try {
-        val outputStream = FileOutputStream(file)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        outputStream.flush()
-        outputStream.close()
-        return file.absolutePath
-    } catch (e: IOException) {
-        e.printStackTrace()
-    }
-    return null
-}
 fun removeWhitespace(input: String): String {
     return input.replace("\\s+".toRegex(), "")
 }
+
+
 

@@ -1,24 +1,30 @@
 package com.anime.art.ai.feature.credithistory
 
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
-import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.DialogBuyMoreBinding
+import com.anime.art.ai.domain.model.CreditPackage
+import com.anime.art.ai.domain.repository.ServerApiRepository
+import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.extension.clicks
+import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.getDimens
+import com.basic.common.extension.makeToast
 import com.google.android.material.card.MaterialCardView
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,7 +32,8 @@ class BuyMoreDialog(
     ) : DialogFragment() {
     private lateinit var  binding : DialogBuyMoreBinding
     @Inject lateinit var preferences: Preferences
-    private var selectedPackCredit = 0
+    @Inject lateinit var serverApiRepository: ServerApiRepository
+    private var selectedCreditPackage = 0
         set(value){
             if(field == value) return
             setBackground(field, isSelected = false)
@@ -46,7 +53,7 @@ class BuyMoreDialog(
     }
 
     private fun initView() {
-        selectedPackCredit = 5
+        selectedCreditPackage = 5
     }
     private fun setBackground(index : Int, isSelected : Boolean){
         var cardView : MaterialCardView? = null
@@ -85,22 +92,44 @@ class BuyMoreDialog(
     }
     private fun initListener() {
         binding.firstCreditView.clicks(withAnim = false) {
-            selectedPackCredit = 1
+            selectedCreditPackage = 1
         }
         binding.secondCreditView.clicks(withAnim = false) {
-            selectedPackCredit = 2
+            selectedCreditPackage = 2
         }
         binding.thirdCreditView.clicks(withAnim = false) {
-            selectedPackCredit = 3
+            selectedCreditPackage = 3
         }
         binding.fourthCreditView.clicks(withAnim = false) {
-            selectedPackCredit = 4
+            selectedCreditPackage = 4
         }
         binding.fifthCreditView.clicks(withAnim = false) {
-            selectedPackCredit = 5
+            selectedCreditPackage = 5
         }
         binding.close.clicks {
             dismiss()
+        }
+        binding.continueView.clicks {
+            binding.continueView.isEnabled = false
+            lifecycleScope.launch(Dispatchers.IO) {
+                val credit = CreditPackage.values()[selectedCreditPackage - 1].credit
+                serverApiRepository.updateCredit(requireContext().getDeviceId(),
+                    UpdateCreditRequest(credit = credit.toLong(), Constraint.PURCHASED_WEEK)
+                ){ result ->
+                    launch(Dispatchers.Main) {
+                        if(result){
+                            val currentCredit = preferences.creditAmount.get()
+                            preferences.creditAmount.set(currentCredit  + credit.toLong())
+                            requireContext().makeToast("Buy credit successfully")
+                        }
+                        else{
+                            requireContext().makeToast("An error has occurred")
+                        }
+                        delay(100)
+                        dismiss()
+                    }
+                }
+            }
         }
     }
     private fun initData(){

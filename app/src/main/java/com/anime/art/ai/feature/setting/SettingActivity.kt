@@ -17,6 +17,7 @@ import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreditHistory
 import com.anime.art.ai.data.Preferences
+import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.databinding.ActivitySettingBinding
 import com.anime.art.ai.domain.model.DailyReward
 import com.anime.art.ai.domain.repository.ServerApiRepository
@@ -44,7 +45,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
     @Inject lateinit var serverApiRepository: ServerApiRepository
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dailyRewardAdapter : DailyRewardAdapter
-
+    @Inject lateinit var historyDao : HistoryDao
     private var consecutiveSeries : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,6 +154,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         }
 
     }
+    @SuppressLint("DiscouragedApi")
     private fun setDayReward(day : Int, isReceived : Boolean){
         consecutiveSeries = day
         setGradientReceivedDay(day)
@@ -173,48 +175,56 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
-        lifecycleScope.launch(Dispatchers.IO) {
-            serverApiRepository.getCreditHistory(getDeviceId()){progress ->
-                when(progress){
-                    is ServerApiRepository.ServerApiResponse.Loading ->{
-
+        historyDao.getAll().observe(this){ histories ->
+            if(preferences.isSynced.get()){
+                val isSynced = preferences.isSynced.get()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
+                        .map { it.createdAt.convertToShortDate()}
+                        .reversed()
+                    if (newList.isEmpty()) {
+                        setDayReward(0, isReceived = !isSynced)
+                        return@launch
                     }
-                    is ServerApiRepository.ServerApiResponse.Success ->{
-                        launch(Dispatchers.Main) {
-                            val newList =  progress.response.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
-                                .map { it.createdAt.convertToShortDate()}
-                                .reversed()
-                            if (newList.isEmpty()) {
-                                setDayReward(0, isReceived = false)
-                                return@launch
+                    var consecutiveSeries  = 0
+                    if(newList.size == 1) {
+                        setDayReward(1, isReceived = !isSynced)
+                        return@launch
+                    }
+                    for(i in 0 ..   newList.size -2){
+                        if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                        consecutiveSeries += 1
+                        if(consecutiveSeries > 6){
+                            consecutiveSeries = 0
+                            break
+                        }
+                    }
+                    val currentDateTime = LocalDate.now()
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    val formattedDate = currentDateTime.format(formatter)
+                    if(formattedDate.dayBetween(newList[0]) == 1L) {
+                        setDayReward(consecutiveSeries, isReceived = !isSynced)
+                    }
+                    else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = !isSynced)
+                    else setDayReward(consecutiveSeries, isReceived = true)
+                }
+            }
+        }
+        preferences
+            .isSynced
+            .asObservable()
+            .autoDispose(scope())
+            .subscribe { isSyncedData ->
+                if(!isSyncedData){
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        serverApiRepository.getCreditHistory(getDeviceId()){result ->
+                            if(!result){
+                                makeToast("An error has occurred")
                             }
-                            var consecutiveSeries  = 0
-                            if(newList.size == 1) {
-                                setDayReward(1, isReceived = false)
-                                return@launch
-                            }
-                            for(i in 0 ..   newList.size -2){
-                                if(newList[i].dayBetween(newList[i + 1]) > 1L) break
-                                consecutiveSeries += 1
-                                if(consecutiveSeries > 6){
-                                    consecutiveSeries = 0
-                                    break
-                                }
-                            }
-                            val currentDateTime = LocalDate.now()
-                            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                            val formattedDate = currentDateTime.format(formatter)
-                            if(formattedDate.dayBetween(newList[0]) == 1L) {
-                                setDayReward(consecutiveSeries, isReceived = false)
-                            }
-                            else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = false)
-                            else setDayReward(consecutiveSeries, isReceived = true)
                         }
                     }
                 }
             }
-
-        }
     }
     private fun initView(){
         binding.rv.adapter = dailyRewardAdapter

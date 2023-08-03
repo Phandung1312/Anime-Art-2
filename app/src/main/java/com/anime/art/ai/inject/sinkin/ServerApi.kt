@@ -27,7 +27,7 @@ interface ServerApi {
     @POST("user/update/premium/{deviceId}")
     fun updatePremium(
         @Path("deviceId") deviceId: String,
-        @Body updateCreditRequest: UpdateCreditRequest)
+        @Body updateCreditRequest: UpdateCreditRequest) : Call<MessageResponse?>
 }
 
 data class UpdateCreditRequest(

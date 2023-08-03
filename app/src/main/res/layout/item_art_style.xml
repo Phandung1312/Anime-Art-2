@@ -2,10 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    tools:background="@drawable/stroke_gradient_yellow_20"
     android:layout_width="@dimen/_70sdp"
     android:layout_height="@dimen/_70sdp">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/viewPreview"
+        android:layout_margin="@dimen/_1sdp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardBackgroundColor="?android:colorBackground"

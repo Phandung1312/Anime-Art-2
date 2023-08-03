@@ -1,6 +1,9 @@
 package com.anime.art.ai.data.repoository
 
 import com.anime.art.ai.domain.model.config.ImageGenerationRequest
+import com.anime.art.ai.domain.model.config.toControlNet
+import com.anime.art.ai.domain.model.config.toImageToImage
+import com.anime.art.ai.domain.model.config.toTextToImage
 import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.inject.sinkin.AIApi
 import retrofit2.await
@@ -22,15 +25,16 @@ class AIApiRepositoryImpl @Inject constructor(
         val responses = (0..3).mapNotNull {
             try {
                 if(imageGenerationRequest.image.isEmpty()){
-                    aiApi.generatorImageByText(imageGenerationRequest).await()
+                    aiApi.generatorImageByText(imageGenerationRequest.toTextToImage()).await()
+                } else if(imageGenerationRequest.controlNet.isEmpty()){
+                    aiApi.generatorImageByImage(imageGenerationRequest.toImageToImage()).await()
                 } else {
-                    aiApi.generatorImageByImage(imageGenerationRequest).await()
+                    aiApi.generatorControlNet(imageGenerationRequest.toControlNet()).await()
                 }
             } catch (e: Exception){
                 null
             }
         }
-
         when {
             responses.isNotEmpty() -> progress(AIApiRepository.APIResponse.Success(responses))
             else -> progress(AIApiRepository.APIResponse.Error)

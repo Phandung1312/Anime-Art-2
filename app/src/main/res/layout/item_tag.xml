@@ -8,14 +8,14 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginStart="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_5sdp"
-    app:cardBackgroundColor="@color/background_dark_gray"
+    app:cardBackgroundColor="@color/transparent"
     app:cardCornerRadius="@dimen/_15sdp"
     app:cardElevation="0dp"
     app:strokeColor="@color/dark_yellow">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/viewTag"
-        tools:background="@drawable/stroke_gradient_yellow"
+        tools:background="@drawable/stroke_gradient_yellow_25"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/_5sdp">

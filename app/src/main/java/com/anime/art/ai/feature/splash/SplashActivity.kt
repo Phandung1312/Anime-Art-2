@@ -12,6 +12,7 @@ import com.anime.art.ai.databinding.ActivitySplashBinding
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.getDeviceId
+import com.basic.common.extension.makeToast
 import com.basic.common.extension.tryOrNull
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -21,8 +22,11 @@ import com.uber.autodispose.android.lifecycle.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import timber.log.Timber
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -47,11 +51,25 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
     private fun initData() {
         syncRemoteConfig {
             lifecycleScope.launch(Dispatchers.IO) {
-                serverApiRepo.login(getDeviceId()){ login ->
-                    prefs.creditAmount.set(login.credit)
-                    prefs.isPremium.set(login.isPremium == 1)
+                try{
+                    withTimeout(5000){
+                        serverApiRepo.login(getDeviceId()){ login ->
+                            prefs.creditAmount.set(login.credit)
+                            prefs.isPremium.set(login.isPremium == 1)
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                doTask()
+                            }
+                        }
+                    }
+                }
+                catch (e: TimeoutCancellationException) {
                     lifecycleScope.launch(Dispatchers.Main) {
-                        doTask()
+                        makeToast("Network connection timeout")
+                    }
+                }
+                catch (e : Exception){
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        makeToast("Network connection error")
                     }
                 }
             }

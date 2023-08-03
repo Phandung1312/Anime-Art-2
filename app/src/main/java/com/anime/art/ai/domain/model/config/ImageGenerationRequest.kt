@@ -7,42 +7,61 @@ import java.io.Serializable
 
 @Keep
 data class ImageGenerationRequest(
-    @SerializedName("model")
-    @Expose
     var model: String = "absolute-reality-v1-6",
-    @SerializedName("controlnet")
-    @Expose
     var controlNet: String = "",
-    @SerializedName("prompt")
-    @Expose
     var prompt: String = "",
-    @SerializedName("negative_prompt")
-    @Expose
     var negativePrompt: String = "",
-    @SerializedName("strength")
-    @Expose
     var strength: Double = 0.2,
-    @SerializedName("image")
-    @Expose
     var image: String = "",
-    @SerializedName("width")
-    @Expose
     var width: Int = 1024,
-    @SerializedName("height")
-    @Expose
     var height: Int = 1024,
-    @SerializedName("steps")
-    @Expose
     var steps: Int = 25,
-    @SerializedName("guidance")
-    @Expose
     var guidance: Double = 7.5,
-    @SerializedName("sheduler")
-    @Expose
     var scheduler: String = "dpmsolver++",
-    @SerializedName("output_format")
-    @Expose
     var outputFormat: String = "jpeg",
     var artStyle : String = "AGG",
     var ratio : String = "1:1"
-) : Serializable
+)
+fun ImageGenerationRequest.toTextToImage() : TextToImage{
+    return TextToImage(
+        model = this.model,
+        prompt = this.prompt,
+        negativePrompt = this.negativePrompt,
+        width = this.width,
+        height = this.height,
+        steps = this.steps,
+        guidance = this.guidance,
+        scheduler = this.scheduler,
+        outputFormat = this.outputFormat
+    )
+}
+
+fun ImageGenerationRequest.toImageToImage() : ImageToImage{
+    return ImageToImage(
+        model = this.model,
+        prompt = this.prompt,
+        negativePrompt = this.negativePrompt,
+        image = this.image,
+        strength = this.strength,
+        steps = this.steps,
+        guidance = this.guidance,
+        scheduler = this.scheduler,
+        outputFormat = this.outputFormat
+    )
+}
+
+fun ImageGenerationRequest.toControlNet() : ControlNetImage{
+    return ControlNetImage(
+        model = this.model,
+        controlNet = this.controlNet,
+        prompt = this.prompt,
+        negativePrompt = this.negativePrompt,
+        width = this.width,
+        height = this.height,
+        image = this.image,
+        steps = this.steps,
+        guidance = this.guidance,
+        scheduler = this.scheduler,
+        outputFormat = this.outputFormat
+    )
+}

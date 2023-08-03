@@ -1,7 +1,6 @@
 package com.anime.art.ai.feature.createimage
 
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.addCallback
@@ -12,7 +11,6 @@ import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
-import com.anime.art.ai.common.extension.getSerializable
 import com.anime.art.ai.common.extension.startFinalize
 import com.anime.art.ai.common.widget.transformer.ZoomInTransformer
 import com.anime.art.ai.data.Preferences
@@ -23,7 +21,6 @@ import com.anime.art.ai.domain.model.config.ImageGenerationRequest
 import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
-import com.anime.art.ai.feature.finalize.FinalizeActivity
 import com.anime.art.ai.feature.iap.IAPActivity
 import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
@@ -38,6 +35,7 @@ import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -80,6 +78,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                     creatorDao.inserts(creator)
                     launch(Dispatchers.Main) {
                        startFinalize()
+                        finish()
                     }
                 }
             }
@@ -89,10 +88,14 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                 val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
                 launch(Dispatchers.IO) {
                     val request = UpdateCreditRequest(Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1, Constraint.MAKE_VARIATIONS)
-                    serverApiRepository.updateCredit(getDeviceId(),request){
-                        Timber.e("Update credit by make variations")
-                        val currentCredit = preferences.creditAmount.get()
-                        preferences.creditAmount.set(currentCredit - Constraint.Info.MAKE_VARIATIONS_COST)
+                    serverApiRepository.updateCredit(getDeviceId(),request){result ->
+                        if(result){
+                            val currentCredit = preferences.creditAmount.get()
+                            preferences.creditAmount.set(currentCredit - Constraint.Info.MAKE_VARIATIONS_COST)
+                        }
+                        else{
+                            makeToast("An error has occurred")
+                        }
                     }
                 }
                 generateImage(imageGenerationRequest)
@@ -120,6 +123,18 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                             binding.lottieView.playAnimation()
                         }
                         is AIApiRepository.APIResponse.Success ->{
+                            launch(Dispatchers.IO) {
+                                val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
+                                serverApiRepository.updateCredit(getDeviceId(),request){ result ->
+                                    if(result){
+                                        val currentCredit = preferences.creditAmount.get()
+                                        preferences.creditAmount.set(currentCredit - Constraint.Info.CREATE_ART_WORK_COST)
+                                    }
+                                    else{
+                                        makeToast("An error has occurred")
+                                    }
+                                }
+                            }
                             binding.loadingLayout.isVisible = false
                             binding.viewPager.apply {
                                 this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -134,6 +149,10 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                         is AIApiRepository.APIResponse.Error ->{
                             binding.loadingLayout.isVisible = false
                             makeToast("An error has occurred")
+                            launch {
+                                delay(100)
+                                back()
+                            }
                         }
                     }
                 }
@@ -144,14 +163,6 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     private fun initData() {
         lifecycleScope.launch{
              val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
-            launch(Dispatchers.IO) {
-                val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
-                serverApiRepository.updateCredit(getDeviceId(),request){
-                    Timber.e("Update credit by create artwork")
-                    val currentCredit = preferences.creditAmount.get()
-                    preferences.creditAmount.set(currentCredit - Constraint.Info.CREATE_ART_WORK_COST)
-                }
-            }
             generateImage(imageGenerationRequest)
         }
     }
@@ -185,6 +196,9 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                 saveBase64ImageToGallery(image)
                 makeToast("Image saved to gallery")
             }
+        preferences.isPremium.asObservable().autoDispose(scope()).subscribe {
+            previewAdapter.isPremium = it
+        }
     }
 
     private fun initView() {

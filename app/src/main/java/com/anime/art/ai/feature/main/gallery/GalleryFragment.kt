@@ -26,6 +26,7 @@ import com.anime.art.ai.feature.main.gallery.dialog.DailyCreditDialog
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
+import com.basic.common.extension.makeToast
 import com.uber.autodispose.android.lifecycle.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
@@ -112,39 +113,42 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             isToggleFavourite = false
         }
         historyDao.getAll().observe(viewLifecycleOwner){ histories ->
-            lifecycleScope.launch(Dispatchers.Main) {
-                val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
-                    .map { it.createdAt.convertToShortDate()}
-                    .reversed()
-                if (newList.isEmpty()) {
-                    showDailyReward(0)
-                    return@launch
-                }
-                val currentDateTime = LocalDate.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                val formattedDate = currentDateTime.format(formatter)
-                if(formattedDate.dayBetween(newList[0]) == 1L) {
-                    var consecutiveSeries  = 0
-                    if(newList.size == 1) {
-                        showDailyReward(1)
-                        return@launch
-                    }
-                    for(i in 0 ..   newList.size -2){
-                        if(newList[i].dayBetween(newList[i + 1]) > 1L) break
-                        consecutiveSeries += 1
-                        if(consecutiveSeries > 6){
-                            consecutiveSeries = 0
-                            break
-                        }
-                    }
-                    showDailyReward(consecutiveSeries)
-                }
-                else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
-            }
+           if(pref.isSynced.get()){
+               lifecycleScope.launch(Dispatchers.Main) {
+                   val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
+                       .map { it.createdAt.convertToShortDate()}
+                       .reversed()
+                   if (newList.isEmpty()) {
+                       showDailyReward(0)
+                       return@launch
+                   }
+                   val currentDateTime = LocalDate.now()
+                   val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                   val formattedDate = currentDateTime.format(formatter)
+                   if(formattedDate.dayBetween(newList[0]) == 1L) {
+                       var consecutiveSeries  = 0
+                       if(newList.size == 1) {
+                           showDailyReward(1)
+                           return@launch
+                       }
+                       for(i in 0 ..   newList.size -2){
+                           if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                           consecutiveSeries += 1
+                           if(consecutiveSeries > 6){
+                               consecutiveSeries = 0
+                               break
+                           }
+                       }
+                       showDailyReward(consecutiveSeries)
+                   }
+                   else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
+               }
+           }
         }
         checkDailyCreditReceived()
     }
     private fun checkDailyCreditReceived(){
+        Timber.e("device id = ${requireContext().getDeviceId()}")
         pref
             .isSynced
             .asObservable()
@@ -152,10 +156,9 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             .subscribe { isSyncedData ->
                 if(!isSyncedData){
                     lifecycleScope.launch(Dispatchers.IO) {
-                        serverApiRepository.getCreditHistory(requireContext().getDeviceId()){progress ->
-                            if(progress is ServerApiRepository.ServerApiResponse.Success){
-                                historyDao.inserts(*progress.response.toTypedArray())
-                                pref.isSynced.set(true)
+                        serverApiRepository.getCreditHistory(requireContext().getDeviceId()){ result ->
+                            if(!result){
+                                requireContext().makeToast("An error has occurred")
                             }
                         }
                     }

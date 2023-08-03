@@ -19,21 +19,14 @@ class Constraint {
             const val PRIVACY_URL = "http://www.stackoverflow.com"
             const val TERMS_URL = "https://www.youtube.com/"
             const val DATA_VERSION = 2
-            const val DEFAULT_QUALITY = 512
             const val CREATE_ART_WORK_COST = 5
             const val MAKE_VARIATIONS_COST = 3
-        }
-    }
-
-    class Iap {
-        companion object  {
-
         }
     }
     class AIGeneration{
         companion object{
             const val URL = "https://api.getimg.ai/v1/stable-diffusion/"
-            const val KEY = "key-1D2rj993XhxBhrMvZNC36SwvMRf7WMmGTnWZSiBntjQZKD6VnS2lvCjhA0siahEs9oUK88V3zD1xTVFYijQgTabfB1T0Jiq"
+            const val KEY = "key-32dVNCKsyHFuFZeK8FuOu9o9luu6jk8fLOvSgDDPKkozFsxOBXBWCZIbj08YITQ7j7JBfz9dj8RKnH9P8HaVXnHiewKOcNyI"
         }
     }
     companion object{

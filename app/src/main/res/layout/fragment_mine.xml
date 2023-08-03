@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <com.basic.common.widget.bouncy.BouncyRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         tools:visibility="gone"
         android:layout_marginTop="@dimen/_10sdp"

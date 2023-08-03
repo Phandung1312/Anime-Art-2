@@ -50,8 +50,8 @@ class TagAdapter @Inject constructor() :
         }
 
 //        binding.viewTag.apply {
-//            if(position == selectedIndex) background = (ContextCompat.getDrawable(context, R.drawable.stroke_gradient_yellow))
-//            setBackgroundColor(context.getColorCompat(R.color.background_dark_gray))
+//            if(position == selectedIndex) setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
+//            setBackgroundColor(context.getColor(R.color.background_dark_gray))
 //
 //        }
         binding.display.text = item.display

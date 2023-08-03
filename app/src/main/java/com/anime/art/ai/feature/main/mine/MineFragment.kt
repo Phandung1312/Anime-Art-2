@@ -1,7 +1,6 @@
 package com.anime.art.ai.feature.main.mine
 
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.extension.startFinalize
@@ -10,7 +9,6 @@ import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.databinding.FragmentMineBinding
 import com.anime.art.ai.feature.main.MainActivity
-import com.anime.art.ai.feature.main.gallery.adapter.PreviewAdapter
 import com.anime.art.ai.feature.main.mine.adapter.CreateAdapter
 import com.anime.art.ai.feature.main.mine.adapter.FavoriteAdapter
 import com.basic.common.base.LsFragment
@@ -41,14 +39,14 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
             if (field == value) return
             binding.creatorView.apply {
                 if (value == MY_CREATOR){
-                    setBackgroundResource(R.drawable.stroke_gradient_yellow)
+                    setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
                     binding.emptyLayout.isVisible = creatorAdapter.data.isEmpty()
                 }
                 else setBackgroundColor(context.getColor(R.color.background_dark_gray))
             }
             binding.favoriteView.apply {
                 if (value == FAVORITE){
-                    setBackgroundResource(R.drawable.stroke_gradient_yellow)
+                    setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
                     binding.emptyLayout.isVisible = favoriteAdapter.data.isEmpty()
                 }
                 else setBackgroundColor(context.getColor(R.color.background_dark_gray))

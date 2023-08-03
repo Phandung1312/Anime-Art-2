@@ -24,7 +24,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/inter_tight_semi_bold"
             android:text="Get Reward Daily"
             android:textAlignment="center"

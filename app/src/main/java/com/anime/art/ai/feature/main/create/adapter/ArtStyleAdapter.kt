@@ -46,12 +46,12 @@ class ArtStyleAdapter @Inject constructor(): LsAdapter<ArtStyle, ItemArtStyleBin
         binding.display.text = item.artStyleName
         val imageResourceId = binding.root.context.resources.getIdentifier(item.sourceImage,"drawable",binding.root.context.packageName)
         binding.preview.setImageResource(imageResourceId)
-
-        binding.viewPreview.apply {
-            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._2sdp).toInt() else 0
+        binding.rootView.apply {
+            if (position == selectedIndex) setBackgroundResource(R.drawable.stroke_gradient_yellow_20)
+            else setBackgroundColor(context.getColor(com.widget.R.color.backgroundDark))
         }
 
-        binding.viewPreview.clicks { selectedIndex = position
+        binding.viewPreview.clicks(withAnim =  false) { selectedIndex = position
         click.onNext(item)}
     }
 }

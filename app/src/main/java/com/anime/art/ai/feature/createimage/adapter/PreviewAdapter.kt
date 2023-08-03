@@ -19,6 +19,13 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
     val unlockClicks : Subject<Unit> = PublishSubject.create()
     val zoomClicks : Subject<String> = PublishSubject.create()
     val saveClicks : Subject<String> = PublishSubject.create()
+    var isPremium = false
+        set(value){
+            field = value
+            notifyItemRangeChanged(
+                1,data.size - 1
+            )
+        }
     override fun bindItem(item: ImageResponse, binding: ItemPreviewInCreateImageBinding, position: Int) {
         val decodedBytes: ByteArray = Base64.decode(item.image, Base64.DEFAULT)
 
@@ -29,7 +36,7 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.preview)
 
-        if(position == 0 ){
+        if(position == 0 || isPremium){
             binding.saveView.isVisible = true
             binding.zoomView.isVisible = true
             binding.tickView.isVisible = true
