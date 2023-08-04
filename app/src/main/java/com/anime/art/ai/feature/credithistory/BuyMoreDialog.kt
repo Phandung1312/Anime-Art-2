@@ -114,7 +114,7 @@ class BuyMoreDialog(
             lifecycleScope.launch(Dispatchers.IO) {
                 val credit = CreditPackage.values()[selectedCreditPackage - 1].credit
                 serverApiRepository.updateCredit(requireContext().getDeviceId(),
-                    UpdateCreditRequest(credit = credit.toLong(), Constraint.PURCHASED_WEEK)
+                    UpdateCreditRequest(credit = credit.toLong(), Constraint.PURCHASED_CREDITS)
                 ){ result ->
                     launch(Dispatchers.Main) {
                         if(result){

@@ -16,6 +16,7 @@ import com.basic.common.extension.clicks
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,7 +65,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
     }
     private fun initData() {
         galleryDao.getAllFavorite().observe(viewLifecycleOwner){ galleries ->
-            binding.emptyLayout.isVisible = (galleries.isEmpty() && screenSelected == FAVORITE)
+            if(screenSelected == FAVORITE) binding.emptyLayout.isVisible = (galleries.isEmpty())
             this.favoriteAdapter.data = galleries
         }
     }
@@ -108,7 +109,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
             ?.autoDispose(scope())
             ?.subscribe {
                 creatorDao.getAll().observe(viewLifecycleOwner){creators ->
-                    binding.emptyLayout.isVisible = (creators.isEmpty() && screenSelected == MY_CREATOR)
+                    if(screenSelected == MY_CREATOR) binding.emptyLayout.isVisible = (creators.isEmpty())
                     this.creatorAdapter.data = creators
                 }
             }
@@ -128,7 +129,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
     }
 
     private fun initView() {
-        screenSelected = 1
+        screenSelected = MY_CREATOR
         binding.recyclerView.apply {
             this.adapter = creatorAdapter
             this.itemAnimator = null

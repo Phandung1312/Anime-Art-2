@@ -2,6 +2,7 @@ package com.anime.art.ai.feature.main.create.adapter
 
 import android.view.ViewGroup
 import com.anime.art.ai.R
+import com.anime.art.ai.common.extension.margin
 import com.anime.art.ai.databinding.ItemTagBinding
 import com.anime.art.ai.domain.model.Character
 import com.basic.common.base.LsAdapter
@@ -27,7 +28,6 @@ class MenuAdapter @Inject constructor() :
         }
 
     override fun bindItem(item: Character, binding: ItemTagBinding, position: Int) {
-        val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         val marginStartResId = if (position == 0) {
             com.intuit.sdp.R.dimen._10sdp
         } else {
@@ -38,16 +38,16 @@ class MenuAdapter @Inject constructor() :
         } else {
             com.intuit.sdp.R.dimen._2sdp
         }
-
-        binding.cardView.apply {
-            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
-            setCardBackgroundColor(if (position == selectedIndex) context.getColorCompat(R.color.yellow_black) else context.resolveAttrColor(android.R.attr.colorBackground))
+        binding.root.margin(marginStartResId = marginStartResId, marginEndResId = marginEndResId)
+        binding.viewTag.apply {
+            if(position == selectedIndex) {
+                setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
+            }
+            else{
+                setBackgroundColor(context.getColor(R.color.background_dark_gray))
+            }
         }
-
-        layoutParams.marginStart = binding.root.context.resources.getDimensionPixelSize(marginStartResId)
-        layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
         binding.display.text = item.characterName
-
         binding.cardView.clicks { selectedIndex = position
         clicks.onNext(item)}
     }

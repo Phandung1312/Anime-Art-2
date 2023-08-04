@@ -114,7 +114,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             isToggleFavourite = false
         }
         historyDao.getAll().observe(viewLifecycleOwner){ histories ->
-           if(pref.isSynced.get()){
+           if(pref.isSynced.get() || histories.isEmpty()){
                lifecycleScope.launch(Dispatchers.Main) {
                    val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
                        .map { it.createdAt.convertToShortDate()}
@@ -128,7 +128,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                        for(i in 0 ..   newList.size -2){
                            if(newList[i].dayBetween(newList[i + 1]) > 1L) break
                            consecutiveSeries += 1
-                           if(consecutiveSeries > 6){
+                           if(consecutiveSeries > 7){
                                consecutiveSeries = 0
                                break
                            }

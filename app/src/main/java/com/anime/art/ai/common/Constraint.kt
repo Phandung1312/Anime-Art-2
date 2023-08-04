@@ -34,6 +34,7 @@ class Constraint {
         const val CREATE_ARTWORK : String ="CREATE_ARTWORK"
         const val PURCHASED_WEEK : String ="PURCHASED_WEEK"
         const val PURCHASED_YEAR : String ="PURCHASED_YEAR"
+        const val PURCHASED_CREDITS : String ="PURCHASED_CREDITS"
         const val MAKE_VARIATIONS : String = "MAKE_VARIATIONS"
         const val DAILY_REWARD : String = "DAILY_REWARD"
     }

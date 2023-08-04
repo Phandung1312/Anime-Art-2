@@ -1,7 +1,6 @@
 package com.anime.art.ai.feature.splash
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.common.ConfigApp
@@ -17,12 +16,10 @@ import com.basic.common.extension.tryOrNull
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.uber.autodispose.android.autoDispose
-import com.uber.autodispose.android.lifecycle.autoDispose
-import com.uber.autodispose.android.lifecycle.scope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
 import timber.log.Timber
@@ -65,11 +62,15 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
                 catch (e: TimeoutCancellationException) {
                     lifecycleScope.launch(Dispatchers.Main) {
                         makeToast("Network connection timeout")
+                        delay(500)
+                        finish()
                     }
                 }
                 catch (e : Exception){
                     lifecycleScope.launch(Dispatchers.Main) {
                         makeToast("Network connection error")
+                        delay(500)
+                        finish()
                     }
                 }
             }

@@ -3,6 +3,7 @@ package com.anime.art.ai.feature.main.create.adapter
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import com.anime.art.ai.R
+import com.anime.art.ai.common.extension.margin
 import com.anime.art.ai.databinding.ItemSizeOfImageBinding
 import com.anime.art.ai.domain.model.SizeOfImage
 import com.basic.common.base.LsAdapter
@@ -27,7 +28,6 @@ class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOf
             field = value
         }
     override fun bindItem(item: SizeOfImage, binding: ItemSizeOfImageBinding, position: Int) {
-        val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         val marginStartResId = if (position == 0) {
             com.intuit.sdp.R.dimen._10sdp
         } else {
@@ -38,16 +38,17 @@ class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOf
         } else {
             com.intuit.sdp.R.dimen._2sdp
         }
-        layoutParams.marginStart = binding.root.context.resources.getDimensionPixelSize(marginStartResId)
-        layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
-
-
+        binding.root.margin(marginStartResId = marginStartResId, marginEndResId = marginEndResId)
         val imageResourceId = binding.root.context.resources.getIdentifier(item.describeImage,"drawable",binding.root.context.packageName)
         binding.ivSize.setImageResource(imageResourceId)
+        binding.sizeLayout.apply {
+            if(position == selectedIndex) {
+                setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
+            }
+            else{
+                setBackgroundColor(context.getColor(R.color.background_dark_gray))
+            }
 
-        binding.cardView.apply {
-            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
-            setCardBackgroundColor(if (position == selectedIndex) context.getColorCompat(R.color.yellow_black) else context.resolveAttrColor(android.R.attr.colorBackground))
         }
         binding.cardView.clicks { selectedIndex = position
         clicks.onNext(item)}

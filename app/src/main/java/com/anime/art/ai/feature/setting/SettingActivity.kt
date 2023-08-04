@@ -193,7 +193,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
                         for(i in 0 ..   newList.size -2){
                             if(newList[i].dayBetween(newList[i + 1]) > 1L) break
                             consecutiveSeries += 1
-                            if(consecutiveSeries > 6){
+                            if(consecutiveSeries > 7){
                                 consecutiveSeries = 0
                                 break
                             }
@@ -206,7 +206,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
                             setDayReward(1, isReceived = false)
                     }
                     else if(formattedDate.dayBetween(newList[0]) == 1L){
-                        setDayReward(consecutiveSeries, isReceived = false)
+                        setDayReward(if(consecutiveSeries > 6) 0 else consecutiveSeries , isReceived = false)
                     }
                     else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = false)
                     else setDayReward(consecutiveSeries, isReceived = true)

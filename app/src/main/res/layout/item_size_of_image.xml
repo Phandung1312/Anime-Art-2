@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardCornerRadius="@dimen/_25sdp"
     app:cardBackgroundColor="@color/background_dark_gray"
     app:cardElevation="0dp"
     app:strokeWidth="0dp"
@@ -12,6 +12,7 @@
     android:layout_width="@dimen/_60sdp"
     android:layout_height="@dimen/_28sdp">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/size_layout"
         android:padding="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

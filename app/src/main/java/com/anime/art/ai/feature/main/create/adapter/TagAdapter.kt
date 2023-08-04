@@ -1,15 +1,12 @@
 package com.anime.art.ai.feature.main.create.adapter
 
-import android.annotation.SuppressLint
+
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.margin
 import com.anime.art.ai.databinding.ItemTagBinding
 import com.anime.art.ai.domain.model.Tag
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getColorCompat
-import com.basic.common.extension.getDimens
-import com.basic.common.extension.resolveAttrColor
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
@@ -26,8 +23,6 @@ class TagAdapter @Inject constructor() :
             value.takeIf { it != -1 }?.let { notifyItemChanged(it) }
             field = value
         }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun bindItem(item: Tag, binding: ItemTagBinding, position: Int) {
         val marginStartResId = if (position == 0 || position == 1) {
             com.intuit.sdp.R.dimen._10sdp
@@ -40,23 +35,18 @@ class TagAdapter @Inject constructor() :
             com.intuit.sdp.R.dimen._2sdp
         }
         binding.root.margin(marginStartResId = marginStartResId, marginEndResId = marginEndResId)
-
-        binding.cardView.apply {
-            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
-            setCardBackgroundColor(
-                if (position == selectedIndex) context.getColorCompat(R.color.yellow_black)
-                else context.resolveAttrColor(android.R.attr.colorBackground))
+        binding.viewTag.apply {
+            if(position == selectedIndex) {
+                setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
+            }
+            else{
+                setBackgroundColor(context.getColor(R.color.background_dark_gray))
+            }
 
         }
-
-//        binding.viewTag.apply {
-//            if(position == selectedIndex) setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
-//            setBackgroundColor(context.getColor(R.color.background_dark_gray))
-//
-//        }
         binding.display.text = item.display
 
-        binding.cardView.clicks {
+        binding.cardView.clicks(withAnim = false) {
             selectedIndex = position
             clicks.onNext(item)
         }

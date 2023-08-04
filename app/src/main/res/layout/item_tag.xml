@@ -8,8 +8,8 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginStart="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_5sdp"
-    app:cardBackgroundColor="@color/transparent"
-    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardBackgroundColor="@color/background_dark_gray"
+    app:cardCornerRadius="@dimen/_25sdp"
     app:cardElevation="0dp"
     app:strokeColor="@color/dark_yellow">
 
