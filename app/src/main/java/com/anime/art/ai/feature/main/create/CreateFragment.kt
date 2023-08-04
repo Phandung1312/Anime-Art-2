@@ -50,6 +50,7 @@ import com.basic.common.extension.convertDrawableToBase64
 import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.setTint
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
@@ -195,7 +196,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
         //Image Weight Slider
         binding.sliderWeight.addOnChangeListener { _, value, _ ->
-            var inputImage = inputImageAdapter.data[inputImageAdapter.selectedIndex]
+            val inputImage = inputImageAdapter.data[inputImageAdapter.selectedIndex]
             val roundedNumber = roundToNearestTenth(value.toDouble())
             binding.tvWeight.text = roundedNumber.toString()
             inputImage.weight = roundedNumber.toFloat()
@@ -431,6 +432,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     }
                 }
                 imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
+                requireContext().saveStringToFile("test.txt",imageGenerationRequest.image)
                 imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
             }
         }catch (e : Exception){
@@ -441,22 +443,22 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             activity?.startIAP()
         }
         else{
-            lifecycleScope.launch(Dispatchers.IO) {
-                try {
-                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
-                    val prompts = promptDao.getAll()
-                    if (prompts.none { TextUtils.equals(it.text, prompt) }) {
-                        promptDao.inserts(Prompt(text = prompt))
-                    }
-                    launch(Dispatchers.Main) {
-                        configApp.imageGenerationRequest = imageGenerationRequest
-                        activity?.startCreateImage()
-                    }
-                }
-                catch (e : Exception){
-                    Timber.e("Insert prompt error")
-                }
-            }
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                try {
+//                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
+//                    val prompts = promptDao.getAll()
+//                    if (prompts.none { TextUtils.equals(it.text, prompt) }) {
+//                        promptDao.inserts(Prompt(text = prompt))
+//                    }
+//                    launch(Dispatchers.Main) {
+//                        configApp.imageGenerationRequest = imageGenerationRequest
+//                        activity?.startCreateImage()
+//                    }
+//                }
+//                catch (e : Exception){
+//                    Timber.e("Insert prompt error")
+//                }
+//            }
         }
 
     }

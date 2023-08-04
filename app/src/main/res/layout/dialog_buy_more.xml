@@ -91,7 +91,7 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/inter_tight_bold"
                     android:text="0"
-                    textGradientYellow="@{`0`}"
+                    yellowArrayColor="@{`0`}"
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"

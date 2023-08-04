@@ -3,6 +3,7 @@ package com.anime.art.ai.data.repoository
 
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
+import com.anime.art.ai.domain.model.config.History
 import com.anime.art.ai.domain.model.config.Login
 import com.anime.art.ai.domain.model.response.MessageResponse
 import com.anime.art.ai.domain.repository.ServerApiRepository
@@ -12,6 +13,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.await
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,7 +36,6 @@ class ServerApiRepositoryImpl @Inject constructor(
        try {
            serverApi.getCreditHistory(deviceId).await()?.let { historyResponse ->
                preferences.isSynced.set(true)
-               historyDao.deleteAll()
                historyDao.inserts(*historyResponse.histories.toTypedArray())
                result.invoke(true)
            }
@@ -46,7 +48,12 @@ class ServerApiRepositoryImpl @Inject constructor(
     override suspend fun updateCredit(deviceId: String,request: UpdateCreditRequest, result: (Boolean) -> Unit) {
         try {
             val response = serverApi.updateCredit(deviceId, request).await()
-            preferences.isSynced.set(false)
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val formattedDateTime = currentDateTime.format(formatter)
+
+            val history = History(title = request.title, credit =  request.credit!!.toLong(), deviceId = "", createdAt = formattedDateTime)
+            historyDao.inserts(history)
             request.credit?.let {
                 val currentCredit = preferences.creditAmount.get()
                 preferences.creditAmount.set(currentCredit + it)
@@ -65,6 +72,7 @@ class ServerApiRepositoryImpl @Inject constructor(
     ) {
         try{
             val response = serverApi.updatePremium(deviceId, request).await()
+            preferences.isPremium.set(true)
             result.invoke(true)
         }
         catch (e : Exception){

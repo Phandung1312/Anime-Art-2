@@ -15,6 +15,7 @@ import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.convertToShortDate
 import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.common.extension.gradientYellowArray
 import com.anime.art.ai.common.extension.startCreditHistory
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
@@ -68,7 +69,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             binding.tvDay7
         )
         listText.take(day).forEach {  tv ->
-                tv.gradient(R.color.yellow, R.color.dark_yellow)
+                tv.gradientYellowArray()
                 tv.requestLayout()
         }
     }

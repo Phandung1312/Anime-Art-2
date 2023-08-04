@@ -69,17 +69,32 @@ fun Context.saveStringToFile(fileName: String, content: String) {
 }
 fun Context.convertImageToBase64(imageUri: Uri): String? {
     val inputStream = this.contentResolver.openInputStream(imageUri)
-    val bitmap = BitmapFactory.decodeStream(inputStream)
+    val options = BitmapFactory.Options()
+    options.inJustDecodeBounds = true
+    BitmapFactory.decodeStream(inputStream, null, options)
+    inputStream?.close()
 
-    // Resize the bitmap if needed to ensure it's smaller than 1MB
+    val maxDimension = 1024
+    var sampleSize = 1
+    while (options.outWidth / sampleSize > maxDimension || options.outHeight / sampleSize > maxDimension) {
+        sampleSize *= 2
+    }
+
+    val bitmapOptions = BitmapFactory.Options()
+    bitmapOptions.inSampleSize = sampleSize
+
+    val inputStream2 = this.contentResolver.openInputStream(imageUri)
+    val bitmap = BitmapFactory.decodeStream(inputStream2, null, bitmapOptions)
+    inputStream2?.close()
+
     val maxSizeBytes = 1024 * 1024
     val outputStream = ByteArrayOutputStream()
     var quality = 100 // Starting quality value
-    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+    bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
     while (outputStream.size() > maxSizeBytes && quality > 0) {
         outputStream.reset()
         quality -= 10
-        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
     }
 
     val byteArray = outputStream.toByteArray()
@@ -104,7 +119,8 @@ fun Context.getDimens(@DimenRes dimenRes: Int): Float {
 }
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId() : String{
-    return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+ //   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+    return "832737rtueuru763"
 }
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager =

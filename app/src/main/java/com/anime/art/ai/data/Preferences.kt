@@ -13,6 +13,8 @@ class Preferences @Inject constructor(
     companion object {
 
     }
+
+    val isFirstLogin = rxPrefs.getBoolean("isFirstLogin", true)
     val isUpgraded = rxPrefs.getBoolean("isUpgraded", false)
     val timeExpiredPremium = rxPrefs.getLong("timeExpiredPremium", -1)
     val versionGallery = rxPrefs.getLong("versionGallery", 0)

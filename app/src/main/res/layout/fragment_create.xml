@@ -374,8 +374,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:checked="true"
-                        app:switchMinWidth="@dimen/_40sdp"
-                        app:thumbTint="@color/thumb_color"
+                        app:switchMinWidth="@dimen/_50sdp"
+                        android:thumb="@drawable/thumb_layerlist"
                         app:trackTint="@color/light_gray" />
                 </RelativeLayout>
 

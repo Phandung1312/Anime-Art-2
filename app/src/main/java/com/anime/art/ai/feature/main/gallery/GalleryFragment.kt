@@ -5,6 +5,7 @@ import android.os.Build
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
@@ -102,19 +103,18 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
             .subscribe {
                 binding.premiumView.isVisible = !it
             }
-        checkDailyCreditReceived()
     }
 
     private fun initData() {
+        checkDailyCreditReceived()
         galleryDao.getAllLikeLive().observe(viewLifecycleOwner){ galleries ->
             if (!isToggleFavourite){
                 previewAdapter.data = galleries
             }
-
             isToggleFavourite = false
         }
         historyDao.getAll().observe(viewLifecycleOwner){ histories ->
-           if(pref.isSynced.get() || histories.isEmpty()){
+           if(pref.isSynced.get()){
                lifecycleScope.launch(Dispatchers.Main) {
                    val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
                        .map { it.createdAt.convertToShortDate()}
@@ -134,7 +134,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                            }
                        }
                    }
-                   val currentDateTime = LocalDate.now()
+                   val currentDateTime = LocalDateTime.now()
                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                    val formattedDate = currentDateTime.format(formatter)
                    if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
@@ -149,21 +149,15 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
         }
     }
     private fun checkDailyCreditReceived(){
-        pref
-            .isSynced
-            .asObservable()
-            .autoDispose(scope())
-            .subscribe { isSyncedData ->
-                if(!isSyncedData){
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        serverApiRepository.getCreditHistory(requireContext().getDeviceId()){ result ->
-                            if(!result){
-                                requireContext().makeToast("An error has occurred")
-                            }
-                        }
+        if(!pref.isSynced.get()){
+            lifecycleScope.launch(Dispatchers.IO) {
+                serverApiRepository.getCreditHistory(requireContext().getDeviceId()){ result ->
+                    if(!result){
+                        requireContext().makeToast("An error has occurred")
                     }
                 }
             }
+        }
     }
     private  fun showDailyReward(consecutiveSeries : Int){
         lifecycleScope.launch(Dispatchers.Main){
