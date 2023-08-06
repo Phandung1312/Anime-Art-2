@@ -60,13 +60,15 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <com.basic.common.widget.LsTextView
                         android:id="@+id/display"
+                        android:textAlignment="center"
+                        android:maxWidth="@dimen/_55sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_9ssp"
                         android:fontFamily="@font/roboto_semibold"
                         android:layout_gravity="center"
-                        tools:text="AGG" />
+                        tools:text="Color Illustration" />
                 </FrameLayout>
             </FrameLayout>
 

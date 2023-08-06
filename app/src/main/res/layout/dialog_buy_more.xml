@@ -34,8 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:src="@drawable/buy_more_background"
-                app:layout_constraintDimensionRatio="403:750"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintDimensionRatio="403:780"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="1dp" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -56,8 +57,8 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6">
 
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="Credit you have"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_14ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -85,13 +86,13 @@
 
                 <TextView
                     android:id="@+id/tv_credit_amount"
+                    yellowArrayColor="@{`0`}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@id/tv_credit_you_have"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/inter_tight_bold"
                     android:text="0"
-                    yellowArrayColor="@{`0`}"
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +113,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_160sdp"
                     android:layout_weight="1">
 
                     <com.google.android.material.card.MaterialCardView
@@ -122,7 +123,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -161,7 +162,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/tv_first_credit" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_55sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_tight_semi_bold"
@@ -204,8 +205,8 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_22sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -218,23 +219,20 @@
                             android:background="@drawable/button_gradient_yellow">
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_medium"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingTop="@dimen/_2sdp"
-                                android:paddingEnd="@dimen/_5sdp"
-                                android:paddingBottom="@dimen/_2sdp"
                                 android:text="4.99 US$"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_160sdp"
                     android:layout_weight="1">
 
                     <com.google.android.material.card.MaterialCardView
@@ -244,7 +242,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -260,11 +258,11 @@
 
                             <TextView
                                 android:id="@+id/tv_second_credit"
+                                textGradientYellow="@{`1000`}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/inter_tight_semi_bold"
                                 android:layout_marginTop="@dimen/_20sdp"
-                                textGradientYellow="@{`1000`}"
+                                android:fontFamily="@font/inter_tight_semi_bold"
                                 android:text="1000"
                                 android:textAlignment="center"
                                 android:textColor="@color/yellow"
@@ -283,13 +281,13 @@
                                 app:layout_constraintTop_toBottomOf="@+id/tv_second_credit" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/_50sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginTop="@dimen/_55sdp"
+                                android:layout_marginEnd="@dimen/_3sdp"
                                 android:fontFamily="@font/inter_tight_semi_bold"
                                 android:text="Subcriber get extra 100 credits"
-                                android:layout_marginStart="@dimen/_3sdp"
-                                android:layout_marginEnd="@dimen/_3sdp"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_9ssp"
@@ -300,8 +298,8 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/second_discount_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_20sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -313,6 +311,7 @@
                             android:background="@drawable/gradient_red">
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_italic"
@@ -320,13 +319,13 @@
                                 android:paddingEnd="@dimen/_3sdp"
                                 android:text="20% OFF"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_22sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -339,23 +338,20 @@
                             android:background="@drawable/button_gradient_yellow">
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_medium"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingTop="@dimen/_2sdp"
-                                android:paddingEnd="@dimen/_5sdp"
-                                android:paddingBottom="@dimen/_2sdp"
                                 android:text="7.99 US$"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_160sdp"
                     android:layout_weight="1">
 
                     <com.google.android.material.card.MaterialCardView
@@ -365,7 +361,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -396,7 +392,7 @@
                                 android:id="@+id/iv_3"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="0dp"
-                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 android:src="@drawable/three_coins"
                                 app:layout_constraintDimensionRatio="1:1"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -404,7 +400,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/tv_third_credit" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_55sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_tight_semi_bold"
@@ -420,8 +416,8 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/third_discount_credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_20sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -433,6 +429,7 @@
                             android:background="@drawable/gradient_red">
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_italic"
@@ -440,13 +437,13 @@
                                 android:paddingEnd="@dimen/_3sdp"
                                 android:text="30% OFF"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_22sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -462,13 +459,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_medium"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingTop="@dimen/_2sdp"
-                                android:paddingEnd="@dimen/_5sdp"
-                                android:paddingBottom="@dimen/_2sdp"
+                               android:gravity="center"
                                 android:text="13.99 US$"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -486,7 +480,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout3"
                     android:layout_width="@dimen/_95sdp"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_160sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -497,7 +491,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -528,15 +522,14 @@
                                 android:id="@+id/iv_4"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="0dp"
-                                android:layout_marginTop="@dimen/_10sdp"
                                 android:src="@drawable/four_coins"
-                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintDimensionRatio="156:211"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_fourth_credit" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_55sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_3sdp"
@@ -552,8 +545,8 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/fourth_discount_credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_20sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -565,6 +558,7 @@
                             android:background="@drawable/gradient_red">
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_italic"
@@ -572,13 +566,13 @@
                                 android:paddingEnd="@dimen/_3sdp"
                                 android:text="40% OFF"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_22sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -594,20 +588,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_medium"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingTop="@dimen/_2sdp"
-                                android:paddingEnd="@dimen/_5sdp"
-                                android:paddingBottom="@dimen/_2sdp"
+                                android:gravity="center"
                                 android:text="4.99 US$"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="@dimen/_95sdp"
-                    android:layout_height="@dimen/_150sdp"
+                    android:layout_height="@dimen/_160sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
                     app:layout_constraintTop_toTopOf="parent">
@@ -619,7 +610,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -650,15 +641,15 @@
                                 android:id="@+id/iv_5"
                                 android:layout_width="@dimen/_45sdp"
                                 android:layout_height="0dp"
-                                android:layout_marginTop="@dimen/_10sdp"
                                 android:src="@drawable/five_coins"
-                                app:layout_constraintDimensionRatio="1:1"
+                                android:layout_marginTop="@dimen/_40sdp"
+                                app:layout_constraintDimensionRatio="194:273"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_fifth_credit" />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_55sdp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/inter_tight_semi_bold"
@@ -674,8 +665,8 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/fifth_discount_credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_20sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -687,6 +678,7 @@
                             android:background="@drawable/gradient_red">
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_italic"
@@ -694,13 +686,13 @@
                                 android:paddingEnd="@dimen/_3sdp"
                                 android:text="50% OFF"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_22sdp"
                         app:cardBackgroundColor="@color/backgroundDark"
                         app:cardCornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -716,13 +708,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/inter_tight_medium"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingTop="@dimen/_2sdp"
-                                android:paddingEnd="@dimen/_5sdp"
-                                android:paddingBottom="@dimen/_2sdp"
+                                android:gravity="center"
                                 android:text="7.99 US$"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_8ssp" />
+                                android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>

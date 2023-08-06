@@ -7,6 +7,8 @@ import android.util.Base64
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 fun decodeBase64ToBitmap(base64: String): Bitmap? {
     val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
@@ -32,6 +34,13 @@ fun saveBitmapToFile(context: Context, bitmap: Bitmap): File? {
 }
 fun removeWhitespace(input: String): String {
     return input.replace("\\s+".toRegex(), "")
+}
+
+fun getCurrentDay() : String {
+    val currentDateTime = LocalDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    return  currentDateTime.format(formatter)
+
 }
 
 

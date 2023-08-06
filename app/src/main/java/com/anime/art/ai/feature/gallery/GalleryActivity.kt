@@ -172,6 +172,7 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
         previewAdapter.notifyItemRangeChanged(binding.viewPager.currentItem, previewAdapter.data.size - binding.viewPager.currentItem)
 
         showedMore = false
+        makeToast("We will not show you this template anymore")
     }
 
     private fun initData() {

@@ -18,7 +18,7 @@ class Constraint {
             const val MAIL_SUPPORT = "hoangdo.bravo@gmail.com"
             const val PRIVACY_URL = "http://www.stackoverflow.com"
             const val TERMS_URL = "https://www.youtube.com/"
-            const val DATA_VERSION = 2
+            const val DATA_VERSION = 3
             const val CREATE_ART_WORK_COST = 5
             const val MAKE_VARIATIONS_COST = 3
         }

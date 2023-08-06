@@ -1,6 +1,7 @@
 package com.anime.art.ai.feature.main
 
 import android.app.Activity
+import android.app.UiModeManager
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -32,15 +33,14 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
 
     @Inject lateinit var syncRepo: SyncRepository
     private val fragments by lazy { listOf(GalleryFragment(), CreateFragment(), MineFragment()) }
-    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(0) // Default Tab Create
+    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(0)
     val pageChanges: Subject<Int> = BehaviorSubject.createDefault(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        initView()
         initObservable()
+        initView()
         initData()
         listenerView()
     }
@@ -135,11 +135,9 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
     private fun TextView.changeTextColorSelected(isSelected: Boolean){
         when {
             isSelected -> {
-//                this.gradient(context.resolveAttrColor(com.google.android.material.R.attr.colorSecondary), context.resolveAttrColor(com.google.android.material.R.attr.colorPrimary))
                 this.setTextColor(context.resolveAttrColor(android.R.attr.colorAccent))
             }
             else -> {
-//                this.gradient(context.resolveAttrColor(android.R.attr.textColorPrimary), context.resolveAttrColor(android.R.attr.textColorPrimary))
                 this.setTextColor(context.resolveAttrColor(android.R.attr.textColorPrimary))
             }
         }

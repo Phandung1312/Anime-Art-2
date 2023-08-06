@@ -1,6 +1,6 @@
 [
   {
-    "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F1.webp?alt=media&token=68b5941a-4af2-4981-b825-127a17cde828",
+    "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(1).png?alt=media&token=cb449608-ec84-47b8-917e-6486003827a5",
     "display": "Yogurt",
     "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F1_zzz_512__584_zzz.webp?alt=media&token=e12e729f-81f3-4c4e-9379-510209f6c818",
     "prompt": "Ultra detailed shot of a young woman, (Hailee Steinfeld) dressed as zatanna zatara, she wears a top hat fishnet stockings very short leather pants white shirt and a tailcoat jacket, magical, art by mschiffer, ethereal, Zatanna from DC comics, she's making some magic, magical lights, 32k resolution, best quality, dynamic pose, action pose",
@@ -303,139 +303,160 @@
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F44.webp?alt=media&token=6bea7d6e-e78f-47b5-bfea-f0da55ee3e19",
     "display": "Ustinian",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F44_zzz_512__698_zzz.webp?alt=media&token=efc9adc7-b191-4e4c-b83e-d12f791a568c",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2FRectangle%204159.png?alt=media&token=d3aa82ec-4cd8-4dfc-872e-f09af5110715",
     "prompt": "1girl, flowers AND flowers AND flowers AND 1girl",
     "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F45.webp?alt=media&token=94a5bd7b-9ce6-42d4-ad7d-103b54df9350",
     "display": "Ustinian",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F45_zzz_512__698_zzz.webp?alt=media&token=7dfdac86-b0fa-4757-8350-82cbe708d01f",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2FRectangle%204159%20(3).png?alt=media&token=2ea53901-de4b-4ce5-b856-b76d791499db",
     "prompt": "{{{{masterpiece}}}}, {{{hyper detailed}}}, {{{highres}}}, {{good anatomy}}, (((best quality))), ((an extremely delicate and beautiful)), {{an extremely detailed and delicate}}, {8k cg wallpaper}, {{illustration}}, (greyscale with colored background:1.1), (white and black background:1.1), midjourney, (flowers:1.2), (chromatic aberration:1.2), mature female",
     "negative": "(EasyNegative:1), long neck, negative_hand-neg"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F46.webp?alt=media&token=f9396a64-9f56-4a36-8932-9a236311e547",
     "display": "Tsuki",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F46_zzz_512__698_zzz.webp?alt=media&token=ca976a7a-3b57-4d63-9799-03d4ca83f67b",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2FRectangle%204159%20(1).png?alt=media&token=aea15bf5-e4a2-498a-9b06-c934ed77be73",
     "prompt": "{{{{masterpiece}}}}, {{{hyper detailed}}}, {{{highres}}}, {{good anatomy}}, (((best quality))), ((an extremely delicate and beautiful)), {{an extremely detailed and delicate}}, {8k cg wallpaper}, {{illustration}}, (greyscale with colored background:1.1), black background",
     "negative": "EasyNegative, long neck, badhandv4,"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F47.webp?alt=media&token=506e2c47-c9e8-4bd9-8d5a-0586f3b8361b",
     "display": "Romin",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F47_zzz_512__698_zzz.webp?alt=media&token=b57a2dbf-61d4-4238-967c-c2dec7b2f436",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F44_zzz_512__698_zzz.webp?alt=media&token=efc9adc7-b191-4e4c-b83e-d12f791a568c",
     "prompt": "a half-body portrait of a handsome halfling, lean muscles, dressed in armor, curly brown heair, half-body illuminated in light emerging from astral darkness, in the void, warm foreground colors, cold background, natural body posture, stars and sun, Art by Alberto Seveso, symmetrical, abstract art style, intricate complex watercolor painting, sharp eyes, digital painting, color explosion, concept art, volumetric lighting, TanvirTamim, metallic reflections, 2d render, 8k. by artgerm, trending on artstation",
     "negative": "nudity, naked, nsfw, helmet, head gear, close up, blurry eyes, two heads, two faces, plastic, deformed, blurry, bad anatomy, bad eyes, crossed eyes, disfigured, poorly drawn face, mutation, mutated, extra limb, ugly, poorly drawn hands, missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus, long neck, long body, mutated hands and fingers, out of frame, blender, doll, cropped, low-res, close-up"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F48.webp?alt=media&token=cb2da01d-2c02-43d9-b416-92ee46fc3e54",
     "display": "Surplus",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F48_zzz_512__698_zzz.webp?alt=media&token=d7e2b126-b428-4ce0-ae9d-e6df7d9ab6b1",
+      "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F45_zzz_512__698_zzz.webp?alt=media&token=7dfdac86-b0fa-4757-8350-82cbe708d01f",
     "prompt": "ethereal alraune dryad queen, beautiful female, full-body, wooden brown skin, elf ears, leafy nature crown, leaf curly hair, fantasy tree gown, leaf shoulder sleeves and skirt, glowing green eyes, leafy forest background, concept art by greg rutkowski, artgerm, hyperdetailed intricately detailed gothic art trending on artstation triadic colors, fantastical, intricate detail, splash screen, complementary colors, fantasy concept art, 8k resolution, oil paintings, heavy strokes",
     "negative": "texts and logos, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, bad anatomy, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F49.webp?alt=media&token=2243cc3d-fd34-4e1c-a560-461f3b4b19c7",
     "display": "Softsister",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F49_zzz_512__584_zzz.webp?alt=media&token=b6e15eb4-5702-489d-9552-142e40c8f5b2",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F46_zzz_512__698_zzz.webp?alt=media&token=ca976a7a-3b57-4d63-9799-03d4ca83f67b",
     "prompt": "Colorful beautiful woman:ink flow: 8k resolution photorealistic masterpiece: intricately detailed fluid gouache paintingcalligraphy: acrylic: detailed face,by Alphonso Mucha, natural lighting, complex, elegant,fantastical",
     "negative": "two heads, two face, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, bad anatomy, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, poorly drawn eyes, double heads, double faces, two heads, two faces"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F50.webp?alt=media&token=3bba9f60-757b-40c3-b865-f426778fd31f",
     "display": "Miraitowa",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F50_zzz_512__584_zzz.webp?alt=media&token=c36ad2f1-71ce-4145-849a-4f582ef65dea",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F47_zzz_512__698_zzz.webp?alt=media&token=b57a2dbf-61d4-4238-967c-c2dec7b2f436",
     "prompt": "houses of cards in the background, young girl, mouth covered with hands, sad, blue color hair, detailed symmetric hazel eyes with circular iris, focus on face, dynamic pose, holographic, light particles, ultra detailed illustration by loish and artgerm, wlop, hit definition, 32k resolution, volumetric lighting, “best quality”, “masterpiece\", trending on artstation, Isometric, awesome full color, dark, gritty, mucha, klimt, erte 12k, high definition, cinematic, neoprene, behance contest winner, portrait featured on unsplash, smooth, ultra high definition, 8k, ultra sharp focus, intricate artwork masterpiece, ominous, epic, highly detailed, vibrant",
     "negative": "two heads, two face, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, bad anatomy, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, poorly drawn eyes, double heads, double faces, two heads, two faces, body out of frame, watermark"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F51.webp?alt=media&token=c6c40b4d-439d-43fa-bf90-e2e414acc7f8",
     "display": "Komerebi",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F51_zzz_512__698_zzz.webp?alt=media&token=804da9a7-2da9-4f66-a73e-6a7baa3ac64e",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F48_zzz_512__698_zzz.webp?alt=media&token=d7e2b126-b428-4ce0-ae9d-e6df7d9ab6b1",
     "prompt": "Valkyries and Norse Mythology, Realistic Female Face, Detailed Perfect Face, Perfect Body, Detailed Body, Long Blonde Hair, Norse Background, Mystical, Sky, Constellation, 8k Resolution, Artwork, Ultra Realistic Colors, Ultra Realistic Skin Texture, Wearing little clothing, Descending from the sky, Dripping Bright Light, Celestial Aura of Light",
     "negative": "thinkbigsundaywithmarsha, thursdaythoughts, wednesdaymotivation, Boring, Uninspired, Dui, Lackluster, Uninteresting, Blah, Generic, Commonplace, Overused, Trite, Stale, Tedious, Predictable, Mundane, Unimaginative, Blander, Insipid, Dreary, Banal, Bad, Blurry, Underexposed, Overexposed, Noisy, Poor, Uply. Giuttered, Confusing, Disharmonious, Unbalanced, Distracting Inferior, Mediocre, Inadequate, Lazy, Unprofessinal, Sloppy, Rushed, Inconsistent, Unpolished"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F52.webp?alt=media&token=18e2e5c9-d30d-43f9-89ac-b649866dda9e",
     "display": "Flechazo",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F52_zzz_512__698_zzz.webp?alt=media&token=93c9cb06-b003-4380-8e1c-619b304c1063",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F49_zzz_512__584_zzz.webp?alt=media&token=b6e15eb4-5702-489d-9552-142e40c8f5b2",
     "prompt": "Woman with platinum hair, in a dress of ice flowers, a beautiful crown on her head, detailed face, detailed skin, front, background frozen forest, cover, unzoom, choker, hyperdetailed painting, luminism, Bar lighting, complex, 4k resolution concept art portrait by Greg Rutkowski, Artgerm, WLOP, Alphonse Mucha, little fusion pojatti realistic goth, fractal isometrics details bioluminescens : a stunning realistic photograph 30 years",
     "negative": "HALF FACE,CROPED IMAGE,watermark, ugly, weird face, double head, double face, multiple face, multiple head, multiple body, disfigured hand, disproportion body, incorrect hands, extra limbs, extra fingers, fused fingers, missing facial features, low quality, bad quality, bad anatomy, Missing limbs, missing fingers, scary, ugly"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F53.webp?alt=media&token=166d8567-3653-4801-a3ce-464ab795f7ba",
     "display": "Alley",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F53_zzz_512__584_zzz.webp?alt=media&token=875e195b-ca5e-446d-a61c-15b404c2a479",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F50_zzz_512__584_zzz.webp?alt=media&token=c36ad2f1-71ce-4145-849a-4f582ef65dea",
     "prompt": "Waist high Portrait of an exotic beautiful caucasian woman wearing trendy clothing at a beach, perfect detailed face, detailed symmetric hazel eyes with circular iris, realistic, stunning realistic photograph, 3d render, octane render, intricately detailed, cinematic, trending on artstation, Isometric, Centered hipereallistic cover photo, awesome full color, hand drawn, dark, gritty, mucha, klimt, erte 12k, high definition, cinematic, neoprene, behance contest winner, portrait featured on unsplash, stylized digital art, smooth",
     "negative": "close up, two heads, two faces, plastic, Deformed, blurry, bad anatomy, bad eyes, crossed eyes, disfigured, poorly drawn face, mutation, mutated, ((extra limb)), ugly, poorly drawn hands, missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus, long neck, long body, ((((mutated hands and fingers)))), (((out of frame))), blender, doll, cropped, low-res, close-up, poorly-drawn face"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F54.webp?alt=media&token=32a38931-1fbe-4013-91a0-e05094255d7d",
     "display": "Daisy",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F54_zzz_512__584_zzz.webp?alt=media&token=f49fe538-9d31-4039-afc3-3876ec369959",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F51_zzz_512__698_zzz.webp?alt=media&token=804da9a7-2da9-4f66-a73e-6a7baa3ac64e",
     "prompt": "1girl, she is the superior at your food shop, kuudere, she helps you to do your work better, strict face, beautiful eyes, perfect figure, conservative clothing, (elegant style), raytracing",
     "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F55.webp?alt=media&token=3e41fae7-2ebb-451a-8907-41c6f313a520",
     "display": "Aurora",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F55_zzz_512__698_zzz.webp?alt=media&token=7c9e7fd4-4861-4c03-9807-90006bc3fa11",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F52_zzz_512__698_zzz.webp?alt=media&token=93c9cb06-b003-4380-8e1c-619b304c1063  ",
     "prompt": "More_details:-1, more_details:0, more_details:0.5, more_details:1, more_details:1.5,rem_re_zero, blue hair, short hair, hair over eye, blue eye, hair ornament, thinking, interogation point, waiting",
     "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F56.webp?alt=media&token=cc675f80-94c9-4832-88aa-4e46f5613d68",
     "display": "Luminous",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F56_zzz_512__698_zzz.webp?alt=media&token=b8b018c4-54d9-4af8-b3c7-ceb42975c3cc",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F53_zzz_512__584_zzz.webp?alt=media&token=875e195b-ca5e-446d-a61c-15b404c2a479",
     "prompt": "young girl, White skin that emphasizes transparency, crisp eye makeup, ruddy blush, thick natural parallel eyebrows, Light brown hair, long hair, soft curly hair, fluffy bangs, medium breasts, happy, smile, city, sun, blue sky, BREAK off shoulder, summer dress, casual clothes, Contemporary Clothing, BREAK (masterpiece:1.2, best quality), (finely detailed beautiful eyes: 1.2), ((1girl)), ((solo)), (finely detailed eyes and detailed face:1.3), (beautiful and clear background:1.2), (extremely detailed CG, ultra-detailed, best shadow:1.1), ((depth of field)), ((watercolor)), beautiful concept illustration, (illustration:1.1), (extremely fine and beautiful:1.1), (perfect details:1.1), full body, cowboy shot, look at viewer,",
     "negative": "nsfw, (worst quality, low quality:1.3), (depth of field, blurry:1.2), (greyscale, monochrome:1.1), 3D face, nose, cropped, lowres, text, jpeg artifacts, signature, watermark, username, blurry, artist name, trademark, watermark, title, (tan, muscular, loli, petite, child, infant, toddlers, chibi, sd character:1.1), multiple view, Reference sheet, (Tight fitting clothes), (Clothes with Japanese design),(animal ears), (kemomimi, Furry, cat girl), (Fantasy Clothing), (Fantasy accessories)"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F57.webp?alt=media&token=e1af2179-1ac7-4fd9-a8ca-7c67a7cc72d4",
     "display": "Seredipity",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F57_zzz_512__584_zzz.webp?alt=media&token=927f9b04-2c92-4d31-97fc-fc7001983944",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F54_zzz_512__584_zzz.webp?alt=media&token=f49fe538-9d31-4039-afc3-3876ec369959",
     "prompt": "((best quality))), (((masterpiece))), ((ultra-detailed)) ((illustration)), ((disheveled hair)), (beautiful detailed eyes), beautiful, amazing, detailed eyes, (realistic:0.5), (detailed skin), (oily skin) dynamic angle, dynamic pose official art,extremely detailed CG unity 8k wallpaper,4k uhd, beautiful anime woman best shadow ((((black hair)))) medium hair large breasts blue eyes",
     "negative": "(worst quality, low quality, extra digits:1.4),"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F58.webp?alt=media&token=1b59371c-e7c0-4a0c-819f-87e3b07e56d1",
     "display": "Tender",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F58_zzz_512__584_zzz.webp?alt=media&token=048c03d0-dfb1-4fb7-8bb2-69520ae64947",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F55_zzz_512__698_zzz.webp?alt=media&token=7c9e7fd4-4861-4c03-9807-90006bc3fa11",
     "prompt": "<lora:more_details:0.8>, anime girl, vibrant colors, perfect body, vivid colors, scenery, sharp focus, best quality, masterpiece, detailed outfit, illustration, depth of field, best shadow, perfect eyes, finely detailed beautiful anime eyes, School uniform",
     "negative": "EasyNegative, EasyNegativeV2, sketch, duplicate, ugly, huge eyes, logo, worst face, (mutated hands:1.3), (worst quality:1.8), (low quality:1.8), geometry, bad_prompt, (missing fingers), multiple limbs, (bad-artist-anime), bad-artist, bad_prompt_version2, lowres, verybadimagenegative_v1.3, (malformed hands:1.4), (poorly drawn hands:1.4), (extra limbs:1.3), (poorly drawn face:1.3), (greyscale), muscular, cropped, (jpeg artifacts, signature, username, artist name"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F59.webp?alt=media&token=4f88f32a-806b-4cce-aa02-92a5815ed0cb",
     "display": "Sarcasm",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F59_zzz_512__698_zzz.webp?alt=media&token=e28b9214-77c4-4eac-a2ce-343788b4d7c1",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F56_zzz_512__698_zzz.webp?alt=media&token=b8b018c4-54d9-4af8-b3c7-ceb42975c3cc",
     "prompt": "girl with black hair, masterpiece, best quality, ultra-detailed, cinematic beautiful lighting, intricate details, looking at viewer, depth of field",
     "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F60.webp?alt=media&token=955d92ca-bf2d-4146-9063-b9c86522a53e",
     "display": "Kokota",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F60_zzz_512__698_zzz.webp?alt=media&token=579ec558-807e-46cf-8e2c-64f361e199a8",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F57_zzz_512__584_zzz.webp?alt=media&token=927f9b04-2c92-4d31-97fc-fc7001983944",
     "prompt": "(1girl), detailed, scenery, perfect face, perfect eyes, realistic",
     "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F61.webp?alt=media&token=a59cf967-b344-49d3-b0e9-248b9f4a5d14",
     "display": "Lotus",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F61_zzz_512__584_zzz.webp?alt=media&token=967edbbd-b3f5-4135-a54d-0efe87bb0b82",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F58_zzz_512__584_zzz.webp?alt=media&token=048c03d0-dfb1-4fb7-8bb2-69520ae64947",
     "prompt": "a stranger like me",
     "negative": "(((wrong hand))), lowres, bad anatomy, bad hands, mutated hand, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name, out of focus, glowing eyes, (((multiple views))), (((bad proportions))), (((multiple legs))), (((multiple arms))), 3D, bad_prompt, (worst quality:2.0), (low quality:2.0), inaccurate limb, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F62.webp?alt=media&token=5dfe8721-424d-42ca-b506-7a31641e95e1",
     "display": "Aphasis",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F62_zzz_512__584_zzz.webp?alt=media&token=6c4ccec3-d1b5-4e72-808a-886cb37cde73",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F59_zzz_512__698_zzz.webp?alt=media&token=e28b9214-77c4-4eac-a2ce-343788b4d7c1",
     "prompt": "<lora:more_details:0.6>, (vivid colors), scenery, best quality, best composition, illustration, professional coloring, 1 anime girl, with highly detailed anime eyes,",
     "negative": "EasyNegative, EasyNegativeV2, sketch, duplicate, ugly, huge eyes, logo, worst face, (bad and mutated hands:1.3), (worst quality:1.8), (low quality:1.8), geometry, bad_prompt, (missing fingers), multiple limbs, bad anatomy, ugly fingers, (bad-artist-anime), bad-artist, bad-hands-5, bad_prompt_version2, lowres, verybadimagenegative_v1.3, (malformed hands:1.4), (poorly drawn hands:1.4), (extra limbs:1.3), (poorly drawn face:1.3), (depth of field)"
   },
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F63.webp?alt=media&token=9fcc9beb-4933-4d2a-8248-c3eae07a2876",
     "display": "Yolo",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F60_zzz_512__698_zzz.webp?alt=media&token=579ec558-807e-46cf-8e2c-64f361e199a8",
+    "prompt": "akane, /(oshi no ko/), Hair with scenery, 1girl, (dark blue hair), medium hair, ((hair colour gradient)), upper body, (close to viewer), cityscape background, clothes blown by wind, cheerful, dramatic lighting, night scenery, aurora, building, city lights, hill, (lens flare), (galaxy background), night, night sky, outdoors, scenery, shooting star, sky, skyline, sunset at horizon, (cerulean flames intertwine around her)",
+    "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t, bad anatomy, deformity, deformed hands, extra limbs, extra fingers"
+  },
+  {
+    "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F63.webp?alt=media&token=9fcc9beb-4933-4d2a-8248-c3eae07a2876",
+    "display": "Reri",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F61_zzz_512__584_zzz.webp?alt=media&token=967edbbd-b3f5-4135-a54d-0efe87bb0b82",
+    "prompt": "a stranger like me",
+    "negative": "(((wrong hand))), lowres, bad anatomy, bad hands, mutated hand, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, artist name, out of focus, glowing eyes, (((multiple views))), (((bad proportions))), (((multiple legs))), (((multiple arms))), 3D, bad_prompt, (worst quality:2.0), (low quality:2.0), inaccurate limb, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality"
+  },
+  {
+    "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F63.webp?alt=media&token=9fcc9beb-4933-4d2a-8248-c3eae07a2876",
+    "display": "Monday",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F62_zzz_512__584_zzz.webp?alt=media&token=6c4ccec3-d1b5-4e72-808a-886cb37cde73",
+    "prompt": "<lora:more_details:0.6>, (vivid colors), scenery, best quality, best composition, illustration, professional coloring, 1 anime girl, with highly detailed anime eyes,",
+    "negative": "EasyNegative, EasyNegativeV2, sketch, duplicate, ugly, huge eyes, logo, worst face, (bad and mutated hands:1.3), (worst quality:1.8), (low quality:1.8), geometry, bad_prompt, (missing fingers), multiple limbs, bad anatomy, ugly fingers, (bad-artist-anime), bad-artist, bad-hands-5, bad_prompt_version2, lowres, verybadimagenegative_v1.3, (malformed hands:1.4), (poorly drawn hands:1.4), (extra limbs:1.3), (poorly drawn face:1.3), (depth of field)"
+  },
+  {
+    "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F63.webp?alt=media&token=9fcc9beb-4933-4d2a-8248-c3eae07a2876",
+    "display": "Misty92",
     "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F63_zzz_512__698_zzz.webp?alt=media&token=b7b27a55-3b42-4b79-910f-62282c303537",
     "prompt": "akane, /(oshi no ko/), Hair with scenery, 1girl, (dark blue hair), medium hair, ((hair colour gradient)), upper body, (close to viewer), cityscape background, clothes blown by wind, cheerful, dramatic lighting, night scenery, aurora, building, city lights, hill, (lens flare), (galaxy background), night, night sky, outdoors, scenery, shooting star, sky, skyline, sunset at horizon, (cerulean flames intertwine around her)",
     "negative": "worst quality, large head, low quality, extra digits, bad eye, EasyNegativeV2, ng_deepnegative_v1_75t, bad anatomy, deformity, deformed hands, extra limbs, extra fingers"
@@ -450,7 +471,7 @@
   {
     "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2F65.webp?alt=media&token=02e6cb17-eb35-4a58-b4d9-cd20d3e126ab",
     "display": "Monday",
-    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F65_zzz_512__584_zzz.webp?alt=media&token=2458ffd8-0508-4a41-a4e1-d89a32e8fe3e",
+    "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2FRectangle%204159%20(2).png?alt=media&token=7dc3d1bd-10f5-43b3-bdc8-849e368480d1e",
     "prompt": "((masterpiece)), 1girl, solo focus, tall female, short hair, multicolored hair, green eyes, jewel like eyes, medium breasts, black coat, white shirt, accessories, city background, futuristic city, night, rain, moody,",
     "negative": "paintings, sketches, fingers, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), backlight,(ugly:1.331), (duplicate:1.331), (morbid:1.21), (mutilated:1.21), (tranny:1.331), mutated hands, (poorly drawn hands:1.5), blurry, (bad anatomy:1.21), (bad proportions:1.331), extra limbs, (disfigured:1.331), (more than 2 nipples:1.331), (missing arms:1.331), (extra legs:1.331), (fused fingers:1.61051), (too many fingers:1.61051)"
   },

@@ -14,6 +14,7 @@ import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.observeOnce
 import com.anime.art.ai.common.extension.startDetailGallery
+import com.anime.art.ai.common.getCurrentDay
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.data.db.query.HistoryDao
@@ -134,16 +135,14 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                            }
                        }
                    }
-                   val currentDateTime = LocalDateTime.now()
-                   val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                   val formattedDate = currentDateTime.format(formatter)
-                   if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
+                   val currentDay = getCurrentDay()
+                   if(currentDay.dayBetween(newList[0]) == 1L && newList.size == 1) {
                        showDailyReward(1)
                    }
-                   else if(formattedDate.dayBetween(newList[0]) == 1L){
+                   else if(currentDay.dayBetween(newList[0]) == 1L){
                        showDailyReward(consecutiveSeries)
                    }
-                   else if(formattedDate.dayBetween(newList[0]) > 1L) showDailyReward(0)
+                   else if(currentDay.dayBetween(newList[0]) > 1L) showDailyReward(0)
                }
            }
         }

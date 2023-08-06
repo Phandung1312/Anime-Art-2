@@ -3,6 +3,7 @@ package com.anime.art.ai.feature.main.create
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.activity.addCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anime.art.ai.databinding.ActivityEnterPromptBinding
@@ -16,6 +17,7 @@ import com.basic.common.extension.makeToast
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -78,6 +80,9 @@ class EnterPromptActivity :
                 }
 
             })
+        onBackPressedDispatcher.addCallback {
+            returnData()
+        }
     }
 
 
