@@ -124,6 +124,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                     artStyle = creator.artStyle
                 }
                 configApp.imageBase64 = creator.image
+                configApp.imageGenerationRequest.ratio = creator.ratio
                 activity?.startFinalize()
             }
     }

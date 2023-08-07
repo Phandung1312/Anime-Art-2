@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
@@ -61,31 +62,54 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         initData()
         listenerView()
     }
+    private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            // Xử lý sự kiện khi trang được cuộn
+        }
+
+        override fun onPageSelected(position: Int) {
+            previewAdapter.selectedIndex = position
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+            // Xử lý sự kiện khi trạng thái cuộn trang thay đổi
+        }
+    }
+
 
     private fun listenerView() {
         binding.close.clicks {
             back()
         }
         binding.finalizeView.clicks {
-            configApp.imageBase64 = previewAdapter.data[binding.viewPager.currentItem].image
-            configApp.imageGenerationRequest?.let { image ->
-                val creator = Creator(image = configApp.imageBase64,
-                    prompt = image.prompt,
-                    negative = image.negativePrompt,
-                    artStyle = image.artStyle,
-                    ratio = image.ratio)
-                lifecycleScope.launch(Dispatchers.IO) {
-                    creatorDao.inserts(creator)
-                    launch(Dispatchers.Main) {
-                       startFinalize()
-                        finish()
+            if(binding.viewPager.currentItem == 0 || preferences.isPremium.get()){
+                configApp.imageBase64 = previewAdapter.data[binding.viewPager.currentItem].image
+                configApp.imageGenerationRequest.let { image ->
+                    val creator = Creator(image = configApp.imageBase64,
+                        prompt = image.prompt,
+                        negative = image.negativePrompt,
+                        artStyle = image.artStyle,
+                        ratio = image.ratio)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        creatorDao.inserts(creator)
+                        launch(Dispatchers.Main) {
+                            startFinalize()
+                            finish()
+                        }
                     }
                 }
+            }
+            else{
+                makeToast("This template is only for premium package")
             }
         }
         binding.variationsView.clicks {
             lifecycleScope.launch{
-                val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
+                val imageGenerationRequest =  configApp.imageGenerationRequest
                 launch(Dispatchers.IO) {
                     val request = UpdateCreditRequest(Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1, Constraint.MAKE_VARIATIONS)
                     serverApiRepository.updateCredit(getDeviceId(),request){result ->
@@ -104,6 +128,11 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             back()
         }
     }
+    override fun onResume() {
+        binding.viewPager.registerOnPageChangeCallback(pageChangeCallback)
+        super.onResume()
+    }
+
     private suspend fun generateImage(imageGenerationRequest : ImageGenerationRequest){
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -128,7 +157,9 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                     if(result){
                                     }
                                     else{
-                                        makeToast("An error has occurred")
+                                        launch(Dispatchers.Main) {
+                                            makeToast("An error has occurred")
+                                        }
                                     }
                                 }
                             }
@@ -137,7 +168,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                 this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                                 this.setPageTransformer(ZoomInTransformer())
                                 this.adapter = previewAdapter.apply {
-                                    this.data = progress.responses
+                                    this.data = progress.responses.map { response -> response.copy(ratio = configApp.imageGenerationRequest.ratio) }
                                 }
                             }
                             binding.viewPager.isVisible = true
@@ -146,10 +177,8 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                         is AIApiRepository.APIResponse.Error ->{
                             binding.loadingLayout.isVisible = false
                             makeToast("An error has occurred")
-                            launch {
                                 delay(100)
                                 back()
-                            }
                         }
                     }
                 }

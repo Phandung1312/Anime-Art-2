@@ -1,7 +1,7 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="320dp"
-    android:height="40dp"
+    android:width="377dp"
+    android:height="49dp"
     android:viewportWidth="377"
     android:viewportHeight="49">
   <path
@@ -115,18 +115,18 @@
     </aapt:attr>
   </path>
   <path
-      android:pathData="M134,21m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
+      android:pathData="M134,22m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
       android:fillColor="#3D3D3D"/>
   <path
-      android:pathData="M189,21m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
+      android:pathData="M189,22m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
       android:fillColor="#3D3D3D"/>
   <path
-      android:pathData="M246,21m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
+      android:pathData="M246,22m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
       android:fillColor="#3D3D3D"/>
   <path
-      android:pathData="M301,19m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
+      android:pathData="M301,22m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
       android:fillColor="#3D3D3D"/>
   <path
-      android:pathData="M355,19m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
+      android:pathData="M355,22m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
       android:fillColor="#3D3D3D"/>
 </vector>

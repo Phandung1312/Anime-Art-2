@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Base64
@@ -119,8 +120,7 @@ fun Context.getDimens(@DimenRes dimenRes: Int): Float {
 }
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId() : String{
-//   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
-    return "832737rtueuru7631"
+   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
 }
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager =

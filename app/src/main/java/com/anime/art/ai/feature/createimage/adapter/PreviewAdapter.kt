@@ -1,6 +1,7 @@
 package com.anime.art.ai.feature.createimage.adapter
 
 import android.util.Base64
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import com.anime.art.ai.R
 import com.anime.art.ai.databinding.ItemPreviewInCreateImageBinding
@@ -26,7 +27,20 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
                 1,data.size - 1
             )
         }
+
+    var selectedIndex = 0
+        set(value){
+            if(field == value) return
+            field.takeIf { it != -1 }?.let { notifyItemChanged(it) }
+            value.takeIf { it != -1 }?.let { notifyItemChanged(it) }
+            field = value
+        }
     override fun bindItem(item: ImageResponse, binding: ItemPreviewInCreateImageBinding, position: Int) {
+        ConstraintSet().apply {
+            this.clone(binding.previewLayout)
+            this.setDimensionRatio(binding.preview.id, item.ratio)
+            this.applyTo(binding.previewLayout)
+        }
         val decodedBytes: ByteArray = Base64.decode(item.image, Base64.DEFAULT)
 
         val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
@@ -39,11 +53,12 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
         if(position == 0 || isPremium){
             binding.saveView.isVisible = true
             binding.zoomView.isVisible = true
-            binding.tickView.isVisible = true
         }
         else{
             binding.unlock.isVisible = true
         }
+        binding.tickView.isVisible = (position == selectedIndex && isPremium) || position == 0
+
         binding.unlock.clicks {
             unlockClicks.onNext(Unit)
         }

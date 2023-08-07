@@ -72,7 +72,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/reward_daily_view"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/viewTop">
@@ -237,27 +236,28 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_credit_slider"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="320:40"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:scaleType="fitCenter"
-            android:src="@drawable/_0_tick"
+            android:src="@drawable/_7_tick_not_received"
+            app:layout_constraintBottom_toTopOf="@+id/receive_cardView"
+            app:layout_constraintDimensionRatio="377:52"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/receive_cardView"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_27sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             app:cardBackgroundColor="@color/backgroundDark"
             app:cardCornerRadius="@dimen/_30sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView4"
             app:layout_constraintEnd_toEndOf="@+id/appCompatImageView4"
             app:layout_constraintStart_toStartOf="@+id/appCompatImageView4"
-            app:layout_constraintTop_toBottomOf="@+id/iv_credit_slider"
+            app:layout_constraintTop_toBottomOf="@+id/image_daily_view"
             app:strokeColor="@color/white_35"
             app:strokeWidth="@dimen/_1sdp">
 

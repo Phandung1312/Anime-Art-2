@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
@@ -87,20 +88,21 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         }
         binding.receiveCardView.clicks(withAnim = false) {
             binding.receiveCardView.isEnabled = false
-            lifecycleScope.launch(Dispatchers.IO) {
-                val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
-                val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
-                serverApiRepository.updateCredit(getDeviceId(),request){ result ->
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        if(result){
-                            makeToast("You have received $todayReward credit")
-                        }
-                        else{
-                            binding.receiveCardView.isEnabled = true
-                        }
-                    }
-                }
-            }
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
+//                val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
+//                serverApiRepository.updateCredit(getDeviceId(),request){ result ->
+//                    lifecycleScope.launch(Dispatchers.Main) {
+//                        if(result){
+//                            makeToast("You have received $todayReward credit")
+//                        }
+//                        else{
+//                            binding.receiveCardView.isEnabled = true
+//                        }
+//                    }
+//                }
+//            }
+            setDayReward(7, true)
         }
         binding.shareView.clicks(withAnim = false) {
             val text ="abc"
@@ -162,7 +164,8 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
     private fun setDayReward(day : Int, isReceived : Boolean){
         consecutiveSeries = day
         setGradientReceivedDay(day)
-        val imageResourceId = resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
+        val imageResourceId = if(isReceived) resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
+        else resources.getIdentifier("_${day}_tick_not_received","drawable",binding.root.context.packageName)
         binding.ivCreditSlider.setImageResource(imageResourceId)
         dailyRewardAdapter.data = DailyReward.values().take(day).toList()
         binding.receiveCardView.apply {
@@ -179,41 +182,41 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
-        historyDao.getAll().observe(this){ histories ->
-            if(preferences.isSynced.get()){
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
-                        .map { it.createdAt.convertToShortDate()}
-                        .reversed()
-                    if (newList.isEmpty()) {
-                        setDayReward(0, isReceived = false)
-                        return@launch
-                    }
-                    var consecutiveSeries  = 1
-                    if(newList.size > 1){
-                        for(i in 0 ..   newList.size -2){
-                            if(newList[i].dayBetween(newList[i + 1]) > 1L) break
-                            consecutiveSeries += 1
-                            if(consecutiveSeries > 7){
-                                consecutiveSeries = 0
-                                break
-                            }
-                        }
-                    }
-                    val currentDateTime = LocalDate.now()
-                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    val formattedDate = currentDateTime.format(formatter)
-                    if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
-                            setDayReward(1, isReceived = false)
-                    }
-                    else if(formattedDate.dayBetween(newList[0]) == 1L){
-                        setDayReward(if(consecutiveSeries > 6) 0 else consecutiveSeries , isReceived = false)
-                    }
-                    else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = false)
-                    else setDayReward(consecutiveSeries, isReceived = true)
-                }
-            }
-        }
+//        historyDao.getAll().observe(this){ histories ->
+//            if(preferences.isSynced.get()){
+//                lifecycleScope.launch(Dispatchers.Main) {
+//                    val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
+//                        .map { it.createdAt.convertToShortDate()}
+//                        .reversed()
+//                    if (newList.isEmpty()) {
+//                        setDayReward(0, isReceived = false)
+//                        return@launch
+//                    }
+//                    var consecutiveSeries  = 1
+//                    if(newList.size > 1){
+//                        for(i in 0 ..   newList.size -2){
+//                            if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+//                            consecutiveSeries += 1
+//                            if(consecutiveSeries > 7){
+//                                consecutiveSeries = 0
+//                                break
+//                            }
+//                        }
+//                    }
+//                    val currentDateTime = LocalDate.now()
+//                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+//                    val formattedDate = currentDateTime.format(formatter)
+//                    if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
+//                            setDayReward(1, isReceived = false)
+//                    }
+//                    else if(formattedDate.dayBetween(newList[0]) == 1L){
+//                        setDayReward(if(consecutiveSeries > 6) 0 else consecutiveSeries , isReceived = false)
+//                    }
+//                    else if(formattedDate.dayBetween(newList[0]) > 1L) setDayReward(0, isReceived = false)
+//                    else setDayReward(consecutiveSeries, isReceived = true)
+//                }
+//            }
+//        }
         preferences
             .isSynced
             .asObservable()
@@ -232,7 +235,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
     }
     private fun initView(){
         binding.rv.adapter = dailyRewardAdapter
-        setDayReward(0, false)
+        setDayReward(7, false)
     }
 
 }

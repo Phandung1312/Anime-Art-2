@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.viewpager.widget.ViewPager
 import com.anime.art.ai.R
+import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.databinding.ActivityMainBinding
 import com.anime.art.ai.domain.repository.SyncRepository
 import com.anime.art.ai.feature.gallery.GalleryActivity
@@ -32,9 +33,11 @@ import javax.inject.Inject
 class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     @Inject lateinit var syncRepo: SyncRepository
+    @Inject lateinit var configApp: ConfigApp
+
     private val fragments by lazy { listOf(GalleryFragment(), CreateFragment(), MineFragment()) }
-    private val tabClicks: Subject<Int> = BehaviorSubject.createDefault(0)
-    val pageChanges: Subject<Int> = BehaviorSubject.createDefault(0)
+    private val tabClicks: Subject<Int> by lazy { BehaviorSubject.createDefault(configApp.tabIndex) }
+    val pageChanges: Subject<Int> by lazy { BehaviorSubject.createDefault(configApp.tabIndex) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +90,8 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
         tabClicks
             .autoDispose(scope())
             .subscribe { index ->
+                configApp.tabIndex = index
+
                 binding.viewPager.currentItem = index
             }
 
@@ -159,5 +164,6 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
         (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, ratio)
         binding.viewPager.currentItem = 1
         pageChanges.onNext(1)
+        configApp.tabIndex = 1
     }
 }

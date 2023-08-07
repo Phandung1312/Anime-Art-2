@@ -4,6 +4,7 @@ package com.anime.art.ai.feature.createimage
 import android.os.Bundle
 import android.util.Base64
 import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintSet
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.extension.back
@@ -40,6 +41,11 @@ class EnlargeImageActivity : LsActivity<ActivityEnlargeImageBinding>(ActivityEnl
     }
 
     private fun showImage(){
+        ConstraintSet().apply {
+            this.clone(binding.rootView)
+            this.setDimensionRatio(binding.iv.id, configApp.imageGenerationRequest.ratio)
+            this.applyTo(binding.rootView)
+        }
         val decodedBytes: ByteArray = Base64.decode(configApp.imageBase64, Base64.DEFAULT)
         val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
         Glide.with(binding.root.context)

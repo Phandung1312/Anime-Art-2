@@ -4,4 +4,5 @@
     <string name="Hide"><u>Hide</u></string>
     <string name="default_notification_channel_id">Notification channel id</string>
     <string name="a"></string>
+    <string name="original_price_1_year_premium"><strike>US$ 259.48</strike></string>
 </resources>

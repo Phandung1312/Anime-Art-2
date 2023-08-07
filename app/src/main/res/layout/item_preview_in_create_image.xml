@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginStart="@dimen/_30sdp"
-    android:layout_marginEnd="@dimen/_30sdp"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.google.android.material.card.MaterialCardView
@@ -17,17 +17,27 @@
         android:layout_width="match_parent"
         app:strokeColor="#353535"
         app:strokeWidth="@dimen/_1sdp"
-        android:layout_height="@dimen/_320sdp">
+        android:layout_height="wrap_content">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/preview"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/preview_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="2:3"
-                tools:src="@tools:sample/avatars"/>
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/preview"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="16:9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

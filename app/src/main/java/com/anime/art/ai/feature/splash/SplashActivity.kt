@@ -47,6 +47,7 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
 
     private fun initData() {
         syncRemoteConfig {
+            Timber.e("id=${getDeviceId()}")
             lifecycleScope.launch(Dispatchers.IO) {
                 try{
                     withTimeout(5000){

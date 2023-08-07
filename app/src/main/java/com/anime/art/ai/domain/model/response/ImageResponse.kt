@@ -16,4 +16,6 @@ data class ImageResponse(
     @SerializedName("cost")
     @Expose
     var cost : Double = 0.0,
+
+    var ratio : String = "1:1"
 )

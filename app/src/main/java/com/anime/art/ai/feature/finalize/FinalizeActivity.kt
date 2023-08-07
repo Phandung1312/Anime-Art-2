@@ -7,11 +7,13 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Base64
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.FileProvider
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.decodeBase64ToBitmap
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.common.processAndSaveImage
 import com.anime.art.ai.common.saveBitmapToFile
 import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.databinding.ActivityFinalizeBinding
@@ -23,6 +25,7 @@ import com.basic.common.extension.transparent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -48,7 +51,10 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             copyToClipBoard(configApp.imageGenerationRequest.prompt)
         }
         binding.save.clicks {
-            saveBase64ImageToGallery(configApp.imageBase64)
+            val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
+            val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
+        //    Timber.e("Info: Image=${configApp.imageBase64},height=$targetHeightRatio,width=$targetWidthRatio")
+            processAndSaveImage(this, configApp.imageBase64, targetWidthRatio/targetHeightRatio)
             makeToast("Image saved to gallery")
         }
         binding.share.clicks {
@@ -85,6 +91,11 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
     }
 
     private fun showImage(){
+        ConstraintSet().apply {
+            this.clone(binding.rootView)
+            this.setDimensionRatio(binding.previewView.id, configApp.imageGenerationRequest.ratio)
+            this.applyTo(binding.rootView)
+        }
         val decodedBytes: ByteArray = Base64.decode(configApp.imageBase64, Base64.DEFAULT)
         val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
         Glide.with(binding.root.context)

@@ -50,7 +50,6 @@ import com.basic.common.extension.convertDrawableToBase64
 import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
-import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.setTint
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
@@ -147,6 +146,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     }
 
     private fun initData(){
+        binding.edEnterPrompt.setText(configApp.localPrompt)
         menuAdapter.data = Character.values().toList()
         sizeOfImageAdapter.data = SizeOfImage.values().toList()
         artStyleAdapter.data = ArtStyle.values().toList()
@@ -229,6 +229,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         binding.edEnterPrompt.doOnTextChanged { text, _, _, _ ->
             binding.tvLengthPrompt.text = "${text?.length}/1000"
             imageGenerationRequest.prompt = text.toString()
+            configApp.localPrompt = text.toString()
             isEnableCreate.onNext(text?.isNotEmpty() == true)
         }
         binding.edNegativePrompt.doOnTextChanged { text, _, _, _ ->
@@ -326,11 +327,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .clicks
             .autoDispose(scope())
             .subscribe {item ->
-                val multiples = if(binding.qualityPrompt.isChecked) 1 else 2
-                imageGenerationRequest.height = item.realSize.split(":")[0].toInt() / multiples
-                imageGenerationRequest.width = item.realSize.split(":")[1].toInt() / multiples
                 imageGenerationRequest.ratio = item.size
-                Timber.e("Height = ${imageGenerationRequest.height}, width = ${imageGenerationRequest.width}")
             }
 
     }
@@ -402,63 +399,66 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             binding.edEnterPrompt.setText(it)
         }
         sizeOfImageAdapter.data.forEach { sizeOfImage ->
-            if(TextUtils.equals(sizeOfImage.realSize, ratio)) {
+            if (TextUtils.equals(sizeOfImage.realSize, ratio)) {
                 sizeOfImageAdapter.selectedIndex = sizeOfImageAdapter.data.indexOf(sizeOfImage)
                 sizeOfImageAdapter.clicks.onNext(sizeOfImage)
             }
         }
     }
-    private val getPromptFromHistoryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if(result.resultCode == Activity.RESULT_OK){
-            selectedPromptId = result.data?.getIntExtra(HistoryPromptActivity.PROMPT_INDEX, -1) ?: -1
-            binding.edEnterPrompt.setText(result.data?.getStringExtra(HistoryPromptActivity.PROMPT))
+
+    private val getPromptFromHistoryResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                selectedPromptId =
+                    result.data?.getIntExtra(HistoryPromptActivity.PROMPT_INDEX, -1) ?: -1
+                binding.edEnterPrompt.setText(result.data?.getStringExtra(HistoryPromptActivity.PROMPT))
+            }
+
         }
 
-    }
-
-    private fun createImage(){
-        val inputImage = if(inputImageAdapter.selectedIndex > 0) inputImageAdapter.data[inputImageAdapter.selectedIndex] else null
+    private fun createImage() {
+        val inputImage =
+            if (inputImageAdapter.selectedIndex > 0) inputImageAdapter.data[inputImageAdapter.selectedIndex] else null
         try {
             inputImage?.let {
                 imageGenerationRequest.image = when (val image = it.imageLink) {
                     is Int -> {
                         requireContext().convertDrawableToBase64(image) ?: ""
                     }
+
                     is Uri -> {
                         requireContext().convertImageToBase64(image) ?: ""
                     }
+
                     else -> {
                         ""
                     }
                 }
                 imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
-                requireContext().saveStringToFile("test.txt",imageGenerationRequest.image)
                 imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
             }
         }catch (e : Exception){
             Timber.e(e)
         }
-        if(preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST){
+        if (preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST) {
             requireContext().makeToast("you don't have enough credit")
             activity?.startIAP()
-        }
-        else{
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                try {
-//                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
-//                    val prompts = promptDao.getAll()
-//                    if (prompts.none { TextUtils.equals(it.text, prompt) }) {
-//                        promptDao.inserts(Prompt(text = prompt))
-//                    }
-//                    launch(Dispatchers.Main) {
-//                        configApp.imageGenerationRequest = imageGenerationRequest
-//                        activity?.startCreateImage()
-//                    }
-//                }
-//                catch (e : Exception){
-//                    Timber.e("Insert prompt error")
-//                }
-//            }
+        } else {
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
+                    val prompts = promptDao.getAll()
+                    if (prompts.none { TextUtils.equals(it.text, prompt) }) {
+                        promptDao.inserts(Prompt(text = prompt))
+                    }
+                    launch(Dispatchers.Main) {
+                        configApp.imageGenerationRequest = imageGenerationRequest
+                        activity?.startCreateImage()
+                    }
+                } catch (e: Exception) {
+                    Timber.e("Insert prompt error")
+                }
+            }
         }
 
     }
