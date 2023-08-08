@@ -490,6 +490,272 @@
         "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F67_zzz_512__698_zzz.webp?alt=media&token=5feda3c7-b128-4384-82f5-43a22f89f07a",
         "prompt": "best quality, masterpiece, extremely detailed, detailed background, anime, 1girl, young girl, short girl, sci-fi, science fiction, outdoors, night, starry sky, greenhouse, megastructure, bio-dome, landscape, scenery, horizon, rooftop, sitting on rooftop, wind, looking away, atmospheric lighting, solo focus, close up, from side, depth of field, bokeh",
         "negative": "EasyNegative, (low quality, worst quality:1.4), (monochrome:1.3), (bad anatomy), extra digit, fewer digits, (extra arms:1.2), bad hands, by (bad-artist:0.6), building, human structure, housing, house, furry, furry female, furry male, furry with furry, furry with non-furry, black people, black male, muscular, muscular male, brown male"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(1).png?alt=media&token=cb449608-ec84-47b8-917e-6486003827a5",
+        "display": "Yogurt",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F80_zzz_512__584_zzz.png?alt=media&token=bc3975c7-d892-446b-9dbf-8b8b09c9907d",
+        "prompt": "(Alice Margatroid)+, Touhou Project, plump body, blonde hair, blue eyes, dynamic pose, intricate, futuristic, fantasy, elegant, by stanley artgerm lau, greg rutkowski, thomas kindkade, alphonse mucha, loish, norman rockwell, fantasy lut, asymmetric, long hijab, retro computer graphics, video game, fluid lines",
+        "negative": "bad hands"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(2).png?alt=media&token=a9889eaf-5b0c-4859-96c1-676d06df9fa3",
+        "display": "Unicorn",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F81_zzz_512__698_zzz.png?alt=media&token=178931bd-15c1-4f5a-bcb1-804f326df68e",
+        "prompt": "Beautiful galactic man, blue eyes, black hairs",
+        "negative": "shadow, very short hairs"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(3).png?alt=media&token=f095e08f-12eb-456a-b095-d3eaf9d09372",
+        "display": "Echo",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F82_zzz_512__698_zzz.png?alt=media&token=8c4b365b-5118-4e1f-ad09-8be152dc4e10",
+        "prompt": "Anime cyberpunk henry cavil with Pastel Rainbow white blue short hair,Light Purple eyes,20 years old,by makoto shinkai, stanley artgerm lau, wlop, rossdraws",
+        "negative": "disfigured, kitsch, ugly, oversaturated, grain, low-res, Deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, extra limb, ugly, poorly drawn hands, missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus, long neck, lorgi body, ugly, disgusting, poorly drawn, childish, mutilated,, mangled, old, surreal"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(4).png?alt=media&token=8e637ac6-ccd0-4986-a292-01e9cf0efa22",
+        "display": "Luddacris",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F83_zzz_512__584_zzz.png?alt=media&token=e3b4a493-af4c-4797-9956-4aba89602faf",
+        "prompt": "Photo of zero two from darling in the franxx, zero two by studio trigger, by greg rutkowski, gil elvgren, glossy skin, pearlescent, anime",
+        "negative": "3D, Cat ears, Girl"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(5).png?alt=media&token=a4e619e7-e967-40a8-802d-fbac1534de00",
+        "display": "Najwa",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F84_zzz_512__584_zzz.png?alt=media&token=8eae5267-8f98-4811-b405-4d9de0817e96",
+        "prompt": "Masterpiece, best quality, ultra detailed, anime illustration, steam punk mechanical girl aiming gun to viewer, mechanical arms, mechanical legs, dynamic angle, cinematic lighting",
+        "negative": "bad hands"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(6).png?alt=media&token=badcc4c0-ca1d-494a-8016-a19ba05b8639",
+        "display": "Soando",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F85_zzz_512__698_zzz.png?alt=media&token=81c6188c-9eaf-43ff-ae1b-1562c3e33847",
+        "prompt": "potrait bust of young man archer length light brown hair and hazel eyes, beautiful, symmetrical, anime, ilya kuvshinov, greg rutkowski, guweiz, ross tran, loish, svetlana tigai, artgerm, artstation trending, concept art, digital painting",
+        "negative": "shadow, very short hairs"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(7).png?alt=media&token=6fc2baeb-e42a-47ad-bd08-31b97fac316d",
+        "display": "Jyblex",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F86_zzz_512__698_zzz.png?alt=media&token=2b322cf8-43ef-4648-aa09-d88f219341b2",
+        "prompt": "Lionel Messi painting of full body cyberpunk blade runner, dramatic pose, wearing japanese techwear, detailed symmetrical, intricate complexity, concept art, by ismail inceoglu dragan bibin hans thoma greg rutkowski alexandros pyromallis nekro rene maritte illustrated, perfect face, bald head, fine details, realistic shaded, fine - face, pretty face",
+        "negative": "No hair, bald"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(8).png?alt=media&token=0f9f3274-ea31-497c-8eee-1dfe908b68a8",
+        "display": "Seeronline",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F87_zzz_512__584_zzz.png?alt=media&token=59caee6c-51c7-4919-afec-2a23ff714872",
+        "prompt": "Closeup of a cute cat witch with staff cloack and pack, d&d, 3d liquid detailing fluid acrylic concept art, dark vibes, satanic ritual, art by animated+ artgerm and greg rutkowski (cel shading) ++ anime++ pixar++",
+        "negative": "cartoon, 3d, ((disfigured)), ((bad art)), ((deformed)), ((poorly drawn)), ((extra limbs)), ((close up)), ((b&amp;w)), weird colors, blurry, ugly, tiling, draft"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(9).png?alt=media&token=c68cbaa2-dd85-4b28-a9c5-aa8f0855171a",
+        "display": "Cloud91",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F88_zzz_512__584_zzz.png?alt=media&token=b1376dcd-23d1-4e62-bf85-3000ac2049aa",
+        "prompt": "Iron girl, cute, blonde",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(10).png?alt=media&token=e26eaf34-332e-4728-8ece-0fef865dc365",
+        "display": "Camellia",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F89_zzz_512__698_zzz.png?alt=media&token=0f2a0890-4d64-4fa7-9c5f-86da6e65ee32",
+        "prompt": "concept art, stylized, comic book illustration, human character, space opera, trending on artstation blonde hair medium length male in 30's",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(11).png?alt=media&token=edc405df-bc13-4dde-b7e6-7ec54ea25fc7",
+        "display": "Rxyis",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F90_zzz_512__698_zzz.png?alt=media&token=24615356-6c55-44f1-a618-b65dac3cc8e5",
+        "prompt": "young man with short, ash blond greyish hair, light brown eyes, path traced, highly detailed, high quality, digital painting, by don bluth and ross tran and studio ghibli and alphonse mucha, sylvain sarrailh",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(12).png?alt=media&token=dc84cd00-bf49-468b-9e78-386e5082d82f",
+        "display": "Sachaelouiseby",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F91_zzz_512__584_zzz.png?alt=media&token=1c1676da-5d4f-4d60-8e0b-95f23fb8c16b",
+        "prompt": "magical knight, anime girl, blonde short hair, scowl, solo",
+        "negative": "lowres, polar lowres, bad anatomy, bad face, bad hands, bad body, bad feet, bad proportions, {bad leg}, {more legs}, worst quality, low quality, normal quality, gross proportions, blurry, poorly drawn, {{{text}}}, error, missing fingers, missing arms, missing legs, {{{short legs}}}, extra digit, 2girls, long skirt, indoors, out of frame, only_upper body, only_lower body, [petite],{{{{{black background}}}}}, {{{{{{{colored background}}}}}}}, {{{print}}}, {chibi}, {only head}, {{color palette}}"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(13).png?alt=media&token=09f2a32a-5a21-4457-97ad-f593167c36c4",
+        "display": "Bitter",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F92_zzz_512__584_zzz.png?alt=media&token=132e8a8f-9870-4bf9-8a47-e61019ab0f21",
+        "prompt": "beautiful, ethereal, stunning female anime bounty space pirate",
+        "negative": "blurry, low res, bad anatomy, extra fingers, fused limbs, tiling, error, mutation, disfigured, bad face, ugly, ugly face, fused fingers, fused hands, deformed face, deformed feet, missing feet, missing legs, 2girl, duplicate, 2 people, two heads, three hands, three legs, bad edit, low quality, average, amateur, poor render, cut off, amputated, cropped, poor composition"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(14).png?alt=media&token=eec72f87-43c2-45fc-a20a-775a1b83cafb",
+        "display": "Palpiate",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F93_zzz_512__698_zzz.png?alt=media&token=ddee0015-8b6c-4976-9d10-33a9f272389f",
+        "prompt": "Full body image of (((((Henry Cavill))))) as hyperrealistic masculine handsome muscular hero Captain Britain in a ((((heroic pose)))), patriotic British hero costume, heterochromia eyes, subtle smile, cleft chin, British heraldry, London city in the background, photo realistic, detailed face, digital painting, trending on artstation, concept art, insane detail, sharp focus, illustration, 8K, elegant, intricate concept macro artstation sharp focus ray tracing cinematic masterpiece temporal corruption beeple wlop germ 8 4 k scifi neon glossy realistic illustration canon eos r 3 fujifilm x - t 3 0 sony alpha, art by artgerm and greg rutkowski and magali villeneuve",
+        "negative": "female, lady, woman, helmet, hat, multiple heads, two heads, duplicate heads, multiple torsos, two torsos, duplicate torsos, extra legs, third leg, forth leg, third arm, forth arm, lowres, bad anatomy, bad hands, text, error, missing fingers, extra fingers, extra digits, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, deformed, bad anatomy, disfigured, poorly drawn face, mutation, mutated, extra limb, extra legs, ugly, poorly drawn hands, missing limb, floating limbs, disconnected limbs, malformed hands, long neck, long body, ((((mutated hands and fingers))))"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(15).png?alt=media&token=d6202820-a7dd-46ac-bf6b-074c8e46e804",
+        "display": "Catly",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F94_zzz_512__698_zzz.png?alt=media&token=7caedf8f-d696-4d4d-a71f-6d365c921d2c",
+        "prompt": "a whirlwind inside the metaverse, guy, male, man, hologram, half body, neurochip, android, cyborg, cyberpunk face, by loish, d & d, fantasy, intricate, elegant, highly detailed, colorful, digital painting, artstation, concept art, art by artgerm and greg rutkowski and alphonse mucha",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(16).png?alt=media&token=6b590ca0-9790-4564-a461-019c07344b78",
+        "display": "Kevincc",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F95_zzz_512__584_zzz.png?alt=media&token=37cb8c53-9b39-4dbc-ba08-c12b5969ab02",
+        "prompt": "baroque oil painting anime key visual character official art, brutalist grimdark fantasy, simple portrait anime teacher beautiful blonde hair blue eyes, hidden detail, trending pixiv fanbox",
+        "negative": "3D"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(17).png?alt=media&token=7e1b472e-2611-4241-ace6-76e7678c3a3b",
+        "display": "Koreyoshi",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F96_zzz_512__584_zzz.png?alt=media&token=1812ef05-a77e-4dd9-b021-8c426538f068",
+        "prompt": "render as a very beautiful 3d anime girl, long braided blonde hair, hazel eyes, full round face, short smile, cinematic lightning, medium shot, mid-shot, highly detailed, trending on Artstation, Unreal Engine 4k, cinematic wallpaper",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(18).png?alt=media&token=2a7e2c3d-c027-42b2-98e7-3e759840a80e",
+        "display": "Camellia",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F97_zzz_512__698_zzz.png?alt=media&token=a7513f2a-592b-48ee-999b-9d5c83d6dbe5",
+        "prompt": "a mind - blowing portrait of a young shadow mage male, wearing a vest with diamond pattern, wearing a wizard hat, joyful, d & d, fantasy, intricate, elegant, highly detailed, digital painting, artstation, concept art, matte, sharp, illustration, hearthstone, art by artgerm and greg rutkowski and alphonse mucha",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(20).png?alt=media&token=9d72237b-fe3f-46ee-bfbb-7f585bbc64dc",
+        "display": "Koreyoshi",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F98_zzz_512__698_zzz.png?alt=media&token=69acaf0f-101a-442d-bd65-db7a069f3e64",
+        "prompt": "magical girl with spicy spirit",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(19).png?alt=media&token=bc8a6d72-7980-4ab3-b65d-e7f89c94bd2a",
+        "display": "Camellia",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F99_zzz_512__584_zzz.png?alt=media&token=c02578b7-43ea-4ca1-8a29-dbb3476a4258",
+        "prompt": "legendary fairy prince casting a lightning spell, lightning energy, black energy, highly detailed, 8k, d & d, fantasy, highly detailed, digital painting, trending on artstation, concept art, sharp focus, illustration, global illumination, ray tracing, realistic shaded,",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(21).png?alt=media&token=20d0d925-b582-45a7-bc4b-c3db83f2a152",
+        "display": "Luddacris",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F100_zzz_512__584_zzz.png?alt=media&token=9b218586-4480-47a1-9b0e-2910ac0f1c93",
+        "prompt": "anime key visual of Alexis Ren police officer, neon, cyberpunk, futuristic, stunning, highly detailed, digital painting, artstation, smooth, soft focus, illustration, art by artgerm and greg rutkowski and alphonse mucha",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(22).png?alt=media&token=75c9159f-1dad-410c-9a6e-6da33386661c",
+        "display": "Cute-girl",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F101_zzz_512__698_zzz.png?alt=media&token=f0dbc63a-0270-40cf-a62c-969aae729a82",
+        "prompt": "Highly detailed portrait of link from zelda, stephen bliss, unreal engine, fantasy art by greg rutkowski, loish, rhads, ferdinand knab, makoto shinkai and lois van baarle, ilya kuvshinov, rossdraws, tom bagshaw, alphonse mucha, global illumination, radiant light, detailed and intricate environment",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(23).png?alt=media&token=5b1bb474-5f55-4acf-b9e7-bf7018f10a64",
+        "display": "Badu",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F102_zzz_512__698_zzz.png?alt=media&token=a1f242d4-5739-4bea-ad47-de9a13a20220",
+        "prompt": "beautiful portrait of a handsome young male wizard wearing a fancy blue tunic, l medallion!! around neck, art by wlop and artgerm, steampunk fiction, detailed deep blue eyes, ( long dark brown hair in ponytail!!!! ), space background, artstation, sharp focus, illustration, caustics, octane render, 4 k, radiant light",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(24).png?alt=media&token=e18aa916-1751-4c0b-8508-14453b4ccc2d",
+        "display": "Lauryn",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F103_zzz_512__584_zzz.png?alt=media&token=13e93708-2349-43e5-96e8-dd6d1a6f1b0d",
+        "prompt": "soft lustrous full body ivory pink biotech raver gutter punk cyberpunk cyborg bioweapon, golden ratio, details, scifi, fantasy, cyberpunk, intricate, decadent, highly detailed, digital painting, octane render, artstation, concept art, smooth, sharp focus, illustration, art by artgerm, (loish:0.23), wlop ilya kuvshinov, artgerm, and greg rutkowski and alphonse mucha",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(25).png?alt=media&token=9f9380d4-ade6-46d9-ba7b-02101414f97e",
+        "display": "Yusyn2",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F104_zzz_512__584_zzz.png?alt=media&token=0dfa204b-803b-41a5-928e-4bbcdbe768fd",
+        "prompt": "Cyberpunk,handsome boy,with bat,ultra realistic,moon background,v2, picture, hd",
+        "negative": "3D, Male"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(26).png?alt=media&token=cf4d1621-b181-491a-b4b9-300b95bd996d",
+        "display": "Satsuki",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F105_zzz_512__698_zzz.png?alt=media&token=71d1c58d-cb49-44b1-ba2d-88a73f2ebb32",
+        "prompt": "anime key visual of Rachel Cook police officer, neon, cyberpunk, futuristic, stunning, highly detailed, digital painting, artstation, smooth, soft focus, illustration, art by artgerm and greg rutkowski and alphonse mucha",
+        "negative": "3D"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(27).png?alt=media&token=5e38d1e3-7e2c-4560-a3a3-ad6fd08a3603",
+        "display": "Feliciano",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F106_zzz_512__698_zzz.png?alt=media&token=3407cad9-86db-443f-8c37-be758e0265b8",
+        "prompt": "Rcentered, symmetry, painted, intricate, volumetric lighting, beautiful, sexy, rich deep colors masterpiece, sharp focus, ultra detailed, in the style of dan mumford and marc simonetti, astrophotography, perfect composition, beautiful detailed intricate insanely detailed octane render trending on artstation, 8k artistic photography",
+        "negative": "3D, Portrait"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(28).png?alt=media&token=9996d349-4ac6-4c6d-b0c1-beb5f992ab90",
+        "display": "Yowl",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F107_zzz_512__584_zzz.png?alt=media&token=b5271537-8f9e-4714-b57c-c21c9aeb0b79",
+        "prompt": "Office girl, anime art style, detail art, short hair",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(29).png?alt=media&token=6d4166c0-f3ac-4b1b-b5da-5fdf18cf4c66",
+        "display": "Najwa",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F108_zzz_512__584_zzz.png?alt=media&token=245734f8-8d20-46b7-8f32-39d1e29fe0b4",
+        "prompt": "Magic the gathering, Planeswalker, Black hair, Black and Purple noble clothes,  black eyes,  white fur mantle,  Logokine, Mage, young, handsome, Rainbow Aura, Pale Skin, gabriel vaury, Black crystalline arm.",
+        "negative": "3D"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(30).png?alt=media&token=2cbcbe0b-200d-46f9-87a0-22a98bed725a",
+        "display": "Simzhou",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F109_zzz_512__698_zzz.png?alt=media&token=65fe3697-71a6-47db-a92a-a963b8b49a7d",
+        "prompt": "a detailed portrait of a cute calm brunette girl hugging a tabby cat illustrator, by justin gerard and greg rutkowski, digital art, realistic painting, dnd, character design, trending on artstation",
+        "negative": "3D, cat, baby girl"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(31).png?alt=media&token=613b39bd-b7e1-4db1-a26b-fd21fc4d6c8b",
+        "display": "Simzhou",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F110_zzz_512__698_zzz.png?alt=media&token=a7d2ee41-3cd4-46b3-b3eb-59a37e74d7b3",
+        "prompt": "A Crypto trader with glasses engaging in the world of Trading on a calm Night with a beautiful sky, bringing the mesmerizing Pizar 3D style to life.",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(32).png?alt=media&token=2d5d93a1-ed40-4ff5-a426-d462b8612382",
+        "display": "Najwa",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F111_zzz_512__584_zzz.png?alt=media&token=e764b441-2b5d-4ae6-85a2-cb7c77147f18",
+        "prompt": "You are the universe experiencing itself., Universe fulfilling the body, fantasy, renaissance aesthetic, Star trek aesthetic, pastel colors aesthetic, intricate fashion clothing, highly detailed, surrealistic, digital painting, concept art, sharp focus, illustration",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(33).png?alt=media&token=bd5078f2-87eb-4782-9f04-053ec7f2029f",
+        "display": "Thompson",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F112_zzz_512__584_zzz.png?alt=media&token=dd6e2da7-ce0e-47fe-b156-74d38aa0b696",
+        "prompt": "anime man in cyberpunk style, with black hair and purple clothes, wearing black glasses with opaque lenses and a black cyber mask",
+        "negative": "3D, Man"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(34).png?alt=media&token=abac8b86-344b-4a56-8a05-6aba3caf24ee",
+        "display": "Sevunx",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F113_zzz_512__698_zzz.png?alt=media&token=4f595e86-967e-46d5-88d5-e65e42c92be4",
+        "prompt": "Professional full shot portrait of a fantasy medieval boy, adventuring, trending on Artstation, highly detailed, 4k, intricate, epic, excellent.",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(35).png?alt=media&token=adb5d9e7-59cc-47de-9668-5c8eaa59ea2b",
+        "display": "Sevunx",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F114_zzz_512__698_zzz.png?alt=media&token=ecafd193-efc5-4a17-adbe-2433595b20ac",
+        "prompt": "highly detailed portrait of a sewer emo punk lady student, sunglasses, blue eyes, tartan scarf, white hair by atey ghailan, by greg rutkowski, by greg tocchini, by james gilleard, by joe fenton, by kaethe butcher, gradient yellow, black, brown and magenta color scheme, grunge aesthetic!!! graffiti tag wall background",
+        "negative": "double face, hands, wrist, Ugly, Duplicate, Extra fingers, Mutated hands, Poorly drawn face, Mutation, Deformed, Blurry, Bad anatomy, Bad proportions, Extra limbs, cloned face, Disfigured, Missing arms, Missing legs, Extra arms, Extra legs, Fused fingers, Too many fingers, Long neck, writing, letters"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(36).png?alt=media&token=5271c7ca-ed61-47ad-a5ae-9ddbca76ba84",
+        "display": "Thompson",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F115_zzz_512__584_zzz.png?alt=media&token=ee0b9f74-9673-48f2-b29c-b8b7de91e989",
+        "prompt": "beautiful, ethereal, stunning female anime bounty space pirate",
+        "negative": "blurry, low res, bad anatomy, extra fingers, fused limbs, tiling, error, mutation, disfigured, bad face, ugly, ugly face, fused fingers, fused hands, deformed face, deformed feet, missing feet, missing legs, 2girl, duplicate, 2 people, two heads, three hands, three legs, bad edit, low quality, average, amateur, poor render, cut off, amputated, cropped, poor composition"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(37).png?alt=media&token=478472f5-0fee-49db-972e-421d3ba941cf",
+        "display": "Yowl",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F116_zzz_512__584_zzz.png?alt=media&token=feeadc8e-9d05-428a-8f71-7a809f816981",
+        "prompt": "a beautiful girl, 3d cartoon, pink hair, blue eyes",
+        "negative": "3d"
+      },
+      {
+        "avatar": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2Favatar%2FEllipse%201%20(38).png?alt=media&token=af88c2e9-4a93-4ec8-b6e0-e218ead02f8c",
+        "display": "Nefertari",
+        "preview": "https://firebasestorage.googleapis.com/v0/b/anime-art-2.appspot.com/o/v1%2F117_zzz_512__698_zzz.png?alt=media&token=f2901f82-be13-41e8-9c6a-b91f27221d31",
+        "prompt": "Symmetry portrait of young businessman, glam, fae, fireflies, office background with workers, intricate, elegant, highly detailed, digital painting, artstation, concept art, soft, sharp focus, illustration, art by artgerm and greg rutkowski and fra angelico and alphons much",
+        "negative": "3d"
       }
     ]
   }

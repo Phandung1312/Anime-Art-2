@@ -139,7 +139,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                                             if(newList[i].dayBetween(newList[i + 1]) > 1L) break
                                             consecutiveSeries += 1
                                             if(consecutiveSeries > 7){
-                                                consecutiveSeries = 0
+                                                consecutiveSeries = 7
                                                 break
                                             }
                                         }
@@ -149,7 +149,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                                         showDailyReward(2)
                                     }
                                     else if(currentDay.dayBetween(newList[0]) == 1L){
-                                        showDailyReward(consecutiveSeries)
+                                        showDailyReward(if(consecutiveSeries > 6) 1 else consecutiveSeries + 1)
                                     }
                                     else if(currentDay.dayBetween(newList[0]) > 1L) showDailyReward(1)
                                     return@observe

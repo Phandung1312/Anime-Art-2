@@ -80,13 +80,16 @@ enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  mod
 
 enum class ControlNet(val controlNetName : String, val sourceImage : String,val apiString : String){
     Canny(controlNetName = "ControlNet Canny", sourceImage = "controlnet_canny", apiString = "canny-1.1"),
-    Hed(controlNetName = "ControlNet_Hed", sourceImage = "controlnet_hed", apiString = "canny-1.1"),
-    Openpose(controlNetName = "ControlNet_Openpose", sourceImage = "controlnet_openpose", apiString = "openpose-1.1"),
+    HardEdges(controlNetName = "ControlNet_Hard Edges", sourceImage = "controlnet_hardedges", apiString = "mlsd-1.1"),
+    SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_softedges", apiString = "softedge-1.1"),
+    LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_lineartanime", apiString = "lineart-anime-1.1"),
+    NormalMap(controlNetName = "ControlNet_Normal Map", sourceImage = "controlnet_normalmap", apiString = "normal-1.1"),
+    Dept(controlNetName = "ControlNet_Dept", sourceImage = "controlnet_dept", apiString = "depth-1.1"),
+    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "mediapipeface"),
+    Pose(controlNetName = "ControlNet_Pose", sourceImage = "controlnet_pose", apiString = "openpose-1.1"),
+    FullBody(controlNetName = "ControlNet_Full Body", sourceImage = "controlnet_fullbody", apiString = "openpose-full-1.1"),
     Scribble(controlNetName = "ControlNet_Scribble", sourceImage = "controlnet_scribble", apiString = "scribble-1.1"),
-    HardEdges(controlNetName = "ControlNet_Hard Edges", sourceImage = "controlnet_hard_edges", apiString = "canny-1.1"),
-    SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_soft_edges", apiString = "canny-1.1"),
-    LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_linear_anime", apiString = "lineart-anime-1.1"),
-    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "mediapipeface")
+    Lines(controlNetName = "ControlNet_Straight Lines", sourceImage = "controlnet_straightlines", apiString = "lineart-1.1"),
 }
 
 enum class SamplingMethod(val display : String ,val apiString: String){

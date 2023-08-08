@@ -18,6 +18,7 @@ import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.gradientYellowArray
 import com.anime.art.ai.common.extension.startCreditHistory
+import com.anime.art.ai.common.getCurrentDay
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.databinding.ActivitySettingBinding
@@ -203,21 +204,19 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
                             }
                         }
                     }
-                    val currentDateTime = LocalDate.now()
-                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    val formattedDate = currentDateTime.format(formatter)
-                    if(formattedDate.dayBetween(newList[0]) == 1L && newList.size == 1) {
+                    val currentDay = getCurrentDay()
+                    if(currentDay.dayBetween(newList[0]) == 1L && newList.size == 1) {
                             consecutiveSeries = 2
                             setDayReward(consecutiveSeries, isReceived = false)
                     }
-                    else if(formattedDate.dayBetween(newList[0]) == 1L){
+                    else if(currentDay.dayBetween(newList[0]) == 1L){
                         if(consecutiveSeries > 6) {
                             consecutiveSeries = 1
                         }
                         else consecutiveSeries++
                         setDayReward(consecutiveSeries, false)
                     }
-                    else if(formattedDate.dayBetween(newList[0]) > 1L) {
+                    else if(currentDay.dayBetween(newList[0]) > 1L) {
                         consecutiveSeries = 1
                         setDayReward(consecutiveSeries, isReceived = false)
                     }
