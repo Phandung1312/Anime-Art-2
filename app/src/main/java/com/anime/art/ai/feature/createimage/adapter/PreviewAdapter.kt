@@ -9,11 +9,13 @@ import com.anime.art.ai.domain.model.config.ViewImage
 import com.anime.art.ai.domain.model.response.ImageResponse
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
+import com.basic.common.extension.getDimens
 import com.basic.common.extension.saveBase64ImageToGallery
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreviewInCreateImageBinding>(ItemPreviewInCreateImageBinding::inflate) {
@@ -37,12 +39,11 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
         }
     override fun bindItem(item: ImageResponse, binding: ItemPreviewInCreateImageBinding, position: Int) {
         ConstraintSet().apply {
-            this.clone(binding.previewLayout)
-            this.setDimensionRatio(binding.preview.id, item.ratio)
-            this.applyTo(binding.previewLayout)
+            this.clone(binding.rootView)
+            this.setDimensionRatio(binding.cardView.id, item.ratio)
+            this.applyTo(binding.rootView)
         }
         val decodedBytes: ByteArray = Base64.decode(item.image, Base64.DEFAULT)
-
         val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
         Glide.with(binding.root.context)
             .load(dataUrl)
@@ -53,6 +54,7 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
         if(position == 0 || isPremium){
             binding.saveView.isVisible = true
             binding.zoomView.isVisible = true
+            binding.unlock.isVisible = false
         }
         else{
             binding.unlock.isVisible = true

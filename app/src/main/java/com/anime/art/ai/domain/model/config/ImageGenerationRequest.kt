@@ -17,7 +17,7 @@ data class ImageGenerationRequest(
     var height: Int = 1024,
     var steps: Int = 25,
     var guidance: Double = 7.5,
-    var scheduler: String = "dpmsolver++",
+    var scheduler: String = "euler_a",
     var outputFormat: String = "jpeg",
     var artStyle : String = "AGG",
     var ratio : String = "1:1"

@@ -75,18 +75,25 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
         binding.continueView.clicks {
             binding.continueView.isEnabled = false
             lifecycleScope.launch(Dispatchers.IO) {
-                val request = UpdateCreditRequest(title = if(iAPSelected == 1) Constraint.PURCHASED_WEEK else Constraint.PURCHASED_YEAR)
-                serverApiRepository.updatePremium(getDeviceId(),request){ result ->
+                val request = UpdateCreditRequest(
+                    title = if (iAPSelected == 1) Constraint.PURCHASED_WEEK else Constraint.PURCHASED_YEAR,
+                    credit = if (iAPSelected == 1) 100 else 1200
+                )
+                serverApiRepository.updateCredit(getDeviceId(), request) { result ->
                     launch(Dispatchers.Main) {
-                        if(result){
+                        if (result) {
                             pref.isPremium.set(true)
                             makeToast("Buy premium package successfully")
-                            if(isFirstScreen){
+                            if (isFirstScreen) {
                                 startActivity(Intent(this@IAPActivity, MainActivity::class.java))
-                                tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
+                                tryOrNull {
+                                    overridePendingTransition(
+                                        R.anim.slide_in_left,
+                                        R.anim.nothing
+                                    )
+                                }
                                 finish()
-                            }
-                            else{
+                            } else {
                                 back()
                             }
                         }

@@ -26,7 +26,7 @@ class Constraint {
     class AIGeneration{
         companion object{
             const val URL = "https://api.getimg.ai/v1/stable-diffusion/"
-            const val KEY = "key-3N49eTcptvQlTMNRLXP5gUX7tB0TtAMc9HoMN1ox26G9V3yzZ6eYxl5h1eyMHIloYYAIRtZ1SeJ9cVC8zF5iQeXDvrhXsUeX"
+            const val KEY = "key-1x1r032KSaWH5RtCLC3Iwgtj1QLfS8RrXSpHv6NbssvSQa1MBQrZpAOnrUKvCO2QkWeQnI4wpHN0h7YC2E7HMyjzUlAhUkwE"
         }
     }
     companion object{

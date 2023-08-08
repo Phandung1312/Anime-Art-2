@@ -76,7 +76,8 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:text="Clear"
-            android:textColor="@color/white"
+            android:enabled="false"
+            android:textColor="@color/backgroundDark"
             android:textSize="@dimen/_12ssp" />
 
         <com.google.android.material.card.MaterialCardView
@@ -337,7 +338,6 @@
 
                         <com.basic.common.widget.LsEditText
                             android:id="@+id/ed_negative_prompt"
-                            android:focusable="false"
                             android:hint="Enter prompt"
                             android:textColorHint="@color/textTertiaryDark"
                             android:textColor="@color/white"
@@ -351,6 +351,17 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/viewPremiumNegative"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:layout_constraintBottom_toBottomOf="@id/ed_negative_prompt"
+                            app:layout_constraintEnd_toEndOf="@id/ed_negative_prompt"
+                            app:layout_constraintStart_toStartOf="@id/ed_negative_prompt"
+                            app:layout_constraintTop_toTopOf="@id/ed_negative_prompt" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 

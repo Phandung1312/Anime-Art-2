@@ -1,10 +1,13 @@
 package com.anime.art.ai.common.extension
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -58,3 +61,30 @@ fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
+
+fun View.animateShowView(){
+    val cx = this.width / 2
+    val cy = this.height / 2
+    val finalRadius = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()
+
+    val anim = ViewAnimationUtils.createCircularReveal(this, cx, cy, 0f, finalRadius)
+    anim.duration = 500
+    this.visibility = View.VISIBLE
+    anim.start()
+}
+
+fun View.animateHideView() {
+    val cx = this.width / 2
+    val cy = this.height / 2
+    val initialRadius = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()
+
+    val anim = ViewAnimationUtils.createCircularReveal(this, cx, cy, initialRadius, 0f)
+    anim.duration = 500
+    anim.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animation: Animator) {
+            this@animateHideView.visibility = View.INVISIBLE
+        }
+    })
+    anim.start()
+}
+

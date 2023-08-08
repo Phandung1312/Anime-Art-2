@@ -54,7 +54,7 @@ class ServerApiRepositoryImpl @Inject constructor(
 
             val history = History(title = request.title, credit =  request.credit!!.toLong(), deviceId = "", createdAt = formattedDateTime)
             historyDao.inserts(history)
-            request.credit?.let {
+            request.credit.let {
                 val currentCredit = preferences.creditAmount.get()
                 preferences.creditAmount.set(currentCredit + it)
             }

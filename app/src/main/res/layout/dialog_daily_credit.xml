@@ -194,13 +194,13 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_20sdp"
             android:scaleType="fitCenter"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            app:layout_constraintDimensionRatio="320:40"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintDimensionRatio="377:52"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view"
-            tools:src="@drawable/_2_tick" />
+            tools:src="@drawable/_7_tick_not_received" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

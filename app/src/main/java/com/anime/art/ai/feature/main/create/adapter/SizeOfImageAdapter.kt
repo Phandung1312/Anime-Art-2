@@ -46,7 +46,7 @@ class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOf
                 setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
             }
             else{
-                setBackgroundColor(context.getColor(R.color.background_dark_gray))
+                setBackgroundColor(context.getColor(R.color.light_gray))
             }
 
         }

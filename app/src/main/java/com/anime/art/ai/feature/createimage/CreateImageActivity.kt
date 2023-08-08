@@ -13,6 +13,7 @@ import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.startFinalize
+import com.anime.art.ai.common.processAndSaveImage
 import com.anime.art.ai.common.widget.transformer.ZoomInTransformer
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.CreatorDao
@@ -121,7 +122,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                         }
                     }
                 }
-                generateImage(imageGenerationRequest)
+                generateImage(imageGenerationRequest, isMakeVariations = true)
             }
         }
         onBackPressedDispatcher.addCallback {
@@ -133,7 +134,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         super.onResume()
     }
 
-    private suspend fun generateImage(imageGenerationRequest : ImageGenerationRequest){
+    private suspend fun generateImage(imageGenerationRequest : ImageGenerationRequest, isMakeVariations : Boolean){
 
         lifecycleScope.launch(Dispatchers.IO) {
             aiApiRepository.generateImage(imageGenerationRequest){ progress ->
@@ -151,14 +152,16 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                             binding.lottieView.playAnimation()
                         }
                         is AIApiRepository.APIResponse.Success ->{
-                            launch(Dispatchers.IO) {
-                                val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
-                                serverApiRepository.updateCredit(getDeviceId(),request){ result ->
-                                    if(result){
-                                    }
-                                    else{
-                                        launch(Dispatchers.Main) {
-                                            makeToast("An error has occurred")
+                            if(!isMakeVariations){
+                                launch(Dispatchers.IO) {
+                                    val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
+                                    serverApiRepository.updateCredit(getDeviceId(),request){ result ->
+                                        if(result){
+                                        }
+                                        else{
+                                            launch(Dispatchers.Main) {
+                                                makeToast("An error has occurred")
+                                            }
                                         }
                                     }
                                 }
@@ -189,7 +192,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     private fun initData() {
         lifecycleScope.launch{
              val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
-            generateImage(imageGenerationRequest)
+            generateImage(imageGenerationRequest, isMakeVariations = false)
         }
     }
     private fun setCardViewClickable(clickable : Boolean,vararg cardViews: MaterialCardView){
@@ -219,7 +222,9 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             .saveClicks
             .autoDispose(scope())
             .subscribe{image ->
-                saveBase64ImageToGallery(image)
+                val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
+                val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
+                processAndSaveImage(this, image, targetWidthRatio/targetHeightRatio)
                 makeToast("Image saved to gallery")
             }
         preferences.isPremium.asObservable().autoDispose(scope()).subscribe {

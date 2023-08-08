@@ -1,5 +1,6 @@
 package com.anime.art.ai.feature.main.gallery.dialog
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -75,15 +76,12 @@ class DailyCreditDialog(
         binding.receiveCardView.clicks(withAnim = false) {
             binding.receiveCardView.isEnabled = false
             lifecycleScope.launch(Dispatchers.IO) {
-                val todayReward = DailyReward.values().take(consecutiveSeries + 1).last().reward.toLong()
+                val todayReward = DailyReward.values().take(consecutiveSeries).last().reward.toLong()
                 val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
                 serverApiRepository.updateCredit(requireContext().getDeviceId(),request){ result ->
                     lifecycleScope.launch(Dispatchers.Main) {
                         if(result){
-                            binding.receiveCardView.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
-                            binding.receiveLayout.setBackgroundColor(requireContext().getColor(R.color.gray_3D))
-                            binding.tvReceive.setTextColor(requireContext().getColor(R.color.light_gray))
-                            setDayReward( consecutiveSeries + 1 )
+                            setDayReward( consecutiveSeries, true )
                             requireContext().makeToast("You have received $todayReward credit")
                             delay(300)
                             dismiss()
@@ -97,15 +95,26 @@ class DailyCreditDialog(
             }
         }
     }
-    private fun setDayReward(day : Int){
+    @SuppressLint("DiscouragedApi")
+    private fun setDayReward(day : Int, isReceived : Boolean){
         setGradientReceivedDay(day)
-        val imageResourceId = requireContext().resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
+        val imageResourceId = if(isReceived) resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
+        else resources.getIdentifier("_${day}_tick_not_received","drawable",binding.root.context.packageName)
         binding.ivCreditSlider.setImageResource(imageResourceId)
         dailyRewardAdapter.data = DailyReward.values().take(day).toList()
+        binding.receiveCardView.apply {
+            isEnabled = !isReceived
+            strokeWidth = if(isReceived) requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
+        }
+        binding.receiveLayout.apply {
+            if(isReceived) setBackgroundColor(requireContext().getColor(R.color.gray_3D))
+            else setBackgroundResource(R.drawable.button_gradient_yellow)
+        }
+        binding.tvReceive.setTextColor(if(isReceived) requireContext().getColor(R.color.light_gray) else requireContext().getColor(R.color.black))
     }
     private fun initView() {
         binding.rv.adapter = dailyRewardAdapter
-        setDayReward(consecutiveSeries)
+        setDayReward(consecutiveSeries, false)
     }
 
     override fun onStart() {

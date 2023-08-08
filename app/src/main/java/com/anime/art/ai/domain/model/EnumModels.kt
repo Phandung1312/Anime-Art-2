@@ -42,9 +42,9 @@ enum class Character(val characterName : String,val  promptText : String){
             "hyper realistic, dynamic lighting, symmetry, 4k, desktop background, " +
             "sharp, intricate, ultra detailed, concept art, hdr 4k, 8k, " +
             "highly detailed, intricate, sharp focus, volumetric lights, volumetric fog, depth of field, f/1. 8, 85mm, symmetry"),
-    OfficeGirl( characterName = "OfficeGirl", promptText = "beautiful realistik white woman with a perfect face, an enchanting smile, who works as a software developer in the office, " +
+    OfficeGirl( characterName = "Office Girl", promptText = "beautiful realistik white woman with a perfect face, an enchanting smile, who works as a software developer in the office, " +
             "beautiful face, 8k, best quality, super detailed skin and face, dark illumination, stock picture, with blur background, 50mm F1.2, 16:9"),
-    DemonGirl( characterName = "DemonGirl", promptText = "photo of 1 beautiful woman, demon, " +
+    DemonGirl( characterName = "Demon Girl", promptText = "photo of 1 beautiful woman, demon, " +
             "portait,extremely detailed beautiful face, (demon horns 1:3), beautiful detailed eyes, smug, long hair| silver hair,off-shoulder leather clothes,black suit," +
             "(demon wings),(at night),forest,fire from hell,burnibg roses,best quality,masterpiece," +
             "extremely detailed CG unity 8k wallpaper,highly detailed, sharp focus,(backlight:1.3),rim light , art by greg rulkowski,award winning photograph,gothic,UE render"),
@@ -86,25 +86,15 @@ enum class ControlNet(val controlNetName : String, val sourceImage : String,val 
     HardEdges(controlNetName = "ControlNet_Hard Edges", sourceImage = "controlnet_hard_edges", apiString = "canny-1.1"),
     SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_soft_edges", apiString = "canny-1.1"),
     LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_linear_anime", apiString = "lineart-anime-1.1"),
-    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "canny-1.1")
+    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "mediapipeface")
 }
 
-enum class SamplingMethod(val display : String , apiString: String){
-    EulerA(display = "Euler A", apiString = "euler_a"),
+enum class SamplingMethod(val display : String ,val apiString: String){
+    EulerA(display = "Euler a", apiString = "euler_a"),
     Euler(display = "Euler", apiString = "euler"),
     LMS(display = "LMS", apiString = "lms"),
-    DMP2(display = "DPM2", apiString = "euler_a"),
-    DPM2a(display = "DPM2 a", apiString = "euler_a"),
-    DPMPlus2Sa(display = "DPM++2S a", apiString = "euler_a"),
-    DPMPlusSDE(display = "DPM++ SDE", apiString = "euler_a"),
-    DPMFast(display = "DPM fast", apiString = "euler_a"),
-    DPMAdaptive(display = "DPM adaptive", apiString = "euler_a"),
-    LMSAKarras(display = "LMS Karras", apiString = "euler_a"),
-    DPM2Karras(display = "DPM2 Karras", apiString = "euler_a"),
-    DPM2aKarras(display = "DPM a Karras", apiString = "euler_a"),
-    DPMPlus2SaKarras(display = "DPM++2S a Karras", apiString = "euler_a"),
-    DPMPlus2MaKarras(display = "DPM++2MaKarras", apiString = "euler_a"),
-    DPMPlusSDEKarras(display = "DPM++SDE Karras", apiString = "euler_a"),
+    PNMDM(display = "PNDM", apiString = "pndm"),
+    DPMSloverPlus(display = "DPMSlover++", apiString = "dpmsolver++"),
     DDIM(display = "DDIM", apiString = "ddim"),
 }
 
@@ -120,60 +110,66 @@ enum class CharacterAppearance(val id : Int, val display : String){
 
 enum class Tag(val cAId : Int, val display : String ){
     OneGirl(cAId = 1, display = "1 girl"),
-    Fairy(cAId = 1, display = "Fairy"),
-    Body(cAId = 1, display = "Body"),
-    Queen(cAId = 1, display = "Queen"),
-    Elf(cAId = 1, display = "Elf"),
     Idol(cAId = 1, display = "Idol"),
     Bride(cAId = 1, display = "Bride"),
+    Fairy(cAId = 1, display = "Fairy"),
     Godness(cAId = 1, display = "Godness"),
-    OneBoy(cAId = 1, display = "OneBoy"),
+    Body(cAId = 1, display = "Body"),
+    Queen(cAId = 1, display = "Queen"),
+    OneBoy(cAId = 1, display = "1 boy"),
+    Elf(cAId = 1, display = "Elf"),
+
     Collarbone(cAId = 2, display = "Collarbone"),
-    Abs(cAId = 2, display = "abs"),
-    Navel(cAId = 2, display = "Navel"),
-    Anklet(cAId = 2, display = "anklet"),
-    Thighs(cAId = 2, display = "thighs"),
     Legs(cAId = 2, display = "Legs"),
     Muscular(cAId = 2, display = "muscular"),
+    Abs(cAId = 2, display = "abs"),
     FairyWings(cAId = 2, display = "fairy wings"),
+    Navel(cAId = 2, display = "Navel"),
+    Anklet(cAId = 2, display = "anklet"),
     Back(cAId = 2, display = "back"),
+    Thighs(cAId = 2, display = "thighs"),
+
     BloneHair(cAId = 3, display = "Blone Hair"),
-    BunnyEars(cAId = 3, display = "bunny ears"),
-    RoundEvewear(cAId = 3, display = "round evewears"),
-    Stud(cAId = 3, display = "stud"),
-    Earings(cAId = 3, display = "earings"),
     HeadWings(cAId = 3, display = "head wings"),
+    BunnyEars(cAId = 3, display = "bunny ears"),
     RedLips(cAId = 3, display = "Red lips"),
     Longeyalshes(cAId = 3, display = "longeyalshes"),
+    RoundEvewear(cAId = 3, display = "round evewears"),
     BridalVeil(cAId = 3, display = "bridal veil"),
+    Stud(cAId = 3, display = "stud"),
+    Earings(cAId = 3, display = "earings"),
+
     Bikini(cAId = 4, display = "Bikini"),
-    Miniskirt(cAId = 4, display = "miniskirt"),
-    ThighStrap(cAId = 4, display = "thigh strap"),
-    SailorSuit1(cAId = 4, display = "sailor suit"),
-    WeddingDress(cAId = 4, display = "wedding dress"),
     Sportswear(cAId = 4, display = "sportswear"),
+    Miniskirt(cAId = 4, display = "miniskirt"),
     Suit(cAId = 4, display = "suit"),
     JK(cAId = 4, display = "JK"),
+    ThighStrap(cAId = 4, display = "thigh strap"),
     LaceBra(cAId = 4, display = "lace bra"),
+    SailorSuit1(cAId = 4, display = "sailor suit"),
+    WeddingDress(cAId = 4, display = "wedding dress"),
+
     LookingBack(cAId = 5, display = "looking back"),
+    FromBehind(cAId = 5, display = "from behind"),
+    Perspective(cAId = 5, display = "perspective"),
     FullBody(cAId = 5, display = "full body"),
     CloseUp(cAId = 5, display = "close-up"),
     SailorSuit2(cAId = 5, display = "sailor suit"),
     FocusOnFace(cAId = 5, display = "Focus on face"),
-    FromBehind(cAId = 5, display = "from behind"),
-    Perspective(cAId = 5, display = "perspective"),
+
     Bed(cAId = 6, display = "Bed"),
+    InSpring(cAId = 6, display = "in spring"),
     Fireworks(cAId = 6, display = "fireworks"),
     FullMoon(cAId = 6, display = "full-moon"),
     Sea(cAId = 6, display = "sea"),
     Playground(cAId = 6, display = "playground"),
-    InSpring(cAId = 6, display = "in spring"),
+
     Pout(cAId = 7, display = "Pout"),
+    WalkTheDog(cAId = 7, display = "walk the dog"),
     PrincessCarry(cAId = 7, display = "princess carry"),
     Shushing(cAId = 7, display = "shushing"),
     CatPose(cAId = 7, display = "cat pose"),
     Stretch(cAId = 7, display = "stretch"),
-    WalkTheDog(cAId = 7, display = "walk the dog"),
 }
 
 enum class DailyReward(val reward : String){

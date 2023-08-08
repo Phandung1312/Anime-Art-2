@@ -53,7 +53,6 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
         binding.save.clicks {
             val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
             val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
-        //    Timber.e("Info: Image=${configApp.imageBase64},height=$targetHeightRatio,width=$targetWidthRatio")
             processAndSaveImage(this, configApp.imageBase64, targetWidthRatio/targetHeightRatio)
             makeToast("Image saved to gallery")
         }

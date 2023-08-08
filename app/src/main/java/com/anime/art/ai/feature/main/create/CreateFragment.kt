@@ -8,6 +8,7 @@ import android.net.Uri
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.underline
 import androidx.core.view.isVisible
@@ -15,7 +16,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.TransitionManager
+import androidx.recyclerview.widget.RecyclerView
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
@@ -166,7 +167,8 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             InputImage(R.drawable.input_image, null),
             InputImage(R.drawable.sample_input_image_1, 0.5f),
             InputImage(R.drawable.sample_input_image_2, 0.5f),
-            InputImage(R.drawable.sample_input_image_3, 0.5f)
+            InputImage(R.drawable.sample_input_image_3, 0.5f),
+            InputImage(R.drawable.sample_input_image_4, 0.5f),
         )
         inputImageAdapter.data = inputImages
     }
@@ -185,9 +187,12 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         //Advanced setting
         binding.advancedSetting.clicks(withAnim = false) {
             binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_up else R.drawable.arrow_down)
-            TransitionManager.beginDelayedTransition(binding.advancedSettingView)
+
+//            TransitionManager.beginDelayedTransition(binding.advancedSettingView)
             isShowSetting = !isShowSetting
-            binding.advancedSettingView.isVisible = isShowSetting
+            binding.advancedSettingView.apply {
+                isVisible = isShowSetting
+            }
             isShowMore = false
         }
         binding.tvShowControlNet.clicks {
@@ -245,22 +250,33 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                 imageGenerationRequest.width /= 2
             }
         }
-        binding.edNegativePrompt.clicks(withAnim = false) {
-            if(!preferences.isPremium.get()) activity?.startIAP()
-        }
+//        binding.edNegativePrompt.clicks(withAnim = false) {
+//            if(!preferences.isPremium.get()) activity?.startIAP()
+//            else{
+//                //binding.edEnterPrompt.isFocusable = true
+//                binding.edNegativePrompt.isEnabled = true
+//                binding.edNegativePrompt.requestFocus()
+//            }
+//        }
     }
     private fun initObservable(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe { creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
-        preferences.isPremium.asObservable().autoDispose(scope()).subscribe {
-            controlNetAdapter.isPremium = it
+        preferences
+            .isPremium
+            .asObservable()
+            .autoDispose(scope())
+            .subscribe { isPremium ->
+                controlNetAdapter.isPremium = isPremium
+                binding.viewPremiumNegative.isVisible = !isPremium
         }
         menuAdapter
             .clicks
             .autoDispose(scope())
             .subscribe { character ->
                 binding.edEnterPrompt.setText(character.promptText)
+                scrollToMiddle(binding.rvCharacters, menuAdapter.data.indexOf(character))
             }
         charAppAdapter
             .clicks
@@ -270,7 +286,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                 tagAdapter.data = Tag.values().toList().filter{ it.cAId == charApp.id}
                 tagAdapter.resetSelectedIndex()
 
-                scrollToMiddle()
+                scrollToMiddle(binding.rvCharApps, charAppAdapter.selectedIndex)
             }
         inputImageAdapter
             .clicks
@@ -303,6 +319,11 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                 binding.tvCreate.setTextColor(requireContext().getColor(colorRes))
                 binding.tvCost.setTextColor(requireContext().getColor(colorRes))
                 binding.ivCreate.setTint(requireContext().getColor(colorRes))
+
+                binding.tvClear.apply {
+                    isEnabled = isEnable
+                    setTextColor(context.getColor(if(isEnable) R.color.white else com.widget.R.color.backgroundDark))
+                }
             }
 
         artStyleAdapter
@@ -328,6 +349,15 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe {item ->
                 imageGenerationRequest.ratio = item.size
+                scrollToMiddle(binding.rvRatio, sizeOfImageAdapter.selectedIndex)
+            }
+
+        samplingMethodAdapter
+            .clicks
+            .autoDispose(scope())
+            .subscribe { samplingMethod ->
+                imageGenerationRequest.scheduler = samplingMethod.apiString
+                scrollToMiddle(binding.rvSamplingMethods, samplingMethodAdapter.data.indexOf(samplingMethod))
             }
 
     }
@@ -363,21 +393,19 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
     }
 
-    private fun scrollToMiddle() {
-        val layoutManager = binding.rvCharApps.layoutManager as LinearLayoutManager
+    private fun scrollToMiddle(recyclerView: RecyclerView, selectedIndex : Int) {
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
 
         val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
         val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-        val position = charAppAdapter.selectedIndex
-
-        if (position in firstVisibleItem..lastVisibleItem) {
-            val centerView = layoutManager.findViewByPosition(position)
+        if (selectedIndex in firstVisibleItem..lastVisibleItem) {
+            val centerView = layoutManager.findViewByPosition(selectedIndex)
             val centerViewWidth = centerView?.width ?: 0
-            val centerX = binding.rvCharApps.width / 2 - centerViewWidth / 2
-            binding.rvCharApps.smoothScrollBy(centerView!!.left - centerX, 0)
+            val centerX = recyclerView.width / 2 - centerViewWidth / 2
+            recyclerView.smoothScrollBy(centerView!!.left - centerX, 0)
         } else {
-            binding.rvCharApps.smoothScrollToPosition(position)
+            recyclerView.smoothScrollToPosition(selectedIndex)
         }
     }
 
