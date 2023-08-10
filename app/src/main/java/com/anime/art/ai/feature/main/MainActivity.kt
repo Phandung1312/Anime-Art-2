@@ -4,8 +4,11 @@ import android.app.Activity
 import android.app.UiModeManager
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.viewpager.widget.ViewPager
@@ -13,6 +16,7 @@ import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.databinding.ActivityMainBinding
 import com.anime.art.ai.domain.repository.SyncRepository
+import com.anime.art.ai.feature.dialog.ExitDialog
 import com.anime.art.ai.feature.gallery.GalleryActivity
 import com.anime.art.ai.feature.main.create.CreateFragment
 import com.anime.art.ai.feature.main.gallery.GalleryFragment
@@ -49,8 +53,18 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
     }
 
     private fun listenerView() {
-
+        onBackPressedDispatcher.addCallback {
+            val exitDialog = ExitDialog(
+                "Are you sure exit ${getString(R.string.app_name)}" ,
+                    "Exit ${getString(R.string.app_name)}"
+            ){
+                configApp.tabIndex = 0
+                finish()
+            }
+            exitDialog.show(supportFragmentManager, null)
+        }
     }
+
 
     private val pageChangeCallback by lazy {
         object: ViewPager.OnPageChangeListener {
@@ -124,10 +138,6 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
             }
     }
 
-    @Deprecated("Deprecated in Java", ReplaceWith("finish()"))
-    override fun onBackPressed() {
-        finish()
-    }
 
     private val tabBottoms by lazy {
         listOf(
@@ -157,11 +167,12 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
         if(result.resultCode == Activity.RESULT_OK){
             val prompt = result.data?.getStringExtra(CreateFragment.PROMPT_EXTRA)
             val ratio = result.data?.getStringExtra(CreateFragment.RATIO_EXTRA)
-            gotoGalleryFragment(prompt, ratio)
+            val negativePrompt = result.data?.getStringExtra(CreateFragment.NEGATIVE_PROMPT)
+            gotoGalleryFragment(prompt, negativePrompt  ,ratio)
         }
     }
-    fun gotoGalleryFragment(prompt : String?, ratio : String?){
-        (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, ratio)
+    fun gotoGalleryFragment(prompt : String?,negativePrompt : String?, ratio : String?){
+        (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, negativePrompt , ratio)
         binding.viewPager.currentItem = 1
         pageChanges.onNext(1)
         configApp.tabIndex = 1

@@ -5,9 +5,15 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.MotionEvent
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.underline
@@ -20,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
+import com.anime.art.ai.common.extension.enableScrollText
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreateImage
 import com.anime.art.ai.common.extension.startIAP
@@ -50,8 +57,11 @@ import com.basic.common.extension.clicks
 import com.basic.common.extension.convertDrawableToBase64
 import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
+import com.basic.common.extension.hideKeyboard
+import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.setTint
+import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,6 +78,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     companion object{
         const val PROMPT_EXTRA = "PROMPT_EXTRA"
         const val RATIO_EXTRA = "RATIO_EXTRA"
+        const val NEGATIVE_PROMPT= "NEGATIVE_PROMPT"
     }
     @Inject lateinit var promptDao: PromptDao
     @Inject lateinit var preferences: Preferences
@@ -96,6 +107,8 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private var selectedPromptId = -1
     private var isEnableCreate : Subject<Boolean> = BehaviorSubject.createDefault(false)
     private var imageGenerationRequest : ImageGenerationRequest = ImageGenerationRequest()
+
+    private var isKeyboardVisible = false
     override fun onViewCreated() {
         initView()
         listenerView()
@@ -186,7 +199,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
         //Advanced setting
         binding.advancedSetting.clicks(withAnim = false) {
-            binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_up else R.drawable.arrow_down)
+            binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_down else R.drawable.arrow_up)
 
 //            TransitionManager.beginDelayedTransition(binding.advancedSettingView)
             isShowSetting = !isShowSetting
@@ -210,19 +223,23 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
 
         binding.tvClear.clicks {
-            binding.edEnterPrompt.text?.clear()
+            binding.edEnterPrompt.text.clear()
+            selectedPromptId = -1
         }
 
         binding.edEnterPrompt.clicks(withAnim = false) {
+            requireActivity().hideKeyboard()
             openEnterPrompt()
         }
         binding.enterPromptView.clicks(withAnim = false) {
+            requireActivity().hideKeyboard()
             openEnterPrompt()
         }
         binding.historyPromptView.clicks {
             val intent = Intent(activity, HistoryPromptActivity::class.java)
             intent.putExtra(HistoryPromptActivity.PROMPT_INDEX, selectedPromptId)
            getPromptFromHistoryResult.launch(intent)
+            tryOrNull { activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
         }
         binding.createView.clicks(withAnim = false) {
             createImage()
@@ -250,14 +267,17 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                 imageGenerationRequest.width /= 2
             }
         }
-//        binding.edNegativePrompt.clicks(withAnim = false) {
-//            if(!preferences.isPremium.get()) activity?.startIAP()
-//            else{
-//                //binding.edEnterPrompt.isFocusable = true
-//                binding.edNegativePrompt.isEnabled = true
-//                binding.edNegativePrompt.requestFocus()
-//            }
-//        }
+        binding.viewPremiumNegative.clicks(withAnim = false) {
+            activity?.startIAP()
+        }
+        binding.edNegativePrompt.clicks(withAnim = false) {
+            openNegativePrompt()
+        }
+        binding.negativeView.clicks(withAnim = false) {
+            openNegativePrompt()
+        }
+
+        binding.edNegativePrompt.enableScrollText()
     }
     private fun initObservable(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe { creditAmount ->
@@ -276,6 +296,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe { character ->
                 binding.edEnterPrompt.setText(character.promptText)
+                binding.edEnterPrompt.setSelection(binding.edEnterPrompt.text.length)
                 scrollToMiddle(binding.rvCharacters, menuAdapter.data.indexOf(character))
             }
         charAppAdapter
@@ -322,7 +343,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
                 binding.tvClear.apply {
                     isEnabled = isEnable
-                    setTextColor(context.getColor(if(isEnable) R.color.white else com.widget.R.color.backgroundDark))
+                    setTextColor(context.getColor(if(isEnable) R.color.white else com.widget.R.color.textTertiaryDark))
                 }
             }
 
@@ -332,6 +353,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .subscribe {artStyle ->
                 imageGenerationRequest.model = artStyle.model
                 imageGenerationRequest.artStyle = artStyle.artStyleName
+                scrollToMiddle(binding.rvArtStyles, artStyleAdapter.data.indexOf(artStyle))
             }
 
         controlNetAdapter
@@ -364,12 +386,17 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
     private fun appendEnterPromptText(tag : String) {
         binding.edEnterPrompt.text?.apply {
-            if(this.length + tag.length > 1000){
+            if(this.length + tag.length + 1 > 1000){
                 requireContext().makeToast("Text is full box")
                 return
             }
-            if(isNotEmpty()) append(",")
-            append("(${tag}:1.3)")
+            val newText = if (this.isNotEmpty()) {
+                "${this},${tag}"
+            } else {
+                tag
+            }
+            binding.edEnterPrompt.setText( newText)
+            binding.edEnterPrompt.setSelection(newText.length)
         }
     }
     private fun openEnterPrompt(){
@@ -378,6 +405,13 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         intent.putExtra(EnterPromptActivity.PROMPT_EXTRA, prompt)
         enterPromptResult.launch(intent)
 
+    }
+    private fun openNegativePrompt(){
+        val negativePrompt = binding.edNegativePrompt.text.toString()
+        val intent = Intent(activity, EnterPromptActivity::class.java)
+        intent.putExtra(EnterPromptActivity.NEGATIVE_PROMPT_EXTRA, negativePrompt)
+        intent.putExtra(EnterPromptActivity.IS_PROMPT, false)
+        enterPromptResult.launch(intent)
     }
     private fun openGallery(){
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
@@ -416,15 +450,24 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         return (number * 10).roundToInt() / 10.0
     }
     private val enterPromptResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result ->
-        if(result.resultCode == Activity.RESULT_OK){
+        if(result.resultCode == EnterPromptActivity.RESULT_PROMPT){
             val promptResult =  result.data?.getStringExtra(EnterPromptActivity.PROMPT_EXTRA)
             binding.edEnterPrompt.setText(promptResult)
+            binding.edEnterPrompt.setSelection(binding.edEnterPrompt.text.length)
+        }
+        else if(result.resultCode == EnterPromptActivity.RESULT_NEGATIVE_PROMPT){
+            val promptResult =  result.data?.getStringExtra(EnterPromptActivity.NEGATIVE_PROMPT_EXTRA)
+            binding.edNegativePrompt.setText(promptResult)
+            binding.edNegativePrompt.setSelection(binding.edNegativePrompt.text.length)
         }
     }
 
-    fun setDataFromGallery(prompt : String?, ratio : String?){
+    fun setDataFromGallery(prompt : String?,negativePrompt  : String?, ratio : String?){
         prompt?.let {
             binding.edEnterPrompt.setText(it)
+        }
+        negativePrompt?.let {
+            binding.edNegativePrompt.setText(it)
         }
         sizeOfImageAdapter.data.forEach { sizeOfImage ->
             if (TextUtils.equals(sizeOfImage.realSize, ratio)) {
@@ -472,6 +515,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             requireContext().makeToast("you don't have enough credit")
             activity?.startIAP()
         } else {
+            if(!requireContext().isNetworkAvailable()) {
+                requireContext().makeToast("Please check your connect internet !")
+                return
+            }
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val prompt: String = binding.edEnterPrompt.text.toString().trim()

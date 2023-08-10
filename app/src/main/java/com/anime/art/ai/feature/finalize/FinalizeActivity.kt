@@ -1,6 +1,7 @@
 package com.anime.art.ai.feature.finalize
 
 
+import android.animation.Animator
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
@@ -9,6 +10,10 @@ import android.os.Bundle
 import android.util.Base64
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.airbnb.lottie.LottieDrawable
+import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.decodeBase64ToBitmap
 import com.anime.art.ai.common.extension.back
@@ -20,12 +25,15 @@ import com.anime.art.ai.databinding.ActivityFinalizeBinding
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.makeToast
-import com.basic.common.extension.saveBase64ImageToGallery
+import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.transparent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -51,18 +59,11 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             copyToClipBoard(configApp.imageGenerationRequest.prompt)
         }
         binding.save.clicks {
-            val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
-            val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
-            processAndSaveImage(this, configApp.imageBase64, targetWidthRatio/targetHeightRatio)
-            makeToast("Image saved to gallery")
+            saveImage()
         }
         binding.share.clicks {
             val bitmap = decodeBase64ToBitmap(configApp.imageBase64)
-            if (bitmap != null) {
-                shareImage(bitmap)
-            } else {
-                makeToast("An error has occurred")
-            }
+            shareImage(bitmap)
         }
         binding.instagram.clicks {
            shareImageOnApp("com.instagram.android", "Instagram")
@@ -77,7 +78,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
 
     private fun initData() {
         binding.tvArtStyle.text = configApp.imageGenerationRequest.artStyle
-        binding.tvArtStyle.gradient(com.anime.art.ai.R.color.yellow, com.anime.art.ai.R.color.dark_yellow)
+        binding.tvArtStyle.gradient(R.color.yellow, R.color.dark_yellow)
         binding.tvPrompt.text = configApp.imageGenerationRequest.prompt
     }
 
@@ -88,18 +89,29 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
     private fun initView() {
         showImage()
     }
-
+    private fun saveImage(){
+        lifecycleScope.launch {
+            val loadingDialog = LoadingDialog()
+            loadingDialog.show(supportFragmentManager, null)
+            delay(500)
+            val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
+            val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
+            processAndSaveImage(this@FinalizeActivity, configApp.imageBase64, targetWidthRatio/targetHeightRatio)
+            loadingDialog.cancel()
+        }
+    }
     private fun showImage(){
         ConstraintSet().apply {
             this.clone(binding.rootView)
             this.setDimensionRatio(binding.previewView.id, configApp.imageGenerationRequest.ratio)
             this.applyTo(binding.rootView)
         }
+        saveStringToFile("image.txt", configApp.imageBase64)
         val decodedBytes: ByteArray = Base64.decode(configApp.imageBase64, Base64.DEFAULT)
         val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
         Glide.with(binding.root.context)
             .load(dataUrl)
-            .error(com.anime.art.ai.R.drawable.place_holder_image)
+            .error(R.drawable.place_holder_image)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.iv)
     }
@@ -123,22 +135,73 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
     }
     private fun shareImageOnApp( appPackage : String, appName : String){
         val bitmap = decodeBase64ToBitmap(configApp.imageBase64)
-        if (bitmap != null) {
-            try {
-                val imageFile = saveBitmapToFile(this, bitmap)
-                if(imageFile != null && imageFile.exists()){
-                    val imageUri = FileProvider.getUriForFile(this, "$packageName.provider", imageFile)
-                    val feedIntent = Intent(Intent.ACTION_SEND)
-                    feedIntent.type = "image/*"
-                    feedIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
-                    feedIntent.setPackage(appPackage)
-                    startActivity(feedIntent)
-                }
-            } catch (e: Exception) {
-                makeToast("$appName is not installed")
+        try {
+            val imageFile = saveBitmapToFile(this, bitmap)
+            if(imageFile != null && imageFile.exists()){
+                val imageUri = FileProvider.getUriForFile(this, "$packageName.provider", imageFile)
+                val feedIntent = Intent(Intent.ACTION_SEND)
+                feedIntent.type = "image/*"
+                feedIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
+                feedIntent.setPackage(appPackage)
+                startActivity(feedIntent)
             }
-        } else {
-            makeToast("An error has occurred")
+        } catch (e: Exception) {
+            makeToast("$appName is not installed")
         }
     }
+    private suspend fun playAndLoopFirstAnimation() {
+        withContext(Dispatchers.Main) {
+            binding.loadingView.isVisible = true
+            binding.loadingView.setAnimation(R.raw.download)
+            binding.loadingView.repeatCount = LottieDrawable.INFINITE
+            binding.loadingView.playAnimation()
+        }
+    }
+    private suspend fun waitForFirstAnimationToEnd() {
+        withContext(Dispatchers.Main) {
+            binding.loadingView.addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(p0: Animator) {
+                }
+
+                override fun onAnimationEnd(p0: Animator) {
+                }
+
+                override fun onAnimationCancel(p0: Animator) {
+                }
+
+                override fun onAnimationRepeat(p0: Animator) {
+                    binding.loadingView.cancelAnimation()
+                    lifecycleScope.launch {
+                        playSecondAnimation()
+                    }
+                }
+            })
+        }
+    }
+    private suspend fun playSecondAnimation() {
+        withContext(Dispatchers.Main) {
+            binding.loadingView.setAnimation(R.raw.loadsuccessful)
+            binding.loadingView.repeatCount = 0
+            binding.loadingView.playAnimation()
+            binding.loadingView.addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(p0: Animator) {
+                }
+
+                override fun onAnimationEnd(p0: Animator) {
+                    lifecycleScope.launch {
+                        delay(500)
+                        binding.loadingView.isVisible = false
+                        makeToast("Image saved to gallery")
+                    }
+                }
+
+                override fun onAnimationCancel(p0: Animator) {
+                }
+
+                override fun onAnimationRepeat(p0: Animator) {
+                }
+            })
+        }
+    }
+
 }

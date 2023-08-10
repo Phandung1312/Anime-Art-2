@@ -11,7 +11,7 @@
         <item name="android:statusBarColor">@color/backgroundDark</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/backgroundDark</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+<!--        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>-->
         <item name="colorControlActivated">@color/tools_theme</item>
         <item name="colorControlNormal">#D5D5D5</item>
         <!-- Primary brand color. -->

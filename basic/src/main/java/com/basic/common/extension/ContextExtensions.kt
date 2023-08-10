@@ -121,7 +121,6 @@ fun Context.getDimens(@DimenRes dimenRes: Int): Float {
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId() : String{
    return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
-
 }
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager =
@@ -136,38 +135,4 @@ fun Context.makeToast(@StringRes res: Int, duration: Int = Toast.LENGTH_SHORT) {
 
 fun Context.makeToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, text, duration).show()
-}
-fun Context.saveBase64ImageToGallery(base64String: String) {
-    try {
-        val imageBytes: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
-        val bitmap: Bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size) ?: return
-        saveBitmapToGallery(bitmap)
-    } catch (e: Exception) {
-        e.printStackTrace()
-
-    }
-}
- fun Context.saveBitmapToGallery(bitmap: Bitmap) {
-
-    val resolver = this.contentResolver
-     val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-     val imageFileName = "IMG_$timeStamp.jpg"
-    val imagesCollection = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-    val imageDetails = ContentValues().apply {
-        put(MediaStore.Images.Media.DISPLAY_NAME, imageFileName)
-        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-    }
-
-    val imageUri = resolver.insert(imagesCollection, imageDetails)
-    imageUri?.let {
-        try {
-            val outputStream: OutputStream? = resolver.openOutputStream(it)
-            outputStream?.use { stream ->
-
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 }

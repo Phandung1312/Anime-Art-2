@@ -2,6 +2,7 @@ package com.anime.art.ai.feature.iap
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
@@ -15,6 +16,7 @@ import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
+import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.tryOrNull
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,9 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
     }
 
     private fun listenerView() {
+        onBackPressedDispatcher.addCallback {
+            back()
+        }
         binding.close.clicks {
             if(isFirstScreen){
                 startActivity(Intent(this, MainActivity::class.java))
@@ -74,35 +79,41 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
         }
         binding.continueView.clicks {
             binding.continueView.isEnabled = false
-            lifecycleScope.launch(Dispatchers.IO) {
-                val request = UpdateCreditRequest(
-                    title = if (iAPSelected == 1) Constraint.PURCHASED_WEEK else Constraint.PURCHASED_YEAR,
-                    credit = if (iAPSelected == 1) 100 else 1200
-                )
-                serverApiRepository.updateCredit(getDeviceId(), request) { result ->
-                    launch(Dispatchers.Main) {
-                        if (result) {
-                            pref.isPremium.set(true)
-                            makeToast("Buy premium package successfully")
-                            if (isFirstScreen) {
-                                startActivity(Intent(this@IAPActivity, MainActivity::class.java))
-                                tryOrNull {
-                                    overridePendingTransition(
-                                        R.anim.slide_in_left,
-                                        R.anim.nothing
-                                    )
+            if(isNetworkAvailable()){
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val request = UpdateCreditRequest(
+                        title = if (iAPSelected == 1) Constraint.PURCHASED_WEEK else Constraint.PURCHASED_YEAR,
+                        credit = if (iAPSelected == 1) 100 else 1200
+                    )
+                    serverApiRepository.updateCredit(getDeviceId(), request) { result ->
+                        launch(Dispatchers.Main) {
+                            if (result) {
+                                pref.isPremium.set(true)
+                                makeToast("Buy premium package successfully")
+                                if (isFirstScreen) {
+                                    startActivity(Intent(this@IAPActivity, MainActivity::class.java))
+                                    tryOrNull {
+                                        overridePendingTransition(
+                                            R.anim.slide_in_left,
+                                            R.anim.nothing
+                                        )
+                                    }
+                                    finish()
+                                } else {
+                                    back()
                                 }
-                                finish()
-                            } else {
-                                back()
                             }
-                        }
-                        else{
-                            makeToast("An error has occurred")
-                            binding.continueView.isEnabled = true
+                            else{
+                                makeToast("An error has occurred")
+                                binding.continueView.isEnabled = true
+                            }
                         }
                     }
                 }
+            }
+            else{
+                makeToast("Please check your connect internet !")
+                binding.continueView.isEnabled = true
             }
         }
     }

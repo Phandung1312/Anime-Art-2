@@ -23,13 +23,14 @@ import com.anime.art.ai.domain.model.config.ImageGenerationRequest
 import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
+import com.anime.art.ai.feature.dialog.ExitDialog
+import com.anime.art.ai.feature.finalize.LoadingDialog
 import com.anime.art.ai.feature.iap.IAPActivity
 import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.makeToast
-import com.basic.common.extension.saveBase64ImageToGallery
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
 import com.google.android.material.card.MaterialCardView
@@ -69,7 +70,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             positionOffset: Float,
             positionOffsetPixels: Int
         ) {
-            // Xử lý sự kiện khi trang được cuộn
+
         }
 
         override fun onPageSelected(position: Int) {
@@ -77,14 +78,14 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         }
 
         override fun onPageScrollStateChanged(state: Int) {
-            // Xử lý sự kiện khi trạng thái cuộn trang thay đổi
+
         }
     }
 
 
     private fun listenerView() {
         binding.close.clicks {
-            back()
+            onGiveUp()
         }
         binding.finalizeView.clicks {
             if(binding.viewPager.currentItem == 0 || preferences.isPremium.get()){
@@ -126,8 +127,17 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             }
         }
         onBackPressedDispatcher.addCallback {
+            onGiveUp()
+        }
+    }
+    private fun onGiveUp(){
+        val exitDialog = ExitDialog(
+            "Do you want to give up" ,
+            "Give Up"
+        ){
             back()
         }
+        exitDialog.show(supportFragmentManager, null)
     }
     override fun onResume() {
         binding.viewPager.registerOnPageChangeCallback(pageChangeCallback)
@@ -222,10 +232,16 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             .saveClicks
             .autoDispose(scope())
             .subscribe{image ->
-                val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
-                val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
-                processAndSaveImage(this, image, targetWidthRatio/targetHeightRatio)
-                makeToast("Image saved to gallery")
+                lifecycleScope.launch {
+                    val loadingDialog = LoadingDialog()
+                    loadingDialog.show(supportFragmentManager, null)
+                    delay(500)
+                    val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
+                    val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
+                    processAndSaveImage(this@CreateImageActivity, image, targetWidthRatio/targetHeightRatio)
+                    loadingDialog.cancel()
+                }
+
             }
         preferences.isPremium.asObservable().autoDispose(scope()).subscribe {
             previewAdapter.isPremium = it

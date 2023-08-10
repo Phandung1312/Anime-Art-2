@@ -15,4 +15,5 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="transparent_dialog">#35FFFFFF</color>
     <color name="white_35">#35FFFFFF</color>
+    <color name="red">#FF2323</color>
 </resources>

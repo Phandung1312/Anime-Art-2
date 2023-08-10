@@ -5,17 +5,13 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import com.anime.art.ai.R
 import com.anime.art.ai.databinding.ItemPreviewInCreateImageBinding
-import com.anime.art.ai.domain.model.config.ViewImage
 import com.anime.art.ai.domain.model.response.ImageResponse
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getDimens
-import com.basic.common.extension.saveBase64ImageToGallery
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import timber.log.Timber
 import javax.inject.Inject
 
 class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreviewInCreateImageBinding>(ItemPreviewInCreateImageBinding::inflate) {

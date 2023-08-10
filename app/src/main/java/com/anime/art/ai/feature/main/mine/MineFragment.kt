@@ -100,7 +100,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
             .autoDispose(scope())
             .subscribe {gallery ->
                 (activity as? MainActivity)
-                    ?.gotoGalleryFragment(gallery.prompt, gallery.ratio)
+                    ?.gotoGalleryFragment(gallery.prompt, gallery.negative ,gallery.ratio)
             }
         (activity as? MainActivity)
             ?.pageChanges

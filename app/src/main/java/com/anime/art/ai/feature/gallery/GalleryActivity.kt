@@ -99,6 +99,7 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
             val gallery = previewAdapter.data[binding.viewPager.currentItem]
             intent.putExtra(CreateFragment.PROMPT_EXTRA, gallery.prompt)
             intent.putExtra(CreateFragment.RATIO_EXTRA, gallery.ratio)
+            intent.putExtra(CreateFragment.NEGATIVE_PROMPT, gallery.negative)
             setResult(RESULT_OK, intent)
             finish()
         }

@@ -41,14 +41,18 @@ class SamplingMethodAdapter @Inject constructor() :
             com.intuit.sdp.R.dimen._2sdp
         }
         binding.root.margin(marginStartResId = marginStartResId, marginEndResId = marginEndResId)
-        binding.cardView.apply {
-            strokeWidth = if (position == selectedIndex) context.getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
-            setCardBackgroundColor(if (position == selectedIndex) context.getColorCompat(R.color.yellow_black) else context.resolveAttrColor(android.R.attr.colorBackground))
+        binding.viewTag.apply {
+            if(position == selectedIndex) {
+                setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
+            }
+            else{
+                setBackgroundColor(context.getColor(R.color.light_gray))
+            }
         }
 
         binding.display.text = item.display
 
-        binding.cardView.clicks { selectedIndex = position
+        binding.cardView.clicks(withAnim = false) { selectedIndex = position
         clicks.onNext(item)}
     }
 }

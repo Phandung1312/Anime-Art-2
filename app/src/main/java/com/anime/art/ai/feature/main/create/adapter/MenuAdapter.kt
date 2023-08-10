@@ -1,15 +1,12 @@
 package com.anime.art.ai.feature.main.create.adapter
 
-import android.view.ViewGroup
+
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.margin
 import com.anime.art.ai.databinding.ItemTagBinding
 import com.anime.art.ai.domain.model.Character
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getColorCompat
-import com.basic.common.extension.getDimens
-import com.basic.common.extension.resolveAttrColor
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
@@ -48,7 +45,7 @@ class MenuAdapter @Inject constructor() :
             }
         }
         binding.display.text = item.characterName
-        binding.cardView.clicks { selectedIndex = position
+        binding.cardView.clicks(withAnim = false) { selectedIndex = position
         clicks.onNext(item)}
     }
 }

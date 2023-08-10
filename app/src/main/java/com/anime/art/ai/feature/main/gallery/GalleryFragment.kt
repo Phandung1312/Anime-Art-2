@@ -116,44 +116,46 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
         }
     }
     private fun checkDailyCreditReceived(){
-        if(!pref.isSynced.get()){
-            lifecycleScope.launch(Dispatchers.IO) {
-                serverApiRepository.getCreditHistory(requireContext().getDeviceId()){ result ->
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        if(!result){
-                            requireContext().makeToast("An error has occurred")
+        pref.isSynced.asObservable().autoDispose(scope()).subscribe {  isSynced ->
+            if(isSynced){
+                historyDao.getAll().observe(viewLifecycleOwner){ histories ->
+                    if(pref.isSynced.get()){
+                        val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
+                            .map { it.createdAt.convertToShortDate()}
+                            .reversed()
+                        if (newList.isEmpty()) {
+                            showDailyReward(1)
+                            return@observe
                         }
-                        else{
-                            historyDao.getAll().observe(viewLifecycleOwner){ histories ->
-                                if(pref.isSynced.get()){
-                                    val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }
-                                        .map { it.createdAt.convertToShortDate()}
-                                        .reversed()
-                                    if (newList.isEmpty()) {
-                                        showDailyReward(1)
-                                        return@observe
-                                    }
-                                    var consecutiveSeries  = 1
-                                    if(newList.size > 1){
-                                        for(i in 0 ..   newList.size -2){
-                                            if(newList[i].dayBetween(newList[i + 1]) > 1L) break
-                                            consecutiveSeries += 1
-                                            if(consecutiveSeries > 7){
-                                                consecutiveSeries = 7
-                                                break
-                                            }
-                                        }
-                                    }
-                                    val currentDay = getCurrentDay()
-                                    if(currentDay.dayBetween(newList[0]) == 1L && newList.size == 1) {
-                                        showDailyReward(2)
-                                    }
-                                    else if(currentDay.dayBetween(newList[0]) == 1L){
-                                        showDailyReward(if(consecutiveSeries > 6) 1 else consecutiveSeries + 1)
-                                    }
-                                    else if(currentDay.dayBetween(newList[0]) > 1L) showDailyReward(1)
-                                    return@observe
+                        var consecutiveSeries  = 1
+                        if(newList.size > 1){
+                            for(i in 0 ..   newList.size -2){
+                                if(newList[i].dayBetween(newList[i + 1]) > 1L) break
+                                consecutiveSeries += 1
+                                if(consecutiveSeries > 7){
+                                    consecutiveSeries = 7
+                                    break
                                 }
+                            }
+                        }
+                        val currentDay = getCurrentDay()
+                        if(currentDay.dayBetween(newList[0]) == 1L && newList.size == 1) {
+                            showDailyReward(2)
+                        }
+                        else if(currentDay.dayBetween(newList[0]) == 1L){
+                            showDailyReward(if(consecutiveSeries > 6) 1 else consecutiveSeries + 1)
+                        }
+                        else if(currentDay.dayBetween(newList[0]) > 1L) showDailyReward(1)
+                        return@observe
+                    }
+                }
+            }
+            else{
+                lifecycleScope.launch(Dispatchers.IO) {
+                    serverApiRepository.getCreditHistory(requireContext().getDeviceId()){ result ->
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            if(!result){
+                                requireContext().makeToast("An error has occurred")
                             }
                         }
                     }

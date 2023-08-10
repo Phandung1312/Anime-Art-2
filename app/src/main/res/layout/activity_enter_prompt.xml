@@ -14,17 +14,18 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:text="Clear"
-        android:textColor="@color/white"
+        android:textColor="@color/textTertiary"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:id="@+id/materialCardView2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         app:cardBackgroundColor="@color/background_dark_gray"
         app:cardCornerRadius="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,20 +40,21 @@
 
             <EditText
                 android:id="@+id/ed_enter_prompt"
-                android:focusable="true"
-                android:cursorVisible="true"
-                android:textCursorDrawable="@drawable/cursor_edittext"
-                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:backgroundTint="@android:color/transparent"
-                android:textSize="@dimen/_12ssp"
-                android:textColor="@color/white"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:hint="Enter prompt"
+                android:textColor="@color/white"
                 android:textColorHint="@color/textTertiaryDark"
+                android:textCursorDrawable="@drawable/cursor_edittext"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +62,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.basic.common.widget.LsTextView
+        android:id="@+id/tv_length_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="0/1000"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_110sdp"
         app:cardBackgroundColor="@color/background_dark_gray"

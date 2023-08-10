@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
@@ -17,6 +19,7 @@ import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.getDimens
+import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
 import com.google.android.material.card.MaterialCardView
 import com.uber.autodispose.android.lifecycle.scope
@@ -28,8 +31,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BuyMoreDialog(
-    ) : DialogFragment() {
+class BuyMoreDialog : DialogFragment() {
     private lateinit var  binding : DialogBuyMoreBinding
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var serverApiRepository: ServerApiRepository
@@ -111,22 +113,28 @@ class BuyMoreDialog(
         }
         binding.continueView.clicks {
             binding.continueView.isEnabled = false
-            lifecycleScope.launch(Dispatchers.IO) {
-                val credit = CreditPackage.values()[selectedCreditPackage - 1].credit
-                serverApiRepository.updateCredit(requireContext().getDeviceId(),
-                    UpdateCreditRequest(credit = credit.toLong(), Constraint.PURCHASED_CREDITS)
-                ){ result ->
-                    launch(Dispatchers.Main) {
-                        if(result){
-                            requireContext().makeToast("Buy credit successfully")
+            if(requireContext().isNetworkAvailable()){
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val credit = CreditPackage.values()[selectedCreditPackage - 1].credit
+                    serverApiRepository.updateCredit(requireContext().getDeviceId(),
+                        UpdateCreditRequest(credit = credit.toLong(), Constraint.PURCHASED_CREDITS)
+                    ){ result ->
+                        launch(Dispatchers.Main) {
+                            if(result){
+                                requireContext().makeToast("Buy credit successfully")
+                            }
+                            else{
+                                requireContext().makeToast("An error has occurred")
+                            }
+                            delay(100)
+                            dismiss()
                         }
-                        else{
-                            requireContext().makeToast("An error has occurred")
-                        }
-                        delay(100)
-                        dismiss()
                     }
                 }
+            }
+            else{
+                requireContext().makeToast("Please check your connect internet !")
+                binding.continueView.isEnabled = true
             }
         }
     }
@@ -139,5 +147,7 @@ class BuyMoreDialog(
         super.onStart()
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
+        dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        dialog?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), com.widget.R.color.backgroundDark)
     }
 }

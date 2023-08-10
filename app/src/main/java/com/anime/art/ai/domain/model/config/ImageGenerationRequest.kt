@@ -7,7 +7,7 @@ import java.io.Serializable
 
 @Keep
 data class ImageGenerationRequest(
-    var model: String = "absolute-reality-v1-6",
+    var model: String = "dark-sushi-mix-v2-25",
     var controlNet: String = "",
     var prompt: String = "",
     var negativePrompt: String = "",

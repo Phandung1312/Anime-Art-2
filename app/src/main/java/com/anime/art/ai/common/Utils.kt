@@ -65,16 +65,15 @@ fun saveBitmapToGallery(context: Context, bitmap: Bitmap, title: String) {
         }
     }
 }
+// Hàm thay đổi kích thước của Bitmap
+fun resizeBitmap(bitmap: Bitmap, targetWidth: Int, targetHeight: Int): Bitmap {
+    return Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true)
+}
 fun decodeBase64ToBitmap(base64: String): Bitmap {
     val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
     return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 }
 
-// Hàm thay đổi kích thước của Bitmap
-fun resizeBitmap(bitmap: Bitmap, targetWidth: Int, targetHeight: Int): Bitmap {
-    return Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true)
-}
-// Sử dụng các hàm đã định nghĩa để thực hiện việc chuyển đổi và lưu ảnh
 fun processAndSaveImage(context: Context, base64Image: String, targetRatio: Float) {
     val originalBitmap = decodeBase64ToBitmap(base64Image)
     val originalWidth = originalBitmap.width
@@ -83,20 +82,26 @@ fun processAndSaveImage(context: Context, base64Image: String, targetRatio: Floa
     val targetWidth: Int
     val targetHeight: Int
 
-    // Tính toán kích thước mới sao cho tỉ lệ giữa chiều rộng và chiều cao được giữ nguyên
     if (originalWidth > originalHeight) {
         targetWidth = originalWidth
         targetHeight = (targetWidth / targetRatio).toInt()
-    } else {
+    } else if (originalHeight > originalWidth) {
         targetHeight = originalHeight
         targetWidth = (targetHeight * targetRatio).toInt()
+    } else {
+        // Handle square images, where originalWidth == originalHeight
+        if (targetRatio > 1.0) {
+            targetWidth = originalWidth
+            targetHeight = (targetWidth / targetRatio).toInt()
+        } else {
+            targetHeight = originalHeight
+            targetWidth = (targetHeight * targetRatio).toInt()
+        }
     }
 
-    // Tính toán phạm vi cắt (crop) để lấy phần trung tâm của hình
     val cropX = (originalWidth - targetWidth) / 2
     val cropY = (originalHeight - targetHeight) / 2
 
-    // Thực hiện cắt hình
     val croppedBitmap = Bitmap.createBitmap(originalBitmap, cropX, cropY, targetWidth, targetHeight)
 
     saveBitmapToGallery(context, croppedBitmap, "image_${System.currentTimeMillis()}")

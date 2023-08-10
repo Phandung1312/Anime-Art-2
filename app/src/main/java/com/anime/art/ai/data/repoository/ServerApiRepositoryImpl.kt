@@ -1,6 +1,7 @@
 package com.anime.art.ai.data.repoository
 
 
+import com.anime.art.ai.common.getCurrentDay
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.domain.model.config.History

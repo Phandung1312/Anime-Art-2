@@ -31,4 +31,8 @@
         <item name="android:buttonTint">@null</item>
         <item name="android:background">@drawable/bg_size_of_image_cb</item>
     </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- ... các thuộc tính khác ... -->
+        <item name="android:navigationBarColor">@color/backgroundDark</item>
+    </style>
 </resources>

@@ -59,7 +59,7 @@ enum class SizeOfImage(val size : String, val describeImage : String, val realSi
 }
 
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String){
-    AGG(artStyleName = "AGG", sourceImage = "agg", model = "absolute-reality-v1-6"),
+    AGG(artStyleName = "AGG", sourceImage = "agg", model = "dark-sushi-mix-v2-25"),
     Realistic(artStyleName = "Realistic", sourceImage = "realistic", model = "realistic-vision-v3"),
     PencilSketch(artStyleName = "Pencil Sketch", sourceImage = "pencil_sketch", model = "van-gogh-diffusion"),
     SuperHero(artStyleName = "Super Hero", sourceImage = "super_hero", model = "anashel-rpg"),
@@ -177,12 +177,12 @@ enum class Tag(val cAId : Int, val display : String ){
 
 enum class DailyReward(val reward : String){
     Day1( reward = "10"),
-    Day2( reward = "20"),
-    Day3( reward = "30"),
-    Day4( reward = "50"),
-    Day5( reward = "70"),
-    Day6( reward = "80"),
-    Day7( reward = "100"),
+    Day2( reward = "10"),
+    Day3( reward = "15"),
+    Day4( reward = "15"),
+    Day5( reward = "15"),
+    Day6( reward = "20"),
+    Day7( reward = "20"),
 }
 
 enum class CreditPackage(val credit : Int){

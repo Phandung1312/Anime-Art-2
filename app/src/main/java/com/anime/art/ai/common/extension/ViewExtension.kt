@@ -6,10 +6,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 
@@ -86,5 +88,22 @@ fun View.animateHideView() {
         }
     })
     anim.start()
+}
+fun EditText.enableScrollText()
+{
+    overScrollMode = View.OVER_SCROLL_ALWAYS
+    scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
+    isVerticalScrollBarEnabled = true
+    setOnTouchListener { view, event ->
+        if (view is EditText) {
+            if(!view.text.isNullOrEmpty()) {
+                view.parent.requestDisallowInterceptTouchEvent(true)
+                when (event.action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_UP -> view.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+        }
+        false
+    }
 }
 

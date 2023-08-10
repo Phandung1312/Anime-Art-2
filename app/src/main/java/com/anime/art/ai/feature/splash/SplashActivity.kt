@@ -8,9 +8,12 @@ import com.anime.art.ai.common.extension.startIAP
 import com.anime.art.ai.common.extension.startMain
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.ActivitySplashBinding
+import com.anime.art.ai.databinding.DialogNotifyNetworkBinding
 import com.anime.art.ai.domain.repository.ServerApiRepository
+import com.anime.art.ai.feature.dialog.NotifyNetworkDialog
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.getDeviceId
+import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.tryOrNull
 import com.google.firebase.ktx.Firebase
@@ -21,6 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import timber.log.Timber
 import java.lang.Exception
@@ -48,6 +52,11 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
     private fun initData() {
         syncRemoteConfig {
             Timber.e("id=${getDeviceId()}")
+           login()
+        }
+    }
+    private fun login(){
+        if(isNetworkAvailable()){
             lifecycleScope.launch(Dispatchers.IO) {
                 try{
                     withTimeout(5000){
@@ -62,22 +71,34 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
                 }
                 catch (e: TimeoutCancellationException) {
                     lifecycleScope.launch(Dispatchers.Main) {
-                        makeToast("Network connection timeout")
-                        delay(500)
-                        finish()
+                        NotifyNetworkDialog({
+                            login()
+                        }){
+                            finish()
+                        }.show(supportFragmentManager, null)
                     }
                 }
                 catch (e : Exception){
                     lifecycleScope.launch(Dispatchers.Main) {
-                        makeToast("Network connection error")
-                        delay(500)
-                        finish()
+                        NotifyNetworkDialog({
+                            login()
+                        }){
+                            finish()
+                        }.show(supportFragmentManager, null)
                     }
                 }
             }
         }
+        else{
+            lifecycleScope.launch(Dispatchers.Main){
+               NotifyNetworkDialog({
+                    login()
+                }){
+                    finish()
+                }.show(supportFragmentManager, null)
+            }
+        }
     }
-
     private fun doTask(){
         when {
             !prefs.isPremium.get() -> startIAP(isFirstScreen = true)
