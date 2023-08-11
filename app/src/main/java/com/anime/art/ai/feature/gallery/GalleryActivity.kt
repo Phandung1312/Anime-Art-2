@@ -10,40 +10,34 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.ViewGroup
-import android.widget.Toast.makeText
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
-import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.getStatusBarHeight
-import com.anime.art.ai.common.extension.startMain
 import com.anime.art.ai.common.widget.transformer.ZoomInTransformer
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.GalleryDao
 import com.anime.art.ai.databinding.ActivityGalleryBinding
+import com.anime.art.ai.feature.finalize.LoadingDialog
 import com.anime.art.ai.feature.gallery.adapter.PreviewAdapter
 import com.anime.art.ai.feature.main.create.CreateFragment
-import com.anime.art.ai.feature.main.gallery.GalleryFragment
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.transparent
-import com.basic.common.extension.tryOrNull
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.firebase.ktx.BuildConfig
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.OutputStream
 import java.util.*
 import javax.inject.Inject
@@ -85,10 +79,22 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
         binding.more.clicks { showedMore = !showedMore }
         binding.viewBackgroundActionClicks.clicks(withAnim = false) { showedMore = false }
         binding.viewSave.clicks {
-            val gallery = previewAdapter.data[binding.viewPager.currentItem]
-            downloadAndSaveImage(gallery.preview,
-                width = gallery.ratio.split(":")[0].toInt(),
-                height = gallery.ratio.split(":")[1].toInt())
+           lifecycleScope.launch {
+               val loadingDialog = LoadingDialog()
+               loadingDialog.show(supportFragmentManager, null)
+               delay(500)
+               val gallery = previewAdapter.data[binding.viewPager.currentItem]
+               downloadAndSaveImage(gallery.preview,
+                   width = gallery.ratio.split(":")[0].toInt(),
+                   height = gallery.ratio.split(":")[1].toInt()){ result ->
+                   if(result) loadingDialog.cancel()
+                   else {
+                       loadingDialog.dismiss()
+                       makeToast("Save failed")
+                   }
+
+               }
+           }
         }
         binding.viewReport.clicks {
             val galleryId = previewAdapter.data[binding.viewPager.currentItem].id
@@ -104,7 +110,7 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
             finish()
         }
     }
-    private fun downloadAndSaveImage(imageUrl: String,width : Int = 500, height : Int = 500) {
+    private fun downloadAndSaveImage(imageUrl: String,width : Int = 500, height : Int = 500, result : (Boolean) -> Unit) {
         Glide.with(this)
             .asBitmap()
             .load(imageUrl)
@@ -114,31 +120,35 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    saveImageToGallery(resource)
+                    saveImageToGallery(resource, result)
                 }
             })
     }
 
-    private fun saveImageToGallery(bitmap: Bitmap) {
-        val fileName = "${System.currentTimeMillis()}.jpg"
-        val contentValues = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+    private fun saveImageToGallery(bitmap: Bitmap, result : (Boolean) -> Unit) {
+        try {
+            val fileName = "${System.currentTimeMillis()}.jpg"
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+                }
             }
+
+            val resolver = contentResolver
+            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+            uri?.let {
+                val outputStream: OutputStream? = resolver.openOutputStream(uri)
+                outputStream?.use {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                }
+            }
+            result.invoke(true)
         }
-
-        val resolver = contentResolver
-        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-
-        uri?.let {
-            val outputStream: OutputStream? = resolver.openOutputStream(uri)
-            outputStream?.use {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            }
-
-            makeToast("Save successful")
+        catch (e : Exception){
+            result.invoke(false)
         }
     }
 

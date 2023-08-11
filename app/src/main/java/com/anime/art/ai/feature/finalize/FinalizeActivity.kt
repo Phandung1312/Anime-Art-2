@@ -119,6 +119,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
         val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Copied Text", text)
         clipboard.setPrimaryClip(clip)
+        makeToast("Already copied text")
     }
 
     private fun shareImage(bitmap : Bitmap){
@@ -149,59 +150,6 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             makeToast("$appName is not installed")
         }
     }
-    private suspend fun playAndLoopFirstAnimation() {
-        withContext(Dispatchers.Main) {
-            binding.loadingView.isVisible = true
-            binding.loadingView.setAnimation(R.raw.download)
-            binding.loadingView.repeatCount = LottieDrawable.INFINITE
-            binding.loadingView.playAnimation()
-        }
-    }
-    private suspend fun waitForFirstAnimationToEnd() {
-        withContext(Dispatchers.Main) {
-            binding.loadingView.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(p0: Animator) {
-                }
 
-                override fun onAnimationEnd(p0: Animator) {
-                }
-
-                override fun onAnimationCancel(p0: Animator) {
-                }
-
-                override fun onAnimationRepeat(p0: Animator) {
-                    binding.loadingView.cancelAnimation()
-                    lifecycleScope.launch {
-                        playSecondAnimation()
-                    }
-                }
-            })
-        }
-    }
-    private suspend fun playSecondAnimation() {
-        withContext(Dispatchers.Main) {
-            binding.loadingView.setAnimation(R.raw.loadsuccessful)
-            binding.loadingView.repeatCount = 0
-            binding.loadingView.playAnimation()
-            binding.loadingView.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(p0: Animator) {
-                }
-
-                override fun onAnimationEnd(p0: Animator) {
-                    lifecycleScope.launch {
-                        delay(500)
-                        binding.loadingView.isVisible = false
-                        makeToast("Image saved to gallery")
-                    }
-                }
-
-                override fun onAnimationCancel(p0: Animator) {
-                }
-
-                override fun onAnimationRepeat(p0: Animator) {
-                }
-            })
-        }
-    }
 
 }

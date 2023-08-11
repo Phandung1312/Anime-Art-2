@@ -38,9 +38,9 @@ class NotifyNetworkDialog(
     override fun onStart() {
         super.onStart()
         val layoutParams = dialog?.window?.attributes
-        layoutParams?.width = (resources.displayMetrics.widthPixels * 0.95).toInt()
+        layoutParams?.width = (resources.displayMetrics.widthPixels * 0.85).toInt()
         dialog?.window?.attributes = layoutParams
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
-        dialog?.window?.setGravity(android.view.Gravity.BOTTOM)
+        dialog?.window?.setGravity(android.view.Gravity.CENTER_VERTICAL)
     }
 }

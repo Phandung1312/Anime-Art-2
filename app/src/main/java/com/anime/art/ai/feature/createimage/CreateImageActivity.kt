@@ -30,6 +30,7 @@ import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
+import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
@@ -112,18 +113,12 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         binding.variationsView.clicks {
             lifecycleScope.launch{
                 val imageGenerationRequest =  configApp.imageGenerationRequest
-                launch(Dispatchers.IO) {
-                    val request = UpdateCreditRequest(Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1, Constraint.MAKE_VARIATIONS)
-                    serverApiRepository.updateCredit(getDeviceId(),request){result ->
-                        if(result){
-
-                        }
-                        else{
-                            makeToast("An error has occurred")
-                        }
-                    }
+                if(isNetworkAvailable()){
+                    generateImage(imageGenerationRequest, isMakeVariations = true)
                 }
-                generateImage(imageGenerationRequest, isMakeVariations = true)
+                else{
+                   makeToast("Please check your connect internet !")
+                }
             }
         }
         onBackPressedDispatcher.addCallback {
@@ -162,9 +157,8 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                             binding.lottieView.playAnimation()
                         }
                         is AIApiRepository.APIResponse.Success ->{
-                            if(!isMakeVariations){
                                 launch(Dispatchers.IO) {
-                                    val request = UpdateCreditRequest(Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
+                                    val request = UpdateCreditRequest(if(isMakeVariations) Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1 else Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
                                     serverApiRepository.updateCredit(getDeviceId(),request){ result ->
                                         if(result){
                                         }
@@ -175,7 +169,6 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                         }
                                     }
                                 }
-                            }
                             binding.loadingLayout.isVisible = false
                             binding.viewPager.apply {
                                 this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
