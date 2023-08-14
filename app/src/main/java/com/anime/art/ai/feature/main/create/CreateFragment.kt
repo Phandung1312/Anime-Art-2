@@ -5,16 +5,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import android.text.TextWatcher
-import android.view.MotionEvent
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.underline
 import androidx.core.view.isVisible
@@ -158,6 +151,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             rvInputImage.adapter = inputImageAdapter
         }
+        binding.qualityPrompt.isChecked = false
     }
 
     private fun initData(){
@@ -428,7 +422,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
     }
 
-    private fun scrollToMiddle(recyclerView: RecyclerView, selectedIndex : Int) {
+    private fun scrollToMiddle(recyclerView: RecyclerView, selectedIndex: Int) {
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
 
         val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
@@ -438,7 +432,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             val centerView = layoutManager.findViewByPosition(selectedIndex)
             val centerViewWidth = centerView?.width ?: 0
             val centerX = recyclerView.width / 2 - centerViewWidth / 2
-            recyclerView.smoothScrollBy(centerView!!.left - centerX, 0)
+            layoutManager.scrollToPositionWithOffset(recyclerView.getChildLayoutPosition(centerView!!), centerX)
         } else {
             recyclerView.smoothScrollToPosition(selectedIndex)
         }
@@ -506,9 +500,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                         ""
                     }
                 }
-                requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
                 imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
                 imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
+                requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
             }
         }catch (e : Exception){
             Timber.e(e)

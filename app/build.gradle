@@ -12,7 +12,15 @@ plugins {
 android {
     namespace 'com.anime.art.ai'
     compileSdk 33
-
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
+    defaultConfig {
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
     defaultConfig {
         applicationId "com.anime.art.ai"
         minSdk 26
@@ -134,4 +142,14 @@ dependencies {
 
     //Dexter
     implementation 'com.karumi:dexter:6.2.2'
+
+    implementation 'com.github.the-super-toys.glimpse-android:glimpse-core:0.0.5'
+
+    //only required for glide extensions
+    implementation 'com.github.the-super-toys.glimpse-android:glimpse-glide:0.0.5'
+
+    //only required for coil extensions
+    implementation 'com.github.the-super-toys.glimpse-android:glimpse-coil:0.0.5'
+
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
 }

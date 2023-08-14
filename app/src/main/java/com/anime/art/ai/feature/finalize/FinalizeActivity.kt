@@ -96,7 +96,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             delay(500)
                val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
                val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
-               processAndSaveImage(this@FinalizeActivity, configApp.imageBase64, targetWidthRatio/targetHeightRatio){result ->
+               processAndSaveImage(this@FinalizeActivity, configApp.imageBase64, targetWidthRatio, targetHeightRatio){result ->
                    if(result){
                        loadingDialog.cancel()
                    }

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
+import glimpse.core.findCenter
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
@@ -76,26 +77,28 @@ fun decodeBase64ToBitmap(base64: String): Bitmap {
 }
 
 
-fun processAndSaveImage(context: Context, base64Image: String, targetRatio: Float, result : (Boolean) -> Unit) {
+fun processAndSaveImage(context: Context, base64Image: String, targetWidthRatio: Float, targetHeightRatio: Float, result : (Boolean) -> Unit) {
 
  try{
      val originalBitmap = decodeBase64ToBitmap(base64Image)
      val originalWidth = originalBitmap.width
      val originalHeight = originalBitmap.height
-     val targetWidth: Float
-     val targetHeight: Float
-     if(targetRatio  > 1.0){
-         targetHeight = (originalWidth / targetRatio)
-         targetWidth = (targetHeight * targetRatio)
-     }
-     else{
-         targetWidth = (originalHeight * targetRatio)
-         targetHeight = (targetWidth / targetRatio)
-     }
-     val cropX = ((originalWidth - targetWidth) / 2).roundToInt()
-     val cropY = ((originalHeight - targetHeight) / 2).roundToInt()
+     val targetWidth: Int
+     val targetHeight: Int
+     val targetRatio : Int
 
-     val croppedBitmap = Bitmap.createBitmap(originalBitmap, cropX, cropY, targetWidth.roundToInt(), targetHeight.roundToInt())
+     val ratioWidth = (originalWidth / targetWidthRatio).toInt()
+     val ratioHeight = (originalHeight / targetHeightRatio).toInt()
+
+     targetRatio = if(ratioWidth > ratioHeight) ratioHeight else ratioWidth
+
+     targetWidth = (targetRatio * targetWidthRatio).toInt()
+     targetHeight = (targetRatio * targetHeightRatio).toInt()
+
+//     val cropX = ((originalWidth - targetWidth) / 2)
+//     val cropY = ((originalHeight - targetHeight) / 2)
+     val (cropX, cropY) = originalBitmap.findCenter()
+     val croppedBitmap = Bitmap.createBitmap(originalBitmap, cropX.toInt(), cropY.toInt(), targetWidth, targetHeight)
 
      saveBitmapToGallery(context, croppedBitmap, "image_${System.currentTimeMillis()}")
      result.invoke(true)

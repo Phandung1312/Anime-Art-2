@@ -104,11 +104,19 @@ fun Context.convertImageToBase64(imageUri: Uri): String? {
 
 fun Context.convertDrawableToBase64(drawableResId: Int): String? {
     try {
-        val bitmap = BitmapFactory.decodeResource(this.resources, drawableResId)
+        val options = BitmapFactory.Options()
+        options.inScaled = false // Không tự động scale ảnh theo density
+        val bitmap = BitmapFactory.decodeResource(this.resources, drawableResId, options)
+
         val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+
+        // Lưu ý: Không sử dụng nén 100% (100) vì nó có thể tạo ra kích thước lớn hơn ban đầu
+        // Sử dụng nén 0 (không nén) để giữ kích thước ban đầu
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream)
+
         val imageData: ByteArray = outputStream.toByteArray()
         outputStream.close()
+
         return Base64.encodeToString(imageData, Base64.DEFAULT)
     } catch (e: IOException) {
         e.printStackTrace()
@@ -120,8 +128,7 @@ fun Context.getDimens(@DimenRes dimenRes: Int): Float {
 }
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId() : String{
-//   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
-    return "sdkihishfidhfidhifhi"
+   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
 
 }
 fun Context.isNetworkAvailable(): Boolean {
