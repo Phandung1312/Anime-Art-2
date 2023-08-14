@@ -7,13 +7,14 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
+import kotlin.math.roundToInt
 
 
 fun saveBitmapToFile(context: Context, bitmap: Bitmap): File? {
@@ -74,39 +75,36 @@ fun decodeBase64ToBitmap(base64: String): Bitmap {
     return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 }
 
-fun processAndSaveImage(context: Context, base64Image: String, targetRatio: Float) {
-    val originalBitmap = decodeBase64ToBitmap(base64Image)
-    val originalWidth = originalBitmap.width
-    val originalHeight = originalBitmap.height
 
-    val targetWidth: Int
-    val targetHeight: Int
+fun processAndSaveImage(context: Context, base64Image: String, targetRatio: Float, result : (Boolean) -> Unit) {
 
-    if (originalWidth > originalHeight) {
-        targetWidth = originalWidth
-        targetHeight = (targetWidth / targetRatio).toInt()
-    } else if (originalHeight > originalWidth) {
-        targetHeight = originalHeight
-        targetWidth = (targetHeight * targetRatio).toInt()
-    } else {
-        // Handle square images, where originalWidth == originalHeight
-        if (targetRatio > 1.0) {
-            targetWidth = originalWidth
-            targetHeight = (targetWidth / targetRatio).toInt()
-        } else {
-            targetHeight = originalHeight
-            targetWidth = (targetHeight * targetRatio).toInt()
-        }
-    }
+ try{
+     val originalBitmap = decodeBase64ToBitmap(base64Image)
+     val originalWidth = originalBitmap.width
+     val originalHeight = originalBitmap.height
+     val targetWidth: Float
+     val targetHeight: Float
+     if(targetRatio  > 1.0){
+         targetHeight = (originalWidth / targetRatio)
+         targetWidth = (targetHeight * targetRatio)
+     }
+     else{
+         targetWidth = (originalHeight * targetRatio)
+         targetHeight = (targetWidth / targetRatio)
+     }
+     val cropX = ((originalWidth - targetWidth) / 2).roundToInt()
+     val cropY = ((originalHeight - targetHeight) / 2).roundToInt()
 
-    val cropX = (originalWidth - targetWidth) / 2
-    val cropY = (originalHeight - targetHeight) / 2
+     val croppedBitmap = Bitmap.createBitmap(originalBitmap, cropX, cropY, targetWidth.roundToInt(), targetHeight.roundToInt())
 
-    val croppedBitmap = Bitmap.createBitmap(originalBitmap, cropX, cropY, targetWidth, targetHeight)
-
-    saveBitmapToGallery(context, croppedBitmap, "image_${System.currentTimeMillis()}")
+     saveBitmapToGallery(context, croppedBitmap, "image_${System.currentTimeMillis()}")
+     result.invoke(true)
+ }
+ catch (e : Exception){
+     e.printStackTrace()
+     result.invoke(false)
+ }
 }
-
 
 
 

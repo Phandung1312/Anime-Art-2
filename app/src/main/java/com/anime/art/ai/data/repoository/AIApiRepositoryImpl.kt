@@ -22,14 +22,13 @@ class AIApiRepositoryImpl @Inject constructor(
     ) {
         progress(AIApiRepository.APIResponse.Loading)
 
-        val responses = (0..3).mapNotNull {
+        val responses = (0..1).mapNotNull {
             try {
                 if(imageGenerationRequest.image.isEmpty()){
                     aiApi.generatorImageByText(imageGenerationRequest.toTextToImage()).await()
                 } else if(imageGenerationRequest.controlNet.isEmpty()){
                     aiApi.generatorImageByImage(imageGenerationRequest.toImageToImage()).await()
                 } else {
-
                     aiApi.generatorControlNet(imageGenerationRequest.toControlNet()).await()
                 }
             } catch (e: Exception){

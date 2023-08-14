@@ -120,7 +120,9 @@ fun Context.getDimens(@DimenRes dimenRes: Int): Float {
 }
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId() : String{
-   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+//   return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+    return "sdkihishfidhfidhifhi"
+
 }
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager =

@@ -60,6 +60,7 @@ import com.basic.common.extension.getDimens
 import com.basic.common.extension.hideKeyboard
 import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.setTint
 import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
@@ -505,6 +506,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                         ""
                     }
                 }
+                requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
                 imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
                 imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
             }

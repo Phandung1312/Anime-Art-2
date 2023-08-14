@@ -1,6 +1,7 @@
 package com.anime.art.ai.feature.iap
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
@@ -116,6 +117,15 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
                 binding.continueView.isEnabled = true
             }
         }
+        binding.teamOfUseView.clicks(withAnim = false) {
+            startBrowser(Constraint.Info.TERMS_URL)
+        }
+        binding.privacyPolicyView.clicks(withAnim = false) {
+            startBrowser(Constraint.Info.PRIVACY_URL)
+        }
+        binding.restoreView.clicks(withAnim = false) {
+            makeToast("Restore failed")
+        }
     }
 
     private fun initData() {
@@ -128,5 +138,16 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
 
     private fun initView() {
         binding.tvTittle.gradient(R.color.yellow, R.color.dark_yellow)
+    }
+
+    private fun startBrowser(url : String){
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        try{
+            startActivity(intent)
+        }
+        catch(e : Exception){
+            makeToast("you don't have browser installed")
+        }
+
     }
 }
