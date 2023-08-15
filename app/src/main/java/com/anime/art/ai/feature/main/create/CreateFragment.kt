@@ -53,6 +53,7 @@ import com.basic.common.extension.getDimens
 import com.basic.common.extension.hideKeyboard
 import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.resizeImageToFit
 import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.setTint
 import com.basic.common.extension.tryOrNull
@@ -309,14 +310,21 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe{inputImage ->
                 val selectedIndex = inputImageAdapter.data.indexOf(inputImage)
-                if(selectedIndex != 0) inputImageAdapter.selectedIndex = selectedIndex
-                when(selectedIndex ){
-                    0 ->{
-                        openGallery()
+                if(selectedIndex != inputImageAdapter.selectedIndex ){
+                    if(selectedIndex != 0) inputImageAdapter.selectedIndex = selectedIndex
+                    when(selectedIndex ){
+                        0 ->{
+                            inputImageAdapter.selectedIndex = -1
+                            openGallery()
+                        }
+                        else ->{
+                            setImageWeight(inputImage)
+                        }
                     }
-                    else ->{
-                        setImageWeight(inputImage)
-                    }
+                }
+                else{
+                    binding.imageWeightLayout.isVisible = false
+                    inputImageAdapter.selectedIndex = -1
                 }
             }
         tagAdapter
@@ -493,7 +501,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     }
 
                     is Uri -> {
-                        requireContext().convertImageToBase64(image) ?: ""
+                        requireContext().resizeImageToFit(image) ?: ""
                     }
 
                     else -> {

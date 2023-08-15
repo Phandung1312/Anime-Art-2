@@ -68,39 +68,53 @@ fun Context.saveStringToFile(fileName: String, content: String) {
         e.printStackTrace()
     }
 }
-fun Context.convertImageToBase64(imageUri: Uri): String? {
-    val inputStream = this.contentResolver.openInputStream(imageUri)
+
+fun Context.resizeImageToFit(uri: Uri): String {
+    val inputStream = contentResolver.openInputStream(uri)
     val options = BitmapFactory.Options()
     options.inJustDecodeBounds = true
     BitmapFactory.decodeStream(inputStream, null, options)
     inputStream?.close()
 
-    val maxDimension = 1024
-    var sampleSize = 1
-    while (options.outWidth / sampleSize > maxDimension || options.outHeight / sampleSize > maxDimension) {
-        sampleSize *= 2
+    val maxWidth = 1024
+    val maxHeight = 1024
+
+    val imageWidth = options.outWidth
+    val imageHeight = options.outHeight
+
+    var scaleFactor = 1
+
+    if (imageWidth > maxWidth || imageHeight > maxHeight) {
+        val widthScale = imageWidth.toFloat() / maxWidth
+        val heightScale = imageHeight.toFloat() / maxHeight
+
+        scaleFactor = if (widthScale > heightScale) {
+            Math.round(widthScale)
+        } else {
+            Math.round(heightScale)
+        }
     }
 
-    val bitmapOptions = BitmapFactory.Options()
-    bitmapOptions.inSampleSize = sampleSize
+    options.inJustDecodeBounds = false
+    options.inSampleSize = scaleFactor
 
-    val inputStream2 = this.contentResolver.openInputStream(imageUri)
-    val bitmap = BitmapFactory.decodeStream(inputStream2, null, bitmapOptions)
-    inputStream2?.close()
+    val resizedBitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, options)
 
-    val maxSizeBytes = 1024 * 1024
+    val finalWidth = if (resizedBitmap!!.width > maxWidth) maxWidth else resizedBitmap.width
+    val finalHeight = if (resizedBitmap.height > maxHeight) maxHeight else resizedBitmap.height
+
+    val outputBitmap =  Bitmap.createScaledBitmap(resizedBitmap, finalWidth, finalHeight, false)
+    return convertImageToBase64(outputBitmap)
+}
+
+fun convertImageToBase64(bitmap: Bitmap): String {
     val outputStream = ByteArrayOutputStream()
-    var quality = 100 // Starting quality value
-    bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
-    while (outputStream.size() > maxSizeBytes && quality > 0) {
-        outputStream.reset()
-        quality -= 10
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
-    }
-
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
     val byteArray = outputStream.toByteArray()
     return Base64.encodeToString(byteArray, Base64.DEFAULT)
 }
+
+
 
 fun Context.convertDrawableToBase64(drawableResId: Int): String? {
     try {
@@ -109,9 +123,6 @@ fun Context.convertDrawableToBase64(drawableResId: Int): String? {
         val bitmap = BitmapFactory.decodeResource(this.resources, drawableResId, options)
 
         val outputStream = ByteArrayOutputStream()
-
-        // Lưu ý: Không sử dụng nén 100% (100) vì nó có thể tạo ra kích thước lớn hơn ban đầu
-        // Sử dụng nén 0 (không nén) để giữ kích thước ban đầu
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream)
 
         val imageData: ByteArray = outputStream.toByteArray()
