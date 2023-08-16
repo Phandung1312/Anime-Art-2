@@ -34,10 +34,10 @@ enum class Character(val characterName : String,val  promptText : String){
             "sf, intricate artwork masterpiece, ominous, matte painting movie poster, golden ratio, trending on cgsociety, intricate, epic, trending on artstation, " +
             "by artgerm, h. r. giger and beksinski, " +
             "highly detailed, vibrant, production cinematic character render, ultra high quality model"),
-    Fairy( characterName = "Fairy", promptText = "masterpiece, best quality, anime, beautiful elf girl, " +
-            "otherworldly plants, glowing plants, watercolor, colorful, " +
-            "whimsical, fairy lights, little fairies, liquid light, otherworldly landscape, otherworldly liquid, " +
-            "fantasia, abstract background, sharp focus, highly detailed, 8k"),
+    Fairy( characterName = "Fairy", promptText = "anime - style illustration of a woman dressed in a fairy costume, " +
+            "fairy cgsociety, beautiful and elegant elf queen, fantasy style art, alluring elf princess knight, astral fairy, " +
+            "fantasy art style, beautiful and elegant female elf, digital fantasy art ), elf queen nissa genesis mage, " +
+            "beautiful elegant dryad, by Yang J, hyperdetailed fantasy character, beautiful fairy"),
     Angle( characterName = "Angle", promptText = "Cinematic photography, angel: ana de armas, heavenly, 3/4 view, thick thighs, stockings, raining, lightning, dark fantasy, " +
             "hyper realistic, dynamic lighting, symmetry, 4k, desktop background, " +
             "sharp, intricate, ultra detailed, concept art, hdr 4k, 8k, " +

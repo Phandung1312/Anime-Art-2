@@ -9,6 +9,7 @@ import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.gradient
+import com.anime.art.ai.common.extension.startMain
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.ActivityIapactivityBinding
 import com.anime.art.ai.domain.repository.ServerApiRepository
@@ -32,7 +33,7 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
     companion object{
         const val IS_FIRST_SCREEN_EXTRA = "IS_FIRST_SCREEN_EXTRA"
     }
-    private val isFirstScreen by lazy { intent.getBooleanExtra(IS_FIRST_SCREEN_EXTRA, false) }
+    private var isFirstScreen = false
     private var iAPSelected = 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +47,17 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
 
     private fun listenerView() {
         onBackPressedDispatcher.addCallback {
-            back()
+            if(isFirstScreen){
+                startMain()
+                finish()
+            }
+            else{
+                back()
+            }
         }
         binding.close.clicks {
             if(isFirstScreen){
-                startActivity(Intent(this, MainActivity::class.java))
-                tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
+                startMain()
                 finish()
             }
             else{
@@ -138,6 +144,7 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
 
     private fun initView() {
         binding.tvTittle.gradient(R.color.yellow, R.color.dark_yellow)
+        isFirstScreen = intent.getBooleanExtra(IS_FIRST_SCREEN_EXTRA, false)
     }
 
     private fun startBrowser(url : String){
