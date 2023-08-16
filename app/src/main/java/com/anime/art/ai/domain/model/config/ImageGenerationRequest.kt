@@ -20,7 +20,8 @@ data class ImageGenerationRequest(
     var scheduler: String = "euler_a",
     var outputFormat: String = "jpeg",
     var artStyle : String = "AGG",
-    var ratio : String = "1:1"
+    var ratio : String = "1:1",
+    var extraPrompt : String =""
 )
 fun ImageGenerationRequest.toTextToImage() : TextToImage{
     return TextToImage(

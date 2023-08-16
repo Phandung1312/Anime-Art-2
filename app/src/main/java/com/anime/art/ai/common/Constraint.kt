@@ -4,8 +4,7 @@ class Constraint {
 
     class Sinkin {
         companion object {
-            const val DEFAULT_NEGATIVE = "naked, nude, no clothes, upper body uncovered, breast uncovered, (worst quality, low quality, extra digits:1.4),artist name, nsfw, monochrome, fused face, poorly drawn face, cloned face," +
-                    " false body, false face, bad hands, poorly drawn hands, fused eyes, poorly drawn eyes, liquid eyes, false eyes, scary, ugly"
+            const val DEFAULT_NEGATIVE = "((NSFW)), naked, nude, no clothes, upper body uncovered, breast uncovered, (worst quality, low quality, extra digits:1.4),artist name, nsfw, monochrome, fused face, poorly drawn face, cloned face, false body, false face, bad hands, malformation, poorly drawn hands, fused eyes, poorly drawn eyes, liquid eyes, false eyes, scary, ugly"
             const val DEFAULT_MODEL = "anything_4_0"
 
             const val URL = "https://sinkin.ai/api/inference"

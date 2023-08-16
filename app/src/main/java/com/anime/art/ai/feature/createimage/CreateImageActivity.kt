@@ -176,7 +176,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                     val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
                                     val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
                                     this.data = progress.responses.map { response ->
-                                        val base64Image = cropBase64Image(this@CreateImageActivity, response.image, targetWidthRatio, targetHeightRatio)
+                                        val base64Image = cropBase64Image(response.image, targetWidthRatio, targetHeightRatio)
                                         response.copy(ratio = configApp.imageGenerationRequest.ratio, image = base64Image) }
                                 }
                             }

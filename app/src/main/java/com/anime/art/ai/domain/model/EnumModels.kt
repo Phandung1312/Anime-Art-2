@@ -58,28 +58,26 @@ enum class SizeOfImage(val size : String, val describeImage : String, val realSi
     ThreeTwo(size = "3:2", describeImage = "size_3_2", realSize = "512:768")
 }
 
-enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String){
-    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-mix-v2-25"),
-    ICBINP_Afterburn(artStyleName = "ICBINP Afterburn", sourceImage = "icbinp_afterburn", model = "icbinp-afterburn"),
-//    Openjourney(artStyleName = "Openjourney", sourceImage = "openjourney", model = "openjourney-v1-0"),
-    MoonFilmReality(artStyleName = "MoonFilm Reality", sourceImage = "moonfilm_reality", model = "moonfilm-reality-v3"),
-    MoonFilmFilmGrain(artStyleName = "MoonFilm FilmGrain", sourceImage = "moonflim_filmgrain", model = "moonfilm-film-grain-v1"),
-    MoonFilmUtopia(artStyleName = "MoonFilm Utopia", sourceImage = "moonflim_utopia", model = "moonfilm-utopia-v3"),
-    SynthwavePunk(artStyleName = "SynthwavePunk", sourceImage = "synthwave_punk", model = "synthwave-punk-v2"),
-//    StableXL(artStyleName = "StableXL", sourceImage = "stable_xl", model = "stable-diffusion-xl-v1-0"),
-    Arcane(artStyleName = "Arcane", sourceImage = "arcane", model = "arcane-diffusion"),
-    RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "realistic-vision-v3"),
-    AbsoluteReality(artStyleName = "Absolute Reality", sourceImage = "absolute_reality", model = "absolute-reality-v1-6"),
-    ICBINPFinal(artStyleName = "ICBINP Final", sourceImage = "icbinp_final", model = "icbinp-final"),
-    ICBINPRealapse(artStyleName = "ICBINP Realapse", sourceImage = "icbinp_relapse", model = "icbinp-relapse"),
-    InteriorDesign(artStyleName = "Interior Design", sourceImage = "interior_design", model = "xsarchitectural-interior-design"),
-    ModernDisney(artStyleName = "Modern Disney", sourceImage = "modern_disney", model = "mo-di-diffusion"),
-    RPG(artStyleName = "RPG", sourceImage = "rpg", model = "anashel-rpg"),
-    Something(artStyleName = "Something", sourceImage = "something", model = "something-v2-2"),
-    ICBINP(artStyleName = "ICBINP", sourceImage = "icbinp", model = "icbinp"),
-    StableDiffusion(artStyleName = "Stable Diffusion", sourceImage = "stable_diffusion", model = "stable-diffusion-v1-5"),
-    VangoghDiffusion(artStyleName = "Van Gogh Diffusion", sourceImage = "van_gogh_diffusion", model = "van-gogh-diffusion"),
-    AnalogDiffusion(artStyleName = "Analog Diffusion", sourceImage = "analog_diffusion", model = "analog-diffusion"),
+enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String, val extraPrompt : String){
+    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-mix-v2-25", extraPrompt = ", High quality images"),
+    ICBINP_Afterburn(artStyleName = "ICBINP Afterburn", sourceImage = "icbinp_afterburn", model = "icbinp-afterburn", extraPrompt = ""),
+    MoonFilmReality(artStyleName = "MoonFilm Reality", sourceImage = "moonfilm_reality", model = "moonfilm-reality-v3", extraPrompt = ""),
+    MoonFilmFilmGrain(artStyleName = "MoonFilm FilmGrain", sourceImage = "moonflim_filmgrain", model = "moonfilm-film-grain-v1", extraPrompt = ""),
+    MoonFilmUtopia(artStyleName = "MoonFilm Utopia", sourceImage = "moonflim_utopia", model = "moonfilm-utopia-v3", extraPrompt = ""),
+    Pool(artStyleName = "Swimming Pool", sourceImage = "swimming_pool", model = "dark-sushi-mix-v2-25", extraPrompt = ",in swimming pool, water"),
+    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "dark-sushi-mix-v2-25", extraPrompt = ", ninja, a powerful and precise weapon"),
+    RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "realistic-vision-v3", extraPrompt = ", solodramatic lighting, (photo realism:1. 4), realistic, sharp focus, HD, highly complex, intricate, photography, hyperrealism, hyperrealistic, raytracing, physics-based rendering, ((8k, RAW photo, masterpiece), High detail RAW color photo, (highest quality), (best shadow), (best illustration), ultra high resolution, highly detailed CG unified 8K wallpapers), rim lighting, vivid color, post-processing, vibrant, color grading, <lora:add_detail:1>"),
+    AbsoluteReality(artStyleName = "Absolute Reality", sourceImage = "absolute_reality", model = "absolute-reality-v1-6", extraPrompt = ""),
+    ICBINPFinal(artStyleName = "ICBINP Final", sourceImage = "icbinp_final", model = "icbinp-final", extraPrompt = ""),
+    ICBINPRealapse(artStyleName = "ICBINP Realapse", sourceImage = "icbinp_relapse", model = "icbinp-relapse", extraPrompt = ""),
+    InteriorDesign(artStyleName = "Interior Design", sourceImage = "interior_design", model = "xsarchitectural-interior-design", extraPrompt = ""),
+    PencilSketch(artStyleName = "Pencil Sketch", sourceImage = "pencil_sketch", model = "absolute-reality-v1-6", extraPrompt = " ,  illustration concept art, anime, manga, pencil sketch, pencil drawing, inking, black and white trending pixiv fanbox, art by ilya kuvshinov and ghibli, loose pencil sketch, sketchy, concept art, cinematic, white space, black and white."),
+    RPG(artStyleName = "RPG", sourceImage = "rpg", model = "anashel-rpg", extraPrompt = ""),
+    Something(artStyleName = "Something", sourceImage = "something", model = "something-v2-2", extraPrompt = ""),
+    ICBINP(artStyleName = "ICBINP", sourceImage = "icbinp", model = "icbinp", extraPrompt = ""),
+    SuperHero(artStyleName = "Super Hero", sourceImage = "super_hero", model = "realistic-vision-v3", extraPrompt = ", photography and realistic lighting. Additionally, there is an impressive superhero portrait of SuperHero in a SuperHero costume. The 8k art germ bokeh, created by Wojtek Fuse, showcases remarkable digital illustration and realistic digital art in 4k. The close-up character portrait is highly detailed and displays a superb photo-realistic quality."),
+    VangoghDiffusion(artStyleName = "Van Gogh Diffusion", sourceImage = "van_gogh_diffusion", model = "van-gogh-diffusion", extraPrompt = ""),
+    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "dark-sushi-mix-v2-25", extraPrompt = ", * masterpiece (chibi:1. 3), best quality, (realistic:1. 2), chibi, glitter sparkle shiny stars and hearts, <lora:theovercomer8sContrastFix_sd15:0. 8>, night , nightsky, <lora:cutescrap05v_cutescrap3:0. 6> <lora:worldFlipperArtStyleLora_v10:0. 7>"),
 }
 
 enum class ControlNet(val controlNetName : String, val sourceImage : String,val apiString : String){
@@ -112,7 +110,7 @@ enum class CharacterAppearance(val id : Int, val display : String){
     Clothing(id = 4, "Clothing"),
     View(id = 5, "View"),
     Scence(id = 6, "Scence"),
-    Action(id = 7, "Acion")
+    Action(id = 7, "Action")
 }
 
 enum class Tag(val cAId : Int, val display : String ){

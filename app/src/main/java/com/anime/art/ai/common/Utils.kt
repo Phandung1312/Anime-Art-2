@@ -87,7 +87,7 @@ fun processAndSaveImage(context: Context, base64Image: String, result : (Boolean
  }
 }
 
-fun cropBase64Image(context : Context, base64Image : String, targetWidthRatio: Float, targetHeightRatio: Float) : String{
+fun cropBase64Image(base64Image : String, targetWidthRatio: Float, targetHeightRatio: Float) : String{
     val originalBitmap = decodeBase64ToBitmap(base64Image)
     val originalWidth = originalBitmap.width
     val originalHeight = originalBitmap.height

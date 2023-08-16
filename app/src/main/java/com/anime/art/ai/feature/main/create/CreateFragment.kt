@@ -356,6 +356,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .subscribe {artStyle ->
                 imageGenerationRequest.model = artStyle.model
                 imageGenerationRequest.artStyle = artStyle.artStyleName
+                imageGenerationRequest.extraPrompt = artStyle.extraPrompt
                 scrollToMiddle(binding.rvArtStyles, artStyleAdapter.data.indexOf(artStyle))
             }
 
@@ -511,6 +512,8 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                 imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
                 imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
                 requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
+            } ?: kotlin.run {
+                imageGenerationRequest.image = ""
             }
         }catch (e : Exception){
             Timber.e(e)
@@ -525,12 +528,15 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
-                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
+                    val prompt: String = binding.edEnterPrompt.text.toString()
                     val prompts = promptDao.getAll()
                     if (prompts.none { TextUtils.equals(it.text, prompt) }) {
                         promptDao.inserts(Prompt(text = prompt))
                     }
                     launch(Dispatchers.Main) {
+                        imageGenerationRequest.apply {
+                            this.prompt = prompt +  extraPrompt
+                        }
                         configApp.imageGenerationRequest = imageGenerationRequest
                         activity?.startCreateImage()
                     }
