@@ -22,7 +22,7 @@ class AIApiRepositoryImpl @Inject constructor(
     ) {
         progress(AIApiRepository.APIResponse.Loading)
 
-        val responses = (0..1).mapNotNull {
+        val responses = (0..3).mapNotNull {
             try {
                 if(imageGenerationRequest.image.isEmpty()){
                     aiApi.generatorImageByText(imageGenerationRequest.toTextToImage()).await()
