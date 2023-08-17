@@ -94,6 +94,10 @@ fun Context.resizeImageToFit(uri: Uri): String {
         heightScale
     }
 
+    // Nếu ảnh ban đầu có kích thước nhỏ hơn 1024 thì nâng lên kích thước tối đa là 1024
+    val newWidth = if (imageWidth < maxWidth) maxWidth else (imageWidth / scaleFactor).toInt()
+    val newHeight = if (imageHeight < maxHeight) maxHeight else (imageHeight / scaleFactor).toInt()
+
     // Đọc thông tin Exif để lấy hướng xoay
     val exif = ExifInterface(contentResolver.openInputStream(uri)!!)
     val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
@@ -121,12 +125,13 @@ fun Context.resizeImageToFit(uri: Uri): String {
         Bitmap.createBitmap(originalBitmap!!, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true)
     }
 
-    val finalWidth = if (rotatedBitmap!!.width > maxWidth) maxWidth else rotatedBitmap.width
-    val finalHeight = if (rotatedBitmap.height > maxHeight) maxHeight else rotatedBitmap.height
+    val finalWidth = if (rotatedBitmap!!.width > newWidth) newWidth else rotatedBitmap.width
+    val finalHeight = if (rotatedBitmap.height > newHeight) newHeight else rotatedBitmap.height
 
     val outputBitmap = Bitmap.createScaledBitmap(rotatedBitmap, finalWidth, finalHeight, false)
     return convertImageToBase64(outputBitmap)
 }
+
 fun convertImageToBase64(bitmap: Bitmap): String {
     val outputStream = ByteArrayOutputStream()
     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)

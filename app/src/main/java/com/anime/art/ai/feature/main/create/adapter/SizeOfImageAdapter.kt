@@ -1,17 +1,11 @@
 package com.anime.art.ai.feature.main.create.adapter
 
-import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsClient.getPackageName
 import com.anime.art.ai.R
 import com.anime.art.ai.common.extension.margin
 import com.anime.art.ai.databinding.ItemSizeOfImageBinding
 import com.anime.art.ai.domain.model.SizeOfImage
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getColorCompat
-import com.basic.common.extension.getDimens
-import com.basic.common.extension.resolveAttrColor
-import com.bumptech.glide.Glide
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
@@ -42,15 +36,16 @@ class SizeOfImageAdapter @Inject constructor(): LsAdapter<SizeOfImage,ItemSizeOf
         val imageResourceId = binding.root.context.resources.getIdentifier(item.describeImage,"drawable",binding.root.context.packageName)
         binding.ivSize.setImageResource(imageResourceId)
         binding.sizeLayout.apply {
-            if(position == selectedIndex) {
+            if (position == selectedIndex) {
                 setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
-            }
-            else{
+            } else {
                 setBackgroundColor(context.getColor(R.color.light_gray))
             }
 
         }
-        binding.cardView.clicks { selectedIndex = position
-        clicks.onNext(item)}
+        binding.cardView.clicks(withAnim = false) {
+            selectedIndex = position
+            clicks.onNext(item)
+        }
     }
 }
