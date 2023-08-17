@@ -52,16 +52,16 @@
         android:layout_height="@dimen/_45sdp"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
         app:cardBackgroundColor="?android:windowBackground"
-        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardCornerRadius="@dimen/_25sdp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient">
+            android:background="@drawable/button_gradient_yellow">
 
             <com.basic.common.widget.LsTextView
                 android:layout_width="match_parent"

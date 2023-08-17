@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.HiltAndroidApp
+import glimpse.core.Glimpse
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 
@@ -39,6 +40,7 @@ class App : Application() {
             }
             Timber.d("Token FCM: " + task.result)
         })
+        Glimpse.init(this)
     }
 
 }

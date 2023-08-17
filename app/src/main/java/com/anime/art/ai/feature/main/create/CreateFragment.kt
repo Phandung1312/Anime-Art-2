@@ -5,16 +5,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import android.text.TextWatcher
-import android.view.MotionEvent
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.text.underline
 import androidx.core.view.isVisible
@@ -60,6 +53,7 @@ import com.basic.common.extension.getDimens
 import com.basic.common.extension.hideKeyboard
 import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.resizeImageToFit
 import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.setTint
 import com.basic.common.extension.tryOrNull
@@ -158,6 +152,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             rvInputImage.adapter = inputImageAdapter
         }
+        binding.qualityPrompt.isChecked = false
     }
 
     private fun initData(){
@@ -315,14 +310,21 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe{inputImage ->
                 val selectedIndex = inputImageAdapter.data.indexOf(inputImage)
-                if(selectedIndex != 0) inputImageAdapter.selectedIndex = selectedIndex
-                when(selectedIndex ){
-                    0 ->{
-                        openGallery()
+                if(selectedIndex != inputImageAdapter.selectedIndex ){
+                    if(selectedIndex != 0) inputImageAdapter.selectedIndex = selectedIndex
+                    when(selectedIndex ){
+                        0 ->{
+                            inputImageAdapter.selectedIndex = -1
+                            openGallery()
+                        }
+                        else ->{
+                            setImageWeight(inputImage)
+                        }
                     }
-                    else ->{
-                        setImageWeight(inputImage)
-                    }
+                }
+                else{
+                    binding.imageWeightLayout.isVisible = false
+                    inputImageAdapter.selectedIndex = -1
                 }
             }
         tagAdapter
@@ -354,6 +356,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .subscribe {artStyle ->
                 imageGenerationRequest.model = artStyle.model
                 imageGenerationRequest.artStyle = artStyle.artStyleName
+                imageGenerationRequest.extraPrompt = artStyle.extraPrompt
                 scrollToMiddle(binding.rvArtStyles, artStyleAdapter.data.indexOf(artStyle))
             }
 
@@ -428,7 +431,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
     }
 
-    private fun scrollToMiddle(recyclerView: RecyclerView, selectedIndex : Int) {
+    private fun scrollToMiddle(recyclerView: RecyclerView, selectedIndex: Int) {
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
 
         val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
@@ -438,7 +441,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             val centerView = layoutManager.findViewByPosition(selectedIndex)
             val centerViewWidth = centerView?.width ?: 0
             val centerX = recyclerView.width / 2 - centerViewWidth / 2
-            recyclerView.smoothScrollBy(centerView!!.left - centerX, 0)
+            layoutManager.scrollToPositionWithOffset(recyclerView.getChildLayoutPosition(centerView!!), centerX)
         } else {
             recyclerView.smoothScrollToPosition(selectedIndex)
         }
@@ -499,16 +502,18 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     }
 
                     is Uri -> {
-                        requireContext().convertImageToBase64(image) ?: ""
+                        requireContext().resizeImageToFit(image) ?: ""
                     }
 
                     else -> {
                         ""
                     }
                 }
-                requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
                 imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
                 imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
+                requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
+            } ?: kotlin.run {
+                imageGenerationRequest.image = ""
             }
         }catch (e : Exception){
             Timber.e(e)
@@ -523,12 +528,15 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
-                    val prompt: String = binding.edEnterPrompt.text.toString().trim()
+                    val prompt: String = binding.edEnterPrompt.text.toString()
                     val prompts = promptDao.getAll()
                     if (prompts.none { TextUtils.equals(it.text, prompt) }) {
                         promptDao.inserts(Prompt(text = prompt))
                     }
                     launch(Dispatchers.Main) {
+                        imageGenerationRequest.apply {
+                            this.prompt = prompt +  extraPrompt
+                        }
                         configApp.imageGenerationRequest = imageGenerationRequest
                         activity?.startCreateImage()
                     }

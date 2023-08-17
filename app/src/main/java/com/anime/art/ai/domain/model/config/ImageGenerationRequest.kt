@@ -13,14 +13,15 @@ data class ImageGenerationRequest(
     var negativePrompt: String = "",
     var strength: Double = 0.2,
     var image: String = "",
-    var width: Int = 1024,
-    var height: Int = 1024,
+    var width: Int = 512,
+    var height: Int = 512,
     var steps: Int = 25,
     var guidance: Double = 7.5,
     var scheduler: String = "euler_a",
     var outputFormat: String = "jpeg",
     var artStyle : String = "AGG",
-    var ratio : String = "1:1"
+    var ratio : String = "1:1",
+    var extraPrompt : String =""
 )
 fun ImageGenerationRequest.toTextToImage() : TextToImage{
     return TextToImage(

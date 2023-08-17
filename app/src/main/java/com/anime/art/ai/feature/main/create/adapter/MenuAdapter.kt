@@ -35,7 +35,9 @@ class MenuAdapter @Inject constructor() :
         } else {
             com.intuit.sdp.R.dimen._2sdp
         }
+
         binding.root.margin(marginStartResId = marginStartResId, marginEndResId = marginEndResId)
+
         binding.viewTag.apply {
             if(position == selectedIndex) {
                 setBackgroundResource(R.drawable.stroke_gradient_yellow_25)

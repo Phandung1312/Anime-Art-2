@@ -14,6 +14,7 @@ import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.observeOnce
 import com.anime.art.ai.common.extension.startDetailGallery
+import com.anime.art.ai.common.extension.startIAP
 import com.anime.art.ai.common.getCurrentDay
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.GalleryDao
@@ -63,8 +64,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
 
     private fun initListener() {
        binding.premiumView.clicks {
-           val intent = Intent(activity , IAPActivity::class.java)
-           startActivity(intent)
+           requireActivity().startIAP()
        }
     }
 

@@ -6,11 +6,11 @@ import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
+import com.anime.art.ai.common.cropBase64Image
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.startFinalize
 import com.anime.art.ai.common.processAndSaveImage
@@ -41,7 +41,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -174,7 +173,11 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                 this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                                 this.setPageTransformer(ZoomInTransformer())
                                 this.adapter = previewAdapter.apply {
-                                    this.data = progress.responses.map { response -> response.copy(ratio = configApp.imageGenerationRequest.ratio) }
+                                    val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
+                                    val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
+                                    this.data = progress.responses.map { response ->
+                                        val base64Image = cropBase64Image(response.image, targetWidthRatio, targetHeightRatio)
+                                        response.copy(ratio = configApp.imageGenerationRequest.ratio, image = base64Image) }
                                 }
                             }
                             binding.viewPager.isVisible = true
@@ -194,7 +197,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
 
     private fun initData() {
         lifecycleScope.launch{
-             val imageGenerationRequest =  configApp.imageGenerationRequest ?: return@launch
+             val imageGenerationRequest =  configApp.imageGenerationRequest
             generateImage(imageGenerationRequest, isMakeVariations = false)
         }
     }
@@ -229,9 +232,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                     val loadingDialog = LoadingDialog()
                     loadingDialog.show(supportFragmentManager, null)
                     delay(500)
-                    val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
-                    val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
-                    processAndSaveImage(this@CreateImageActivity, image, targetWidthRatio/targetHeightRatio){ result ->
+                    processAndSaveImage(this@CreateImageActivity, image){ result ->
                         if(result){
                             loadingDialog.cancel()
                         }

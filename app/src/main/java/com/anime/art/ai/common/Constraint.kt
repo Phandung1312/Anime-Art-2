@@ -4,8 +4,7 @@ class Constraint {
 
     class Sinkin {
         companion object {
-            const val DEFAULT_NEGATIVE = "naked, nude, no clothes, upper body uncovered, breast uncovered, (worst quality, low quality, extra digits:1.4),artist name, nsfw, monochrome, fused face, poorly drawn face, cloned face," +
-                    " false body, false face, bad hands, poorly drawn hands, fused eyes, poorly drawn eyes, liquid eyes, false eyes, scary, ugly"
+            const val DEFAULT_NEGATIVE = "((NSFW)), naked, nude, no clothes, upper body uncovered, breast uncovered, (worst quality, low quality, extra digits:1.4),artist name, nsfw, monochrome, fused face, poorly drawn face, cloned face, false body, false face, bad hands, malformation, poorly drawn hands, fused eyes, poorly drawn eyes, liquid eyes, false eyes, scary, ugly"
             const val DEFAULT_MODEL = "anything_4_0"
 
             const val URL = "https://sinkin.ai/api/inference"
@@ -26,7 +25,7 @@ class Constraint {
     class AIGeneration{
         companion object{
             const val URL = "https://api.getimg.ai/v1/stable-diffusion/"
-            const val KEY = "key-3gs0N4PJiSJlLrfm1EgsyqKPE27X2VP7ejm9YfEireSlpCqRQdbLVzef6CQrz55JIDEt9QCNpLLRMjGwkTKukI9NRlXqaurD"
+            const val KEY = "key-4jYyfH0NZscFkeK2jiDpXhWbTLEJaVCfynYoi229azscsZd0r248afTrO0SeeZlcUCP42S6eBjYdbCck7xqk9iJ68M4GKHtM"
         }
     }
     companion object{

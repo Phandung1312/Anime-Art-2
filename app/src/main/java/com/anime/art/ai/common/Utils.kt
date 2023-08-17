@@ -7,14 +7,15 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
-import timber.log.Timber
+import com.basic.common.extension.convertImageToBase64
+import glimpse.core.crop
+import glimpse.core.findCenter
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.math.roundToInt
 
 
 fun saveBitmapToFile(context: Context, bitmap: Bitmap): File? {
@@ -67,43 +68,45 @@ fun saveBitmapToGallery(context: Context, bitmap: Bitmap, title: String) {
     }
 }
 // Hàm thay đổi kích thước của Bitmap
-fun resizeBitmap(bitmap: Bitmap, targetWidth: Int, targetHeight: Int): Bitmap {
-    return Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true)
-}
 fun decodeBase64ToBitmap(base64: String): Bitmap {
     val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
     return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
 }
 
 
-fun processAndSaveImage(context: Context, base64Image: String, targetRatio: Float, result : (Boolean) -> Unit) {
+fun processAndSaveImage(context: Context, base64Image: String, result : (Boolean) -> Unit) {
 
  try{
-     val originalBitmap = decodeBase64ToBitmap(base64Image)
-     val originalWidth = originalBitmap.width
-     val originalHeight = originalBitmap.height
-     val targetWidth: Float
-     val targetHeight: Float
-     if(targetRatio  > 1.0){
-         targetHeight = (originalWidth / targetRatio)
-         targetWidth = (targetHeight * targetRatio)
-     }
-     else{
-         targetWidth = (originalHeight * targetRatio)
-         targetHeight = (targetWidth / targetRatio)
-     }
-     val cropX = ((originalWidth - targetWidth) / 2).roundToInt()
-     val cropY = ((originalHeight - targetHeight) / 2).roundToInt()
-
-     val croppedBitmap = Bitmap.createBitmap(originalBitmap, cropX, cropY, targetWidth.roundToInt(), targetHeight.roundToInt())
-
-     saveBitmapToGallery(context, croppedBitmap, "image_${System.currentTimeMillis()}")
+     val bitmap = decodeBase64ToBitmap(base64Image)
+     saveBitmapToGallery(context, bitmap, "image_${System.currentTimeMillis()}")
      result.invoke(true)
  }
  catch (e : Exception){
      e.printStackTrace()
      result.invoke(false)
  }
+}
+
+fun cropBase64Image(base64Image : String, targetWidthRatio: Float, targetHeightRatio: Float) : String{
+    val originalBitmap = decodeBase64ToBitmap(base64Image)
+    val originalWidth = originalBitmap.width
+    val originalHeight = originalBitmap.height
+    val targetWidth: Int
+    val targetHeight: Int
+    val targetRatio : Int
+
+    val ratioWidth = (originalWidth / targetWidthRatio).toInt()
+    val ratioHeight = (originalHeight / targetHeightRatio).toInt()
+
+    targetRatio = if(ratioWidth > ratioHeight) ratioHeight else ratioWidth
+
+    targetWidth = (targetRatio * targetWidthRatio).toInt()
+    targetHeight = (targetRatio * targetHeightRatio).toInt()
+
+    val (cropX, cropY) = originalBitmap.findCenter()
+    val croppedBitmap = originalBitmap.crop(cropX, cropY, targetWidth, targetHeight)
+
+    return convertImageToBase64(croppedBitmap)
 }
 
 
