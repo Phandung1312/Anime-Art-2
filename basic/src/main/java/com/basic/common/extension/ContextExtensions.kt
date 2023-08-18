@@ -10,6 +10,7 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
@@ -179,4 +180,30 @@ fun Context.makeToast(@StringRes res: Int, duration: Int = Toast.LENGTH_SHORT) {
 
 fun Context.makeToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, text, duration).show()
+}
+ fun Context.saveImageToGallery(bitmap: Bitmap, result : (Boolean) -> Unit) {
+    try {
+        val fileName = "${System.currentTimeMillis()}.jpg"
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+            }
+        }
+
+        val resolver = contentResolver
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+        uri?.let {
+            val outputStream: OutputStream? = resolver.openOutputStream(uri)
+            outputStream?.use {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            }
+        }
+        result.invoke(true)
+    }
+    catch (e : Exception){
+        result.invoke(false)
+    }
 }

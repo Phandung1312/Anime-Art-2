@@ -13,7 +13,7 @@ class ConfigApp @Inject constructor(
 
     var versionGallery = prefs.versionGallery.get()
     var imageGenerationRequest: ImageGenerationRequest = ImageGenerationRequest()
-    var imageBase64 : String = ""
+    var url : String = ""
     var tabIndex = 0
     var localPrompt = ""
 

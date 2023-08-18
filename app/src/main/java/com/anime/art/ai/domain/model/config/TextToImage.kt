@@ -1,36 +1,29 @@
 package com.anime.art.ai.domain.model.config
 
-import android.support.annotation.Keep
-import com.google.gson.annotations.Expose
+
 import com.google.gson.annotations.SerializedName
 
-@Keep
 data class TextToImage(
-    @SerializedName("model")
-    @Expose
-    var model: String = "absolute-reality-v1-6",
-    @SerializedName("prompt")
-    @Expose
-    var prompt: String = "",
-    @SerializedName("negative_prompt")
-    @Expose
-    var negativePrompt: String = "",
-    @SerializedName("width")
-    @Expose
-    var width: Int = 1024,
+    @SerializedName("enhance_prompt")
+    val enhancePrompt: String? = "yes",
+    @SerializedName("guidance_scale")
+    val guidanceScale: Double? = null,
     @SerializedName("height")
-    @Expose
-    var height: Int = 1024,
-    @SerializedName("steps")
-    @Expose
-    var steps: Int = 25,
-    @SerializedName("guidance")
-    @Expose
-    var guidance: Double = 7.5,
-    @SerializedName("sheduler")
-    @Expose
-    var scheduler: String = "dpmsolver++",
-    @SerializedName("output_format")
-    @Expose
-    var outputFormat: String = "jpeg",
+    val height: String? = null,
+    @SerializedName("key")
+    val key: String? = null,
+    @SerializedName("model_id")
+    val modelId: String? = null,
+    @SerializedName("negative_prompt")
+    val negativePrompt: String? = null,
+    @SerializedName("num_inference_steps")
+    val numInferenceSteps: String? = null,
+    @SerializedName("prompt")
+    val prompt: String? = null,
+    @SerializedName("samples")
+    val samples: String? = null,
+    @SerializedName("scheduler")
+    val scheduler: String? = null,
+    @SerializedName("width")
+    val width: String? = null
 )

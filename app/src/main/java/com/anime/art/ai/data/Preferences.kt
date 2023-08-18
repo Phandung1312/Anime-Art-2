@@ -24,4 +24,5 @@ class Preferences @Inject constructor(
     val consecutiveSeries = rxPrefs.getInteger("consecutiveSeries", 0)
     val isReceived = rxPrefs.getBoolean("isReceived", false)
     val isSynced = rxPrefs.getBoolean("isSynced", false)
+    val isFirstInputImage = rxPrefs.getBoolean("isFirstInputImage", true)
 }

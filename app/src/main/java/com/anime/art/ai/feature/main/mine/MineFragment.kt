@@ -123,7 +123,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                     negativePrompt = creator.negative
                     artStyle = creator.artStyle
                 }
-                configApp.imageBase64 = creator.image
+                configApp.url = creator.image
                 configApp.imageGenerationRequest.ratio = creator.ratio
                 activity?.startFinalize()
             }

@@ -89,9 +89,9 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         }
         binding.finalizeView.clicks {
             if(binding.viewPager.currentItem == 0 || preferences.isPremium.get()){
-                configApp.imageBase64 = previewAdapter.data[binding.viewPager.currentItem].image
+                configApp.url = previewAdapter.data[binding.viewPager.currentItem].url
                 configApp.imageGenerationRequest.let { image ->
-                    val creator = Creator(image = configApp.imageBase64,
+                    val creator = Creator(image = configApp.url,
                         prompt = image.prompt,
                         negative = image.negativePrompt,
                         artStyle = image.artStyle,
@@ -173,11 +173,8 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                 this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                                 this.setPageTransformer(ZoomInTransformer())
                                 this.adapter = previewAdapter.apply {
-                                    val targetWidthRatio = configApp.imageGenerationRequest.ratio.split(":")[0].toFloat()
-                                    val targetHeightRatio = configApp.imageGenerationRequest.ratio.split(":")[1].toFloat()
-                                    this.data = progress.responses.map { response ->
-                                        val base64Image = cropBase64Image(response.image, targetWidthRatio, targetHeightRatio)
-                                        response.copy(ratio = configApp.imageGenerationRequest.ratio, image = base64Image) }
+
+                                    this.data = progress.responses
                                 }
                             }
                             binding.viewPager.isVisible = true
@@ -220,7 +217,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             .zoomClicks
             .autoDispose(scope())
             .subscribe { image ->
-                configApp.imageBase64 = image
+                configApp.url = image
                 startActivity(Intent(this, EnlargeImageActivity::class.java))
                 tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
             }

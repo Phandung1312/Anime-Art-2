@@ -7,62 +7,64 @@ import java.io.Serializable
 
 @Keep
 data class ImageGenerationRequest(
-    var model: String = "dark-sushi-mix-v2-25",
+    var model: String = "dark-sushi-25d",
     var controlNet: String = "",
     var prompt: String = "",
     var negativePrompt: String = "",
     var strength: Double = 0.2,
     var image: String = "",
-    var width: Int = 512,
-    var height: Int = 512,
+    var width: Int = 1024,
+    var height: Int = 1024,
     var steps: Int = 25,
     var guidance: Double = 7.5,
-    var scheduler: String = "euler_a",
-    var outputFormat: String = "jpeg",
-    var artStyle : String = "AGG",
+    var scheduler: String = "UniPCMultistepScheduler",
+    var artStyle : String = "Dark Shushi",
     var ratio : String = "1:1",
     var extraPrompt : String =""
 )
 fun ImageGenerationRequest.toTextToImage() : TextToImage{
     return TextToImage(
-        model = this.model,
+        modelId = this.model,
         prompt = this.prompt,
         negativePrompt = this.negativePrompt,
-        width = this.width,
-        height = this.height,
-        steps = this.steps,
-        guidance = this.guidance,
+        width = this.width.toString(),
+        height = this.height.toString(),
+        numInferenceSteps = this.steps.toString(),
+        guidanceScale = this.guidance,
         scheduler = this.scheduler,
-        outputFormat = this.outputFormat
+        samples = "4"
     )
 }
 
 fun ImageGenerationRequest.toImageToImage() : ImageToImage{
     return ImageToImage(
-        model = this.model,
+        modelId = this.model,
         prompt = this.prompt,
         negativePrompt = this.negativePrompt,
-        image = this.image,
+        initImage = this.image,
+        width = this.width.toString(),
+        height = this.height.toString(),
         strength = this.strength,
-        steps = this.steps,
-        guidance = this.guidance,
+        numInferenceSteps = this.steps.toString(),
+        guidanceScale = this.guidance,
         scheduler = this.scheduler,
-        outputFormat = this.outputFormat
+        samples = "4"
     )
 }
 
-fun ImageGenerationRequest.toControlNet() : ControlNetImage{
-    return ControlNetImage(
-        model = this.model,
-        controlNet = this.controlNet,
+fun ImageGenerationRequest.toControlNet() : ControlNetToImage{
+    return ControlNetToImage(
+        modelId = this.model,
+        controlnetModel = this.controlNet,
+        controlnetType = this.controlNet,
         prompt = this.prompt,
         negativePrompt = this.negativePrompt,
-        width = this.width,
-        height = this.height,
-        image = this.image,
-        steps = this.steps,
-        guidance = this.guidance,
+        width = this.width.toString(),
+        height = this.height.toString(),
+        initImage = this.image,
+        numInferenceSteps = this.steps.toString(),
+        guidanceScale = this.guidance,
         scheduler = this.scheduler,
-        outputFormat = this.outputFormat
+        samples = "4"
     )
 }

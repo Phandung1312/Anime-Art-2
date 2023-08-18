@@ -28,6 +28,7 @@ import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveImageToGallery
 import com.basic.common.extension.transparent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -120,37 +121,11 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    saveImageToGallery(resource, result)
+                    this@GalleryActivity.saveImageToGallery(resource, result)
                 }
             })
     }
 
-    private fun saveImageToGallery(bitmap: Bitmap, result : (Boolean) -> Unit) {
-        try {
-            val fileName = "${System.currentTimeMillis()}.jpg"
-            val contentValues = ContentValues().apply {
-                put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-                }
-            }
-
-            val resolver = contentResolver
-            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-
-            uri?.let {
-                val outputStream: OutputStream? = resolver.openOutputStream(uri)
-                outputStream?.use {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-                }
-            }
-            result.invoke(true)
-        }
-        catch (e : Exception){
-            result.invoke(false)
-        }
-    }
 
     private fun startActivityExternal(intent: Intent) {
         if (intent.resolveActivity(packageManager) != null) {

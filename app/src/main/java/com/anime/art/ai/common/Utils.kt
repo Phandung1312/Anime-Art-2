@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
@@ -108,6 +109,8 @@ fun cropBase64Image(base64Image : String, targetWidthRatio: Float, targetHeightR
 
     return convertImageToBase64(croppedBitmap)
 }
+
+
 
 
 

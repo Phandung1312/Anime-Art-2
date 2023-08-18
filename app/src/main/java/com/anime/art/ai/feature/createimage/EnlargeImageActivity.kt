@@ -46,10 +46,8 @@ class EnlargeImageActivity : LsActivity<ActivityEnlargeImageBinding>(ActivityEnl
             this.setDimensionRatio(binding.iv.id, configApp.imageGenerationRequest.ratio)
             this.applyTo(binding.rootView)
         }
-        val decodedBytes: ByteArray = Base64.decode(configApp.imageBase64, Base64.DEFAULT)
-        val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
         Glide.with(binding.root.context)
-            .load(dataUrl)
+            .load(configApp.url)
             .error(R.drawable.place_holder_image)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.iv)

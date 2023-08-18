@@ -5,7 +5,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import com.anime.art.ai.R
 import com.anime.art.ai.databinding.ItemPreviewInCreateImageBinding
-import com.anime.art.ai.domain.model.response.ImageResponse
+import com.anime.art.ai.domain.model.response.ImagePreview
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
 import com.bumptech.glide.Glide
@@ -14,7 +14,7 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
-class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreviewInCreateImageBinding>(ItemPreviewInCreateImageBinding::inflate) {
+class PreviewAdapter @Inject constructor(): LsAdapter<ImagePreview, ItemPreviewInCreateImageBinding>(ItemPreviewInCreateImageBinding::inflate) {
     val unlockClicks : Subject<Unit> = PublishSubject.create()
     val zoomClicks : Subject<String> = PublishSubject.create()
     val saveClicks : Subject<String> = PublishSubject.create()
@@ -33,16 +33,14 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
             value.takeIf { it != -1 }?.let { notifyItemChanged(it) }
             field = value
         }
-    override fun bindItem(item: ImageResponse, binding: ItemPreviewInCreateImageBinding, position: Int) {
+    override fun bindItem(item: ImagePreview, binding: ItemPreviewInCreateImageBinding, position: Int) {
         ConstraintSet().apply {
             this.clone(binding.rootView)
             this.setDimensionRatio(binding.cardView.id, item.ratio)
             this.applyTo(binding.rootView)
         }
-        val decodedBytes: ByteArray = Base64.decode(item.image, Base64.DEFAULT)
-        val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
         Glide.with(binding.root.context)
-            .load(dataUrl)
+            .load(item.url)
             .error(R.drawable.place_holder_image)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.preview)
@@ -61,10 +59,10 @@ class PreviewAdapter @Inject constructor(): LsAdapter<ImageResponse, ItemPreview
             unlockClicks.onNext(Unit)
         }
         binding.saveView.clicks {
-            saveClicks.onNext(item.image)
+            saveClicks.onNext(item.url)
         }
         binding.zoomView.clicks {
-            zoomClicks.onNext(item.image)
+            zoomClicks.onNext(item.url)
         }
     }
 

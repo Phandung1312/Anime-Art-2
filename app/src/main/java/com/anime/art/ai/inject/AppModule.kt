@@ -166,16 +166,16 @@ class AppModule {
         }
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(object  : Interceptor{
-                override fun intercept(chain: Interceptor.Chain): Response {
-                    val originalRequest = chain.request()
-                    val authenticatedRequest = originalRequest.newBuilder()
-                        .header("Authorization", "Bearer ${Constraint.AIGeneration.KEY}")
-                        .build()
-                    return chain.proceed(authenticatedRequest)
-                }
-
-            })
+//            .addInterceptor(object  : Interceptor{
+//                override fun intercept(chain: Interceptor.Chain): Response {
+//                    val originalRequest = chain.request()
+//                    val authenticatedRequest = originalRequest.newBuilder()
+//                        .header("Authorization", "Bearer ${Constraint.AIGeneration.KEY}")
+//                        .build()
+//                    return chain.proceed(authenticatedRequest)
+//                }
+//
+//            })
             .addInterceptor { chain ->
                 val requestBuilder = chain
                     .request()

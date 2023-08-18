@@ -3,12 +3,17 @@ package com.anime.art.ai.feature.finalize
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Base64
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
@@ -22,13 +27,18 @@ import com.anime.art.ai.databinding.ActivityFinalizeBinding
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveImageToGallery
 import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.transparent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.OutputStream
 import javax.inject.Inject
 
 
@@ -57,7 +67,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             saveImage()
         }
         binding.share.clicks {
-            val bitmap = decodeBase64ToBitmap(configApp.imageBase64)
+            val bitmap = decodeBase64ToBitmap(configApp.url)
             shareImage(bitmap)
         }
         binding.instagram.clicks {
@@ -89,15 +99,26 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             val loadingDialog = LoadingDialog()
             loadingDialog.show(supportFragmentManager, null)
             delay(500)
-               processAndSaveImage(this@FinalizeActivity, configApp.imageBase64){ result ->
-                   if(result){
-                       loadingDialog.cancel()
-                   }
-                   else{
-                       loadingDialog.dismiss()
-                       makeToast("Save failed")
-                   }
-               }
+            Glide.with(this@FinalizeActivity)
+                .asBitmap()
+                .load(configApp.url)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        this@FinalizeActivity.saveImageToGallery(resource){result ->
+                            if(result){
+                                loadingDialog.cancel()
+                            }
+                            else{
+                                loadingDialog.dismiss()
+                                makeToast("Save failed")
+                            }
+                        }
+                    }
+                })
+
 
         }
     }
@@ -107,11 +128,9 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             this.setDimensionRatio(binding.previewView.id, configApp.imageGenerationRequest.ratio)
             this.applyTo(binding.rootView)
         }
-        saveStringToFile("image.txt", configApp.imageBase64)
-        val decodedBytes: ByteArray = Base64.decode(configApp.imageBase64, Base64.DEFAULT)
-        val dataUrl = "data:image/jpeg;base64," + Base64.encodeToString(decodedBytes, Base64.DEFAULT)
+
         Glide.with(binding.root.context)
-            .load(dataUrl)
+            .load(configApp.url)
             .error(R.drawable.place_holder_image)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.iv)
@@ -136,7 +155,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
         }
     }
     private fun shareImageOnApp( appPackage : String, appName : String){
-        val bitmap = decodeBase64ToBitmap(configApp.imageBase64)
+        val bitmap = binding.iv.drawable.toBitmap()
         try {
             val imageFile = saveBitmapToFile(this, bitmap)
             if(imageFile != null && imageFile.exists()){
@@ -151,6 +170,5 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             makeToast("$appName is not installed")
         }
     }
-
 
 }

@@ -152,7 +152,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             rvInputImage.adapter = inputImageAdapter
         }
-        binding.qualityPrompt.isChecked = false
     }
 
     private fun initData(){
@@ -197,7 +196,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         binding.advancedSetting.clicks(withAnim = false) {
             binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_down else R.drawable.arrow_up)
 
-//            TransitionManager.beginDelayedTransition(binding.advancedSettingView)
             isShowSetting = !isShowSetting
             binding.advancedSettingView.apply {
                 isVisible = isShowSetting
@@ -418,6 +416,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         enterPromptResult.launch(intent)
     }
     private fun openGallery(){
+//        if(preferences.isFirstInputImage.get()){
+//            val bottomSheet = InputImageBottomSheet()
+//            bottomSheet.show(parentFragmentManager, null)
+//        }
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             type ="image/*"
         }
