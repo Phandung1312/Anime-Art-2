@@ -17,6 +17,13 @@ enum class Ratio(val display: String, val ratio: String, val width: String, val 
     Ratio3x4(display = "3x4", ratio = "3:4", width = "384", height = "512", aspectRatio = 3f / 4f),
     Ratio4x3(display = "4x3", ratio = "4:3", width = "512", height = "384", aspectRatio = 4f / 3f),
 }
+enum class SizeOfImage(val size : String, val describeImage : String, val width: String, val height: String, val aspectRatio: Float ){
+    Ratio1x1(size = "1:1", describeImage = "size_1_1",width = "512", height = "512", aspectRatio = 1f / 1f),
+    Ratio9x16(size = "9:16", describeImage = "size_9_16",  width = "324", height = "576", aspectRatio = 9f / 16f),
+    Ratio16x9(size = "16:9", describeImage = "size_16_9",  width = "576", height = "324", aspectRatio = 16f / 9f),
+    Ratio2x3(size = "2:3", describeImage = "size_2_3", width = "340", height = "510", aspectRatio = 2f / 3f),
+    Ratio3x2(size = "3:2", describeImage = "size_3_2", width = "510", height = "340", aspectRatio = 3f / 2f)
+}
 
 enum class NumberOfImages(var display: String, val number: Int){
     NumberOfImages1(display = "1", number = 1),
@@ -50,13 +57,6 @@ enum class Character(val characterName : String,val  promptText : String){
             "extremely detailed CG unity 8k wallpaper,highly detailed, sharp focus,(backlight:1.3),rim light , art by greg rulkowski,award winning photograph,gothic,UE render"),
 }
 
-enum class SizeOfImage(val size : String, val describeImage : String, val realSize : String ){
-    OneOne(size = "1:1", describeImage = "size_1_1", realSize = "1024:1024"),
-    NineSixteen(size = "9:16", describeImage = "size_9_16", realSize = "1024:576"),
-    SixteenNine(size = "16:9", describeImage = "size_16_9", realSize = "576:1024"),
-    TwoThree(size = "2:3", describeImage = "size_2_3", realSize = "768:512"),
-    ThreeTwo(size = "3:2", describeImage = "size_3_2", realSize = "512:768")
-}
 
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String, val extraPrompt : String){
     DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-mix-v2-25", extraPrompt = ", High quality images"),

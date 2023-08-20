@@ -4,13 +4,13 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
 import com.basic.common.extension.convertImageToBase64
 import glimpse.core.crop
 import glimpse.core.findCenter
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -108,6 +108,24 @@ fun cropBase64Image(base64Image : String, targetWidthRatio: Float, targetHeightR
     val croppedBitmap = originalBitmap.crop(cropX, cropY, targetWidth, targetHeight)
 
     return convertImageToBase64(croppedBitmap)
+}
+
+fun resizeBase64Image(base64Image: String, targetWidth: Int, targetHeight: Int): String {
+    // Decode base64 string to byte array
+    val imageBytes = Base64.decode(base64Image, Base64.DEFAULT)
+
+    // Decode byte array to bitmap
+    val originalBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+    // Resize the bitmap to the target dimensions
+    val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, targetWidth, targetHeight, false)
+
+    // Convert the resized bitmap back to base64
+    val outputStream = ByteArrayOutputStream()
+    resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+    val resizedImageBytes = outputStream.toByteArray()
+
+    return Base64.encodeToString(resizedImageBytes, Base64.DEFAULT)
 }
 
 

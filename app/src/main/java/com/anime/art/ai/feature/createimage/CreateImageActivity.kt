@@ -2,6 +2,7 @@ package com.anime.art.ai.feature.createimage
 
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
@@ -32,8 +33,12 @@ import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.saveImageToGallery
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.card.MaterialCardView
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
@@ -224,20 +229,32 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         previewAdapter
             .saveClicks
             .autoDispose(scope())
-            .subscribe{image ->
+            .subscribe{ image ->
                 lifecycleScope.launch {
                     val loadingDialog = LoadingDialog()
                     loadingDialog.show(supportFragmentManager, null)
                     delay(500)
-                    processAndSaveImage(this@CreateImageActivity, image){ result ->
-                        if(result){
-                            loadingDialog.cancel()
-                        }
-                        else{
-                            loadingDialog.dismiss()
-                            makeToast("Save failed")
-                        }
-                    }
+                    Glide.with(this@CreateImageActivity)
+                        .asBitmap()
+                        .load(image)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(
+                                resource: Bitmap,
+                                transition: Transition<in Bitmap>?
+                            ) {
+                                this@CreateImageActivity.saveImageToGallery(resource){result ->
+                                    if(result){
+                                        loadingDialog.cancel()
+                                    }
+                                    else{
+                                        loadingDialog.dismiss()
+                                        makeToast("Save failed")
+                                    }
+                                }
+                            }
+                        })
+
+
                 }
 
             }

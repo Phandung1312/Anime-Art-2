@@ -24,6 +24,7 @@ import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreateImage
 import com.anime.art.ai.common.extension.startIAP
 import com.anime.art.ai.common.removeWhitespace
+import com.anime.art.ai.common.resizeBase64Image
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.PromptDao
 import com.anime.art.ai.databinding.FragmentCreateBinding
@@ -103,7 +104,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private var isEnableCreate : Subject<Boolean> = BehaviorSubject.createDefault(false)
     private var imageGenerationRequest : ImageGenerationRequest = ImageGenerationRequest()
 
-    private var isKeyboardVisible = false
+    private var qualityImage = 2
     override fun onViewCreated() {
         initView()
         listenerView()
@@ -252,13 +253,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             imageGenerationRequest.negativePrompt = text.toString()
         }
         binding.qualityPrompt.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                imageGenerationRequest.height *= 2
-                imageGenerationRequest.width *= 2
-            }
-            else{
-                imageGenerationRequest.height /= 2
-                imageGenerationRequest.width /= 2
+            qualityImage = if(isChecked){
+                2
+            } else{
+                1
             }
         }
         binding.viewPremiumNegative.clicks(withAnim = false) {
@@ -475,12 +473,12 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         negativePrompt?.let {
             binding.edNegativePrompt.setText(it)
         }
-        sizeOfImageAdapter.data.forEach { sizeOfImage ->
-            if (TextUtils.equals(sizeOfImage.realSize, ratio)) {
-                sizeOfImageAdapter.selectedIndex = sizeOfImageAdapter.data.indexOf(sizeOfImage)
-                sizeOfImageAdapter.clicks.onNext(sizeOfImage)
-            }
-        }
+//        sizeOfImageAdapter.data.forEach { sizeOfImage ->
+//            if (TextUtils.equals(sizeOfImage.realSize, ratio)) {
+//                sizeOfImageAdapter.selectedIndex = sizeOfImageAdapter.data.indexOf(sizeOfImage)
+//                sizeOfImageAdapter.clicks.onNext(sizeOfImage)
+//            }
+//        }
     }
 
     private val getPromptFromHistoryResult =
@@ -519,6 +517,13 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
         }catch (e : Exception){
             Timber.e(e)
+        }
+        val targetWidthRatio = imageGenerationRequest.ratio.split(":")[0].toInt()
+        val targetHeightRatio = imageGenerationRequest.ratio.split(":")[1].toInt()
+        imageGenerationRequest.width = targetWidthRatio * Constraint.AIGeneration.DEFAULT_SIZE * qualityImage
+        imageGenerationRequest.height = targetHeightRatio * Constraint.AIGeneration.DEFAULT_SIZE * qualityImage
+        imageGenerationRequest.apply {
+            image = resizeBase64Image(image, width, height)
         }
         if (preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST) {
             requireContext().makeToast("you don't have enough credit")

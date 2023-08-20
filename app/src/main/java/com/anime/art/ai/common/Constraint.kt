@@ -28,6 +28,8 @@ class Constraint {
             const val KEY1 = "2sqt7csmnbkd5p"
             const val KEY2 = "iv43mluk5t0bez"
             const val KEY3 = "b6j7boydonsjmy"
+
+            const val DEFAULT_SIZE = 512
         }
     }
     companion object{

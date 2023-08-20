@@ -67,7 +67,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
             saveImage()
         }
         binding.share.clicks {
-            val bitmap = decodeBase64ToBitmap(configApp.url)
+            val bitmap = binding.iv.drawable.toBitmap()
             shareImage(bitmap)
         }
         binding.instagram.clicks {
