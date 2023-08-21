@@ -36,20 +36,20 @@ class AIApiRepositoryImpl @Inject constructor(
         progress(AIApiRepository.APIResponse.Loading)
 
         val firstResponse =  callApi(imageGenerationRequest, Constraint.AIGeneration.KEY2)
-        var startTime = System.currentTimeMillis()
-        Timber.e("CheckCall startTime = ${startTime}")
+        var startTime : Float = System.currentTimeMillis().toFloat()
+        Timber.e("CheckCall startTime = $startTime")
         val firstResponseSuccess = tryOrNull { Gson().fromJson(firstResponse.toString(), ImageResponseSuccess::class.java) }
         val firstResponseProcessing = tryOrNull { Gson().fromJson(firstResponse.toString(), ImageResponseProcessing::class.java) }
-            firstResponseSuccess?.let {
+        firstResponseSuccess?.let {
                 Timber.e("CheckCall 1 success")
                 val imagePreviewList = it.output.map { response -> ImagePreview(url = response, ratio = "${it.meta.w}:${it.meta.h}") }
                 progress.invoke(AIApiRepository.APIResponse.Success(imagePreviewList))
                 return
             }
         firstResponseProcessing?.let { firstProcessing ->
-            var endTime  = 0L
+            var endTime  = 0f
             if(firstProcessing.eta > 60f){
-                startTime = System.currentTimeMillis()
+                startTime = System.currentTimeMillis().toFloat()
                 val secondResponse = callApi(imageGenerationRequest, Constraint.AIGeneration.KEY3)
                 val secondResponseSuccess = tryOrNull { Gson().fromJson(secondResponse.toString(), ImageResponseSuccess::class.java) }
                 val secondResponseProcessing = tryOrNull { Gson().fromJson(secondResponse.toString(), ImageResponseProcessing::class.java) }
@@ -61,29 +61,31 @@ class AIApiRepositoryImpl @Inject constructor(
                 }
 
                 secondResponseProcessing?.let { secondProcessing ->
-                    endTime  = System.currentTimeMillis()
-                    val waitTime = (endTime - startTime) / 1000
+                    endTime  = System.currentTimeMillis().toFloat()
+                    val waitTime = (endTime - startTime) / 1000f
                     Timber.e("CheckCall waitTime = $waitTime")
                     if(secondProcessing.eta > firstProcessing.eta - waitTime){
                         Timber.e("CheckCall 2 > 1 processing")
+                        delay(((firstProcessing.eta - waitTime) * 1000).toLong())
                         val imagePreviewList = firstProcessing.imageLinks.map { response -> ImagePreview(url = response, ratio = "${firstProcessing.meta.w}:${firstProcessing.meta.h}") }
                         progress.invoke(AIApiRepository.APIResponse.Success(imagePreviewList))
                         return
                     }
                     Timber.e("CheckCall 1 > 2 processing")
+                    delay(((secondProcessing.eta- waitTime) * 1000).toLong())
                     val imagePreviewList = secondProcessing.imageLinks.map { response -> ImagePreview(url = response, ratio = "${secondProcessing.meta.w}:${secondProcessing.meta.h}") }
                     progress.invoke(AIApiRepository.APIResponse.Success(imagePreviewList))
                     return
                 }
                 Timber.e("CheckCall Failed 2 in 1")
             }
-            endTime = System.currentTimeMillis()
-            Timber.e("CheckCall endTime = ${endTime}")
-            val waitTime = (endTime - startTime) / 1000
+            endTime = System.currentTimeMillis().toFloat()
+            Timber.e("CheckCall endTime = $endTime")
+            val waitTime = (endTime - startTime) / 1000f
             Timber.e("CheckCall waitTime = $waitTime")
-            Timber.e("CheckCall eta = ${firstProcessing.eta.toLong()}")
+            Timber.e("CheckCall eta = ${firstProcessing.eta * 1000}")
             Timber.e("CheckCall 1 processing")
-            delay((firstProcessing.eta.toLong() - waitTime) * 1000)
+            delay(((firstProcessing.eta - waitTime) * 1000).toLong() + 500L)
             val imagePreviewList = firstProcessing.imageLinks.map { response -> ImagePreview(url = response, ratio = "${firstProcessing.meta.w}:${firstProcessing.meta.h}") }
             progress.invoke(AIApiRepository.APIResponse.Success(imagePreviewList))
             return
@@ -99,10 +101,9 @@ class AIApiRepositoryImpl @Inject constructor(
             progress.invoke(AIApiRepository.APIResponse.Success(imagePreviewList))
             return
         }
-
         secondResponseProcessing?.let {
             Timber.e("CheckCall 2 processing when 1 failed")
-            delay(it.eta.toLong() * 1000)
+            delay((it.eta * 1000).toLong() + 500L)
             val imagePreviewList = it.imageLinks.map { response -> ImagePreview(url = response, ratio = "${it.meta.w}:${it.meta.h}") }
             progress.invoke(AIApiRepository.APIResponse.Success(imagePreviewList))
             return

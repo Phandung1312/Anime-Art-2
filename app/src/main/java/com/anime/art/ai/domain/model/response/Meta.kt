@@ -43,7 +43,7 @@ data class Meta(
     @SerializedName("scheduler")
     val scheduler: String = "",
     @SerializedName("seed")
-    val seed: Int = 0,
+    val seed: Long = 0L,
     @SerializedName("steps")
     val steps: Int = 0,
     @SerializedName("strength")

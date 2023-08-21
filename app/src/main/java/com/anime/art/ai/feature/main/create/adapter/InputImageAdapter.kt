@@ -26,9 +26,6 @@ class InputImageAdapter @Inject constructor() : LsAdapter<InputImage, ItemInputI
 
             field = value
         }
-    init {
-        selectedIndex = 0
-    }
     override fun bindItem(item: InputImage, binding: ItemInputImageBinding, position: Int) {
 
         val layoutParams = binding.root.layoutParams as ViewGroup.MarginLayoutParams

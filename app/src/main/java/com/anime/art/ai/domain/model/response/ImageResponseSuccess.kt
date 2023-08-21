@@ -7,7 +7,7 @@ data class ImageResponseSuccess(
     @SerializedName("generationTime")
     val generationTime: Double = 0.0,
     @SerializedName("id")
-    val id: Any? = Any(),
+    val id: Int? = null,
     @SerializedName("meta")
     val meta: Meta = Meta(),
     @SerializedName("nsfw_content_detected")

@@ -102,7 +102,7 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
             openGmailCompose(galleryId)
         }
         binding.viewDislike.clicks { dislikeClicks() }
-        binding.viewTry.clicks {
+        binding.viewTry.clicks(withAnim = false) {
             val gallery = previewAdapter.data[binding.viewPager.currentItem]
             intent.putExtra(CreateFragment.PROMPT_EXTRA, gallery.prompt)
             intent.putExtra(CreateFragment.RATIO_EXTRA, gallery.ratio)

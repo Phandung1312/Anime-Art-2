@@ -115,15 +115,12 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             }
         }
         binding.variationsView.clicks {
-            lifecycleScope.launch{
-                val imageGenerationRequest =  configApp.imageGenerationRequest
                 if(isNetworkAvailable()){
-                    generateImage(imageGenerationRequest, isMakeVariations = true)
+                    generateImage(isMakeVariations = true)
                 }
                 else{
                    makeToast("Please check your connect internet !")
                 }
-            }
         }
         onBackPressedDispatcher.addCallback {
             onGiveUp()
@@ -143,8 +140,8 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         super.onResume()
     }
 
-    private suspend fun generateImage(imageGenerationRequest : ImageGenerationRequest, isMakeVariations : Boolean){
-
+    private fun generateImage(isMakeVariations : Boolean){
+        val imageGenerationRequest =  configApp.imageGenerationRequest
         lifecycleScope.launch(Dispatchers.IO) {
             aiApiRepository.generateImage(imageGenerationRequest){ progress ->
                 launch(Dispatchers.Main) {
@@ -168,7 +165,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                         }
                                         else{
                                             launch(Dispatchers.Main) {
-                                                makeToast("An error has occurred")
+                                                makeToast("Update credit failed, please try again")
                                             }
                                         }
                                     }
@@ -187,9 +184,14 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                         }
                         is AIApiRepository.APIResponse.Error ->{
                             binding.loadingLayout.isVisible = false
-                            makeToast("An error has occurred")
+                            makeToast("An error has occurred, please try again")
+                            if(! isMakeVariations){
                                 delay(100)
                                 back()
+                            }
+                            else{
+                                setCardViewClickable(clickable = true,binding.variationsView, binding.finalizeView )
+                            }
                         }
                     }
                 }
@@ -198,10 +200,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     }
 
     private fun initData() {
-        lifecycleScope.launch{
-             val imageGenerationRequest =  configApp.imageGenerationRequest
-            generateImage(imageGenerationRequest, isMakeVariations = false)
-        }
+        generateImage(isMakeVariations = false)
     }
     private fun setCardViewClickable(clickable : Boolean,vararg cardViews: MaterialCardView){
         cardViews.forEach {view ->

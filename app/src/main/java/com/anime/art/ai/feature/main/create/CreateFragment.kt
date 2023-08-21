@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
+import com.anime.art.ai.common.cropBase64Image
 import com.anime.art.ai.common.extension.enableScrollText
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.startCreateImage
@@ -174,10 +175,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private fun initInputImageData(){
         inputImages  = arrayListOf(
             InputImage(R.drawable.input_image, null),
-            InputImage(R.drawable.sample_input_image_1, 0.5f),
-            InputImage(R.drawable.sample_input_image_2, 0.5f),
-            InputImage(R.drawable.sample_input_image_3, 0.5f),
-            InputImage(R.drawable.sample_input_image_4, 0.5f),
+            InputImage(R.drawable.sample_input_image_1, 0.6f),
+            InputImage(R.drawable.sample_input_image_2, 0.6f),
+            InputImage(R.drawable.sample_input_image_3, 0.6f),
+            InputImage(R.drawable.sample_input_image_4, 0.6f),
         )
         inputImageAdapter.data = inputImages
     }
@@ -310,7 +311,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     if(selectedIndex != 0) inputImageAdapter.selectedIndex = selectedIndex
                     when(selectedIndex ){
                         0 ->{
-                            inputImageAdapter.selectedIndex = -1
                             openGallery()
                         }
                         else ->{
@@ -509,21 +509,30 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                         ""
                     }
                 }
-                imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
-                imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
-                requireContext().saveStringToFile("image.txt", imageGenerationRequest.image)
+                imageGenerationRequest.apply {
+                    val targetWidthRatio = imageGenerationRequest.ratio.split(":")[0].toFloat()
+                    val targetHeightRatio = imageGenerationRequest.ratio.split(":")[1].toFloat()
+                    imageGenerationRequest.image = cropBase64Image(imageGenerationRequest.image, targetWidthRatio, targetHeightRatio)
+                    imageGenerationRequest.image = removeWhitespace(imageGenerationRequest.image)
+                    imageGenerationRequest.strength = it.weight?.toDouble() ?: 0.5
+                }
             } ?: kotlin.run {
                 imageGenerationRequest.image = ""
             }
         }catch (e : Exception){
             Timber.e(e)
         }
-        val targetWidthRatio = imageGenerationRequest.ratio.split(":")[0].toInt()
-        val targetHeightRatio = imageGenerationRequest.ratio.split(":")[1].toInt()
-        imageGenerationRequest.width = targetWidthRatio * Constraint.AIGeneration.DEFAULT_SIZE * qualityImage
-        imageGenerationRequest.height = targetHeightRatio * Constraint.AIGeneration.DEFAULT_SIZE * qualityImage
-        imageGenerationRequest.apply {
-            image = resizeBase64Image(image, width, height)
+        SizeOfImage.values().forEach { imageSize ->
+            if(TextUtils.equals(imageGenerationRequest.ratio, imageSize.size)){
+                imageGenerationRequest.width = imageSize.width.toInt() * qualityImage
+                imageGenerationRequest.height = imageSize.height.toInt() * qualityImage
+            }
+        }
+        if(imageGenerationRequest.image.isNotEmpty()){
+            imageGenerationRequest.apply {
+                image = resizeBase64Image(image, width, height)
+                requireContext().saveStringToFile("image.txt", image)
+            }
         }
         if (preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST) {
             requireContext().makeToast("you don't have enough credit")
@@ -542,7 +551,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     }
                     launch(Dispatchers.Main) {
                         imageGenerationRequest.apply {
-                            this.prompt = prompt +  extraPrompt
+                            this.prompt =extraPrompt + prompt
                         }
                         configApp.imageGenerationRequest = imageGenerationRequest
                         activity?.startCreateImage()
@@ -560,7 +569,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         if(result.resultCode == Activity.RESULT_OK){
             result.data?.data?.let {
                 lifecycleScope.launch(Dispatchers.Main){
-                    val inputImage = InputImage(it, 0.5f)
+                    val inputImage = InputImage(it, 0.6f)
                     inputImages.add(1, inputImage)
                      inputImageAdapter.data = inputImages
                     inputImageAdapter.notifyDataSetChanged()

@@ -60,6 +60,7 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
             lifecycleScope.launch(Dispatchers.IO) {
                 try{
                     withTimeout(5000){
+                        Timber.e("DeviceId = ${getDeviceId()}")
                         serverApiRepo.login(getDeviceId()){ login ->
                             prefs.creditAmount.set(login.credit)
                             prefs.isPremium.set(login.isPremium == 1)

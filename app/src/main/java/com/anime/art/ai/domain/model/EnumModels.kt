@@ -19,10 +19,10 @@ enum class Ratio(val display: String, val ratio: String, val width: String, val 
 }
 enum class SizeOfImage(val size : String, val describeImage : String, val width: String, val height: String, val aspectRatio: Float ){
     Ratio1x1(size = "1:1", describeImage = "size_1_1",width = "512", height = "512", aspectRatio = 1f / 1f),
-    Ratio9x16(size = "9:16", describeImage = "size_9_16",  width = "324", height = "576", aspectRatio = 9f / 16f),
-    Ratio16x9(size = "16:9", describeImage = "size_16_9",  width = "576", height = "324", aspectRatio = 16f / 9f),
-    Ratio2x3(size = "2:3", describeImage = "size_2_3", width = "340", height = "510", aspectRatio = 2f / 3f),
-    Ratio3x2(size = "3:2", describeImage = "size_3_2", width = "510", height = "340", aspectRatio = 3f / 2f)
+    Ratio9x16(size = "9:16", describeImage = "size_9_16",  width = "288", height = "512", aspectRatio = 9f / 16f),
+    Ratio16x9(size = "16:9", describeImage = "size_16_9",  width = "512", height = "288", aspectRatio = 16f / 9f),
+    Ratio2x3(size = "2:3", describeImage = "size_2_3", width = "320", height = "480", aspectRatio = 2f / 3f),
+    Ratio3x2(size = "3:2", describeImage = "size_3_2", width = "480", height = "320", aspectRatio = 3f / 2f)
 }
 
 enum class NumberOfImages(var display: String, val number: Int){
@@ -59,48 +59,54 @@ enum class Character(val characterName : String,val  promptText : String){
 
 
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String, val extraPrompt : String){
-    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-mix-v2-25", extraPrompt = ", High quality images"),
-    ICBINP_Afterburn(artStyleName = "ICBINP Afterburn", sourceImage = "icbinp_afterburn", model = "icbinp-afterburn", extraPrompt = ""),
-    MoonFilmReality(artStyleName = "MoonFilm Reality", sourceImage = "moonfilm_reality", model = "moonfilm-reality-v3", extraPrompt = ""),
-    MoonFilmFilmGrain(artStyleName = "MoonFilm FilmGrain", sourceImage = "moonflim_filmgrain", model = "moonfilm-film-grain-v1", extraPrompt = ""),
-    MoonFilmUtopia(artStyleName = "MoonFilm Utopia", sourceImage = "moonflim_utopia", model = "moonfilm-utopia-v3", extraPrompt = ""),
-    Pool(artStyleName = "Swimming Pool", sourceImage = "swimming_pool", model = "dark-sushi-mix-v2-25", extraPrompt = ",in swimming pool, water"),
-    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "dark-sushi-mix-v2-25", extraPrompt = ", ninja, a powerful and precise weapon"),
-    RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "realistic-vision-v3", extraPrompt = ", solodramatic lighting, (photo realism:1. 4), realistic, sharp focus, HD, highly complex, intricate, photography, hyperrealism, hyperrealistic, raytracing, physics-based rendering, ((8k, RAW photo, masterpiece), High detail RAW color photo, (highest quality), (best shadow), (best illustration), ultra high resolution, highly detailed CG unified 8K wallpapers), rim lighting, vivid color, post-processing, vibrant, color grading, <lora:add_detail:1>"),
-    AbsoluteReality(artStyleName = "Absolute Reality", sourceImage = "absolute_reality", model = "absolute-reality-v1-6", extraPrompt = ""),
-    ICBINPFinal(artStyleName = "ICBINP Final", sourceImage = "icbinp_final", model = "icbinp-final", extraPrompt = ""),
-    ICBINPRealapse(artStyleName = "ICBINP Realapse", sourceImage = "icbinp_relapse", model = "icbinp-relapse", extraPrompt = ""),
-    InteriorDesign(artStyleName = "Interior Design", sourceImage = "interior_design", model = "xsarchitectural-interior-design", extraPrompt = ""),
-    PencilSketch(artStyleName = "Pencil Sketch", sourceImage = "pencil_sketch", model = "absolute-reality-v1-6", extraPrompt = " ,  illustration concept art, anime, manga, pencil sketch, pencil drawing, inking, black and white trending pixiv fanbox, art by ilya kuvshinov and ghibli, loose pencil sketch, sketchy, concept art, cinematic, white space, black and white."),
-    RPG(artStyleName = "RPG", sourceImage = "rpg", model = "anashel-rpg", extraPrompt = ""),
-    Something(artStyleName = "Something", sourceImage = "something", model = "something-v2-2", extraPrompt = ""),
-    ICBINP(artStyleName = "ICBINP", sourceImage = "icbinp", model = "icbinp", extraPrompt = ""),
-    SuperHero(artStyleName = "Super Hero", sourceImage = "super_hero", model = "realistic-vision-v3", extraPrompt = ", photography and realistic lighting. Additionally, there is an impressive superhero portrait of SuperHero in a SuperHero costume. The 8k art germ bokeh, created by Wojtek Fuse, showcases remarkable digital illustration and realistic digital art in 4k. The close-up character portrait is highly detailed and displays a superb photo-realistic quality."),
-    VangoghDiffusion(artStyleName = "Van Gogh Diffusion", sourceImage = "van_gogh_diffusion", model = "van-gogh-diffusion", extraPrompt = ""),
-    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "dark-sushi-mix-v2-25", extraPrompt = ", * masterpiece (chibi:1. 3), best quality, (realistic:1. 2), chibi, glitter sparkle shiny stars and hearts, <lora:theovercomer8sContrastFix_sd15:0. 8>, night , nightsky, <lora:cutescrap05v_cutescrap3:0. 6> <lora:worldFlipperArtStyleLora_v10:0. 7>"),
+    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-25d", extraPrompt = "high quality images, solo, "),
+    RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "majic-mix-realistic", extraPrompt = ""),
+    Spring(artStyleName = "Spring", sourceImage = "spring", model = "dark-sushi-25d", extraPrompt = "warm spring, fresh, lively, the flower field is in full bloom with bright colors, the branches are sprouting, flower-covered path, solo, "),
+    DragonGirl(artStyleName = "Dragon Girl", sourceImage = "dragon_girl", model = "dark-sushi-25d", extraPrompt = "dragon girl, dragon horns, dragon wings, slit_pupils, pointy_ears, dragon tail, 1girl, solo, reptile_girl, masterpiece,fire, blazing, (highres), absurdres, 4K, 8K, 16K, hyper-detailed, deep eyes, close-up <lora:animeDragonGirl_v10:0.7>, "),
+    Library(artStyleName = "Library", sourceImage = "library", model = "dark-sushi-25d", extraPrompt = "gentle and intellectual appearance, library space with bookshelves, books and natural light from the windows"),
+    Christmas(artStyleName = "Christmas", sourceImage = "christmas", model = "dark-sushi-25d", extraPrompt = "girl, christmas, christmas tree,  fireplace, warm, solo, HDR 4K, 8K, "),
+    Pool(artStyleName = "Swimming Pool", sourceImage = "swimming_pool", model = "dark-sushi-25d", extraPrompt = "in swimming pool, water, bikini, solo"),
+    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "dark-sushi-25d", extraPrompt = "(ninja)1.6, traditional ninja costume, precise weapon, anime character,  "),
+    PencilSketch(artStyleName = "Pencil Sketch", sourceImage = "pencil_sketch", model = "majic-mix-realistic", extraPrompt = "illustration concept art, anime, manga, pencil sketch, pencil drawing, inking, black and white trending pixiv fanbox, art by ilya kuvshinov and ghibli, loose pencil sketch, sketchy, concept art, cinematic, white space, black and white, solo, "),
+    SuperHero(artStyleName = "Super Hero", sourceImage = "super_hero", model = "majic-mix-realistic", extraPrompt = "photography and realistic lighting. Additionally, there is an impressive superhero portrait of SuperHero in a SuperHero costume. The 8k art germ bokeh, created by Wojtek Fuse, showcases remarkable digital illustration and realistic digital art in 4k. The close-up character portrait is highly detailed and displays a superb photo-realistic quality, "),
+    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "dark-sushi-25d", extraPrompt = "(little character)1.3, (chibi)1.3,full body, best quality, chibi, (solo)1.3, full character concept, "),
 }
 
 enum class ControlNet(val controlNetName : String, val sourceImage : String,val apiString : String){
-    Canny(controlNetName = "ControlNet Canny", sourceImage = "controlnet_canny", apiString = "canny-1.1"),
-    HardEdges(controlNetName = "ControlNet_Hard Edges", sourceImage = "controlnet_hardedges", apiString = "mlsd-1.1"),
-    SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_softedges", apiString = "softedge-1.1"),
-    LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_lineartanime", apiString = "lineart-anime-1.1"),
-    NormalMap(controlNetName = "ControlNet_Normal Map", sourceImage = "controlnet_normalmap", apiString = "normal-1.1"),
-    Dept(controlNetName = "ControlNet_Dept", sourceImage = "controlnet_dept", apiString = "depth-1.1"),
-    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "mediapipeface"),
-    Pose(controlNetName = "ControlNet_Pose", sourceImage = "controlnet_pose", apiString = "openpose-1.1"),
-    FullBody(controlNetName = "ControlNet_Full Body", sourceImage = "controlnet_fullbody", apiString = "openpose-full-1.1"),
-    Scribble(controlNetName = "ControlNet_Scribble", sourceImage = "controlnet_scribble", apiString = "scribble-1.1"),
-    Lines(controlNetName = "ControlNet_Straight Lines", sourceImage = "controlnet_straightlines", apiString = "lineart-1.1"),
+    Canny(controlNetName = "ControlNet Canny", sourceImage = "controlnet_canny", apiString = "canny"),
+    Hed(controlNetName = "ControlNet Hed", sourceImage = "controlnet_hed", apiString = "hed"),
+    Mlsd(controlNetName = "ControlNet_Mlsd", sourceImage = "controlnet_mlsd", apiString = "mlsd"),
+    Openpose(controlNetName = "ControlNet_Openpose", sourceImage = "controlnet_openpose", apiString = "openpose"),
+    Segmentation(controlNetName = "ControlNet_Segmentation", sourceImage = "controlnet_segmentation", apiString = "segmentation"),
+    Aesthetic(controlNetName = "ControlNet_Aesthetic", sourceImage = "controlnet_aesthetic", apiString = "aesthetic-controlnet"),
+    Inpaint(controlNetName = "ControlNet_Inpaint", sourceImage = "controlnet_inpaint", apiString = "inpaint"),
+    Shuffle(controlNetName = "ControlNet_Shuffle", sourceImage = "controlnet_shuffle", apiString = "shuffle"),
+    Tile(controlNetName = "ControlNet_Tile", sourceImage = "controlnet_tile", apiString = "tile"),
+    SoftEdges(controlNetName = "ControlNet_SoftEdges", sourceImage = "controlnet_softedges", apiString = "softedge"),
+    LineartAnime(controlNetName = "ControlNet_LineartAnime", sourceImage = "controlnet_lineartanime", apiString = "lineart"),
+    NormalMap(controlNetName = "ControlNet_Normal Map", sourceImage = "controlnet_normalmap", apiString = "normal"),
+    Dept(controlNetName = "ControlNet_Dept", sourceImage = "controlnet_dept", apiString = "depth"),
+    Face(controlNetName = "ControlNet_Face", sourceImage = "controlnet_face", apiString = "face_detector"),
+    Scribble(controlNetName = "ControlNet_Scribble", sourceImage = "controlnet_scribble", apiString = "scribble"),
 }
 
 enum class SamplingMethod(val display : String ,val apiString: String){
-    EulerA(display = "Euler a", apiString = "euler_a"),
-    Euler(display = "Euler", apiString = "euler"),
-    LMS(display = "LMS", apiString = "lms"),
-    PNMDM(display = "PNDM", apiString = "pndm"),
-    DPMSloverPlus(display = "DPMSlover++", apiString = "dpmsolver++"),
-    DDIM(display = "DDIM", apiString = "ddim"),
+    EulerA(display = "Euler a", apiString = "EulerAncestralDiscreteScheduler"),
+    Euler(display = "Euler", apiString = "EulerDiscreteScheduler"),
+    LMS(display = "LMS", apiString = "LMSDiscreteScheduler"),
+    PNMDM(display = "PNDM", apiString = "PNDMScheduler"),
+    DPMSloverPlus(display = "DPMSlover++", apiString = "DPMSolverSinglestepScheduler"),
+    HEUNDiscrete(display = "HEUNDiscrete", apiString = "HEUNDiscrete"),
+    DDIM(display = "DDIM", apiString = "DDIMScheduler"),
+    DDPM(display = "DDPM", apiString = "DDPMScheduler"),
+    DDIMI(display = "DDIMI", apiString = "DDIMInverseScheduler"),
+    KDPM2A(display = "KDPM2A", apiString = "KDPM2AncestralDiscreteScheduler"),
+    DPMSloverMultistep(display = "DPMSloverMultistep", apiString = "DPMSolverMultistepScheduler"),
+    DEISMultistep(display = "DEISMultistep", apiString = "DEISMultistepScheduler"),
+    UniPCMultistep(display = "UniPCMultistep", apiString = "UniPCMultistepScheduler"),
+    IPNDMS(display = "IPNDMS", apiString = "IPNDMScheduler"),
+    KarrasVe(display = "KarrasVe", apiString = "KarrasVeScheduler"),
+    ScoredeVe(display = "ScoredeVe", apiString = "ScoreSdeVeScheduler"),
 }
 
 enum class CharacterAppearance(val id : Int, val display : String){
