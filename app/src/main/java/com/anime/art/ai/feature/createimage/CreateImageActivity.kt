@@ -2,7 +2,6 @@ package com.anime.art.ai.feature.createimage
 
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
@@ -11,16 +10,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
-import com.anime.art.ai.common.cropBase64Image
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.startFinalize
-import com.anime.art.ai.common.processAndSaveImage
 import com.anime.art.ai.common.widget.transformer.ZoomInTransformer
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.databinding.ActivityCreateImageBinding
 import com.anime.art.ai.domain.model.config.Creator
-import com.anime.art.ai.domain.model.config.ImageGenerationRequest
 import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
@@ -36,16 +32,17 @@ import com.basic.common.extension.makeToast
 import com.basic.common.extension.saveImageToGallery
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
+import com.basic.common.util.ViewUtils.gone
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.card.MaterialCardView
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -59,6 +56,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
 
     @Inject lateinit var creatorDao : CreatorDao
 
+    var numCallApiLimit = 3
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparent()
@@ -75,11 +73,16 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             positionOffset: Float,
             positionOffsetPixels: Int
         ) {
-
         }
 
         override fun onPageSelected(position: Int) {
             previewAdapter.selectedIndex = position
+            binding.apply {
+                showLeft.isVisible = position > 0
+                showRight.isVisible = position < previewAdapter.data.size - 1
+            }
+            val isReady = previewAdapter.data[position].isReady
+  //          setCardViewClickable(clickable = isReady,binding.variationsView, binding.finalizeView )
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -115,20 +118,32 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             }
         }
         binding.variationsView.clicks {
-                if(isNetworkAvailable()){
-                    generateImage(isMakeVariations = true)
-                }
-                else{
-                   makeToast("Please check your connect internet !")
-                }
+            numCallApiLimit = 3
+            if (isNetworkAvailable()) {
+                generateImage(isMakeVariations = true)
+            } else {
+                makeToast("Please check your connect internet!")
+            }
         }
         onBackPressedDispatcher.addCallback {
             onGiveUp()
         }
+        binding.apply {
+            showLeft.clicks {
+                if (viewPager.currentItem > 0) {
+                    viewPager.currentItem -= 1
+                }
+            }
+            showRight.clicks {
+                if (viewPager.currentItem < previewAdapter.data.size - 1) {
+                    viewPager.currentItem += 1
+                }
+            }
+        }
     }
     private fun onGiveUp(){
         val exitDialog = ExitDialog(
-            "Do you want to give up" ,
+            "Do you want to give up?" ,
             "Give Up"
         ){
             back()
@@ -141,62 +156,92 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     }
 
     private fun generateImage(isMakeVariations : Boolean){
-        val imageGenerationRequest =  configApp.imageGenerationRequest
         lifecycleScope.launch(Dispatchers.IO) {
-            aiApiRepository.generateImage(imageGenerationRequest){ progress ->
+            val request = UpdateCreditRequest(
+                if (isMakeVariations) Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1 else Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1,
+                Constraint.CREATE_ARTWORK
+            )
+            serverApiRepository.updateCredit(
+                getDeviceId(),
+                request
+            ) { result ->
                 launch(Dispatchers.Main) {
-                    when (progress){
-                        is AIApiRepository.APIResponse.Loading ->{
-                            setCardViewClickable(clickable = false,binding.variationsView, binding.finalizeView )
-                            binding.loadingLayout.isVisible = true
-                            binding.viewPager.isVisible = false
-                            binding.lottieView
-                                .animate()
-                                .alpha(1f)
-                                .setDuration(1000)
-                                .start()
-                            binding.lottieView.playAnimation()
-                        }
-                        is AIApiRepository.APIResponse.Success ->{
-                                launch(Dispatchers.IO) {
-                                    val request = UpdateCreditRequest(if(isMakeVariations) Constraint.Info.MAKE_VARIATIONS_COST.toLong() * -1 else Constraint.Info.CREATE_ART_WORK_COST.toLong() * -1, Constraint.CREATE_ARTWORK)
-                                    serverApiRepository.updateCredit(getDeviceId(),request){ result ->
-                                        if(result){
+                    if (result) {
+                        val imageGenerationRequest =  configApp.imageGenerationRequest
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            aiApiRepository.generateImage(imageGenerationRequest){ progress ->
+                                launch(Dispatchers.Main) {
+                                    when (progress) {
+                                        is AIApiRepository.APIResponse.Loading -> {
+                                            setCardViewClickable(
+                                                clickable = false,
+                                                binding.variationsView,
+                                                binding.finalizeView
+                                            )
+                                            binding.apply {
+                                                showLeft.gone()
+                                                showRight.gone()
+                                                loadingLayout.isVisible = true
+                                                viewPager.isVisible = false
+                                                lottieView
+                                                    .animate()
+                                                    .alpha(1f)
+                                                    .setDuration(1000)
+                                                    .start()
+                                                lottieView.playAnimation()
+                                            }
                                         }
-                                        else{
-                                            launch(Dispatchers.Main) {
-                                                makeToast("Update credit failed, please try again")
+
+                                        is AIApiRepository.APIResponse.Success -> {
+                                            binding.loadingLayout.isVisible = false
+                                            binding.viewPager.apply {
+                                                this.orientation =
+                                                    ViewPager2.ORIENTATION_HORIZONTAL
+                                                this.setPageTransformer(ZoomInTransformer())
+                                                this.adapter = previewAdapter.apply {
+
+                                                    this.data = progress.responses
+                                                }
+                                            }
+                                            binding.viewPager.isVisible = true
+                                            setCardViewClickable(
+                                                clickable = true,
+                                                binding.variationsView,
+                                                binding.finalizeView
+                                            )
+                                        }
+                                        is AIApiRepository.APIResponse.Error ->{
+                                            binding.loadingLayout.isVisible = false
+                                            makeToast("An error has occurred, please try again")
+                                            if(! isMakeVariations){
+                                                delay(200)
+                                                back()
+                                            }
+                                            else{
+                                                setCardViewClickable(clickable = true,binding.variationsView, binding.finalizeView )
                                             }
                                         }
                                     }
                                 }
-                            binding.loadingLayout.isVisible = false
-                            binding.viewPager.apply {
-                                this.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                                this.setPageTransformer(ZoomInTransformer())
-                                this.adapter = previewAdapter.apply {
-
-                                    this.data = progress.responses
-                                }
                             }
-                            binding.viewPager.isVisible = true
-                            setCardViewClickable(clickable = true,binding.variationsView, binding.finalizeView )
                         }
-                        is AIApiRepository.APIResponse.Error ->{
-                            binding.loadingLayout.isVisible = false
-                            makeToast("An error has occurred, please try again")
-                            if(! isMakeVariations){
-                                delay(100)
-                                back()
-                            }
-                            else{
-                                setCardViewClickable(clickable = true,binding.variationsView, binding.finalizeView )
-                            }
+                    } else {
+                        if(numCallApiLimit > 0) {
+                            generateImage(isMakeVariations)
+                            numCallApiLimit--
+                        }
+                        else{
+                            makeToast("Your network is unstable, please try again!")
+                            delay(200)
+                            back()
                         }
                     }
                 }
             }
         }
+
+
+
     }
 
     private fun initData() {
@@ -205,6 +250,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     private fun setCardViewClickable(clickable : Boolean,vararg cardViews: MaterialCardView){
         cardViews.forEach {view ->
             view.isEnabled = clickable
+            view.alpha = if(clickable) 1f else 0.5f
         }
     }
 
@@ -229,30 +275,33 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             .saveClicks
             .autoDispose(scope())
             .subscribe{ image ->
-                lifecycleScope.launch {
+                lifecycleScope.launch(Dispatchers.Main) {
                     val loadingDialog = LoadingDialog()
                     loadingDialog.show(supportFragmentManager, null)
                     delay(500)
-                    Glide.with(this@CreateImageActivity)
-                        .asBitmap()
-                        .load(image)
-                        .into(object : SimpleTarget<Bitmap>() {
-                            override fun onResourceReady(
-                                resource: Bitmap,
-                                transition: Transition<in Bitmap>?
-                            ) {
-                                this@CreateImageActivity.saveImageToGallery(resource){result ->
-                                    if(result){
-                                        loadingDialog.cancel()
-                                    }
-                                    else{
-                                        loadingDialog.dismiss()
-                                        makeToast("Save failed")
-                                    }
-                                }
+                    try {
+                        val job = async {
+                            withContext(Dispatchers.IO) {
+                                Glide.with(this@CreateImageActivity)
+                                    .asBitmap()
+                                    .load(image)
+                                    .submit()
+                                    .get()
                             }
-                        })
-
+                        }
+                        val resource = job.await()
+                        this@CreateImageActivity.saveImageToGallery(resource) { result ->
+                            if (result) {
+                                loadingDialog.cancel()
+                            } else {
+                                loadingDialog.dismiss()
+                                makeToast("Save failed")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        loadingDialog.dismiss()
+                        makeToast("Save failed")
+                    }
 
                 }
 
@@ -260,6 +309,10 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
         preferences.isPremium.asObservable().autoDispose(scope()).subscribe {
             previewAdapter.isPremium = it
         }
+        previewAdapter.isReadySubject.autoDispose(scope())
+            .subscribe { isReady ->
+                setCardViewClickable(clickable = isReady,binding.variationsView, binding.finalizeView )
+            }
     }
 
     private fun initView() {

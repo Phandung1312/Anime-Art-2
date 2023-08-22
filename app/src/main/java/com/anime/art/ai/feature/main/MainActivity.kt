@@ -55,7 +55,7 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
     private fun listenerView() {
         onBackPressedDispatcher.addCallback {
             val exitDialog = ExitDialog(
-                "Are you sure exit ${getString(R.string.app_name)}" ,
+                "Are you sure exit ${getString(R.string.app_name)}?" ,
                     "Exit ${getString(R.string.app_name)}"
             ){
                 configApp.tabIndex = 0

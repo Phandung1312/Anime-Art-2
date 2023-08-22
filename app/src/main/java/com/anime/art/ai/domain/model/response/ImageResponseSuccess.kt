@@ -21,5 +21,6 @@ data class ImageResponseSuccess(
 )
 data class ImagePreview(
     val url : String = "",
-    val ratio : String = "1:1"
+    val ratio : String = "1:1",
+    var isReady : Boolean = false
 )

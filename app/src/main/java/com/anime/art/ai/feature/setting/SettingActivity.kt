@@ -58,7 +58,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         setContentView(binding.root)
         initView()
         initListener()
-        initData()
+       initData()
     }
     private fun setGradientReceivedDay(day : Int){
         val listText : List<TextView> = listOf(

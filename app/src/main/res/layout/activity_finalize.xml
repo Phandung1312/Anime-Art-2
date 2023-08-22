@@ -93,12 +93,12 @@
                 android:id="@+id/enter_prompt_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.basic.common.widget.bouncy.BouncyNestedScrollView
+                <ScrollView
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -113,7 +113,7 @@
                         android:textColor="@color/textTertiaryDark"
                         android:textColorHint="@color/textTertiaryDark"
                         android:textSize="@dimen/_12ssp" />
-                </com.basic.common.widget.bouncy.BouncyNestedScrollView>
+                </ScrollView>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/copy_prompt_view"

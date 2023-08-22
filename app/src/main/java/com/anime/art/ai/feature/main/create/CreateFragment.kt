@@ -531,7 +531,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         if(imageGenerationRequest.image.isNotEmpty()){
             imageGenerationRequest.apply {
                 image = resizeBase64Image(image, width, height)
-                requireContext().saveStringToFile("image.txt", image)
+                //requireContext().saveStringToFile("image.txt", image)
             }
         }
         if (preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST) {

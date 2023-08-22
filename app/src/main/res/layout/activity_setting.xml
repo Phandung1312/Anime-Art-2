@@ -224,7 +224,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_11sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -238,11 +238,11 @@
             android:id="@+id/iv_credit_slider"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_17sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:scaleType="fitCenter"
-            android:src="@drawable/_7_tick_not_received"
+            tools:src="@drawable/_7_tick"
             app:layout_constraintBottom_toTopOf="@+id/receive_cardView"
             app:layout_constraintDimensionRatio="377:52"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view" />

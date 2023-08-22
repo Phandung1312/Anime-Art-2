@@ -166,13 +166,12 @@ fun Context.getDimens(@DimenRes dimenRes: Int): Float {
 @SuppressLint("HardwareIds")
 fun Context.getDeviceId() : String{
    return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
-
 }
 fun Context.isNetworkAvailable(): Boolean {
     val connectivityManager =
         getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetworkInfo = connectivityManager.activeNetworkInfo
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    return (activeNetworkInfo != null) && activeNetworkInfo.isConnected
 }
 
 fun Context.makeToast(@StringRes res: Int, duration: Int = Toast.LENGTH_SHORT) {

@@ -92,7 +92,10 @@ object ViewUtils {
         clearAnimation()
         this.visibility = View.GONE
     }
+    fun View.show(){
 
+        this.visibility = View.VISIBLE
+    }
     /**
      * Makes the view go away
      *

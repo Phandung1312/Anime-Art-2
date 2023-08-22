@@ -59,8 +59,8 @@ enum class Character(val characterName : String,val  promptText : String){
 
 
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String, val extraPrompt : String){
-    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-25d", extraPrompt = "high quality images, solo, "),
-    RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "majic-mix-realistic", extraPrompt = ""),
+    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-25d", extraPrompt = "(solo)1.6, high quality images, "),
+    RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "majic-mix-realistic", extraPrompt = "(solo)1.6, "),
     Spring(artStyleName = "Spring", sourceImage = "spring", model = "dark-sushi-25d", extraPrompt = "warm spring, fresh, lively, the flower field is in full bloom with bright colors, the branches are sprouting, flower-covered path, solo, "),
     DragonGirl(artStyleName = "Dragon Girl", sourceImage = "dragon_girl", model = "dark-sushi-25d", extraPrompt = "dragon girl, dragon horns, dragon wings, slit_pupils, pointy_ears, dragon tail, 1girl, solo, reptile_girl, masterpiece,fire, blazing, (highres), absurdres, 4K, 8K, 16K, hyper-detailed, deep eyes, close-up <lora:animeDragonGirl_v10:0.7>, "),
     Library(artStyleName = "Library", sourceImage = "library", model = "dark-sushi-25d", extraPrompt = "gentle and intellectual appearance, library space with bookshelves, books and natural light from the windows"),

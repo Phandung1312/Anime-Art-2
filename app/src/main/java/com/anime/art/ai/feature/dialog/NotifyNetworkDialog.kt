@@ -20,6 +20,7 @@ class NotifyNetworkDialog(
         savedInstanceState: Bundle?
     ): View? {
         binding = DialogNotifyNetworkBinding.inflate(inflater, container, false)
+        dialog?.setCanceledOnTouchOutside(false)
         listenerView()
         return binding.root
     }
