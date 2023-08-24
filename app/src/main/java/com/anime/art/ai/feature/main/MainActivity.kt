@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.viewpager.widget.ViewPager
 import com.anime.art.ai.R
@@ -44,8 +45,10 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
     val pageChanges: Subject<Int> by lazy { BehaviorSubject.createDefault(configApp.tabIndex) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         initObservable()
         initView()
         initData()
@@ -150,10 +153,10 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
     private fun TextView.changeTextColorSelected(isSelected: Boolean){
         when {
             isSelected -> {
-                this.setTextColor(context.resolveAttrColor(android.R.attr.colorAccent))
+                this.setTextColor(context.getColor(R.color.tab_bar_selected))
             }
             else -> {
-                this.setTextColor(context.resolveAttrColor(android.R.attr.textColorPrimary))
+                this.setTextColor(context.getColor(R.color.tab_bar_unselected))
             }
         }
     }
@@ -172,7 +175,8 @@ class MainActivity : LsActivity<ActivityMainBinding>(ActivityMainBinding::inflat
         }
     }
     fun gotoGalleryFragment(prompt : String?,negativePrompt : String?, ratio : String?){
-        (this.fragments.getOrNull(1) as CreateFragment ).setDataFromGallery(prompt, negativePrompt , ratio)
+        configApp.localPrompt = prompt ?: ""
+        configApp.negativePrompt = negativePrompt ?: ""
         binding.viewPager.currentItem = 1
         pageChanges.onNext(1)
         configApp.tabIndex = 1

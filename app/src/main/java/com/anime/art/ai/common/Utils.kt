@@ -47,6 +47,11 @@ fun getCurrentDay() : String {
 
 }
 
+fun getCurrentDayTime() : String{
+    val currentDateTime = LocalDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    return  currentDateTime.format(formatter)
+}
 
 // Hàm lưu Bitmap vào thư viện
 fun saveBitmapToGallery(context: Context, bitmap: Bitmap, title: String) {

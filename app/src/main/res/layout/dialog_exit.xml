@@ -14,7 +14,7 @@
             android:id="@+id/materialCardView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/background_dark_gray"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             app:cardCornerRadius="@dimen/_10sdp"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -25,7 +25,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardBackgroundColor="@color/background_dark_gray"
+                    app:cardBackgroundColor="@color/backgroundSecondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_12ssp"
                         tools:text="Are you sure to exit Appname?"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/textPrimary" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <View
@@ -46,7 +46,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/positive_view"
-                    app:cardBackgroundColor="@color/background_dark_gray"
+                    app:cardBackgroundColor="@color/backgroundSecondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
@@ -58,7 +58,7 @@
                         android:textSize="@dimen/_12ssp"
                         tools:text="Exit Appname"
                         textGradientYellow="@{``}"
-                        android:textColor="@color/yellow" />
+                        android:textColor="@color/colorSecondary" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -68,7 +68,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/background_dark_gray"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             app:cardCornerRadius="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView3">
 
@@ -83,7 +83,7 @@
                     android:layout_margin="@dimen/_15sdp"
                     android:textSize="@dimen/_12ssp"
                     android:text="Cancel"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/textPrimary" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

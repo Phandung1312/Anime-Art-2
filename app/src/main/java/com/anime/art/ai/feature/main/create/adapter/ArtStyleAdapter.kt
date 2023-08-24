@@ -46,7 +46,7 @@ class ArtStyleAdapter @Inject constructor(): LsAdapter<ArtStyle, ItemArtStyleBin
         binding.preview.setImageResource(imageResourceId)
         binding.rootView.apply {
             if (position == selectedIndex) setBackgroundResource(R.drawable.stroke_gradient_yellow_20)
-            else setBackgroundColor(context.getColor(com.widget.R.color.backgroundDark))
+            else setBackgroundColor(context.getColor(R.color.background_artStyle))
         }
         binding.display.text = item.artStyleName
         binding.viewPreview.clicks(withAnim =  false) { selectedIndex = position

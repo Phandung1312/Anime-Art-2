@@ -14,7 +14,7 @@
         app:cardBackgroundColor="?android:colorBackground"
         app:cardElevation="0dp"
         app:strokeWidth="0dp"
-        app:strokeColor="@color/dark_yellow"
+        app:strokeColor="@color/colorPrimary"
         app:cardCornerRadius="@dimen/_20sdp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"

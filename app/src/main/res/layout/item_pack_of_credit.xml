@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_dark_gray">
+            android:background="@color/backgroundSecondary">
 
             <TextView
                 android:id="@+id/textView8"
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textAlignment="center"
-                android:textColor="@color/yellow"
+                android:textColor="@color/colorSecondary"
                 android:textSize="@dimen/_18ssp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="500" />

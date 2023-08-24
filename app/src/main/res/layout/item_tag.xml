@@ -8,10 +8,10 @@
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginStart="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_5sdp"
-    app:cardBackgroundColor="@color/background_dark_gray"
+    app:cardBackgroundColor="@color/backgroundSecondary"
     app:cardCornerRadius="@dimen/_25sdp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/dark_yellow">
+    app:strokeColor="@color/colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/viewTag"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:textColor="@color/white"
+            android:textColor="@color/textPrimary"
             android:textSize="@dimen/_12ssp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"

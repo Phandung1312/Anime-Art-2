@@ -89,7 +89,7 @@ class BuyMoreDialog : DialogFragment() {
        }
         else{
            cardView?.strokeWidth = requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt()
-           layout?.setBackgroundColor(requireContext().getColor(R.color.background_dark_gray))
+           layout?.setBackgroundColor(requireContext().getColor(R.color.backgroundSecondary))
        }
     }
     private fun initListener() {

@@ -4,6 +4,7 @@ package com.anime.art.ai.feature.createimage
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -12,14 +13,17 @@ import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.startFinalize
+import com.anime.art.ai.common.extension.startIAP
 import com.anime.art.ai.common.widget.transformer.ZoomInTransformer
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.databinding.ActivityCreateImageBinding
 import com.anime.art.ai.domain.model.config.Creator
+import com.anime.art.ai.domain.model.response.ImagePreview
 import com.anime.art.ai.domain.repository.AIApiRepository
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.createimage.adapter.PreviewAdapter
+import com.anime.art.ai.feature.credithistory.BuyMoreDialog
 import com.anime.art.ai.feature.dialog.ExitDialog
 import com.anime.art.ai.feature.finalize.LoadingDialog
 import com.anime.art.ai.feature.iap.IAPActivity
@@ -33,6 +37,7 @@ import com.basic.common.extension.saveImageToGallery
 import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
 import com.basic.common.util.ViewUtils.gone
+import com.basic.common.util.ViewUtils.show
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.uber.autodispose.android.lifecycle.scope
@@ -57,11 +62,11 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
     @Inject lateinit var creatorDao : CreatorDao
 
     var numCallApiLimit = 3
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transparent()
         setContentView(binding.root)
-
         initView()
         initObservable()
         initData()
@@ -81,8 +86,6 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                 showLeft.isVisible = position > 0
                 showRight.isVisible = position < previewAdapter.data.size - 1
             }
-            val isReady = previewAdapter.data[position].isReady
-  //          setCardViewClickable(clickable = isReady,binding.variationsView, binding.finalizeView )
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -115,14 +118,22 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             }
             else{
                 makeToast("This template is only for premium package")
+                startIAP()
             }
         }
         binding.variationsView.clicks {
-            numCallApiLimit = 3
-            if (isNetworkAvailable()) {
-                generateImage(isMakeVariations = true)
-            } else {
-                makeToast("Please check your connect internet!")
+            if(preferences.creditAmount.get() > Constraint.Info.MAKE_VARIATIONS_COST ){
+                numCallApiLimit = 3
+                if (isNetworkAvailable()) {
+                    generateImage(isMakeVariations = true)
+                } else {
+                    makeToast("Please check your connect internet!")
+                }
+            }
+            else{
+                makeToast("You don't have enough credit")
+                val buyMoreDialog = BuyMoreDialog()
+                buyMoreDialog.show(supportFragmentManager, null)
             }
         }
         onBackPressedDispatcher.addCallback {
@@ -199,7 +210,6 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                                     ViewPager2.ORIENTATION_HORIZONTAL
                                                 this.setPageTransformer(ZoomInTransformer())
                                                 this.adapter = previewAdapter.apply {
-
                                                     this.data = progress.responses
                                                 }
                                             }
@@ -218,6 +228,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
                                                 back()
                                             }
                                             else{
+                                                binding.viewPager.show()
                                                 setCardViewClickable(clickable = true,binding.variationsView, binding.finalizeView )
                                             }
                                         }
@@ -259,9 +270,7 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             .unlockClicks
             .autoDispose(scope())
             .subscribe {
-                val intent = Intent(this , IAPActivity::class.java)
-                startActivity(intent)
-                tryOrNull { overridePendingTransition(R.anim.slide_in_left, R.anim.nothing) }
+                startIAP()
             }
         previewAdapter
             .zoomClicks

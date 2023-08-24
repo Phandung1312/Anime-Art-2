@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/arrow_left"
-            android:tint="?android:textColorPrimary" />
+            android:tint="@color/thumb_slider" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/more"
@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/more_horiz"
-            android:tint="?android:textColorPrimary" />
+            android:tint="@color/thumb_slider" />
 
     </RelativeLayout>
 
@@ -69,7 +69,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Try This Prompt"
-                android:textColor="?colorOnPrimary"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:textFont="semi" />
 
@@ -186,5 +186,16 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:tint="@color/textPrimary"
+        app:lottie_rawRes="@raw/arrow_up"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

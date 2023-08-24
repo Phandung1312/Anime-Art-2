@@ -43,7 +43,7 @@ class MenuAdapter @Inject constructor() :
                 setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
             }
             else{
-                setBackgroundColor(context.getColor(R.color.light_gray))
+                setBackgroundColor(context.getColor(R.color.background_tag))
             }
         }
         binding.display.text = item.characterName

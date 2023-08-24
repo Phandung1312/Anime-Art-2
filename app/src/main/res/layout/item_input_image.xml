@@ -6,8 +6,9 @@
     android:layout_width="@dimen/_70sdp"
     android:layout_height="@dimen/_70sdp"
     app:cardCornerRadius="@dimen/_20sdp"
-    app:cardBackgroundColor="@color/backgroundDark"
-    app:strokeColor="@color/dark_yellow">
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/background_artStyle"
+    app:strokeColor="@color/colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +18,6 @@
             android:id="@+id/iv_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_1sdp"
             android:scaleType="centerCrop"
             tools:src="@drawable/sample_input_image_1" />
 

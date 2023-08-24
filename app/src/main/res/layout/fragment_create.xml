@@ -23,10 +23,22 @@
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/page_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
                 android:text="@string/app_name" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/darkMode_switch"
+                android:layout_centerVertical="true"
+                app:switchMinWidth="@dimen/_50sdp"
+                app:track="@drawable/track_background"
+                android:thumb="@drawable/thumb_daynight"
+                android:layout_width="wrap_content"
+                android:checked="false"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_toStartOf="@+id/credit_view" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/credit_view"
@@ -36,7 +48,7 @@
                 android:layout_centerVertical="true"
                 app:cardBackgroundColor="@color/yellow_black"
                 app:cardCornerRadius="@dimen/_15sdp"
-                app:strokeColor="@color/dark_yellow"
+                app:strokeColor="@color/colorPrimary"
                 app:strokeWidth="@dimen/_1sdp">
 
                 <LinearLayout
@@ -59,7 +71,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:text="200"
-                        android:textColor="@color/white"
+                        android:textColor="?android:textColorPrimary"
                         android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
@@ -77,7 +89,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:text="Clear"
             android:enabled="false"
-            android:textColor="@color/textTertiaryDark"
+            android:textColor="?android:textColorPrimary"
             android:textSize="@dimen/_12ssp" />
 
         <com.google.android.material.card.MaterialCardView
@@ -86,9 +98,9 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            app:cardBackgroundColor="@color/background_dark_gray"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             app:cardCornerRadius="@dimen/_15sdp"
-            app:strokeColor="@color/light_gray"
+            app:strokeColor="@color/text_border"
             app:strokeWidth="@dimen/_1sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,8 +118,8 @@
                     android:backgroundTint="@android:color/transparent"
                     android:focusable="false"
                     android:hint="Enter prompt"
-                    android:textColorHint="@color/textTertiaryDark"
-                    android:textColor="@color/white"
+                    android:textColorHint="@color/textHintColor"
+                    android:textColor="@color/textPrimary"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +127,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/history_prompt_view"
+                    android:tint="@color/textPrimary"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
@@ -133,6 +146,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:textColor="@color/textTertiary"
             android:text="0/1000"
             android:textSize="@dimen/_12sdp" />
 
@@ -199,7 +213,8 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                app:cardBackgroundColor="@color/background_dark_gray"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/backgroundSecondary"
                 app:cardCornerRadius="@dimen/_15sdp">
 
                 <LinearLayout
@@ -254,6 +269,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_advanced_setting"
+                    android:tint="@color/textPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -263,117 +279,50 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/advanced_setting_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
                 tools:visibility="visible">
 
-                <com.basic.common.widget.LsTextView
-                    style="@style/title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="ControlNet" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_controlNet"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
+                <LinearLayout
+                    android:id="@+id/controlNet_layout"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/item_control_net" />
-
-                <com.basic.common.widget.LsTextView
-                    android:id="@+id/tv_show_controlNet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/See_more"
-                    android:textColor="@color/yellow" />
-
-                <com.basic.common.widget.LsTextView
-                    style="@style/title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="Sampling Method" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_sampling_methods"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_tag" />
+                    android:layout_height="wrap_content">
+                    <com.basic.common.widget.LsTextView
+                        style="@style/title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="ControlNet" />
 
-                <com.basic.common.widget.LsTextView
-                    style="@style/title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="Negative Prompt" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/negative_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:cardBackgroundColor="@color/background_dark_gray"
-                    app:cardCornerRadius="@dimen/_15sdp"
-                    app:strokeColor="@color/light_gray"
-                    app:strokeWidth="@dimen/_1sdp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_controlNet"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <EditText
-                            android:id="@+id/ed_negative_prompt"
-                            android:hint="Enter negative prompt"
-                            android:textColorHint="@color/textTertiaryDark"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_12ssp"
-                            android:focusable="false"
-                            android:overScrollMode="always"
-                            android:scrollbarStyle="insideInset"
-                            android:scrollbars="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:backgroundTint="@android:color/transparent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <View
-                            android:id="@+id/viewPremiumNegative"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:layout_constraintBottom_toBottomOf="@id/ed_negative_prompt"
-                            app:layout_constraintEnd_toEndOf="@id/ed_negative_prompt"
-                            app:layout_constraintStart_toStartOf="@id/ed_negative_prompt"
-                            app:layout_constraintTop_toTopOf="@id/ed_negative_prompt" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <RelativeLayout
+                        android:layout_height="@dimen/_200sdp"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_control_net" />
+                    <com.basic.common.widget.LsTextView
+                        android:id="@+id/tv_show_controlNet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/See_more"
+                        android:textColor="@color/colorSecondary" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/advanced_setting_layout"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp">
+                    android:layout_height="wrap_content">
 
                     <com.basic.common.widget.LsTextView
                         style="@style/title_text"
@@ -381,103 +330,183 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:text="Quality Prompt" />
+                        android:text="Sampling Method" />
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/quality_prompt"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_sampling_methods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_tag" />
+
+                    <com.basic.common.widget.LsTextView
+                        style="@style/title_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="Negative Prompt" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/negative_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:checked="true"
-                        app:switchMinWidth="@dimen/_50sdp"
-                        android:thumb="@drawable/thumb_layerlist"
-                        app:trackTint="@color/light_gray" />
-                </RelativeLayout>
+                        app:cardBackgroundColor="@color/backgroundSecondary"
+                        app:cardCornerRadius="@dimen/_15sdp"
+                        app:strokeColor="@color/text_border"
+                        app:strokeWidth="@dimen/_1sdp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                    <com.basic.common.widget.LsTextView
-                        style="@style/title_text"
-                        android:layout_width="wrap_content"
+                            <EditText
+                                android:id="@+id/ed_negative_prompt"
+                                android:hint="Enter negative prompt"
+                                android:textColorHint="@color/textHintColor"
+                                android:textColor="@color/textPrimary"
+                                android:textSize="@dimen/_12ssp"
+                                android:focusable="false"
+                                android:overScrollMode="always"
+                                android:scrollbarStyle="insideInset"
+                                android:scrollbars="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:backgroundTint="@android:color/transparent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/viewPremiumNegative"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:layout_constraintBottom_toBottomOf="@id/ed_negative_prompt"
+                                app:layout_constraintEnd_toEndOf="@id/ed_negative_prompt"
+                                app:layout_constraintStart_toStartOf="@id/ed_negative_prompt"
+                                app:layout_constraintTop_toTopOf="@id/ed_negative_prompt" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CFG Scale"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginTop="@dimen/_5sdp">
 
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_scale"
-                        android:layout_width="@dimen/_150sdp"
+                        <com.basic.common.widget.LsTextView
+                            style="@style/title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="Quality Prompt" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/quality_prompt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:checked="true"
+                            app:switchMinWidth="@dimen/_50sdp"
+                            android:thumb="@drawable/thumb_layerlist"
+                            app:trackTint="@color/track_tint" />
+                    </RelativeLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_25sdp"
-                        android:valueFrom="4.0"
-                        android:valueTo="20.0"
-                        app:labelBehavior="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:thumbColor="@color/white"
-                        app:trackColorActive="@color/slider_yellow"
-                        app:trackColorInactive="@color/background_dark_gray" />
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp">
 
-                    <com.basic.common.widget.LsTextView
-                        android:id="@+id/tv_cfg_scale"
-                        android:layout_width="wrap_content"
+                        <com.basic.common.widget.LsTextView
+                            style="@style/title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CFG Scale"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_scale"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:valueFrom="4.0"
+                            android:valueTo="20.0"
+                            app:labelBehavior="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:thumbColor="@color/thumb_slider"
+                            app:trackColorActive="@color/slider_yellow"
+                            app:trackColorInactive="@color/track_tint" />
+
+                        <com.basic.common.widget.LsTextView
+                            android:id="@+id/tv_cfg_scale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7.0"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/_10ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="7.0"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <com.basic.common.widget.LsTextView
+                            style="@style/title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sampling Step"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp">
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_step"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:valueFrom="1"
+                            android:valueTo="100"
+                            app:labelBehavior="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:thumbColor="@color/thumb_slider"
+                            app:trackColorActive="@color/slider_yellow"
+                            app:trackColorInactive="@color/backgroundSecondary" />
 
-                    <com.basic.common.widget.LsTextView
-                        style="@style/title_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sampling Step"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_step"
-                        android:layout_width="@dimen/_150sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_25sdp"
-                        android:valueFrom="1"
-                        android:valueTo="100"
-                        app:labelBehavior="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:thumbColor="@color/white"
-                        app:trackColorActive="@color/slider_yellow"
-                        app:trackColorInactive="@color/background_dark_gray" />
-
-                    <com.basic.common.widget.LsTextView
-                        android:id="@+id/tv_sampling_step"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="25"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <com.basic.common.widget.LsTextView
+                            android:id="@+id/tv_sampling_step"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/_10ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -497,6 +526,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
+                    app:cardElevation="0dp"
                     app:cardBackgroundColor="@color/yellow_black"
                     app:cardCornerRadius="@dimen/_10sdp">
 
@@ -509,7 +539,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Optional"
-                            android:textColor="@color/white"
+                            android:textColor="@color/textPrimary"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -560,9 +590,9 @@
                         app:labelBehavior="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:thumbColor="@color/white"
+                        app:thumbColor="@color/thumb_slider"
                         app:trackColorActive="@color/slider_yellow"
-                        app:trackColorInactive="@color/background_dark_gray" />
+                        app:trackColorInactive="@color/track_tint" />
 
                     <TextView
                         android:id="@+id/tv_weight"
@@ -571,7 +601,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="0.2"
-                        android:textColor="@color/white"
+                        android:textColor="@color/textPrimary"
                         android:textSize="@dimen/_10ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -590,14 +620,13 @@
         </LinearLayout>
 
     </ScrollView>
-
     <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        android:background="@drawable/ab_shadow_bottom_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/ab_shadow_bottom_top" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/createView"
@@ -647,7 +676,7 @@
                 android:id="@+id/iv_create"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="wrap_content"
-                android:tint="@color/white"
+                android:tint="?android:textColorPrimary"
                 android:src="@drawable/right_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -665,6 +694,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/iv_coins"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

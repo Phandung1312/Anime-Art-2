@@ -50,7 +50,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 1"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 2"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 3"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 4"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 5"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 6"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -110,7 +110,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Day 7"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>

@@ -13,12 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
+import com.anime.art.ai.common.extension.compareWithFiveMinutes
 import com.anime.art.ai.common.extension.convertToShortDate
 import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.gradientYellowArray
 import com.anime.art.ai.common.extension.startCreditHistory
 import com.anime.art.ai.common.getCurrentDay
+import com.anime.art.ai.common.getCurrentDayTime
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.databinding.ActivitySettingBinding
@@ -177,7 +179,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             if(isReceived) setBackgroundColor(getColor(R.color.gray_3D))
             else setBackgroundResource(R.drawable.button_gradient_yellow)
         }
-        binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.light_gray) else getColor(R.color.black))
+        binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.white_35) else getColor(R.color.black))
     }
     private fun initData(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
@@ -220,10 +222,12 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
                         consecutiveSeries = 1
                         setDayReward(consecutiveSeries, isReceived = false)
                     }
-                    else setDayReward(consecutiveSeries, isReceived = true)
+                    else setDayReward(if(consecutiveSeries > 7) 1 else consecutiveSeries, isReceived = true)
                 }
             }
         }
+
+
         preferences
             .isSynced
             .asObservable()

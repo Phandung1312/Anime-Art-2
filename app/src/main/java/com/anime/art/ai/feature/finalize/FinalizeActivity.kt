@@ -3,24 +3,17 @@ package com.anime.art.ai.feature.finalize
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Base64
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
-import com.anime.art.ai.common.decodeBase64ToBitmap
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.gradient
-import com.anime.art.ai.common.processAndSaveImage
 import com.anime.art.ai.common.saveBitmapToFile
 import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.databinding.ActivityFinalizeBinding
@@ -28,17 +21,14 @@ import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.saveImageToGallery
-import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.transparent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.OutputStream
 import javax.inject.Inject
 
 
@@ -83,7 +73,7 @@ class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBin
 
     private fun initData() {
         binding.tvArtStyle.text = configApp.imageGenerationRequest.artStyle
-        binding.tvArtStyle.gradient(R.color.yellow, R.color.dark_yellow)
+        binding.tvArtStyle.gradient(R.color.colorSecondary, R.color.colorPrimary)
         binding.tvPrompt.text = configApp.imageGenerationRequest.prompt
     }
 

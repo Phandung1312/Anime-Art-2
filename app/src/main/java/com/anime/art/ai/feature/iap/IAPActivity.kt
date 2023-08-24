@@ -143,7 +143,7 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
     }
 
     private fun initView() {
-        binding.tvTittle.gradient(R.color.yellow, R.color.dark_yellow)
+        binding.tvTittle.gradient(R.color.colorSecondary, R.color.colorPrimary)
         isFirstScreen = intent.getBooleanExtra(IS_FIRST_SCREEN_EXTRA, false)
     }
 

@@ -1,19 +1,13 @@
 package com.anime.art.ai.feature.main.gallery
 
-import android.content.Intent
-import android.os.Build
 import android.text.TextUtils
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.convertToShortDate
 import com.anime.art.ai.common.extension.dayBetween
 import com.anime.art.ai.common.extension.gradient
-import com.anime.art.ai.common.extension.observeOnce
-import com.anime.art.ai.common.extension.startDetailGallery
 import com.anime.art.ai.common.extension.startIAP
 import com.anime.art.ai.common.getCurrentDay
 import com.anime.art.ai.data.Preferences
@@ -22,7 +16,6 @@ import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.databinding.FragmentGalleryBinding
 import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.domain.repository.SyncRepository
-import com.anime.art.ai.feature.iap.IAPActivity
 import com.anime.art.ai.feature.main.MainActivity
 import com.anime.art.ai.feature.main.gallery.adapter.PreviewAdapter
 import com.anime.art.ai.feature.main.gallery.dialog.DailyCreditDialog
@@ -30,19 +23,12 @@ import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.makeToast
-import com.uber.autodispose.android.lifecycle.autoDispose
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -162,6 +148,9 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
                 }
             }
         }
+
+
+
     }
     private  fun showDailyReward(consecutiveSeries : Int){
         lifecycleScope.launch(Dispatchers.Main){
@@ -170,7 +159,7 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
         }
     }
     private fun initView() {
-        binding.tvTittle.gradient(R.color.yellow, R.color.dark_yellow)
+        binding.tvTittle.gradient(R.color.colorSecondary, R.color.colorPrimary)
         binding.recyclerView.apply {
             this.adapter = previewAdapter
             this.itemAnimator = null

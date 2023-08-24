@@ -16,5 +16,6 @@ class ConfigApp @Inject constructor(
     var url : String = ""
     var tabIndex = 0
     var localPrompt = ""
+    var negativePrompt = Constraint.Sinkin.DEFAULT_NEGATIVE
 
 }

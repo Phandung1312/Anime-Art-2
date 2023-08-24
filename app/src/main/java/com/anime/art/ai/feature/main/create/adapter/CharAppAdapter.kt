@@ -8,7 +8,6 @@ import com.anime.art.ai.databinding.ItemCharacterAppearanceBinding
 import com.anime.art.ai.domain.model.CharacterAppearance
 import com.basic.common.base.LsAdapter
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getColorCompat
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
 import javax.inject.Inject
@@ -46,11 +45,13 @@ class CharAppAdapter @Inject constructor() : LsAdapter<CharacterAppearance, Item
         layoutParams.marginEnd = binding.root.context.resources.getDimensionPixelSize(marginEndResId)
 
         if(selectedIndex == position) {
-            binding.display.gradient(R.color.yellow, R.color.dark_yellow)
+            binding.display.gradient(R.color.colorSecondary, R.color.colorPrimary)
             }
-            else{
-            binding.display.gradient(R.color.white, R.color.white)
-            }
+            else {
+            binding.display.gradient(
+                R.color.textPrimary, R.color.textPrimary
+            )
+        }
 
 
         binding.underline.visibility = if(selectedIndex == position) View.VISIBLE else View.GONE

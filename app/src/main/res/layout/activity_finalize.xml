@@ -82,7 +82,7 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
-            app:cardBackgroundColor="@color/background_dark_gray"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             app:cardCornerRadius="@dimen/_15sdp"
             app:layout_constraintBottom_toTopOf="@id/linearLayout2"
             app:strokeColor="@color/light_gray"

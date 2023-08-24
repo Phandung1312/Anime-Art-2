@@ -1,17 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Main" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Main" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/tools_theme</item>
-        <item name="android:textColorPrimary">@color/textPrimaryDark</item>
-        <item name="android:textColorSecondary">@color/textSecondaryDark</item>
-        <item name="android:textColorTertiary">@color/textTertiaryDark</item>
-        <item name="android:windowBackground">@color/backgroundDark</item>
-        <item name="android:colorBackground">#191919</item>
-        <item name="android:statusBarColor">@color/backgroundDark</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/backgroundDark</item>
-<!--        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>-->
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+        <item name="android:textColorTertiary">@color/textTertiary</item>
+        <item name="android:windowBackground">@color/backgroundLight</item>
+        <item name="android:colorBackground">#EDEDED</item>
+        <item name="android:statusBarColor">@color/backgroundLight</item>
+        <item name="android:navigationBarColor">@color/backgroundLight</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="colorControlActivated">@color/tools_theme</item>
         <item name="colorControlNormal">#D5D5D5</item>
         <!-- Primary brand color. -->
@@ -24,5 +23,8 @@
         <!-- Tertiary brand color. -->
         <item name="colorTertiary">@color/colorTertiary</item>
         <item name="colorOnTertiary">@color/textTertiary</item>
+
+
+
     </style>
 </resources>

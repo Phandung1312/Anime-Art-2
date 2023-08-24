@@ -18,6 +18,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/close"
+            app:tint="@color/thumb_slider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Credit you have"
-                    android:textColor="@color/white"
+                    android:textColor="@color/textPrimary"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +94,7 @@
                     android:fontFamily="@font/inter_tight_bold"
                     android:gravity="center_vertical"
                     android:text="0"
-                    android:textColor="@color/yellow"
+                    android:textColor="@color/colorSecondary"
                     android:textSize="@dimen/_16ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +136,7 @@
                             android:id="@+id/first_credit_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/background_dark_gray">
+                            android:background="@color/backgroundSecondary">
 
                             <TextView
                                 android:id="@+id/tv_first_credit"
@@ -146,7 +147,7 @@
                                 android:fontFamily="@font/inter_tight_semi_bold"
                                 android:text="500"
                                 android:textAlignment="center"
-                                android:textColor="@color/yellow"
+                                android:textColor="@color/colorSecondary"
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,7 +171,7 @@
                                 android:fontFamily="@font/inter_tight_light"
                                 android:text="Subcriber get extra 50 credits"
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textPrimary"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_first_credit"
                                 tools:layout_editor_absoluteX="2dp" />
@@ -254,7 +255,7 @@
                             android:id="@+id/second_credit_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/background_dark_gray">
+                            android:background="@color/backgroundSecondary">
 
                             <TextView
                                 android:id="@+id/tv_second_credit"
@@ -265,7 +266,7 @@
                                 android:fontFamily="@font/inter_tight_semi_bold"
                                 android:text="1000"
                                 android:textAlignment="center"
-                                android:textColor="@color/yellow"
+                                android:textColor="@color/colorSecondary"
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -289,7 +290,7 @@
                                 android:fontFamily="@font/inter_tight_light"
                                 android:text="Subcriber get extra 100 credits"
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textPrimary"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_second_credit"
                                 tools:layout_editor_absoluteX="3dp" />
@@ -373,7 +374,7 @@
                             android:id="@+id/third_credit_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/background_dark_gray">
+                            android:background="@color/backgroundSecondary">
 
                             <TextView
                                 android:id="@+id/tv_third_credit"
@@ -384,7 +385,7 @@
                                 android:fontFamily="@font/inter_tight_semi_bold"
                                 android:text="2000"
                                 android:textAlignment="center"
-                                android:textColor="@color/yellow"
+                                android:textColor="@color/colorSecondary"
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -408,7 +409,7 @@
                                 android:fontFamily="@font/inter_tight_light"
                                 android:text="Subcriber get extra 200 credits"
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textPrimary"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_third_credit" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -503,7 +504,7 @@
                             android:id="@+id/fourth_credit_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/background_dark_gray">
+                            android:background="@color/backgroundSecondary">
 
                             <TextView
                                 android:id="@+id/tv_fourth_credit"
@@ -514,7 +515,7 @@
                                 android:fontFamily="@font/inter_tight_semi_bold"
                                 android:text="5000"
                                 android:textAlignment="center"
-                                android:textColor="@color/yellow"
+                                android:textColor="@color/colorSecondary"
                                 android:textSize="@dimen/_18ssp"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -537,7 +538,7 @@
                                 android:fontFamily="@font/inter_tight_light"
                                 android:text="Subcriber get extra 500 credits"
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textPrimary"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_fourth_credit" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -622,7 +623,7 @@
                             android:id="@+id/fifth_credit_layout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/background_dark_gray">
+                            android:background="@color/backgroundSecondary">
 
                             <TextView
                                 android:id="@+id/tv_fifth_credit"
@@ -657,7 +658,7 @@
                                 android:fontFamily="@font/inter_tight_light"
                                 android:text="Subcriber get extra 1000 credits"
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/textPrimary"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_fifth_credit" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -753,7 +754,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/inter_tight_light"
                 android:text="Subscribe to get extra credits discount"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:textSize="@dimen/_9ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView14"

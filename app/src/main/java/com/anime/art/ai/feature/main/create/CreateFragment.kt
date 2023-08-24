@@ -50,13 +50,11 @@ import com.anime.art.ai.feature.main.create.adapter.TagAdapter
 import com.basic.common.base.LsFragment
 import com.basic.common.extension.clicks
 import com.basic.common.extension.convertDrawableToBase64
-import com.basic.common.extension.convertImageToBase64
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.hideKeyboard
 import com.basic.common.extension.isNetworkAvailable
 import com.basic.common.extension.makeToast
 import com.basic.common.extension.resizeImageToFit
-import com.basic.common.extension.saveStringToFile
 import com.basic.common.extension.setTint
 import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
@@ -106,6 +104,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private var imageGenerationRequest : ImageGenerationRequest = ImageGenerationRequest()
 
     private var qualityImage = 2
+
     override fun onViewCreated() {
         initView()
         listenerView()
@@ -113,11 +112,11 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     }
     private fun animateHideOrShowControlNet(isShowed: Boolean){
         activity?.let {activity ->
-            val dp200 = activity.getDimens(com.intuit.sdp.R.dimen._200sdp).toInt()
+            val dp300 = activity.getDimens(com.intuit.sdp.R.dimen._300sdp).toInt()
             val dpFull = controlNetAdapter.data.size * activity.getDimens(com.intuit.sdp.R.dimen._100sdp).toInt()
             val valueAnimator = ValueAnimator.ofInt(
-                if (isShowed) dp200 else dpFull,
-                if (isShowed) dpFull else dp200
+                if (isShowed) dp300 else dpFull,
+                if (isShowed) dpFull else dp300
             )
             valueAnimator.duration = 1000L
             valueAnimator.addUpdateListener {
@@ -132,11 +131,18 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
     override fun onResume() {
         initObservable()
+        binding.edEnterPrompt.setText(configApp.localPrompt)
+        binding.edNegativePrompt.setText(configApp.negativePrompt)
+        binding.edEnterPrompt.setSelection(binding.edEnterPrompt.text.length)
+        if(preferences.isFirstLogin.get()){
+            binding.controlNetLayout.isVisible = true
+            preferences.isFirstLogin.set(false)
+        }
         super.onResume()
     }
     private fun initView(){
-        binding.tvTitle.gradient(R.color.yellow, R.color.dark_yellow)
-        binding.tvShowControlNet.gradient(R.color.yellow, R.color.dark_yellow)
+        binding.tvTitle.gradient(R.color.colorSecondary, R.color.colorPrimary)
+        binding.tvShowControlNet.gradient(R.color.colorSecondary, R.color.colorPrimary)
         binding.apply {
             rvCharacters.adapter = menuAdapter
             rvRatio.adapter = sizeOfImageAdapter
@@ -157,7 +163,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     }
 
     private fun initData(){
-        binding.edEnterPrompt.setText(configApp.localPrompt)
         menuAdapter.data = Character.values().toList()
         sizeOfImageAdapter.data = SizeOfImage.values().toList()
         artStyleAdapter.data = ArtStyle.values().toList()
@@ -170,7 +175,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         binding.sliderScale.value = 7.5f
         binding.sliderStep.value = 25f
 
-        binding.edNegativePrompt.setText(Constraint.Sinkin.DEFAULT_NEGATIVE)
+
     }
     private fun initInputImageData(){
         inputImages  = arrayListOf(
@@ -199,23 +204,26 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             binding.ivAdvancedSetting.setImageResource(if(isShowSetting) R.drawable.arrow_down else R.drawable.arrow_up)
 
             isShowSetting = !isShowSetting
-            binding.advancedSettingView.apply {
-                isVisible = isShowSetting
+            binding.apply {
+                advancedSettingLayout.isVisible = isShowSetting
+                controlNetLayout.isVisible = isShowSetting
             }
-            isShowMore = false
         }
+        isShowMore = false
         binding.tvShowControlNet.clicks {
             isShowMore = !isShowMore
         }
 
         //Image Weight Slider
         binding.sliderWeight.addOnChangeListener { _, value, _ ->
-            val inputImage = inputImageAdapter.data[inputImageAdapter.selectedIndex]
-            val roundedNumber = roundToNearestTenth(value.toDouble())
-            binding.tvWeight.text = roundedNumber.toString()
-            inputImage.weight = roundedNumber.toFloat()
-            inputImages[inputImageAdapter.selectedIndex] = inputImage
-            inputImageAdapter.data = inputImages
+            if(inputImageAdapter.selectedIndex > 0){
+                val inputImage = inputImageAdapter.data[inputImageAdapter.selectedIndex]
+                val roundedNumber = roundToNearestTenth(value.toDouble())
+                binding.tvWeight.text = roundedNumber.toString()
+                inputImage.weight = roundedNumber.toFloat()
+                inputImages[inputImageAdapter.selectedIndex] = inputImage
+                inputImageAdapter.data = inputImages
+            }
         }
 
         binding.tvClear.clicks {
@@ -342,7 +350,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
                 binding.tvClear.apply {
                     isEnabled = isEnable
-                    setTextColor(context.getColor(if(isEnable) R.color.white else com.widget.R.color.textTertiaryDark))
+                    setTextColor(context.getColor(if(isEnable) R.color.textPrimary else R.color.textTertiary))
                 }
             }
 
@@ -467,18 +475,13 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     }
 
     fun setDataFromGallery(prompt : String?,negativePrompt  : String?, ratio : String?){
+
         prompt?.let {
             binding.edEnterPrompt.setText(it)
         }
         negativePrompt?.let {
             binding.edNegativePrompt.setText(it)
         }
-//        sizeOfImageAdapter.data.forEach { sizeOfImage ->
-//            if (TextUtils.equals(sizeOfImage.realSize, ratio)) {
-//                sizeOfImageAdapter.selectedIndex = sizeOfImageAdapter.data.indexOf(sizeOfImage)
-//                sizeOfImageAdapter.clicks.onNext(sizeOfImage)
-//            }
-//        }
     }
 
     private val getPromptFromHistoryResult =
@@ -535,8 +538,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
         }
         if (preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST) {
-            requireContext().makeToast("you don't have enough credit")
-            activity?.startIAP()
+            requireContext().makeToast("You don't have enough credit")
+            val buyMoreDialog = BuyMoreDialog()
+            buyMoreDialog.show(parentFragmentManager, null)
         } else {
             if(!requireContext().isNetworkAvailable()) {
                 requireContext().makeToast("Please check your connect internet !")

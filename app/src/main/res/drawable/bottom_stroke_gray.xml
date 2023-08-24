@@ -13,7 +13,7 @@
         android:left="@dimen/_1sdp"
         android:right="@dimen/_1sdp">
         <shape android:shape="rectangle" >
-            <solid android:color="@color/background_dark_gray" />
+            <solid android:color="@color/backgroundSecondary" />
             <corners android:bottomLeftRadius="@dimen/_25sdp"
                 android:bottomRightRadius="@dimen/_25sdp"/>
         </shape>

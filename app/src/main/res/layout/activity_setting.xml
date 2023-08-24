@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgroundSecondary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".feature.setting.SettingActivity">
@@ -20,7 +21,7 @@
             android:layout_centerVertical="true"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:tint="@color/white"
+            android:tint="@color/thumb_slider"
             android:src="@drawable/arrow_left" />
 
         <TextView
@@ -29,7 +30,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/inter_tight_bold"
             android:text="Setting"
-            android:textColor="@color/white"
+            android:textColor="@color/thumb_slider"
             android:textSize="@dimen/_20ssp" />
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/credit_view"
@@ -39,7 +40,7 @@
             android:layout_centerVertical="true"
             app:cardBackgroundColor="@color/yellow_black"
             app:cardCornerRadius="@dimen/_15sdp"
-            app:strokeColor="@color/dark_yellow"
+            app:strokeColor="@color/colorPrimary"
             app:strokeWidth="@dimen/_1sdp">
 
             <LinearLayout
@@ -62,7 +63,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="200"
-                    android:textColor="@color/white"
+                    android:textColor="@color/textPrimary"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>
@@ -71,6 +72,7 @@
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/backgroundSecondary"
         android:id="@+id/reward_daily_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,7 +111,7 @@
                 android:gravity="center"
                 android:text="Day 1"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -118,7 +120,7 @@
                 android:gravity="center"
                 android:text="Day 2"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -127,7 +129,7 @@
                 android:gravity="center"
                 android:text="Day 3"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -136,7 +138,7 @@
                 android:gravity="center"
                 android:text="Day 4"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -145,7 +147,7 @@
                 android:gravity="center"
                 android:text="Day 5"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -154,7 +156,7 @@
                 android:gravity="center"
                 android:text="Day 6"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -163,7 +165,7 @@
                 android:gravity="center"
                 android:text="Day 7"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -224,7 +226,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginStart="@dimen/_11sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -285,7 +287,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/credit_history_view"
-            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -305,14 +307,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:textSize="@dimen/_12ssp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:paddingBottom="@dimen/_15sdp"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:gravity="center_vertical"
                     android:text="Credit History"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView6"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -327,11 +330,11 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/shareView"
-            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp">
@@ -347,14 +350,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:textSize="@dimen/_12ssp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:paddingBottom="@dimen/_15sdp"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:text="Share"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/appCompatImageView7"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -369,11 +372,11 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/rate_us_view"
-            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp">
@@ -392,8 +395,8 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:textSize="@dimen/_12ssp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:paddingBottom="@dimen/_15sdp"
+                    android:textColor="@color/textPrimary"
+                    android:paddingBottom="@dimen/_5sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Rate Us"
@@ -411,11 +414,11 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/privacy_policy_view"
-            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp">
@@ -434,8 +437,8 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:textSize="@dimen/_12ssp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:paddingBottom="@dimen/_15sdp"
+                    android:textColor="@color/textPrimary"
+                    android:paddingBottom="@dimen/_5sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Privacy Policy"
@@ -453,11 +456,11 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/term_view"
-            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp">
@@ -476,8 +479,8 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:textSize="@dimen/_12ssp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:paddingBottom="@dimen/_15sdp"
+                    android:textColor="@color/textPrimary"
+                    android:paddingBottom="@dimen/_5sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Term of Use"
@@ -495,11 +498,11 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/feedback_view"
-            app:cardBackgroundColor="@color/backgroundDark"
+            app:cardBackgroundColor="@color/backgroundSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp">
@@ -518,8 +521,8 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:textSize="@dimen/_12ssp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:paddingBottom="@dimen/_10sdp"
+                    android:textColor="@color/textPrimary"
+                    android:paddingBottom="@dimen/_5sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Feedback"

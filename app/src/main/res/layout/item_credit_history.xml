@@ -23,7 +23,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/textPrimary"
                 android:textSize="@dimen/_12ssp"
                 tools:text="Get Reward Daily" />
 
@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_8ssp"
+                android:textColor="@color/textSecondary"
                 tools:text="2023-05-30" />
         </LinearLayout>
 
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:textColor="@color/yellow"
+            android:textColor="@color/colorSecondary"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

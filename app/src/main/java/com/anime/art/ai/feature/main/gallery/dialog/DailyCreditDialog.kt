@@ -18,7 +18,6 @@ import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.main.gallery.adapter.DailyRewardAdapter
 import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getColorCompat
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.getDimens
 import com.basic.common.extension.makeToast
@@ -26,8 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,12 +59,12 @@ class DailyCreditDialog(
         )
         if(!isPreSet){
             listText.take(day).forEach {  tv ->
-                tv.gradient(R.color.yellow, R.color.dark_yellow)
+                tv.gradient(R.color.colorSecondary, R.color.colorPrimary)
             }
             isPreSet = true
         }
         else {
-            listText[day - 1].gradient(R.color.yellow, R.color.dark_yellow)
+            listText[day - 1].gradient(R.color.colorSecondary, R.color.colorPrimary)
             listText[day - 1].requestLayout()
         }
 
@@ -110,7 +107,7 @@ class DailyCreditDialog(
             if(isReceived) setBackgroundColor(requireContext().getColor(R.color.gray_3D))
             else setBackgroundResource(R.drawable.button_gradient_yellow)
         }
-        binding.tvReceive.setTextColor(if(isReceived) requireContext().getColor(R.color.light_gray) else requireContext().getColor(R.color.black))
+        binding.tvReceive.setTextColor(if(isReceived) requireContext().getColor(R.color.white_35) else requireContext().getColor(R.color.black))
     }
     private fun initView() {
         binding.rv.adapter = dailyRewardAdapter

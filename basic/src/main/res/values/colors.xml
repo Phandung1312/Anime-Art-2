@@ -2,8 +2,9 @@
 <resources>
     <color name="white">#FFFFFF</color>
 
-    <color name="backgroundLight">#FFFFFF</color>
+    <color name="backgroundLight">#EDEDED</color>
     <color name="backgroundDark">#121212</color>
+
 
     <color name="colorPrimary">#E3A302</color>
     <color name="colorSecondary">#FFE092</color>

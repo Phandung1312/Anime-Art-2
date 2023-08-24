@@ -16,7 +16,6 @@ import com.basic.common.extension.clicks
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,14 +42,14 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                     setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
                     binding.emptyLayout.isVisible = creatorAdapter.data.isEmpty()
                 }
-                else setBackgroundColor(context.getColor(R.color.background_dark_gray))
+                else setBackgroundColor(context.getColor(R.color.backgroundSecondary))
             }
             binding.favoriteView.apply {
                 if (value == FAVORITE){
                     setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
                     binding.emptyLayout.isVisible = favoriteAdapter.data.isEmpty()
                 }
-                else setBackgroundColor(context.getColor(R.color.background_dark_gray))
+                else setBackgroundColor(context.getColor(R.color.backgroundSecondary))
             }
             binding.recyclerView.adapter =
                 if (value == MY_CREATOR) creatorAdapter else favoriteAdapter
