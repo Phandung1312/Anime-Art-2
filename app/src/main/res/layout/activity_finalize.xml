@@ -15,7 +15,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_40sdp"
             android:src="@drawable/arrow_left"
-            android:tint="?android:textColorPrimary"
+            android:tint="@color/thumb_slider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/close"
-            app:strokeColor="#353535"
+            app:strokeColor="@color/text_border"
             app:strokeWidth="@dimen/_1sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="Art Style:"
-        android:textColor="@color/white"
+        android:textColor="@color/textPrimary"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toTopOf="@+id/prompt_view"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,7 +70,7 @@
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="ACG"
-        android:textColor="@color/white"
+        android:textColor="@color/textPrimary"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toTopOf="@+id/prompt_view"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
@@ -85,7 +85,7 @@
             app:cardBackgroundColor="@color/backgroundSecondary"
             app:cardCornerRadius="@dimen/_15sdp"
             app:layout_constraintBottom_toTopOf="@id/linearLayout2"
-            app:strokeColor="@color/light_gray"
+            app:strokeColor="@color/text_border"
             app:strokeWidth="@dimen/_1sdp"
             tools:layout_editor_absoluteX="13dp">
 
@@ -110,8 +110,8 @@
                         android:layout_height="wrap_content"
                         tools:text="hyper realistic, ultra detailed photograph of Haley Dunphy, ((nebula sky:1.25)), golden jewelry, shiny, sunlight fractal details, (works of Newmilky:1.6), depth of field.."
                         android:backgroundTint="@android:color/transparent"
-                        android:textColor="@color/textTertiaryDark"
-                        android:textColorHint="@color/textTertiaryDark"
+                        android:textColor="@color/textPrimary"
+                        android:textColorHint="@color/textHintColor"
                         android:textSize="@dimen/_12ssp" />
                 </ScrollView>
 
@@ -123,6 +123,7 @@
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:scaleType="centerInside"
                     android:src="@drawable/copy"
+                    app:tint="@color/thumb_slider"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>

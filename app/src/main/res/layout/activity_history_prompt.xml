@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/arrow_left"
-            android:tint="?android:textColorPrimary" />
+            android:tint="@color/thumb_slider" />
 
         <TextView
             android:id="@+id/textView"
@@ -30,7 +30,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/roboto_medium"
             android:text="Recent prompts"
-            android:textColor="@color/white"
+            android:textColor="@color/thumb_slider"
             android:textSize="@dimen/_20sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

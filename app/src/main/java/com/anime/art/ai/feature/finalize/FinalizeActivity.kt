@@ -15,6 +15,7 @@ import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.saveBitmapToFile
+import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.CreatorDao
 import com.anime.art.ai.databinding.ActivityFinalizeBinding
 import com.basic.common.base.LsActivity
@@ -36,9 +37,15 @@ import javax.inject.Inject
 class FinalizeActivity : LsActivity<ActivityFinalizeBinding>(ActivityFinalizeBinding::inflate) {
     @Inject lateinit var configApp: ConfigApp
     @Inject lateinit var creatorDao: CreatorDao
+    @Inject lateinit var pref : Preferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparent()
+        if(pref.isDarkMode.get()){
+            transparent()
+        }
+        else{
+            transparent(true, true)
+        }
         setContentView(binding.root)
         initView()
         initObservable()

@@ -19,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="gallery" />
-                            <entry key="sourceFile" value="C:\Users\Hi\Downloads\solar_gallery-wide-bold-duotone.svg" />
+                            <entry key="outputName" value="input_image" />
+                            <entry key="sourceFile" value="C:\Users\Hi\Downloads\Group 9026 (1).svg" />
                           </map>
                         </option>
                       </PersistentState>

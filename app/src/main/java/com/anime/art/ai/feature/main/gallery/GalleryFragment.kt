@@ -159,7 +159,6 @@ class GalleryFragment: LsFragment<FragmentGalleryBinding>(FragmentGalleryBinding
         }
     }
     private fun initView() {
-        binding.tvTittle.gradient(R.color.colorSecondary, R.color.colorPrimary)
         binding.recyclerView.apply {
             this.adapter = previewAdapter
             this.itemAnimator = null

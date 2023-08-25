@@ -2,6 +2,7 @@ package com.anime.art.ai.feature.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.extension.startIAP
@@ -39,6 +40,16 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
     @Inject lateinit var configApp: ConfigApp
     @Inject lateinit var serverApiRepo: ServerApiRepository
 
+    override fun onStart() {
+        val isDarkMode = prefs.isDarkMode.get()
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        super.onStart()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

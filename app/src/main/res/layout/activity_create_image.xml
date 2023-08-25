@@ -21,6 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10sdp"
+            app:tint="@color/thumb_slider"
             android:src="@drawable/close" />
 
         <TextView
@@ -29,7 +30,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/roboto_medium"
             android:text="Output"
-            android:textColor="@color/white"
+            android:textColor="@color/thumb_slider"
             android:textSize="@dimen/_20ssp" />
     </RelativeLayout>
 
@@ -40,7 +41,7 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:text="Choose one input to finalize or make variations"
-        android:textColor="@color/white"
+        android:textColor="@color/textPrimary"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
@@ -74,18 +75,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Loading..."
-            android:textColor="@color/white"
+            android:textColor="@color/textPrimary"
             android:textSize="@dimen/_12ssp" />
+
     </LinearLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:id="@+id/constraintLayout5"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/bottom_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" >
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
@@ -96,29 +101,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/show_left"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_marginStart="@dimen/_5sdp"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             android:src="@drawable/ic_left_arrow"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/thumb_slider"
+            tools:visibility="visible" />
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/show_right"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:src="@drawable/ic_right_arrow"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/thumb_slider"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
@@ -131,6 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.card.MaterialCardView
+            app:cardElevation="0dp"
             android:id="@+id/variations_view"
             android:layout_width="@dimen/_130sdp"
             android:layout_height="match_parent"
@@ -153,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
                         android:text="Make Variations"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/textPrimary" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -165,7 +173,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="3"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/textPrimary" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="@dimen/_10sdp"
@@ -181,6 +189,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/finalize_view"
             android:layout_width="@dimen/_130sdp"
+            app:cardElevation="0dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             app:cardBackgroundColor="?android:windowBackground"

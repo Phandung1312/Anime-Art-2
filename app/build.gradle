@@ -22,7 +22,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.anime.art.ai"
+        applicationId "com.animeai.photoart"
         minSdk 26
         targetSdk 33
         versionCode 1

@@ -1,5 +1,6 @@
 package com.anime.art.ai.feature.credithistory
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BuyMoreDialog : DialogFragment() {
+class BuyMoreDialog(
+    val callback : () -> Unit,
+) : DialogFragment() {
     private lateinit var  binding : DialogBuyMoreBinding
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var serverApiRepository: ServerApiRepository
@@ -137,6 +140,7 @@ class BuyMoreDialog : DialogFragment() {
                 binding.continueView.isEnabled = true
             }
         }
+
     }
     private fun initData(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
@@ -149,5 +153,10 @@ class BuyMoreDialog : DialogFragment() {
         dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         dialog?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), com.widget.R.color.backgroundDark)
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        callback.invoke()
+        super.onDismiss(dialog)
     }
 }

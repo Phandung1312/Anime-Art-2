@@ -333,7 +333,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Continue"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textCreateView"
                     android:textSize="@dimen/_14ssp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

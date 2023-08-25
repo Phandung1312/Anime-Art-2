@@ -56,7 +56,12 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparent()
+        if(preferences.isDarkMode.get()){
+            transparent()
+        }
+        else{
+            transparent(true, true)
+        }
         setContentView(binding.root)
         initView()
         initListener()
@@ -86,7 +91,10 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         }
 
         binding.creditView.clicks(withAnim = false) {
-            val buyMoreDialog = BuyMoreDialog()
+            binding.creditView.isEnabled = false
+            val buyMoreDialog = BuyMoreDialog{
+                binding.creditView.isEnabled = true
+            }
             buyMoreDialog.show(supportFragmentManager, null)
         }
         binding.receiveCardView.clicks(withAnim = false) {

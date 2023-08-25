@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "339379897445",
-    "project_id": "anime-art-2",
-    "storage_bucket": "anime-art-2.appspot.com"
+    "project_number": "1055458803094",
+    "firebase_url": "https://anime-ai-photo-art-default-rtdb.firebaseio.com",
+    "project_id": "anime-ai-photo-art",
+    "storage_bucket": "anime-ai-photo-art.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:339379897445:android:aefa1937b0e08b90be728c",
+        "mobilesdk_app_id": "1:1055458803094:android:523f0e1d9b929a9063b1b7",
         "android_client_info": {
-          "package_name": "com.anime.art.ai"
+          "package_name": "com.animeai.photoart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "339379897445-3g2gbicngigmo0vv987lqtbb6add2p37.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.anime.art.ai",
-            "certificate_hash": "7f3a5644a92219a8ee786775084f4a2241a2087f"
-          }
-        },
-        {
-          "client_id": "339379897445-stmeh1tu120cp2f6j17mib2s7hb8s5bi.apps.googleusercontent.com",
+          "client_id": "1055458803094-33ihu1f3meqho5r85lg3vs57nfb3afia.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCeZ2wWp-DYKg0oB7f4StF7oSKM5rHwzGU"
+          "current_key": "AIzaSyCaVDde_sbMKS00NlWsnfEf8YZ_AKs9Rbg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "339379897445-stmeh1tu120cp2f6j17mib2s7hb8s5bi.apps.googleusercontent.com",
+              "client_id": "1055458803094-33ihu1f3meqho5r85lg3vs57nfb3afia.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

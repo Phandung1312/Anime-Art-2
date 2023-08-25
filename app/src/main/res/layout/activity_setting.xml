@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/backgroundSecondary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".feature.setting.SettingActivity">
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            app:cardBackgroundColor="@color/yellow_black"
+            app:cardBackgroundColor="@color/shadow_primary"
             app:cardCornerRadius="@dimen/_15sdp"
             app:strokeColor="@color/colorPrimary"
             app:strokeWidth="@dimen/_1sdp">
@@ -63,7 +62,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:text="200"
-                    android:textColor="@color/textPrimary"
+                    android:textColor="@color/thumb_slider"
                     android:textSize="@dimen/_10ssp" />
 
             </LinearLayout>
@@ -72,7 +71,6 @@
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/backgroundSecondary"
         android:id="@+id/reward_daily_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,7 +92,7 @@
             android:fontFamily="@font/inter_tight_semi_bold"
             android:text="Get Reward Daily"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/textCreateView"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintTop_toTopOf="@+id/appCompatImageView4" />
         <LinearLayout
@@ -287,7 +285,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/credit_history_view"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardBackgroundColor="@color/background_cardView_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -330,7 +328,7 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/shareView"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardBackgroundColor="@color/background_cardView_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -372,7 +370,7 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/rate_us_view"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardBackgroundColor="@color/background_cardView_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -414,7 +412,7 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/privacy_policy_view"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardBackgroundColor="@color/background_cardView_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -456,7 +454,7 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/term_view"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardBackgroundColor="@color/background_cardView_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -498,7 +496,7 @@
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/feedback_view"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardBackgroundColor="@color/background_cardView_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout

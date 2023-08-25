@@ -32,7 +32,12 @@ class CreditHistoryActivity : LsActivity<ActivityCreditHistoryBinding>(ActivityC
     @Inject lateinit var historyDao: HistoryDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparent()
+        if(pref.isDarkMode.get()){
+            transparent()
+        }
+        else{
+            transparent(true, true)
+        }
         setContentView(binding.root)
         initView()
         initObservable()
@@ -55,7 +60,10 @@ class CreditHistoryActivity : LsActivity<ActivityCreditHistoryBinding>(ActivityC
             back()
         }
         binding.buyMoreView.clicks(withAnim = false) {
-            val buyMoreDialog = BuyMoreDialog()
+            binding.buyMoreView.isEnabled = false
+            val buyMoreDialog = BuyMoreDialog{
+                binding.buyMoreView.isEnabled = true
+            }
             buyMoreDialog.show(supportFragmentManager, null)
         }
     }

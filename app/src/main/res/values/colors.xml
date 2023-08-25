@@ -4,24 +4,24 @@
     <color name="dark">#191919 </color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorTertiary">#F6EEA4</color>
-    <color name="colorSecondary">#FFE092</color>
-    <color name="colorPrimary">#E3A302</color>
+    <color name="colorTertiary">#FE676E</color>
+    <color name="colorSecondary">#FE676E</color>
+    <color name="colorPrimary">#C73866</color>
     <color name="colorQuaternary">#20E4A302</color>
-    <color name="slider_yellow">#F1C148</color>
+    <color name="slider_color">#FE676E</color>
 
 
-    <color name="yellow_black">#F6EEA4</color>
-    <color name="backgroundSecondary">#EDEDED</color>
-    <color name="light_gray">#292828</color>
+    <color name="shadow_primary">#FEE0E2</color>
+    <color name="backgroundSecondary">#FFFFFF</color>
+    <color name="light_gray">#FFFFFF</color>
     <color name="gray_3D">#3D3D3D</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="transparent_dialog">#35FFFFFF</color>
     <color name="white_35">#FFFFFF</color>
     <color name="red">#FF2323</color>
 
-    <color name="background_tag">#EDEDED</color>\
-    <color name="background_artStyle"> #EDEDED</color>
+    <color name="background_tag">#FFFFFF</color>
+    <color name="background_artStyle"> #FFFFFF</color>
 <!--    <color name="colorPrimary">#E3A302</color>-->
 <!--    <color name="colorSecondary">#FFE092</color>-->
 <!--    <color name="colorTertiary">#FFF2D1</color>-->
@@ -32,21 +32,22 @@
 
     <color name="textHintColor">#141A18</color>
 
-    <color name="background_cardView_selected">#FDEAB9</color>
-    <color name="track_tint">#FDEAB9</color>
-    <color name="thumb_slider">#E3A302</color>
-    <color name="text_border">#E3A302</color>
+    <color name="background_cardView_selected">#C73866</color>
+    <color name="track_tint">#20C73866</color>
+    <color name="thumb_slider">#FE676E</color>
+    <color name="text_border">#FE676E</color>
 
-    <color name="background_menu">#EEB935</color>
+    <color name="background_menu">#D84769</color>
 
-    <color name="tab_bar_unselected">#FFDD86</color>
+    <color name="tab_bar_unselected">#FFADC3</color>
     <color name="tab_bar_selected">#FFFFFF</color>
 
-    <color name="text_title">#E3A302</color>
+    <color name="text_title">#FE676E</color>
 
-    <color name="background_cardView_setting">#EDEDED</color>
+    <color name="background_cardView_setting">#FFFFFF</color>
 
+    <color name="gradient_color_primary">#C73866</color>
+    <color name="gradient_color_secondary">#FE676E</color>
 
-
-
+    <color name="textCreateView">#FFFFFF</color>
 </resources>

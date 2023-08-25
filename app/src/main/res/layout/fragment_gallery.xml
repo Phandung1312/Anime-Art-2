@@ -23,6 +23,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:text="@string/app_name"
+                textGradientYellow="@{``}"
                 style="@style/page_title_text"/>
 
             <androidx.appcompat.widget.AppCompatImageView

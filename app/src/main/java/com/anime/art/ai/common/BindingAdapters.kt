@@ -19,8 +19,8 @@ object BindingAdapters{
         val textHeight = paint.fontMetrics.descent   - paint.fontMetrics.ascent
         val textShader: Shader = LinearGradient(
             0f, 0f, 0f, textHeight, intArrayOf(
-                ContextCompat.getColor(tv.context, R.color.colorSecondary),
-                ContextCompat.getColor(tv.context, R.color.colorPrimary),
+                ContextCompat.getColor(tv.context, R.color.gradient_color_secondary),
+                ContextCompat.getColor(tv.context, R.color.gradient_color_primary),
             ), null, Shader.TileMode.CLAMP
         )
         paint.shader = textShader

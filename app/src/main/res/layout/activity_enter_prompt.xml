@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_clear"
-        app:strokeColor="@color/light_gray"
+        app:strokeColor="@color/text_border"
         app:strokeWidth="@dimen/_1sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,8 +51,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:hint="Enter prompt"
-                android:textColor="@color/white"
-                android:textColorHint="@color/textTertiaryDark"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textHintColor"
                 android:textCursorDrawable="@drawable/cursor_edittext"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"

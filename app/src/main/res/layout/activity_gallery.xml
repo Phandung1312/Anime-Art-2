@@ -190,7 +190,6 @@
     <com.airbnb.lottie.LottieAnimationView
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:tint="@color/textPrimary"
         app:lottie_rawRes="@raw/arrow_up"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"

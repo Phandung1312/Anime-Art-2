@@ -65,7 +65,12 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparent()
+        if(preferences.isDarkMode.get()){
+            transparent()
+        }
+        else{
+            transparent(true, true)
+        }
         setContentView(binding.root)
         initView()
         initObservable()
@@ -132,7 +137,9 @@ class CreateImageActivity : LsActivity<ActivityCreateImageBinding>(ActivityCreat
             }
             else{
                 makeToast("You don't have enough credit")
-                val buyMoreDialog = BuyMoreDialog()
+                val buyMoreDialog = BuyMoreDialog{
+
+                }
                 buyMoreDialog.show(supportFragmentManager, null)
             }
         }

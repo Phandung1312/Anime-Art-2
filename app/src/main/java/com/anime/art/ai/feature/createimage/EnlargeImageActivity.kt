@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import com.anime.art.ai.R
 import com.anime.art.ai.common.ConfigApp
 import com.anime.art.ai.common.extension.back
+import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.databinding.ActivityEnlargeImageBinding
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
@@ -20,9 +21,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EnlargeImageActivity : LsActivity<ActivityEnlargeImageBinding>(ActivityEnlargeImageBinding::inflate) {
     @Inject lateinit var configApp: ConfigApp
+    @Inject lateinit var pref : Preferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparent()
+        if(pref.isDarkMode.get()){
+            transparent()
+        }
+        else{
+            transparent(true, true)
+        }
         setContentView(binding.root)
         initView()
         initListener()

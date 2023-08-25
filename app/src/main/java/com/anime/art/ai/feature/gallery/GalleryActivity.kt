@@ -66,7 +66,12 @@ class GalleryActivity : LsActivity<ActivityGalleryBinding>(ActivityGalleryBindin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transparent()
+        if(prefs.isDarkMode.get()){
+            transparent()
+        }
+        else{
+            transparent(true, true)
+        }
         setContentView(binding.root)
 
         initView()

@@ -20,7 +20,7 @@
         app:cardElevation="0dp"
         tools:layout_constraintDimensionRatio="9:16"
         app:strokeWidth="@dimen/_1sdp"
-        app:strokeColor="@color/light_gray">
+        app:strokeColor="@color/text_border">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -128,7 +128,7 @@
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp" />
                 <TextView
-                    android:textColor="@color/white"
+                    android:textColor="@color/textPrimary"
                     android:textAlignment="center"
                     android:maxWidth="@dimen/_150sdp"
                     android:textSize="@dimen/_12ssp"

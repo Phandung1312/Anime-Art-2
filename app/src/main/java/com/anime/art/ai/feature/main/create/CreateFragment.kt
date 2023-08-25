@@ -5,10 +5,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.text.underline
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
@@ -57,12 +61,14 @@ import com.basic.common.extension.makeToast
 import com.basic.common.extension.resizeImageToFit
 import com.basic.common.extension.setTint
 import com.basic.common.extension.tryOrNull
+import com.jakewharton.rxbinding2.view.enabled
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -104,7 +110,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private var imageGenerationRequest : ImageGenerationRequest = ImageGenerationRequest()
 
     private var qualityImage = 2
-
     override fun onViewCreated() {
         initView()
         listenerView()
@@ -140,8 +145,8 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
         super.onResume()
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun initView(){
-        binding.tvTitle.gradient(R.color.colorSecondary, R.color.colorPrimary)
         binding.tvShowControlNet.gradient(R.color.colorSecondary, R.color.colorPrimary)
         binding.apply {
             rvCharacters.adapter = menuAdapter
@@ -160,6 +165,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
             rvInputImage.adapter = inputImageAdapter
         }
+
+        val image = requireContext().resources.getDrawable(if(preferences.isDarkMode.get()) R.drawable.moon else R.drawable.sun, null)
+        binding.darkModeView.setImageDrawable(image)
     }
 
     private fun initData(){
@@ -249,7 +257,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             createImage()
         }
         binding.creditView.clicks(withAnim = false) {
-            val buyMoreDialog = BuyMoreDialog()
+            binding.creditView.isEnabled = false
+            val buyMoreDialog = BuyMoreDialog{
+                binding.creditView.isEnabled = true
+            }
             buyMoreDialog.show(parentFragmentManager, null)
         }
         binding.edEnterPrompt.doOnTextChanged { text, _, _, _ ->
@@ -267,6 +278,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             } else{
                 1
             }
+        }
+        binding.darkModeView.clicks(withAnim = false) {
+            preferences.isDarkMode.set(!preferences.isDarkMode.get())
+            updateUI()
         }
         binding.viewPremiumNegative.clicks(withAnim = false) {
             activity?.startIAP()
@@ -341,7 +356,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe { isEnable ->
                 binding.createView.isEnabled = isEnable
-                val colorRes = if (isEnable) R.color.black else R.color.white
+                val colorRes = if (isEnable) R.color.white else R.color.textCreateView
                 val backgroundRes = if (isEnable) R.drawable.button_gradient_yellow else R.drawable.button_gradient_yellow_inactive
                 binding.createLayout.setBackgroundResource(backgroundRes)
                 binding.tvCreate.setTextColor(requireContext().getColor(colorRes))
@@ -391,6 +406,14 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             }
 
     }
+    private fun updateUI() {
+            if ( preferences.isDarkMode.get()) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+    }
 
     private fun appendEnterPromptText(tag : String) {
         binding.edEnterPrompt.text?.apply {
@@ -422,10 +445,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         enterPromptResult.launch(intent)
     }
     private fun openGallery(){
-//        if(preferences.isFirstInputImage.get()){
-//            val bottomSheet = InputImageBottomSheet()
-//            bottomSheet.show(parentFragmentManager, null)
-//        }
+
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             type ="image/*"
         }
@@ -471,16 +491,6 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             val promptResult =  result.data?.getStringExtra(EnterPromptActivity.NEGATIVE_PROMPT_EXTRA)
             binding.edNegativePrompt.setText(promptResult)
             binding.edNegativePrompt.setSelection(binding.edNegativePrompt.text.length)
-        }
-    }
-
-    fun setDataFromGallery(prompt : String?,negativePrompt  : String?, ratio : String?){
-
-        prompt?.let {
-            binding.edEnterPrompt.setText(it)
-        }
-        negativePrompt?.let {
-            binding.edNegativePrompt.setText(it)
         }
     }
 
@@ -539,7 +549,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         }
         if (preferences.creditAmount.get() < Constraint.Info.CREATE_ART_WORK_COST) {
             requireContext().makeToast("You don't have enough credit")
-            val buyMoreDialog = BuyMoreDialog()
+            val buyMoreDialog = BuyMoreDialog{
+
+            }
             buyMoreDialog.show(parentFragmentManager, null)
         } else {
             if(!requireContext().isNetworkAvailable()) {

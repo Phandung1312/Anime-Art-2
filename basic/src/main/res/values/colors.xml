@@ -2,7 +2,7 @@
 <resources>
     <color name="white">#FFFFFF</color>
 
-    <color name="backgroundLight">#EDEDED</color>
+    <color name="backgroundLight">#FFFFFF</color>
     <color name="backgroundDark">#121212</color>
 
 

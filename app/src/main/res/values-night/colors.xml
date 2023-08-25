@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="dark">#191919 </color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorTertiary">#F6EEA4</color>
+    <color name="colorSecondary">#FFE092</color>
+    <color name="colorPrimary">#E3A302</color>
+    <color name="colorQuaternary">#20E4A302</color>
+    <color name="slider_color">#F1C148</color>
+
+    <color name="shadow_primary">#3E341C</color>
+    <color name="backgroundSecondary">#191919</color>
+    <color name="light_gray">#292828</color>
+    <color name="gray_3D">#3D3D3D</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="transparent_dialog">#35FFFFFF</color>
+    <color name="white_35">#35FFFFFF</color>
+    <color name="red">#FF2323</color>
+
+    <color name="background_tag"> #292828</color>
+    <color name="background_artStyle"> #191919</color>
+
+<!--    <color name="colorPrimary">#E3A302</color>-->
+<!--    <color name="colorSecondary">#FFE092</color>-->
+<!--    <color name="colorTertiary">#FFF2D1</color>-->
+
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#ccffffff</color>
+    <color name="textTertiary">#80BCBBBB</color>
+
+    <color name="textHintColor">#80BCBBBB</color>
+    <color name="background_cardView_selected">#FFE092</color>
+
+    <color name="track_tint">#292828</color>
+    <color name="thumb_slider">#FFFFFFFF</color>
+    <color name="text_border">#292828</color>
+
+    <color name="background_menu">#191919</color>
+    <color name="background_cardView_setting">#121212</color>
+    <color name="tab_bar_unselected">#FFFFFF</color>
+    <color name="tab_bar_selected">#FFE092</color>
+
+    <color name="gradient_color_primary">#FFE092</color>
+    <color name="gradient_color_secondary">#E3A302</color>
+    <color name="textCreateView">#000000</color>
+
+</resources>
