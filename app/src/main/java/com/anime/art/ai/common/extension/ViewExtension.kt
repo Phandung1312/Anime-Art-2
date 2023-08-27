@@ -14,47 +14,50 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.anime.art.ai.R
 
 fun TextView.gradient(startColor: Int, endColor: Int) {
-        val paint = this.paint
-        val width = paint.measureText(this.text.toString())
+    val paint = this.paint
+    val width = paint.measureText(this.text.toString())
 
-        val textShader: Shader = LinearGradient(
-            0f, 0f, width, this.textSize, intArrayOf(
-                ContextCompat.getColor(this.context, startColor),
-                ContextCompat.getColor(this.context, endColor),
-            ), null, Shader.TileMode.CLAMP
-        )
+    val textShader: Shader = LinearGradient(
+        0f, 0f, width, this.textSize, intArrayOf(
+            ContextCompat.getColor(this.context, startColor),
+            ContextCompat.getColor(this.context, endColor),
+        ), null, Shader.TileMode.CLAMP
+    )
 
-        paint.shader = textShader
+    paint.shader = textShader
 }
+
 fun TextView.gradientYellowArray() {
     val paint = this.paint
     val width = paint.measureText(this.text.toString())
 
     val textShader: Shader = LinearGradient(
         0f, 0f, width, this.textSize, intArrayOf(
-            Color.parseColor("#A57D24"),
-            Color.parseColor("#A88128"),
-            Color.parseColor("#B28E34"),
-            Color.parseColor("#C3A348"),
-            Color.parseColor("#DABF64"),
-            Color.parseColor("#F1DD80"),
-            Color.parseColor("#F1DD80"),
-            Color.parseColor("#A57D24"),
-            Color.parseColor("#BA973B"),
+            context.getColor(R.color.array_color_1),
+            context.getColor(R.color.array_color_2),
+            context.getColor(R.color.array_color_3),
+            context.getColor(R.color.array_color_4),
+            context.getColor(R.color.array_color_5),
+            context.getColor(R.color.array_color_6),
+            context.getColor(R.color.array_color_7),
+            context.getColor(R.color.array_color_8),
+            context.getColor(R.color.array_color_9)
         ), null, Shader.TileMode.CLAMP
     )
 
     paint.shader = textShader
 }
-fun View.margin(marginStartResId : Int, marginEndResId : Int){
+
+fun View.margin(marginStartResId: Int, marginEndResId: Int) {
     val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
     layoutParams.marginStart = this.context.resources.getDimensionPixelSize(marginStartResId)
     layoutParams.marginEnd = this.context.resources.getDimensionPixelSize(marginEndResId)
 }
 
-fun View.showKeyboard(){
+fun View.showKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
@@ -64,7 +67,7 @@ fun View.hideKeyboard() {
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun View.animateShowView(){
+fun View.animateShowView() {
     val cx = this.width / 2
     val cy = this.height / 2
     val finalRadius = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()
@@ -89,14 +92,14 @@ fun View.animateHideView() {
     })
     anim.start()
 }
-fun EditText.enableScrollText()
-{
+
+fun EditText.enableScrollText() {
     overScrollMode = View.OVER_SCROLL_ALWAYS
     scrollBarStyle = View.SCROLLBARS_INSIDE_INSET
     isVerticalScrollBarEnabled = true
     setOnTouchListener { view, event ->
         if (view is EditText) {
-            if(!view.text.isNullOrEmpty()) {
+            if (!view.text.isNullOrEmpty()) {
                 view.parent.requestDisallowInterceptTouchEvent(true)
                 when (event.action and MotionEvent.ACTION_MASK) {
                     MotionEvent.ACTION_UP -> view.parent.requestDisallowInterceptTouchEvent(false)

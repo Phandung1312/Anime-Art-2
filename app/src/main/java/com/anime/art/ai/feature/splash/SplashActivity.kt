@@ -40,16 +40,6 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
     @Inject lateinit var configApp: ConfigApp
     @Inject lateinit var serverApiRepo: ServerApiRepository
 
-    override fun onStart() {
-        val isDarkMode = prefs.isDarkMode.get()
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-        super.onStart()
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -71,7 +61,6 @@ class SplashActivity : LsActivity<ActivitySplashBinding>(ActivitySplashBinding::
             lifecycleScope.launch(Dispatchers.IO) {
                 try{
                     withTimeout(5000){
-                        Timber.e("DeviceId = ${getDeviceId()}")
                         serverApiRepo.login(getDeviceId()){ login ->
                             prefs.creditAmount.set(login.credit)
                             prefs.isPremium.set(login.isPremium == 1)

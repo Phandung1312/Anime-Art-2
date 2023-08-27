@@ -1,43 +1,17 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="36dp"
-    android:height="37dp"
-    android:viewportWidth="36"
-    android:viewportHeight="37">
+    android:width="50dp"
+    android:height="50dp"
+    android:viewportWidth="50"
+    android:viewportHeight="50">
   <path
-      android:pathData="M18,0.5L18,0.5A18,18 0,0 1,36 18.5L36,18.5A18,18 0,0 1,18 36.5L18,36.5A18,18 0,0 1,0 18.5L0,18.5A18,18 0,0 1,18 0.5z"
+      android:pathData="M25,0L25,0A25,25 0,0 1,50 25L50,25A25,25 0,0 1,25 50L25,50A25,25 0,0 1,0 25L0,25A25,25 0,0 1,25 0z"
       android:fillColor="#ffffff"
       android:fillAlpha="0.13"/>
   <path
-      android:pathData="M16.857,10V19.628H14.571L18,24.442L21.429,19.628H19.143V10H16.857ZM10,25.195V27H26V25.195H10Z">
-    <aapt:attr name="android:fillColor">
-      <gradient 
-          android:startX="10.556"
-          android:startY="12.231"
-          android:endX="17.474"
-          android:endY="27.242"
-          android:type="linear">
-        <item android:offset="0" android:color="#FF0860FF"/>
-        <item android:offset="1" android:color="#FF1BE4FF"/>
-      </gradient>
-    </aapt:attr>
-  </path>
+      android:pathData="M23.286,13V26.593H19.857L25,33.389L30.143,26.593H26.714V13H23.286ZM13,34.451V37H37V34.451H13Z"
+      android:fillColor="#ffffff"/>
   <path
-      android:pathData="M16.857,10V19.628H14.571L18,24.442L21.429,19.628H19.143V10H16.857ZM10,25.195V27H26V25.195H10Z">
-    <aapt:attr name="android:fillColor">
-      <gradient 
-          android:startX="12.809"
-          android:startY="11.592"
-          android:endX="22.363"
-          android:endY="25.765"
-          android:type="linear">
-        <item android:offset="0" android:color="#FFFFE092"/>
-        <item android:offset="1" android:color="#FFE3A302"/>
-      </gradient>
-    </aapt:attr>
-  </path>
-  <path
-      android:pathData="M18,0.75L18,0.75A17.75,17.75 0,0 1,35.75 18.5L35.75,18.5A17.75,17.75 0,0 1,18 36.25L18,36.25A17.75,17.75 0,0 1,0.25 18.5L0.25,18.5A17.75,17.75 0,0 1,18 0.75z"
+      android:pathData="M25,0.25L25,0.25A24.75,24.75 0,0 1,49.75 25L49.75,25A24.75,24.75 0,0 1,25 49.75L25,49.75A24.75,24.75 0,0 1,0.25 25L0.25,25A24.75,24.75 0,0 1,25 0.25z"
       android:strokeAlpha="0.28"
       android:strokeWidth="0.5"
       android:fillColor="#00000000"

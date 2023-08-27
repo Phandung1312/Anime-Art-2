@@ -47,7 +47,7 @@
                 android:maxWidth="@dimen/_140sdp"
                 android:text="LIMITED DISCOUNTS"
                 android:textAlignment="center"
-                android:textColor="@color/textCreateView"
+                android:textColor="@color/textButton"
                 android:textSize="@dimen/_22ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -225,7 +225,7 @@
                                 android:fontFamily="@font/inter_tight_medium"
                                 android:gravity="center"
                                 android:text="4.99 US$"
-                                android:textColor="@color/textCreateView"
+                                android:textColor="@color/textButton"
                                 android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -344,7 +344,7 @@
                                 android:fontFamily="@font/inter_tight_medium"
                                 android:gravity="center"
                                 android:text="7.99 US$"
-                                android:textColor="@color/textCreateView"
+                                android:textColor="@color/textButton"
                                 android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -462,7 +462,7 @@
                                 android:fontFamily="@font/inter_tight_medium"
                                 android:gravity="center"
                                 android:text="13.99 US$"
-                                android:textColor="@color/textCreateView"
+                                android:textColor="@color/textButton"
                                 android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -591,7 +591,7 @@
                                 android:fontFamily="@font/inter_tight_medium"
                                 android:gravity="center"
                                 android:text="4.99 US$"
-                                android:textColor="@color/textCreateView"
+                                android:textColor="@color/textButton"
                                 android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -711,7 +711,7 @@
                                 android:fontFamily="@font/inter_tight_medium"
                                 android:gravity="center"
                                 android:text="7.99 US$"
-                                android:textColor="@color/textCreateView"
+                                android:textColor="@color/textButton"
                                 android:textSize="@dimen/_9ssp" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -743,7 +743,7 @@
                         android:fontFamily="@font/inter_tight_medium"
                         android:gravity="center"
                         android:text="Continue"
-                        android:textColor="@color/textCreateView"
+                        android:textColor="@color/textButton"
                         android:textSize="@dimen/_16sdp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

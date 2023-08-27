@@ -8,19 +8,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
 import com.anime.art.ai.common.extension.back
-import com.anime.art.ai.common.extension.compareWithFiveMinutes
 import com.anime.art.ai.common.extension.convertToShortDate
 import com.anime.art.ai.common.extension.dayBetween
-import com.anime.art.ai.common.extension.gradient
 import com.anime.art.ai.common.extension.gradientYellowArray
 import com.anime.art.ai.common.extension.startCreditHistory
 import com.anime.art.ai.common.getCurrentDay
-import com.anime.art.ai.common.getCurrentDayTime
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
 import com.anime.art.ai.databinding.ActivitySettingBinding
@@ -40,9 +36,6 @@ import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -184,10 +177,10 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             strokeWidth = if(isReceived) getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
         }
         binding.receiveLayout.apply {
-            if(isReceived) setBackgroundColor(getColor(R.color.gray_3D))
+            if(isReceived) setBackgroundColor(getColor(R.color.background_received))
             else setBackgroundResource(R.drawable.button_gradient_yellow)
         }
-        binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.white_35) else getColor(R.color.black))
+        binding.tvReceive.setTextColor(if(isReceived) getColor(R.color.white_35) else getColor(R.color.textButton))
     }
     private fun initData(){
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->

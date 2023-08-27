@@ -34,7 +34,7 @@
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_40sdp"
             app:cardBackgroundColor="?android:colorBackground"
-            app:cardElevation="0dp"
+            app:cardElevation="@dimen/_1sdp"
             app:cardCornerRadius="@dimen/_25sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +43,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tv_creator"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_medium"
@@ -57,17 +58,17 @@
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentEnd="true"
-            app:cardElevation="0dp"
+            app:cardElevation="@dimen/_1sdp"
             app:cardBackgroundColor="@color/backgroundSecondary"
             app:cardCornerRadius="@dimen/_25sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/favoriteView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/dark">
+                android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tv_favorite"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto_medium"

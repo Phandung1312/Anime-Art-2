@@ -96,6 +96,11 @@ class EnterPromptActivity :
                         binding.edEnterPrompt.text?.delete(1000, enteredText.length)
                         makeToast("Text is full box")
                     }
+                    val isEnable = enteredText.isNotEmpty()
+                    binding.tvClear.apply {
+                        isEnabled = isEnable
+                        setTextColor(context.getColor(if(isEnable) R.color.textPrimary else R.color.textTertiary))
+                    }
                 }
 
             })

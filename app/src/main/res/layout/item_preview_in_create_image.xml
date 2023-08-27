@@ -43,15 +43,18 @@
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true"
                         app:lottie_rawRes="@raw/loading" />
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/preview"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
                         tools:src="@tools:sample/avatars" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,6 +128,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:src="@drawable/ic_reload"
+                    android:tint="@color/textPrimary"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp" />
                 <TextView

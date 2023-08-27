@@ -42,14 +42,18 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                     setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
                     binding.emptyLayout.isVisible = creatorAdapter.data.isEmpty()
                 }
-                else setBackgroundColor(context.getColor(R.color.backgroundSecondary))
+                else {
+                    setBackgroundColor(context.getColor(R.color.backgroundSecondary))
+                }
             }
             binding.favoriteView.apply {
                 if (value == FAVORITE){
                     setBackgroundResource(R.drawable.stroke_gradient_yellow_25)
                     binding.emptyLayout.isVisible = favoriteAdapter.data.isEmpty()
                 }
-                else setBackgroundColor(context.getColor(R.color.backgroundSecondary))
+                else {
+                    setBackgroundColor(context.getColor(R.color.backgroundSecondary))
+                }
             }
             binding.recyclerView.adapter =
                 if (value == MY_CREATOR) creatorAdapter else favoriteAdapter

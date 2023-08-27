@@ -34,15 +34,15 @@ object BindingAdapters{
         val width = paint.measureText(tv.text.toString())
         val textShader: Shader = LinearGradient(
             0f, 0f, width, tv.textSize, intArrayOf(
-                Color.parseColor("#A57D24"),
-                Color.parseColor("#A88128"),
-                Color.parseColor("#B28E34"),
-                Color.parseColor("#C3A348"),
-                Color.parseColor("#DABF64"),
-                Color.parseColor("#F1DD80"),
-                Color.parseColor("#F1DD80"),
-                Color.parseColor("#A57D24"),
-                Color.parseColor("#BA973B"),
+                tv.context.getColor(R.color.array_color_1) ,
+                tv.context.getColor(R.color.array_color_2),
+                tv.context.getColor(R.color.array_color_3),
+                tv.context.getColor(R.color.array_color_4),
+                tv.context.getColor(R.color.array_color_5),
+                tv.context.getColor(R.color.array_color_6),
+                tv.context.getColor(R.color.array_color_7),
+                tv.context.getColor(R.color.array_color_8),
+                tv.context.getColor(R.color.array_color_9)
             ), null, Shader.TileMode.CLAMP
         )
         paint.shader = textShader

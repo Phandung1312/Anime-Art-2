@@ -27,6 +27,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:src="@drawable/close"
+            android:tint="@color/thumb_slider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
@@ -229,11 +230,11 @@
                     <TextView
                         android:id="@+id/tv_one_yearly"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="32dp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:fontFamily="@font/inter_tight_extra_bold_italic"
                         android:text="1 Yearly"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textButton"
                         android:textSize="@dimen/_15ssp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -333,7 +334,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Continue"
-                    android:textColor="@color/textCreateView"
+                    android:textColor="@color/textButton"
                     android:textSize="@dimen/_14ssp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

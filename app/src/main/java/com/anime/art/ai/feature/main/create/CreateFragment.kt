@@ -5,11 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
@@ -61,14 +58,12 @@ import com.basic.common.extension.makeToast
 import com.basic.common.extension.resizeImageToFit
 import com.basic.common.extension.setTint
 import com.basic.common.extension.tryOrNull
-import com.jakewharton.rxbinding2.view.enabled
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -168,6 +163,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
 
         val image = requireContext().resources.getDrawable(if(preferences.isDarkMode.get()) R.drawable.moon else R.drawable.sun, null)
         binding.darkModeView.setImageDrawable(image)
+        Timber.e("Check inputImagesize = ${inputImageAdapter.selectedIndex}")
     }
 
     private fun initData(){
@@ -356,7 +352,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe { isEnable ->
                 binding.createView.isEnabled = isEnable
-                val colorRes = if (isEnable) R.color.white else R.color.textCreateView
+                val colorRes = if (isEnable) R.color.white else R.color.textButton
                 val backgroundRes = if (isEnable) R.drawable.button_gradient_yellow else R.drawable.button_gradient_yellow_inactive
                 binding.createLayout.setBackgroundResource(backgroundRes)
                 binding.tvCreate.setTextColor(requireContext().getColor(colorRes))
@@ -515,7 +511,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
                     }
 
                     is Uri -> {
-                        requireContext().resizeImageToFit(image) ?: ""
+                        requireContext().resizeImageToFit(image)
                     }
 
                     else -> {

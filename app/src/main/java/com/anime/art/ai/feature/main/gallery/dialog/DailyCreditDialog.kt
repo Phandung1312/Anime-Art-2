@@ -104,10 +104,10 @@ class DailyCreditDialog(
             strokeWidth = if(isReceived) requireContext().getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
         }
         binding.receiveLayout.apply {
-            if(isReceived) setBackgroundColor(requireContext().getColor(R.color.gray_3D))
+            if(isReceived) setBackgroundColor(requireContext().getColor(R.color.background_received))
             else setBackgroundResource(R.drawable.button_gradient_yellow)
         }
-        binding.tvReceive.setTextColor(if(isReceived) requireContext().getColor(R.color.white_35) else requireContext().getColor(R.color.black))
+        binding.tvReceive.setTextColor(if(isReceived) requireContext().getColor(R.color.white_35) else requireContext().getColor(R.color.textButton))
     }
     private fun initView() {
         binding.rv.adapter = dailyRewardAdapter

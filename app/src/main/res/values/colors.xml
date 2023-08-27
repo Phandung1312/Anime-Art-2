@@ -14,7 +14,7 @@
     <color name="shadow_primary">#FEE0E2</color>
     <color name="backgroundSecondary">#FFFFFF</color>
     <color name="light_gray">#FFFFFF</color>
-    <color name="gray_3D">#3D3D3D</color>
+    <color name="background_received">#FA8D93</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="transparent_dialog">#35FFFFFF</color>
     <color name="white_35">#FFFFFF</color>
@@ -49,5 +49,15 @@
     <color name="gradient_color_primary">#C73866</color>
     <color name="gradient_color_secondary">#FE676E</color>
 
-    <color name="textCreateView">#FFFFFF</color>
+    <color name="textButton">#FFFFFF</color>
+
+    <color name="array_color_1">#C73866</color>
+    <color name="array_color_2">#C73866</color>
+    <color name="array_color_3">#C73866</color>
+    <color name="array_color_4">#C73866</color>
+    <color name="array_color_5">#FE676E</color>
+    <color name="array_color_6">#FE676E</color>
+    <color name="array_color_7">#FE676E</color>
+    <color name="array_color_8">#C73866</color>
+    <color name="array_color_9">#C73866</color>
 </resources>

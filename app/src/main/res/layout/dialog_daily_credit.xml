@@ -200,7 +200,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_daily_view"
-            tools:src="@drawable/_7_tick_not_received" />
+            tools:src="@drawable/_2_tick" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,7 +227,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Receive"
-                android:textColor="@color/black" />
+                android:textColor="@color/textButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,7 +69,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Try This Prompt"
-                android:textColor="@color/black"
+                android:textColor="@color/textButton"
                 android:textSize="@dimen/_12ssp"
                 app:textFont="semi" />
 
@@ -92,9 +92,9 @@
         android:layout_marginTop="@dimen/_minus15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:visibility="gone"
-        app:cardBackgroundColor="?android:colorBackground"
+        app:cardBackgroundColor="@color/backgroundSecondary"
         app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="0dp"
+        app:cardElevation="@dimen/_3sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewTop"
         tools:visibility="visible">

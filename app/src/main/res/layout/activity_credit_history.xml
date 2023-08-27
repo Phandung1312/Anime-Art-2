@@ -103,7 +103,7 @@
                         android:fontFamily="@font/inter_tight_semi_bold"
                         android:gravity="center"
                         android:text="Buy more"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textButton"
                         android:textSize="@dimen/_10ssp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
