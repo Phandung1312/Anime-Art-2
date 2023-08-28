@@ -59,17 +59,17 @@ enum class Character(val characterName : String,val  promptText : String){
 
 
 enum class ArtStyle(val artStyleName : String, val sourceImage : String,val  model :String, val extraPrompt : String){
-    DarkSushi(artStyleName = "Dark Sushi", sourceImage = "dark_sushi", model = "dark-sushi-25d", extraPrompt = "(solo)1.6, high quality images, "),
+    DarkSushi(artStyleName = "Meinamix", sourceImage = "dark_sushi", model = "meinamix", extraPrompt = "(solo)1.6, high quality images, "),
     RealisticVision(artStyleName = "Realistic Vision", sourceImage = "realistic_vision", model = "majic-mix-realistic", extraPrompt = "(solo)1.6, "),
-    Spring(artStyleName = "Spring", sourceImage = "spring", model = "dark-sushi-25d", extraPrompt = "warm spring, fresh, lively, the flower field is in full bloom with bright colors, the branches are sprouting, flower-covered path, solo, "),
-    DragonGirl(artStyleName = "Dragon Girl", sourceImage = "dragon_girl", model = "dark-sushi-25d", extraPrompt = "dragon girl, dragon horns, dragon wings, slit_pupils, pointy_ears, dragon tail, 1girl, solo, reptile_girl, masterpiece,fire, blazing, (highres), absurdres, 4K, 8K, 16K, hyper-detailed, deep eyes, close-up <lora:animeDragonGirl_v10:0.7>, "),
-    Library(artStyleName = "Library", sourceImage = "library", model = "dark-sushi-25d", extraPrompt = "gentle and intellectual appearance, library space with bookshelves, books and natural light from the windows"),
-    Christmas(artStyleName = "Christmas", sourceImage = "christmas", model = "dark-sushi-25d", extraPrompt = "girl, christmas, christmas tree,  fireplace, warm, solo, HDR 4K, 8K, "),
-    Pool(artStyleName = "Swimming Pool", sourceImage = "swimming_pool", model = "dark-sushi-25d", extraPrompt = "in swimming pool, water, bikini, solo"),
-    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "dark-sushi-25d", extraPrompt = "(ninja)1.6, traditional ninja costume, precise weapon, anime character,  "),
+    Spring(artStyleName = "Spring", sourceImage = "spring", model = "meinamix", extraPrompt = "warm spring, fresh, lively, the flower field is in full bloom with bright colors, the branches are sprouting, flower-covered path, solo, "),
+    DragonGirl(artStyleName = "Dragon Girl", sourceImage = "dragon_girl", model = "meinamix", extraPrompt = "dragon girl, dragon horns, dragon wings, slit_pupils, pointy_ears, dragon tail, 1girl, solo, reptile_girl, masterpiece,fire, blazing, (highres), absurdres, 4K, 8K, 16K, hyper-detailed, deep eyes, close-up <lora:animeDragonGirl_v10:0.7>, "),
+    Library(artStyleName = "Library", sourceImage = "library", model = "meinamix", extraPrompt = "gentle and intellectual appearance, library space with bookshelves, books and natural light from the windows"),
+    Christmas(artStyleName = "Christmas", sourceImage = "christmas", model = "meinamix", extraPrompt = "girl, christmas, christmas tree,  fireplace, warm, solo, HDR 4K, 8K, "),
+    Pool(artStyleName = "Swimming Pool", sourceImage = "swimming_pool", model = "meinamix", extraPrompt = "in swimming pool, water, bikini, solo"),
+    Ninja(artStyleName = "Ninja", sourceImage = "ninja", model = "meinamix", extraPrompt = "(ninja)1.6, traditional ninja costume, precise weapon, anime character,  "),
     PencilSketch(artStyleName = "Pencil Sketch", sourceImage = "pencil_sketch", model = "majic-mix-realistic", extraPrompt = "illustration concept art, anime, manga, pencil sketch, pencil drawing, inking, black and white trending pixiv fanbox, art by ilya kuvshinov and ghibli, loose pencil sketch, sketchy, concept art, cinematic, white space, black and white, solo, "),
     SuperHero(artStyleName = "Super Hero", sourceImage = "super_hero", model = "majic-mix-realistic", extraPrompt = "photography and realistic lighting. Additionally, there is an impressive superhero portrait of SuperHero in a SuperHero costume. The 8k art germ bokeh, created by Wojtek Fuse, showcases remarkable digital illustration and realistic digital art in 4k. The close-up character portrait is highly detailed and displays a superb photo-realistic quality, "),
-    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "dark-sushi-25d", extraPrompt = "(little character)1.3, (chibi)1.3,full body, best quality, chibi, (solo)1.3, full character concept, "),
+    Chibi(artStyleName = "Chibi", sourceImage = "chibi", model = "meinamix", extraPrompt = "(little character)1.3, (chibi)1.3,full body, best quality, chibi, (solo)1.3, full character concept, "),
 }
 
 enum class ControlNet(val controlNetName : String, val sourceImage : String,val apiString : String){

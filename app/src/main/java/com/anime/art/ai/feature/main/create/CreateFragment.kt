@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.text.underline
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
@@ -164,6 +165,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         val image = requireContext().resources.getDrawable(if(preferences.isDarkMode.get()) R.drawable.moon else R.drawable.sun, null)
         binding.darkModeView.setImageDrawable(image)
         Timber.e("Check inputImagesize = ${inputImageAdapter.selectedIndex}")
+        setQualitySwitch(isChecked = true)
     }
 
     private fun initData(){
@@ -184,10 +186,10 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
     private fun initInputImageData(){
         inputImages  = arrayListOf(
             InputImage(R.drawable.input_image, null),
-            InputImage(R.drawable.sample_input_image_1, 0.6f),
-            InputImage(R.drawable.sample_input_image_2, 0.6f),
-            InputImage(R.drawable.sample_input_image_3, 0.6f),
-            InputImage(R.drawable.sample_input_image_4, 0.6f),
+            InputImage(R.drawable.sample_input_image_1, 0.5f),
+            InputImage(R.drawable.sample_input_image_2, 0.5f),
+            InputImage(R.drawable.sample_input_image_3, 0.5f),
+            InputImage(R.drawable.sample_input_image_4, 0.5f),
         )
         inputImageAdapter.data = inputImages
     }
@@ -274,8 +276,9 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             } else{
                 1
             }
+            setQualitySwitch(isChecked)
         }
-        binding.darkModeView.clicks(withAnim = false) {
+        binding.darkModeCardView.clicks(withAnim = false) {
             preferences.isDarkMode.set(!preferences.isDarkMode.get())
             updateUI()
         }
@@ -352,7 +355,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             .autoDispose(scope())
             .subscribe { isEnable ->
                 binding.createView.isEnabled = isEnable
-                val colorRes = if (isEnable) R.color.white else R.color.textButton
+                val colorRes = if (isEnable) R.color.white else R.color.white
                 val backgroundRes = if (isEnable) R.drawable.button_gradient_yellow else R.drawable.button_gradient_yellow_inactive
                 binding.createLayout.setBackgroundResource(backgroundRes)
                 binding.tvCreate.setTextColor(requireContext().getColor(colorRes))
@@ -470,7 +473,11 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
             recyclerView.smoothScrollToPosition(selectedIndex)
         }
     }
-
+    private fun setQualitySwitch(isChecked : Boolean){
+        binding.qualityPrompt.apply {
+            trackTintList = AppCompatResources.getColorStateList(requireContext(), if(isChecked) R.color.switch_active else R.color.switch_inactive)
+        }
+    }
     private fun roundToNearestHalf(number: Double): Double {
         return (number * 2).roundToInt() / 2.0
     }
@@ -581,7 +588,7 @@ class CreateFragment: LsFragment<FragmentCreateBinding>(FragmentCreateBinding::i
         if(result.resultCode == Activity.RESULT_OK){
             result.data?.data?.let {
                 lifecycleScope.launch(Dispatchers.Main){
-                    val inputImage = InputImage(it, 0.6f)
+                    val inputImage = InputImage(it, 0.5f)
                     inputImages.add(1, inputImage)
                      inputImageAdapter.data = inputImages
                     inputImageAdapter.notifyDataSetChanged()

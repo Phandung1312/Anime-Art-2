@@ -34,7 +34,7 @@ class HistoryPromptAdapter @Inject constructor() : LsAdapter<Prompt, ItemHistory
             binding.display.requestLayout()
         }
         else{
-            binding.display.gradient(R.color.white, R.color.white)
+            binding.display.gradient(R.color.textPrimary, R.color.textPrimary)
         }
         binding.ivUnderLine.isVisible = (position != data.size - 1 )
     }

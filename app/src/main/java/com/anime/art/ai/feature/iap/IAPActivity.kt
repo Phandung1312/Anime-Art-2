@@ -2,8 +2,12 @@ package com.anime.art.ai.feature.iap
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.R
 import com.anime.art.ai.common.Constraint
@@ -17,9 +21,14 @@ import com.anime.art.ai.feature.main.MainActivity
 import com.anime.art.ai.inject.sinkin.UpdateCreditRequest
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
+import com.basic.common.extension.darkNavigationBar
+import com.basic.common.extension.darkStatusBar
 import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.isNetworkAvailable
+import com.basic.common.extension.lightNavigationBar
+import com.basic.common.extension.lightStatusBar
 import com.basic.common.extension.makeToast
+import com.basic.common.extension.transparent
 import com.basic.common.extension.tryOrNull
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -37,8 +46,8 @@ class IAPActivity : LsActivity<ActivityIapactivityBinding>(ActivityIapactivityBi
     private var iAPSelected = 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        transparent()
         setContentView(binding.root)
-
         initView()
         initObservable()
         initData()

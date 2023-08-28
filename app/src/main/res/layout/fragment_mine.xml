@@ -20,6 +20,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout5"
+        android:paddingBottom="@dimen/_1sdp"
+        android:paddingTop="@dimen/_1sdp"
         android:elevation="@dimen/_1sdp"
         android:layout_marginStart="@dimen/_25sdp"
         android:layout_marginEnd="@dimen/_25sdp"
@@ -33,8 +35,8 @@
             android:id="@+id/creatorCardView"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_40sdp"
-            app:cardBackgroundColor="?android:colorBackground"
-            app:cardElevation="@dimen/_1sdp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/background_cardView_Mine"
             app:cardCornerRadius="@dimen/_25sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,8 +60,8 @@
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentEnd="true"
-            app:cardElevation="@dimen/_1sdp"
-            app:cardBackgroundColor="@color/backgroundSecondary"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/background_cardView_Mine"
             app:cardCornerRadius="@dimen/_25sdp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,7 +109,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        tools:visibility="gone"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="0dp"

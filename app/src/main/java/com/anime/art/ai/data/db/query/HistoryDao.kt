@@ -11,7 +11,10 @@ import com.anime.art.ai.domain.model.config.History
 interface HistoryDao {
 
     @Query("SELECT * FROM Histories")
-    fun getAll() : LiveData<List<History>>
+    fun getAll() : List<History>
+
+    @Query("SELECT * FROM Histories")
+    fun getAllLive() : LiveData<List<History>>
 
     @Insert
     fun inserts(vararg objects: History)

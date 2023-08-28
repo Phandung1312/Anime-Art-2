@@ -47,6 +47,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
     @Inject lateinit var historyDao : HistoryDao
     private var consecutiveSeries : Int = 0
 
+    private var isReceived = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(preferences.isDarkMode.get()){
@@ -91,22 +92,26 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             buyMoreDialog.show(supportFragmentManager, null)
         }
         binding.receiveCardView.clicks(withAnim = false) {
-            binding.receiveCardView.isEnabled = false
-            lifecycleScope.launch(Dispatchers.IO) {
-                val todayReward = DailyReward.values().take(consecutiveSeries).last().reward.toLong()
-                val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
-                serverApiRepository.updateCredit(getDeviceId(),request){ result ->
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        if(result){
-                            makeToast("You have received $todayReward credit")
-                        }
-                        else{
-                            binding.receiveCardView.isEnabled = true
+            if(isReceived){
+                makeToast("You got your reward today")
+            }
+            else{
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val todayReward = DailyReward.values().take(consecutiveSeries).last().reward.toLong()
+                    val request = UpdateCreditRequest(todayReward, Constraint.DAILY_REWARD)
+                    serverApiRepository.updateCredit(getDeviceId(),request){ result ->
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            if(result){
+                                makeToast("You have received $todayReward credit")
+                            }
+                            else{
+                                binding.receiveCardView.isEnabled = true
+                            }
                         }
                     }
                 }
+                setDayReward(consecutiveSeries , true)
             }
-            setDayReward(consecutiveSeries , true)
         }
         binding.shareView.clicks(withAnim = false) {
             val text ="abc"
@@ -160,12 +165,13 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
             startActivity(intent)
         }
         catch(e : Exception){
-            makeToast("you don't have browser installed")
+            makeToast("You don't have browser installed")
         }
 
     }
     @SuppressLint("DiscouragedApi")
     private fun setDayReward(day : Int, isReceived : Boolean){
+        this.isReceived = isReceived
         consecutiveSeries = day
         setGradientReceivedDay(day)
         val imageResourceId = if(isReceived) resources.getIdentifier("_${day}_tick","drawable",binding.root.context.packageName)
@@ -173,7 +179,6 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         binding.ivCreditSlider.setImageResource(imageResourceId)
         dailyRewardAdapter.data = DailyReward.values().take(day).toList()
         binding.receiveCardView.apply {
-            isEnabled = !isReceived
             strokeWidth = if(isReceived) getDimens(com.intuit.sdp.R.dimen._1sdp).toInt() else 0
         }
         binding.receiveLayout.apply {
@@ -186,7 +191,7 @@ class SettingActivity : LsActivity<ActivitySettingBinding>(ActivitySettingBindin
         preferences.creditAmount.asObservable().autoDispose(scope()).subscribe {creditAmount ->
             binding.tvCreditAmount.text = creditAmount.toString()
         }
-        historyDao.getAll().observe(this){ histories ->
+        historyDao.getAllLive().observe(this){ histories ->
             if(preferences.isSynced.get()){
                 lifecycleScope.launch(Dispatchers.Main) {
                     val newList =  histories.filter { history -> TextUtils.equals(history.title, Constraint.DAILY_REWARD)  }

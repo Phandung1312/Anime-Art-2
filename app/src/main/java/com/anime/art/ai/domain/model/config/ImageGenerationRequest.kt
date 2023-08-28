@@ -7,18 +7,18 @@ import java.io.Serializable
 
 @Keep
 data class ImageGenerationRequest(
-    var model: String = "dark-sushi-25d",
+    var model: String = "meinamix",
     var controlNet: String = "",
     var prompt: String = "",
     var negativePrompt: String = "",
-    var strength: Double = 0.6,
+    var strength: Double = 0.5,
     var image: String = "",
     var width: Int = 512,
     var height: Int = 512,
     var steps: Int = 25,
     var guidance: Double = 7.5,
     var scheduler: String = "UniPCMultistepScheduler",
-    var artStyle : String = "Dark Shushi",
+    var artStyle : String = "Meinamix",
     var ratio : String = "1:1",
     var extraPrompt : String =""
 )

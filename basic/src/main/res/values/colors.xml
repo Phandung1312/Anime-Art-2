@@ -6,6 +6,11 @@
     <color name="backgroundDark">#121212</color>
 
 
+    <color name="darkStatusBarColor">#121212</color>
+
+    <color name="darkNavigationBarColor">#FFFFFF</color>
+
+
     <color name="colorPrimary">#E3A302</color>
     <color name="colorSecondary">#FFE092</color>
     <color name="colorTertiary">#FFF2D1</color>

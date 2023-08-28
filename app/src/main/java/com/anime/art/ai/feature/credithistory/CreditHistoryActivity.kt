@@ -1,10 +1,7 @@
 package com.anime.art.ai.feature.credithistory
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.provider.Settings
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.anime.art.ai.common.extension.back
 import com.anime.art.ai.data.Preferences
 import com.anime.art.ai.data.db.query.HistoryDao
@@ -13,15 +10,10 @@ import com.anime.art.ai.domain.repository.ServerApiRepository
 import com.anime.art.ai.feature.credithistory.adapter.CreditHistoryAdapter
 import com.basic.common.base.LsActivity
 import com.basic.common.extension.clicks
-import com.basic.common.extension.getDeviceId
 import com.basic.common.extension.transparent
-import com.basic.common.extension.tryOrNull
 import com.uber.autodispose.android.lifecycle.scope
 import com.uber.autodispose.autoDispose
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -68,7 +60,7 @@ class CreditHistoryActivity : LsActivity<ActivityCreditHistoryBinding>(ActivityC
         }
     }
     private fun initData(){
-        historyDao.getAll().observe(this){ histories ->
+        historyDao.getAllLive().observe(this){ histories ->
             binding.lottieView.isVisible = false
             creditHistoryAdapter.data = histories.reversed()
             binding.rv.isVisible = true

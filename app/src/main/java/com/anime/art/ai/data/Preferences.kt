@@ -26,5 +26,5 @@ class Preferences @Inject constructor(
     val isSynced = rxPrefs.getBoolean("isSynced", false)
     val isFirstInputImage = rxPrefs.getBoolean("isFirstInputImage", true)
 
-    val isDarkMode = rxPrefs.getBoolean("isDarkMode", true)
+    val isDarkMode = rxPrefs.getBoolean("isDarkMode", false)
 }

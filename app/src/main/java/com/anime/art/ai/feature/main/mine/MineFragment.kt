@@ -43,7 +43,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                     binding.emptyLayout.isVisible = creatorAdapter.data.isEmpty()
                 }
                 else {
-                    setBackgroundColor(context.getColor(R.color.backgroundSecondary))
+                    setBackgroundColor(context.getColor(R.color.background_cardView_Mine))
                 }
             }
             binding.favoriteView.apply {
@@ -52,7 +52,7 @@ class MineFragment : LsFragment<FragmentMineBinding>(FragmentMineBinding::inflat
                     binding.emptyLayout.isVisible = favoriteAdapter.data.isEmpty()
                 }
                 else {
-                    setBackgroundColor(context.getColor(R.color.backgroundSecondary))
+                    setBackgroundColor(context.getColor(R.color.background_cardView_Mine))
                 }
             }
             binding.recyclerView.adapter =

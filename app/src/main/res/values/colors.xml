@@ -11,7 +11,7 @@
     <color name="slider_color">#FE676E</color>
 
 
-    <color name="shadow_primary">#FEE0E2</color>
+    <color name="shadow_primary">#FFF4F5</color>
     <color name="backgroundSecondary">#FFFFFF</color>
     <color name="light_gray">#FFFFFF</color>
     <color name="background_received">#FA8D93</color>
@@ -20,7 +20,7 @@
     <color name="white_35">#FFFFFF</color>
     <color name="red">#FF2323</color>
 
-    <color name="background_tag">#FFFFFF</color>
+    <color name="background_tag">#F4F4F4</color>
     <color name="background_artStyle"> #FFFFFF</color>
 <!--    <color name="colorPrimary">#E3A302</color>-->
 <!--    <color name="colorSecondary">#FFE092</color>-->
@@ -45,11 +45,16 @@
     <color name="text_title">#FE676E</color>
 
     <color name="background_cardView_setting">#FFFFFF</color>
-
+    <color name="background_cardView_Mine">#F3F3F3</color>
     <color name="gradient_color_primary">#C73866</color>
     <color name="gradient_color_secondary">#FE676E</color>
 
     <color name="textButton">#FFFFFF</color>
+    <color name="textOptional">#FE676E</color>
+    <color name="stroke_optional">#FE676E</color>
+
+    <color name="switch_active">#2200D33B</color>
+    <color name="switch_inactive">#20C73866</color>
 
     <color name="array_color_1">#C73866</color>
     <color name="array_color_2">#C73866</color>
